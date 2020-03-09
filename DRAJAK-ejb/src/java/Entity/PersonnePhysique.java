@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  * @author clementratz
  */
 @Entity
-abstract class PersonnePhysique implements Serializable {
+public abstract class PersonnePhysique implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

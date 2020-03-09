@@ -25,7 +25,7 @@ import javax.persistence.Temporal;
  * @author clementratz
  */
 @Entity
-abstract class Contrat implements Serializable {
+public abstract class Contrat implements Serializable {
 
     @OneToMany(mappedBy = "cleContrat")
     private List<Evenement> evenements;
