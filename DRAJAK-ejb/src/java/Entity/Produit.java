@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -47,19 +48,18 @@ public class Produit implements Serializable {
     
     @ManyToOne
     private DomaineProduit cleDomaineProduit;
+
+    @ManyToMany
+    private List<Modules> lesModules;
+
+    public List<Modules> getLesModules() {
+        return lesModules;
+    }
+
+    public void setLesModules(List<Modules> lesModules) {
+        this.lesModules = lesModules;
+    }
     
-    @ManyToOne
-    private ProduitModule cleProduitModule;
-
-    public ProduitModule getCleProduitModule() {
-        return cleProduitModule;
-    }
-
-    public void setCleProduitModule(ProduitModule cleProduitModule) {
-        this.cleProduitModule = cleProduitModule;
-    }
-
-
     public DomaineProduit getCleDomaineProduit() {
         return cleDomaineProduit;
     }

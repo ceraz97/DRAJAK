@@ -5,9 +5,9 @@
  */
 package Facades;
 
-import Entity.Module;
-import Entity.ModuleGarantie;
-import Entity.ProduitModule;
+import Entity.Garantie;
+import Entity.Modules;
+import Entity.Produit;
 import Entity.TypeModule;
 import java.util.List;
 import javax.ejb.Local;
@@ -19,26 +19,26 @@ import javax.ejb.Local;
 @Local
 public interface ModuleFacadeLocal {
 
-    void create(Module module);
+    void create(Modules module);
 
-    void edit(Module module);
+    void edit(Modules module);
 
-    void remove(Module module);
+    void remove(Modules module);
 
-    Module find(Object id);
+    Modules find(Object id);
 
-    List<Module> findAll();
+    List<Modules> findAll();
 
-    List<Module> findRange(int[] range);
+    List<Modules> findRange(int[] range);
 
     int count();
 
-    Module CreerModule(String libelle, ProduitModule produitModule, TypeModule typeModule, ModuleGarantie moduleGarantie);
+    Modules CreerModule(String libelle,List<Produit>listeProduit, TypeModule typeModule, List<Garantie> listeGarantie);
 
-    void SupprimerModule(Module module);
+    void SupprimerModule(Modules module);
 
-    void ModifierModule(Module module);
+    void ModifierModule(Modules module);
 
-    List<Module> ListerAllModule();
+    List<Modules> ListerAllModule();
     
 }

@@ -6,11 +6,13 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -20,6 +22,17 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Garantie implements Serializable {
 
+    @ManyToMany(mappedBy = "lesGaranties")
+    private List<Modules> lesModules;
+
+    public List<Modules> getLesModules() {
+        return lesModules;
+    }
+
+    public void setLesModules(List<Modules> lesModules) {
+        this.lesModules = lesModules;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +40,6 @@ public class Garantie implements Serializable {
     @Column (nullable=false)
     private String libelleGarantie;
 
-    @ManyToOne
-    private ModuleGarantie cleModuleGarantie;
 
     @ManyToOne
     private TypeRemboursement cleTypeRemboursement;
@@ -52,13 +63,6 @@ public class Garantie implements Serializable {
         this.cleTypeRemboursement = cleTypeRemboursement;
     }
 
-    public ModuleGarantie getCleModuleGarantie() {
-        return cleModuleGarantie;
-    }
-
-    public void setCleModuleGarantie(ModuleGarantie cleModuleGarantie) {
-        this.cleModuleGarantie = cleModuleGarantie;
-    }
 
     public String getLibelleGarantie() {
         return libelleGarantie;

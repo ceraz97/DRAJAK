@@ -6,11 +6,13 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -18,7 +20,17 @@ import javax.persistence.ManyToOne;
  * @author clementratz
  */
 @Entity
-public class Module implements Serializable {
+public class Modules implements Serializable {
+
+    
+
+    public List<Produit> getLesProduits() {
+        return lesProduits;
+    }
+
+    public void setLesProduits(List<Produit> lesProduits) {
+        this.lesProduits = lesProduits;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,22 +39,23 @@ public class Module implements Serializable {
     @Column (nullable=false)
     private String libelleModule;
 
-    @ManyToOne
-    private ProduitModule cleProduitModule;
+    @ManyToMany(mappedBy = "lesModules")
+    private List<Produit> lesProduits;
+    
+    @ManyToMany
+    private List<Garantie> lesGaranties;
+
+    public List<Garantie> getLesGaranties() {
+        return lesGaranties;
+    }
+
+    public void setLesGaranties(List<Garantie> lesGaranties) {
+        this.lesGaranties = lesGaranties;
+    }
 
     @ManyToOne
     private TypeModule cleTypeModule;
-    
-    @ManyToOne
-    private ModuleGarantie cleModuleGarantie;
 
-    public ModuleGarantie getCleModuleGarantie() {
-        return cleModuleGarantie;
-    }
-
-    public void setCleModuleGarantie(ModuleGarantie cleModuleGarantie) {
-        this.cleModuleGarantie = cleModuleGarantie;
-    }
 
 
     public TypeModule getCleTypeModule() {
@@ -51,14 +64,6 @@ public class Module implements Serializable {
 
     public void setCleTypeModule(TypeModule cleTypeModule) {
         this.cleTypeModule = cleTypeModule;
-    }
-
-    public ProduitModule getCleProduitModule() {
-        return cleProduitModule;
-    }
-
-    public void setCleProduitModule(ProduitModule cleProduitModule) {
-        this.cleProduitModule = cleProduitModule;
     }
 
     public String getLibelleModule() {
@@ -87,10 +92,10 @@ public class Module implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Module)) {
+        if (!(object instanceof Modules)) {
             return false;
         }
-        Module other = (Module) object;
+        Modules other = (Modules) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

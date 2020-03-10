@@ -5,9 +5,9 @@
  */
 package Facades;
 
-import Entity.Module;
-import Entity.ModuleGarantie;
-import Entity.ProduitModule;
+import Entity.Garantie;
+import Entity.Modules;
+import Entity.Produit;
 import Entity.TypeModule;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,7 +20,7 @@ import javax.persistence.Query;
  * @author clementratz
  */
 @Stateless
-public class ModuleFacade extends AbstractFacade<Module> implements ModuleFacadeLocal {
+public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacadeLocal {
 
     @PersistenceContext(unitName = "DRAJAK-ejbPU")
     private EntityManager em;
@@ -31,27 +31,27 @@ public class ModuleFacade extends AbstractFacade<Module> implements ModuleFacade
     }
 
     public ModuleFacade() {
-        super(Module.class);
+        super(Modules.class);
     }
 
     @Override
-    public Module CreerModule(String libelle, ProduitModule produitModule, TypeModule typeModule, ModuleGarantie moduleGarantie) {
-        Module moduleInstance = new Module ();
+    public Modules CreerModule(String libelle ,List<Produit>listeProduit, TypeModule typeModule, List<Garantie> listeGarantie) {
+        Modules moduleInstance = new Modules ();
         moduleInstance.setLibelleModule(libelle);
-        moduleInstance.setCleProduitModule(produitModule);
+        moduleInstance.setLesProduits(listeProduit);
         moduleInstance.setCleTypeModule(typeModule);
-        moduleInstance.setCleModuleGarantie(moduleGarantie);
+        moduleInstance.setLesGaranties(listeGarantie);
         getEntityManager().persist(moduleInstance);
         return moduleInstance;
     }
 
     @Override
-    public void SupprimerModule(Module module) {
+    public void SupprimerModule(Modules module) {
         getEntityManager().remove(module);
     }
 
     @Override
-    public void ModifierModule(Module module) {
+    public void ModifierModule(Modules module) {
         getEntityManager().merge(module);
     }
 
