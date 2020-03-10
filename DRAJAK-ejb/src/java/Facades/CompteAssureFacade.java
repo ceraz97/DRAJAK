@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-//Ce commentaire est là si ça marche A SUPPRIMER
+
 /**
  *
  * @author clementratz
@@ -73,5 +73,21 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
         
         em.merge(CA);
     }
+
+    @Override
+    public CompteAssure RechercherCompte(String login) {
+        CompteAssure a;
+        String txt = "SELECT a FROM Agent CA WHERE a.login=:login ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("login", login);
+        a = null;
+        List<CompteAssure> result = req.getResultList();
+        if (result.size() == 1) {
+            a = (CompteAssure) result.get(0);
+        }
+        return a;
+
+    }
+    
     
 }
