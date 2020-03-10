@@ -5,10 +5,13 @@
  */
 package Facades;
 
+import Entity.TauxGarantie;
 import Entity.TypePopulation;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,24 @@ public class TypePopulationFacade extends AbstractFacade<TypePopulation> impleme
     public TypePopulationFacade() {
         super(TypePopulation.class);
     }
+
+    @Override
+    public void CreerTypePopulation(String libelle, TauxGarantie txGarantie) {
+        TypePopulation typePopulationInstance= new TypePopulation ();
+        typePopulationInstance.setLibelleTypePopulation(libelle);
+        typePopulationInstance.setCleTauxGarantie(txGarantie);
+        getEntityManager().persist(typePopulationInstance); 
+    }
+
+    @Override
+    public List ListTypePopulation() {
+        List listeDesTypePopulation;
+        String tx = "SELECT T FROM TypePopulation AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypePopulation=req.getResultList();
+        return listeDesTypePopulation;
+    }
+    
+    
     
 }

@@ -29,5 +29,9 @@ public interface TypeRemboursementFacadeLocal {
     List<TypeRemboursement> findRange(int[] range);
 
     int count();
+
+    void CreerTypeRemboursement(String libelle);
+
+    List ListTypeRemboursement();
     
 }

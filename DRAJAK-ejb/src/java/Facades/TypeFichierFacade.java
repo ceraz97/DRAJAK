@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TypeFichier;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,24 @@ public class TypeFichierFacade extends AbstractFacade<TypeFichier> implements Ty
     public TypeFichierFacade() {
         super(TypeFichier.class);
     }
+
+    @Override
+    public void CreerTypeFichier(String Libelle) {
+        TypeFichier typeFichierInstance= new TypeFichier ();
+        typeFichierInstance.setLibelleTypeFichier(Libelle);
+        getEntityManager().persist(typeFichierInstance);
+    }
+
+    @Override
+    public List ListeTypeFichier() {
+        List listeDesTypeFichier;
+        String tx = "SELECT T FROM TypeFichier AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypeFichier=req.getResultList();
+        return listeDesTypeFichier;
+    }
+    
+    
+    
     
 }

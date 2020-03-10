@@ -29,5 +29,9 @@ public interface TypeModuleFacadeLocal {
     List<TypeModule> findRange(int[] range);
 
     int count();
+
+    void CreerTypeModule(String libelle);
+
+    List ListeTypeModule();
     
 }

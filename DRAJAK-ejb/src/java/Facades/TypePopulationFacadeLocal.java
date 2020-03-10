@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entity.TauxGarantie;
 import Entity.TypePopulation;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,9 @@ public interface TypePopulationFacadeLocal {
     List<TypePopulation> findRange(int[] range);
 
     int count();
+
+    void CreerTypePopulation(String libelle, TauxGarantie txGarantie);
+
+    List ListTypePopulation();
     
 }

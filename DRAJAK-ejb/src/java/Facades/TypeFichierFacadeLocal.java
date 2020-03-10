@@ -29,5 +29,9 @@ public interface TypeFichierFacadeLocal {
     List<TypeFichier> findRange(int[] range);
 
     int count();
+
+    void CreerTypeFichier(String Libelle);
+
+    List ListeTypeFichier();
     
 }

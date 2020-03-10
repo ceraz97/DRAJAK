@@ -39,15 +39,15 @@ public abstract class PersonnePhysique implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNaissance;
     @Column (nullable=false)
-    private StatutPersonne statutPeronne;
+    private StatutPersonne statutPersonne;
     
 
     public StatutPersonne getStatutPeronne() {
-        return statutPeronne;
+        return statutPersonne;
     }
 
     public void setStatutPeronne(StatutPersonne statutPeronne) {
-        this.statutPeronne = statutPeronne;
+        this.statutPersonne = statutPeronne;
     }
 
     

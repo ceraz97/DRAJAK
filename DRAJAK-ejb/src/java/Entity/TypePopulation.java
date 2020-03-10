@@ -39,7 +39,6 @@ public class TypePopulation implements Serializable {
     private Long id;
     @Column (nullable=false)
     private String libelleTypePopulation;
-
     @ManyToOne
     private TauxGarantie cleTauxGarantie;
 

@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TypeModule;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,23 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
     public TypeModuleFacade() {
         super(TypeModule.class);
     }
+
+    @Override
+    public void CreerTypeModule(String libelle) {
+        TypeModule typeModuleInstance= new TypeModule ();
+        typeModuleInstance.setLibelleTypeModule(libelle);
+        getEntityManager().persist(typeModuleInstance);
+    }
+
+    @Override
+    public List ListeTypeModule() {
+        List listeDesTypeModule;
+        String tx = "SELECT T FROM TypeModule AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypeModule=req.getResultList();
+        return listeDesTypeModule;
+    }
+    
+    
     
 }

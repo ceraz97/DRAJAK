@@ -29,5 +29,9 @@ public interface TypeAyantDroitFacadeLocal {
     List<TypeAyantDroit> findRange(int[] range);
 
     int count();
+
+    void CreerTypeAyantDroit(String Libelle);
+
+    List ListeTypeAyantDroit();
     
 }

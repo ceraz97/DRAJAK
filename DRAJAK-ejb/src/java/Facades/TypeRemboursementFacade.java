@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TypeRemboursement;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,23 @@ public class TypeRemboursementFacade extends AbstractFacade<TypeRemboursement> i
     public TypeRemboursementFacade() {
         super(TypeRemboursement.class);
     }
+
+    @Override
+    public void CreerTypeRemboursement(String libelle) {
+        TypeRemboursement typeRemboursementInstance= new TypeRemboursement ();
+        typeRemboursementInstance.setLibelleTypeRemboursement(libelle);
+        getEntityManager().persist(typeRemboursementInstance);
+    }
+
+    @Override
+    public List ListTypeRemboursement() {
+        List listeDesTypeRemboursement;
+        String tx = "SELECT T FROM TypeRemboursement AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypeRemboursement=req.getResultList();
+        return listeDesTypeRemboursement;
+    }
+    
+    
     
 }

@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TypeAyantDroit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,24 @@ public class TypeAyantDroitFacade extends AbstractFacade<TypeAyantDroit> impleme
     public TypeAyantDroitFacade() {
         super(TypeAyantDroit.class);
     }
+
+    @Override
+    public void CreerTypeAyantDroit(String Libelle) {
+        TypeAyantDroit typeAyantDroitInstance= new TypeAyantDroit ();
+        typeAyantDroitInstance.setLibelleAyantDroit(Libelle);
+        getEntityManager().persist(typeAyantDroitInstance);
+    }
+
+    @Override
+    public List ListeTypeAyantDroit() {
+        List listeDesTypeAyantDroit;
+        String tx = "SELECT T FROM TypeAyantDroit AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypeAyantDroit=req.getResultList();
+        return listeDesTypeAyantDroit;
+    }
+    
+    
+    
     
 }

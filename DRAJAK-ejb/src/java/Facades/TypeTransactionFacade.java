@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TypeTransaction;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,22 @@ public class TypeTransactionFacade extends AbstractFacade<TypeTransaction> imple
     public TypeTransactionFacade() {
         super(TypeTransaction.class);
     }
+
+    @Override
+    public void CreerTypeTransaction(String parameter, String libelle) {
+        TypeTransaction typeTransactionInstance= new TypeTransaction ();
+        typeTransactionInstance.setLibelleTypeTransaction(libelle);
+        getEntityManager().persist(typeTransactionInstance);
+    }
+
+    @Override
+    public List ListTypeTransaction() {
+        List listeDesTypeTransaction;
+        String tx = "SELECT T FROM TypeTransaction AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTypeTransaction=req.getResultList();
+        return listeDesTypeTransaction;
+    }
+    
     
 }

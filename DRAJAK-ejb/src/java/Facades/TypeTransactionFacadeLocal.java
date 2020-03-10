@@ -29,5 +29,9 @@ public interface TypeTransactionFacadeLocal {
     List<TypeTransaction> findRange(int[] range);
 
     int count();
+
+    void CreerTypeTransaction(String parameter, String libelle);
+
+    List ListTypeTransaction();
     
 }
