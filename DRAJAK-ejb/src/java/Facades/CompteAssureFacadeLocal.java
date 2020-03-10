@@ -37,4 +37,6 @@ public interface CompteAssureFacadeLocal {
     void ModifierMDPCompteAssure(String newMdp, CompteAssure CA);
     
     void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure CA);       
+
+    CompteAssure RechercherCompte(String login);
 }
