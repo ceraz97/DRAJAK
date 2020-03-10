@@ -29,4 +29,6 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         super(ContratIndividuel.class);
     }
     
+    
+    
 }
