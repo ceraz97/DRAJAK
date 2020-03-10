@@ -30,8 +30,8 @@ public interface TypeFichierFacadeLocal {
 
     int count();
 
-    void CreerTypeFichier(String Libelle);
+    TypeFichier CreerTypeFichier(String Libelle);
 
-    List ListeTypeFichier();
+    List<TypeFichier> ListerAllTypeFichier();
     
 }

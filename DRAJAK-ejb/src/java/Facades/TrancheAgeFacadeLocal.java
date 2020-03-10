@@ -29,5 +29,9 @@ public interface TrancheAgeFacadeLocal {
     List<TrancheAge> findRange(int[] range);
 
     int count();
+
+    TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge);
+
+    List<TrancheAge> ListerAllTrancheAge();
     
 }

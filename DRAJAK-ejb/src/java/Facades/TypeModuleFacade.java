@@ -32,14 +32,15 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
     }
 
     @Override
-    public void CreerTypeModule(String libelle) {
+    public TypeModule CreerTypeModule(String libelle) {
         TypeModule typeModuleInstance= new TypeModule ();
         typeModuleInstance.setLibelleTypeModule(libelle);
         getEntityManager().persist(typeModuleInstance);
+        return typeModuleInstance;
     }
 
     @Override
-    public List ListeTypeModule() {
+    public List ListerAllTypeModule() {
         List listeDesTypeModule;
         String tx = "SELECT T FROM TypeModule AS T";
         Query req = getEntityManager().createQuery(tx);

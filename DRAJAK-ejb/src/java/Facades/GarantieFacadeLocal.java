@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.Garantie;
+import Entity.ModuleGarantie;
+import Entity.TauxGarantie;
+import Entity.TypeRemboursement;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,9 @@ public interface GarantieFacadeLocal {
     List<Garantie> findRange(int[] range);
 
     int count();
+
+    Garantie CreerGarantie(String libelle, ModuleGarantie moduleGarantie, TypeRemboursement typeRemboursement, TauxGarantie tauxGarantie);
+
+    List<Garantie> ListerAllGarantie();
     
 }

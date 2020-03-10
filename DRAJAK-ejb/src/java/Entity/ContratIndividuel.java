@@ -24,13 +24,13 @@ public class ContratIndividuel extends Contrat implements Serializable {
     private ContratCollectif cleContratCollectif;
     
     @ManyToOne
-    private TypePopulation cleTypePopulation;
+    private ObjetGarantie cleTypePopulation;
 
-    public TypePopulation getCleTypePopulation() {
+    public ObjetGarantie getCleTypePopulation() {
         return cleTypePopulation;
     }
 
-    public void setCleTypePopulation(TypePopulation cleTypePopulation) {
+    public void setCleTypePopulation(ObjetGarantie cleTypePopulation) {
         this.cleTypePopulation = cleTypePopulation;
     }
 

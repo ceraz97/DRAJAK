@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 public class TauxGarantie implements Serializable {
 
     @OneToMany(mappedBy = "cleTauxGarantie")
-    private List<TypePopulation> typePopulations;
+    private List<ObjetGarantie> typePopulations;
 
     @ManyToOne
     private TrancheAge cleTrancheAge;
@@ -36,11 +36,11 @@ public class TauxGarantie implements Serializable {
         this.cleTrancheAge = cleTrancheAge;
     }
 
-    public List<TypePopulation> getTypePopulations() {
+    public List<ObjetGarantie> getTypePopulations() {
         return typePopulations;
     }
 
-    public void setTypePopulations(List<TypePopulation> typePopulations) {
+    public void setTypePopulations(List<ObjetGarantie> typePopulations) {
         this.typePopulations = typePopulations;
     }
 

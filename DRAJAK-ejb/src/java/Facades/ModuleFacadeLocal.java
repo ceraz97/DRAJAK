@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.Module;
+import Entity.ModuleGarantie;
+import Entity.ProduitModule;
+import Entity.TypeModule;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,13 @@ public interface ModuleFacadeLocal {
     List<Module> findRange(int[] range);
 
     int count();
+
+    Module CreerModule(String libelle, ProduitModule produitModule, TypeModule typeModule, ModuleGarantie moduleGarantie);
+
+    void SupprimerModule(Module module);
+
+    void ModifierModule(Module module);
+
+    List<Module> ListerAllModule();
     
 }

@@ -30,8 +30,8 @@ public interface TypeAyantDroitFacadeLocal {
 
     int count();
 
-    void CreerTypeAyantDroit(String Libelle);
+    TypeAyantDroit CreerTypeAyantDroit(String Libelle);
 
-    List ListeTypeAyantDroit();
+    List<TypeAyantDroit> ListerAllTypeAyantDroit();
     
 }

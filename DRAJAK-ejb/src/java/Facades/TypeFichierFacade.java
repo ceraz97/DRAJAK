@@ -32,14 +32,15 @@ public class TypeFichierFacade extends AbstractFacade<TypeFichier> implements Ty
     }
 
     @Override
-    public void CreerTypeFichier(String Libelle) {
+    public TypeFichier CreerTypeFichier(String Libelle) {
         TypeFichier typeFichierInstance= new TypeFichier ();
         typeFichierInstance.setLibelleTypeFichier(Libelle);
         getEntityManager().persist(typeFichierInstance);
+        return typeFichierInstance;
     }
 
     @Override
-    public List ListeTypeFichier() {
+    public List ListerAllTypeFichier() {
         List listeDesTypeFichier;
         String tx = "SELECT T FROM TypeFichier AS T";
         Query req = getEntityManager().createQuery(tx);

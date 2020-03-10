@@ -30,8 +30,8 @@ public interface TypeModuleFacadeLocal {
 
     int count();
 
-    void CreerTypeModule(String libelle);
+    TypeModule CreerTypeModule(String libelle);
 
-    List ListeTypeModule();
+    List<TypeModule> ListerAllTypeModule();
     
 }

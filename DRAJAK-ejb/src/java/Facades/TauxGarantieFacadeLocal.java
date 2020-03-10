@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.TauxGarantie;
+import Entity.TrancheAge;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,9 @@ public interface TauxGarantieFacadeLocal {
     List<TauxGarantie> findRange(int[] range);
 
     int count();
+
+    TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge);
+
+    List<TauxGarantie> ListerAllTauxGarantie();
     
 }

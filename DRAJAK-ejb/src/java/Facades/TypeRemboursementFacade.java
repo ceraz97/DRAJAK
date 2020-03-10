@@ -32,14 +32,15 @@ public class TypeRemboursementFacade extends AbstractFacade<TypeRemboursement> i
     }
 
     @Override
-    public void CreerTypeRemboursement(String libelle) {
+    public TypeRemboursement CreerTypeRemboursement(String libelle) {
         TypeRemboursement typeRemboursementInstance= new TypeRemboursement ();
         typeRemboursementInstance.setLibelleTypeRemboursement(libelle);
         getEntityManager().persist(typeRemboursementInstance);
+        return typeRemboursementInstance;
     }
 
     @Override
-    public List ListTypeRemboursement() {
+    public List ListerAllTypeRemboursement() {
         List listeDesTypeRemboursement;
         String tx = "SELECT T FROM TypeRemboursement AS T";
         Query req = getEntityManager().createQuery(tx);

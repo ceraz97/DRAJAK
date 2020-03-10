@@ -30,8 +30,8 @@ public interface TypeRemboursementFacadeLocal {
 
     int count();
 
-    void CreerTypeRemboursement(String libelle);
+    TypeRemboursement CreerTypeRemboursement(String libelle);
 
-    List ListTypeRemboursement();
+    List<TypeRemboursement> ListerAllTypeRemboursement();
     
 }

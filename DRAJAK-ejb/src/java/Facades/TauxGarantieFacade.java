@@ -6,9 +6,12 @@
 package Facades;
 
 import Entity.TauxGarantie;
+import Entity.TrancheAge;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,28 @@ public class TauxGarantieFacade extends AbstractFacade<TauxGarantie> implements 
     public TauxGarantieFacade() {
         super(TauxGarantie.class);
     }
+
+    @Override
+    public TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge) {
+        TauxGarantie tauxGarantieInstance= new TauxGarantie ();
+        tauxGarantieInstance.setMaxRemboursement(maxRemboursement);
+        tauxGarantieInstance.setTarifCotisation(tarifCotisation);
+        tauxGarantieInstance.setCleTrancheAge(trancheAge);
+        getEntityManager().persist(tauxGarantieInstance);
+        return tauxGarantieInstance;
+    }
+
+    @Override
+    public List ListerAllTauxGarantie() {
+        List listeDesTauxGarantie;
+        String tx = "SELECT T FROM TauxGarantie AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTauxGarantie=req.getResultList();
+        return listeDesTauxGarantie;
+    }
+    
+    
+    
+    
     
 }

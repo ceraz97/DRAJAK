@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.TrancheAge;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,26 @@ public class TrancheAgeFacade extends AbstractFacade<TrancheAge> implements Tran
     public TrancheAgeFacade() {
         super(TrancheAge.class);
     }
+
+    @Override
+    public TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge) {
+        TrancheAge trancheAgeInstance= new TrancheAge ();
+        trancheAgeInstance.setLibelletrancheAge(libelle);
+        trancheAgeInstance.setMinAge(minAge);
+        trancheAgeInstance.setMaxAge(maxAge);
+        getEntityManager().persist(trancheAgeInstance);
+        return trancheAgeInstance;
+    }
+
+    @Override
+    public List ListerAllTrancheAge() {
+        List listeDesTrancheAge;
+        String tx = "SELECT T FROM TrancheAge AS T";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesTrancheAge=req.getResultList();
+        return listeDesTrancheAge;
+    }
+    
+    
     
 }

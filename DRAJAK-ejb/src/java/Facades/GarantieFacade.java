@@ -6,9 +6,14 @@
 package Facades;
 
 import Entity.Garantie;
+import Entity.ModuleGarantie;
+import Entity.TauxGarantie;
+import Entity.TypeRemboursement;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +33,26 @@ public class GarantieFacade extends AbstractFacade<Garantie> implements Garantie
     public GarantieFacade() {
         super(Garantie.class);
     }
+
+    @Override
+    public Garantie CreerGarantie(String libelle, ModuleGarantie moduleGarantie, TypeRemboursement typeRemboursement, TauxGarantie tauxGarantie) {
+        Garantie garantieInstance = new Garantie ();
+        garantieInstance.setLibelleGarantie(libelle);
+        garantieInstance.setCleModuleGarantie(moduleGarantie);
+        garantieInstance.setCleTypeRemboursement(typeRemboursement);
+        garantieInstance.setCleTauxGarantie(tauxGarantie);
+        getEntityManager().persist(garantieInstance);
+        return garantieInstance;
+    }
+
+    @Override
+    public List ListerAllGarantie() {
+        List listeDesGarantie;
+        String tx = "SELECT G FROM Garantie AS G";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesGarantie=req.getResultList();
+        return listeDesGarantie;
+    }
+    
     
 }

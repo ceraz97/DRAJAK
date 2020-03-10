@@ -32,14 +32,15 @@ public class TypeAyantDroitFacade extends AbstractFacade<TypeAyantDroit> impleme
     }
 
     @Override
-    public void CreerTypeAyantDroit(String Libelle) {
+    public TypeAyantDroit CreerTypeAyantDroit(String Libelle) {
         TypeAyantDroit typeAyantDroitInstance= new TypeAyantDroit ();
         typeAyantDroitInstance.setLibelleAyantDroit(Libelle);
         getEntityManager().persist(typeAyantDroitInstance);
+        return typeAyantDroitInstance;
     }
 
     @Override
-    public List ListeTypeAyantDroit() {
+    public List ListerAllTypeAyantDroit() {
         List listeDesTypeAyantDroit;
         String tx = "SELECT T FROM TypeAyantDroit AS T";
         Query req = getEntityManager().createQuery(tx);

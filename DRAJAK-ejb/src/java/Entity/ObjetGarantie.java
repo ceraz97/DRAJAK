@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
  * @author clementratz
  */
 @Entity
-public class TypePopulation implements Serializable {
+public class ObjetGarantie implements Serializable {
 
     @OneToMany(mappedBy = "cleTypePopulation")
     private List<ContratIndividuel> contratIndividuels;
@@ -76,10 +76,10 @@ public class TypePopulation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TypePopulation)) {
+        if (!(object instanceof ObjetGarantie)) {
             return false;
         }
-        TypePopulation other = (TypePopulation) object;
+        ObjetGarantie other = (ObjetGarantie) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
