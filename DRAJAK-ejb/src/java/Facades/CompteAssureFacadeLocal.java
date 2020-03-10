@@ -30,6 +30,11 @@ public interface CompteAssureFacadeLocal {
 
     int count();
     
-    CompteAssure AuthentificationCompteAssure(String login, String mdp);
+    CompteAssure AuthentifierCompteAssure(String login, String mdp);
     
+    CompteAssure CreerCompteAssure(String login, String mdp, String email);
+            
+    void ModifierMDPCompteAssure(String newMdp, CompteAssure CA);
+    
+    void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure CA);       
 }

@@ -33,7 +33,7 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
 
 
     @Override
-    public CompteAssure AuthentificationCompteAssure(String login, String mdp) {
+    public CompteAssure AuthentifierCompteAssure(String login, String mdp) {
         CompteAssure p;
         String txt = "SELECT log FROM CompteAssure AS CA WHERE log.login=:login and log.mdp=:mdp";
         Query req = getEntityManager().createQuery(txt);
@@ -45,6 +45,33 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
             p = (CompteAssure) result.get(0);
         }
         return p;
+    }
+
+    @Override
+    public CompteAssure CreerCompteAssure(String login, String mdp, String email) {
+        CompteAssure CA = new CompteAssure();
+        CA.setLogin(login);
+        CA.setMdp(mdp);
+        CA.setEmail(email);
+        getEntityManager().persist(CA);
+        return CA;  
+    }
+
+    @Override //Modification uniquement du mot de passe sur le compte
+    public void ModifierMDPCompteAssure(String newMdp, CompteAssure CA) {
+        CA.setMdp(newMdp);
+        em.merge(CA);
+    }
+
+    @Override //Modification des autres infos
+    public void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure CA) {
+        if(newlogin!=null){
+        CA.setLogin(newlogin);} //S'il y a eu une modification alors remplacer
+        
+        if(newemail!=null){        
+        CA.setEmail(newemail);} //S'il y a eu une modification alors remplacer
+        
+        em.merge(CA);
     }
     
 }
