@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.CompteAssure;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,22 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
 
     public CompteAssureFacade() {
         super(CompteAssure.class);
+    }
+
+
+    @Override
+    public CompteAssure AuthentificationCompteAssure(String login, String mdp) {
+        CompteAssure p;
+        String txt = "SELECT log FROM CompteAssure AS CA WHERE log.login=:login and log.mdp=:mdp";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("login", login);
+        req = req.setParameter("mdp", mdp);
+        p = null;
+        List<CompteAssure> result = req.getResultList();
+        if (result.size() == 1) {
+            p = (CompteAssure) result.get(0);
+        }
+        return p;
     }
     
 }
