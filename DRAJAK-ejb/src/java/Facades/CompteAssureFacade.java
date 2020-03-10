@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
+//Ce commentaire est là si ça marche A SUPPRIMER
 /**
  *
  * @author clementratz
