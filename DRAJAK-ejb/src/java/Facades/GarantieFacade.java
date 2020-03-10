@@ -6,7 +6,7 @@
 package Facades;
 
 import Entity.Garantie;
-import Entity.ModuleGarantie;
+import Entity.Modules;
 import Entity.TauxGarantie;
 import Entity.TypeRemboursement;
 import java.util.List;
@@ -35,10 +35,10 @@ public class GarantieFacade extends AbstractFacade<Garantie> implements Garantie
     }
 
     @Override
-    public Garantie CreerGarantie(String libelle, ModuleGarantie moduleGarantie, TypeRemboursement typeRemboursement, TauxGarantie tauxGarantie) {
+    public Garantie CreerGarantie(String libelle, List<Modules> listeModules, TypeRemboursement typeRemboursement, TauxGarantie tauxGarantie) {
         Garantie garantieInstance = new Garantie ();
         garantieInstance.setLibelleGarantie(libelle);
-        garantieInstance.setCleModuleGarantie(moduleGarantie);
+        garantieInstance.setLesModules(listeModules);
         garantieInstance.setCleTypeRemboursement(typeRemboursement);
         garantieInstance.setCleTauxGarantie(tauxGarantie);
         getEntityManager().persist(garantieInstance);

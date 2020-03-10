@@ -22,13 +22,13 @@ import javax.persistence.OneToMany;
 public class TypeModule implements Serializable {
 
     @OneToMany(mappedBy = "cleTypeModule")
-    private List<Module> modules;
+    private List<Modules> modules;
 
-    public List<Module> getModules() {
+    public List<Modules> getModules() {
         return modules;
     }
 
-    public void setModules(List<Module> modules) {
+    public void setModules(List<Modules> modules) {
         this.modules = modules;
     }
 

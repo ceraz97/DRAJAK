@@ -26,13 +26,13 @@ public class CompteAssure implements Serializable {
     private List<Contrat> contrats;
 
     @OneToMany(mappedBy = "cleCompteAssure")
-    private List<Transaction> transaction;
+    private List<Transactions> transaction;
 
-    public List<Transaction> getTransaction() {
+    public List<Transactions> getTransaction() {
         return transaction;
     }
 
-    public void setTransaction(List<Transaction> transaction) {
+    public void setTransaction(List<Transactions> transaction) {
         this.transaction = transaction;
     }
 
