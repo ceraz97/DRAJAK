@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author clementratz
+ * @author clementratz, Tristan
  */
 @Stateless
 public class TransactionFacade extends AbstractFacade<Transactions> implements TransactionFacadeLocal {

@@ -13,7 +13,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author clementratz
+ * @author clementratz, Tristan
  */
 @Local
 public interface TransactionFacadeLocal {
