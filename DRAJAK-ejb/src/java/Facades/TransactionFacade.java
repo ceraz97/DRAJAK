@@ -5,7 +5,7 @@
  */
 package Facades;
 
-import Entity.Transaction;
+import Entity.Transactions;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author clementratz
  */
 @Stateless
-public class TransactionFacade extends AbstractFacade<Transaction> implements TransactionFacadeLocal {
+public class TransactionFacade extends AbstractFacade<Transactions> implements TransactionFacadeLocal {
 
     @PersistenceContext(unitName = "DRAJAK-ejbPU")
     private EntityManager em;
@@ -26,7 +26,7 @@ public class TransactionFacade extends AbstractFacade<Transaction> implements Tr
     }
 
     public TransactionFacade() {
-        super(Transaction.class);
+        super(Transactions.class);
     }
     
 }

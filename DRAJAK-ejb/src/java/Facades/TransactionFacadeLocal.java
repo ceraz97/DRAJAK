@@ -5,7 +5,7 @@
  */
 package Facades;
 
-import Entity.Transaction;
+import Entity.Transactions;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,17 +16,17 @@ import javax.ejb.Local;
 @Local
 public interface TransactionFacadeLocal {
 
-    void create(Transaction transaction);
+    void create(Transactions transaction);
 
-    void edit(Transaction transaction);
+    void edit(Transactions transaction);
 
-    void remove(Transaction transaction);
+    void remove(Transactions transaction);
 
-    Transaction find(Object id);
+    Transactions find(Object id);
 
-    List<Transaction> findAll();
+    List<Transactions> findAll();
 
-    List<Transaction> findRange(int[] range);
+    List<Transactions> findRange(int[] range);
 
     int count();
     

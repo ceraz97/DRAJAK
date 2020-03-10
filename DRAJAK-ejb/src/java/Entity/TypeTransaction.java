@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 public class TypeTransaction implements Serializable {
 
     @OneToMany(mappedBy = "cleTypeTransaction")
-    private List<Transaction> transactions;
+    private List<Transactions> transactions;
 
 
 
@@ -49,11 +49,11 @@ public class TypeTransaction implements Serializable {
         this.id = id;
     }
     
-    public List<Transaction> getTransactions() {
+    public List<Transactions> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<Transactions> transactions) {
         this.transactions = transactions;
     }
 

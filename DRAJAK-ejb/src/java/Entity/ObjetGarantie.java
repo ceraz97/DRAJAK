@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class ObjetGarantie implements Serializable {
 
-    @OneToMany(mappedBy = "cleTypePopulation")
+    @OneToMany(mappedBy = "cleObjetGarantie")
     private List<ContratIndividuel> contratIndividuels;
 
     public List<ContratIndividuel> getContratIndividuels() {
