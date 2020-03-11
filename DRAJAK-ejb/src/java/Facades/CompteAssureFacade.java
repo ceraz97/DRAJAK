@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.CompteAssure;
+import Entity.Particulier;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -48,35 +49,39 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String login, String mdp, String email) {
+    public CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier) {
         CompteAssure ca = new CompteAssure();
         ca.setLogin(login);
         ca.setMdp(mdp);
         ca.setEmail(email);
+        ca.setCleParticulier(cleParticulier);
         getEntityManager().persist(ca);
         return ca;  
     }
 
-    @Override //Modification uniquement du mot de passe sur le compte
-    public void ModifierMDPCompteAssure(String newMdp, CompteAssure ca) {
-        ca.setMdp(newMdp);
+    @Override
+    public void ModifierCompteAssure(CompteAssure ca) {
         em.merge(ca);
     }
-
-    @Override //Modification des autres infos
-    public void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure ca) {
-        if(newlogin!=null){ //S'il y a eu une modification alors remplacer
-            ca.setLogin(newlogin);}   
-        if(newemail!=null){ //S'il y a eu une modification alors remplacer     
-            ca.setEmail(newemail);}
-        
-        em.merge(ca);
+    
+    @Override
+    public void SupprimerCompteAssure(CompteAssure ca) {
+        em.remove(ca);
     }
 
     @Override
+    public List ListerAllCompteAssure() {
+        List ListerAllCompteAssure;
+        String tx = "SELECT CA FROM CompteAssure AS CA";
+        Query req = getEntityManager().createQuery(tx);
+        ListerAllCompteAssure=req.getResultList();
+        return ListerAllCompteAssure;
+    }
+    
+    @Override
     public CompteAssure RechercherCompte(String login) {
         CompteAssure a;
-        String txt = "SELECT a FROM Agent CA WHERE a.login=:login ";
+        String txt = "SELECT a FROM CompteAssure CA WHERE a.login=:login ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("login", login);
         a = null;

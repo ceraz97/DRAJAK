@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.Particulier;
+import Enum.Genre;
+import Enum.StatutPersonne;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,14 @@ public interface ParticulierFacadeLocal {
     List<Particulier> findRange(int[] range);
 
     int count();
+    
+    Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+
+    List ListerAllParticulier();
+    
+    void ModifierParticulier(Particulier p);
+    
+    void SupprimerParticulier(Particulier p);
+
     
 }

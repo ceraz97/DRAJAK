@@ -32,9 +32,11 @@ public interface PersonneMoraleFacadeLocal {
     
     PersonneMorale CreerPersonneMorale(String raisonSociale, int nSiret, int nSiren, String login, String mdp, String email);
 
-    void ModifierInfoPersonneMorale(PersonneMorale pm, String raisonSociale, String login,String email);
+    void ModifierPersonneMorale(PersonneMorale pm);
 
-    void ModifierMDPPersonneMoral(String newMdp, PersonneMorale pm);
+    void SupprimerPersonneMorale(PersonneMorale pm);
+    
+    List ListerAllPersonneMorale();
             
             
     

@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.CompteAssure;
+import Entity.Particulier;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,11 +33,13 @@ public interface CompteAssureFacadeLocal {
     
     CompteAssure AuthentifierCompteAssure(String login, String mdp);
     
-    CompteAssure CreerCompteAssure(String login, String mdp, String email);
+    CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier);
             
-    void ModifierMDPCompteAssure(String newMdp, CompteAssure CA);
+    void ModifierCompteAssure(CompteAssure ca);
     
-    void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure CA);       
+    void SupprimerCompteAssure(CompteAssure ca); 
+    
+    List ListerAllCompteAssure();
 
     CompteAssure RechercherCompte(String login);
 }

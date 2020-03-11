@@ -7,9 +7,11 @@ package Facades;
 
 import Entity.CompteAssure;
 import Entity.PersonneMorale;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -44,22 +46,24 @@ public class PersonneMoraleFacade extends AbstractFacade<PersonneMorale> impleme
     }
 
     @Override
-    public void ModifierInfoPersonneMorale(PersonneMorale pm, String raisonSociale, String login,String email) {
-        if(raisonSociale!=null){ //S'il y a eu une modification alors remplacer
-            pm.setRaisonSociale(raisonSociale);}
-        if(login!=null){
-            pm.setLogin(login);}
-        if(email!=null){
-            pm.setEmail(email);
-        }
+    public void ModifierPersonneMorale(PersonneMorale pm) {
         em.merge(pm);
+    }
+    
+    @Override
+    public void SupprimerPersonneMorale(PersonneMorale pm) {
+        em.remove(pm);  
+    }
+    
+   @Override
+    public List ListerAllPersonneMorale() {
+        List ListerAllPersonneMorale;
+        String tx = "SELECT PM FROM PersonneMorale AS PM";
+        Query req = getEntityManager().createQuery(tx);
+        ListerAllPersonneMorale=req.getResultList();
+        return ListerAllPersonneMorale;
     }
 
-    @Override
-    public void ModifierMDPPersonneMoral(String newMdp, PersonneMorale pm) {
-        pm.setMdp(newMdp);
-        em.merge(pm);
-    }
     
     
 }
