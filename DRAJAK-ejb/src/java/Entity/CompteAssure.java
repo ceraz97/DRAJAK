@@ -33,7 +33,7 @@ public class CompteAssure implements Serializable {
         this.lesAyantDroits = lesAyantDroits;
     }
 
-    @OneToMany(mappedBy = "cleCompte")
+    @OneToMany(mappedBy = "cleCompteAssure")
     private List<Contrat> contrats;
 
     public List<Contrat> getContrats() {

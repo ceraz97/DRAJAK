@@ -8,6 +8,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,6 +31,7 @@ public class ContratCollectif extends Contrat implements Serializable {
     }
 
     @ManyToOne
+    @JoinColumn (nullable=false)
     private PersonneMorale clePersonneMorale;
 
     public PersonneMorale getClePersonneMorale() {

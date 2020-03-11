@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -74,15 +75,15 @@ public abstract class Contrat implements Serializable {
     private ChoixPaiement paiement;
 
     @ManyToOne
-    @Column (nullable=false)
+    @JoinColumn (nullable=false)
     private CompteAssure cleCompteAssure;
 
     @ManyToOne
-    @Column (nullable=true)
+    @JoinColumn (nullable=true)
     private CompteEmploye cleCompteEmploye;
     
     @ManyToOne
-    @Column (nullable=false)
+    @JoinColumn (nullable=false)
     private Produit cleProduit;
 
     public Produit getCleProduit() {

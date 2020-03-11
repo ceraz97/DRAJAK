@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,11 +23,11 @@ public class ContratIndividuel extends Contrat implements Serializable {
     
 
     @ManyToOne
-    @Column (nullable=true)
+    @JoinColumn (nullable=true)
     private ContratCollectif cleContratCollectif;
     
     @ManyToOne
-    @Column (nullable=false)
+    @JoinColumn (nullable=false)
     private ObjetGarantie cleObjetGarantie;
 
     public ObjetGarantie getCleObjetGarantie() {
