@@ -34,44 +34,43 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
 
     @Override
     public CompteAssure AuthentifierCompteAssure(String login, String mdp) {
-        CompteAssure p;
+        CompteAssure ca;
         String txt = "SELECT log FROM CompteAssure AS CA WHERE log.login=:login and log.mdp=:mdp";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("login", login);
         req = req.setParameter("mdp", mdp);
-        p = null;
+        ca = null;
         List<CompteAssure> result = req.getResultList();
         if (result.size() == 1) {
-            p = (CompteAssure) result.get(0);
+            ca = (CompteAssure) result.get(0);
         }
-        return p;
+        return ca;
     }
 
     @Override
     public CompteAssure CreerCompteAssure(String login, String mdp, String email) {
-        CompteAssure CA = new CompteAssure();
-        CA.setLogin(login);
-        CA.setMdp(mdp);
-        CA.setEmail(email);
-        getEntityManager().persist(CA);
-        return CA;  
+        CompteAssure ca = new CompteAssure();
+        ca.setLogin(login);
+        ca.setMdp(mdp);
+        ca.setEmail(email);
+        getEntityManager().persist(ca);
+        return ca;  
     }
 
     @Override //Modification uniquement du mot de passe sur le compte
-    public void ModifierMDPCompteAssure(String newMdp, CompteAssure CA) {
-        CA.setMdp(newMdp);
-        em.merge(CA);
+    public void ModifierMDPCompteAssure(String newMdp, CompteAssure ca) {
+        ca.setMdp(newMdp);
+        em.merge(ca);
     }
 
     @Override //Modification des autres infos
-    public void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure CA) {
-        if(newlogin!=null){
-        CA.setLogin(newlogin);} //S'il y a eu une modification alors remplacer
+    public void ModifierInfoCompteAssure(String newlogin, String newemail, CompteAssure ca) {
+        if(newlogin!=null){ //S'il y a eu une modification alors remplacer
+            ca.setLogin(newlogin);}   
+        if(newemail!=null){ //S'il y a eu une modification alors remplacer     
+            ca.setEmail(newemail);}
         
-        if(newemail!=null){        
-        CA.setEmail(newemail);} //S'il y a eu une modification alors remplacer
-        
-        em.merge(CA);
+        em.merge(ca);
     }
 
     @Override
