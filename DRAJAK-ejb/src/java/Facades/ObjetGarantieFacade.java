@@ -49,6 +49,11 @@ public class ObjetGarantieFacade extends AbstractFacade<ObjetGarantie> implement
         listeDesObjetGarantie=req.getResultList();
         return listeDesObjetGarantie;
     }
+
+    @Override
+    public void ModifierObjetGarantie(ObjetGarantie objetGarantie) {
+        getEntityManager().merge(objetGarantie);
+    }
     
     
     

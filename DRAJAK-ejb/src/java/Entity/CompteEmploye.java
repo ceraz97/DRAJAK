@@ -28,7 +28,9 @@ public class CompteEmploye extends PersonnePhysique implements Serializable {
     public void setContrats(List<Contrat> contrats) {
         this.contrats = contrats;
     }
-
+    
+    @Column (nullable=false, unique=true)
+    private String CodeEmploye;
     @Column (nullable=false)
     private String roleEmploye;
     
@@ -37,7 +39,15 @@ public class CompteEmploye extends PersonnePhysique implements Serializable {
     
     @Column (nullable=false)
     private String mdp;
+    
+    
+    public String getCodeEmploye() {
+        return CodeEmploye;
+    }
 
+    public void setCodeEmploye(String CodeEmploye) {
+        this.CodeEmploye = CodeEmploye;
+    }
     public String getMdp() {
         return mdp;
     }

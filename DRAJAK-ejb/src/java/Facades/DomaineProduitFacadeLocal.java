@@ -29,5 +29,13 @@ public interface DomaineProduitFacadeLocal {
     List<DomaineProduit> findRange(int[] range);
 
     int count();
+
+    DomaineProduit CreerDomaineProduit(String libelle);
+
+    void ModifierDomaineProduit(DomaineProduit domaineProduit);
+
+    void SupprimerDomaineProduit(DomaineProduit domaineProduit);
+
+    List<DomaineProduit> ListerAllDomaineProduit();
     
 }
