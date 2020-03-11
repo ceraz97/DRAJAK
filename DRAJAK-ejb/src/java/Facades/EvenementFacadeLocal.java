@@ -5,7 +5,9 @@
  */
 package Facades;
 
+import Entity.Contrat;
 import Entity.Evenement;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,12 @@ public interface EvenementFacadeLocal {
     List<Evenement> findRange(int[] range);
 
     int count();
+
+    Evenement CreerEvenement(String libelle, Date dateEvenement, Contrat cleContrat);
     
+    void ModifierProduit(Evenement evenement);
+
+    void SupprimerProduit(Evenement evenement);
+
+    List<Evenement> ListerAllEvenement();
 }

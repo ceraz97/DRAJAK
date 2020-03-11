@@ -5,7 +5,10 @@
  */
 package Facades;
 
+import Entity.DomaineProduit;
+import Entity.Modules;
 import Entity.Produit;
+import Enum.TypeProduit;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,14 @@ public interface ProduitFacadeLocal {
     List<Produit> findRange(int[] range);
 
     int count();
+
+    Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
+
+    void ModifierProduit(Produit produit);
+
+    void SupprimerProduit(Produit produit);
+
+    List ListerAllProduit();
+
     
 }

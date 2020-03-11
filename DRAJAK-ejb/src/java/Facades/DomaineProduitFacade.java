@@ -6,9 +6,11 @@
 package Facades;
 
 import Entity.DomaineProduit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,34 @@ public class DomaineProduitFacade extends AbstractFacade<DomaineProduit> impleme
     public DomaineProduitFacade() {
         super(DomaineProduit.class);
     }
+
+    @Override
+    public DomaineProduit CreerDomaineProduit(String libelle) {
+        DomaineProduit domaineProduitInstance = new DomaineProduit ();
+        domaineProduitInstance.setLibelleDomaineProduit(libelle);
+        getEntityManager().persist(domaineProduitInstance);
+        return domaineProduitInstance;
+    }
+
+    @Override
+    public void ModifierDomaineProduit(DomaineProduit domaineProduit) {
+        getEntityManager().merge(domaineProduit);
+    }
+
+    @Override
+    public void SupprimerDomaineProduit(DomaineProduit domaineProduit) {
+        getEntityManager().remove(domaineProduit);
+    }
+
+    @Override
+    public List<DomaineProduit> ListerAllDomaineProduit() {
+        List listeDesDomainesProduits;
+        String tx = "SELECT DP FROM DomaineProduit AS DP";
+        Query req = getEntityManager().createQuery(tx);
+        listeDesDomainesProduits=req.getResultList();
+        return listeDesDomainesProduits;
+    }
+    
+    
     
 }

@@ -27,7 +27,7 @@ public class Evenement implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column (nullable=false)
-    private String liobelleEvenement;
+    private String libelleEvenement;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateEvenement;
     
@@ -51,12 +51,12 @@ public class Evenement implements Serializable {
         this.dateEvenement = dateEvenement;
     }
 
-    public String getLiobelleEvenement() {
-        return liobelleEvenement;
+    public String getLibelleEvenement() {
+        return libelleEvenement;
     }
 
-    public void setLiobelleEvenement(String liobelleEvenement) {
-        this.liobelleEvenement = liobelleEvenement;
+    public void setLibelleEvenement(String liobelleEvenement) {
+        this.libelleEvenement = liobelleEvenement;
     }
 
     public Long getId() {

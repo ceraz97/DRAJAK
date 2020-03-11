@@ -34,5 +34,7 @@ public interface ObjetGarantieFacadeLocal {
     ObjetGarantie CreerObjetGarantie(String libelle, TauxGarantie txGarantie);
 
     List<ObjetGarantie> ListerAllObjetGarantie();
+
+    void ModifierObjetGarantie(ObjetGarantie objetGarantie);
     
 }
