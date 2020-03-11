@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-
+    <link href="login.css">
   <%@include file="link_head.jsp" %>
   </head>
   <body>
@@ -33,7 +33,7 @@
           <li class="nav-item"><a href="particulier.jsp" class="nav-link">Particulier</a></li>
           <li class="nav-item"><a href="entreprise.jsp" class="nav-link">Entreprise</a></li>
           <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-          <li class="nav-item cta"><a href="authentification.jsp" class="nav-link" ><span>Se connecter</span></a></li>
+          <li class="nav-item cta"><a href="contact.jsp" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
         </ul>
       </div>
     </div>
@@ -56,62 +56,68 @@
       <div class="container">
         <div class="row d-flex mb-5 contact-info">
           <div class="col-md-12 mb-4">
-            <h2 class="h4">Contact Information</h2>
+            <h2 class="h4">Informations de contact</h2>
           </div>
           <div class="w-100"></div>
           <div class="col-md-3">
-            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+            <p><span>Adresse:</span> 1 avenue des Frères Lumière, 69008 Lyon</p>
           </div>
           <div class="col-md-3">
-            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+            <p><span>Téléphone:</span> <a href="tel://1234567920">+ 33 4 99 98 97 96</a></p>
           </div>
           <div class="col-md-3">
-            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-          </div>
-          <div class="col-md-3">
-            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+            <p><span>Email:</span> <a href="mailto:drajak@hardis-group.com">drajak@hardis-group.com</a></p>
           </div>
         </div>
         <div class="row block-9">
           <div class="col-md-6 pr-md-5">
             <form action="#">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
+                <input type="text" class="form-control" placeholder="Numéro de SS pré rempli">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
+                <input type="tel" class="form-control" placeholder="Téléphone">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
+                  
+                  <SELECT class="form-control" name="sujet" onchange="changeColor(this);">
+                    <OPTION value ="">Sujet...</option>
+                    <OPTION value ="remboursement">Remboursement</option>
+                    <OPTION value ="Devis">Devis</option>
+                    <OPTION value ="autre">Autres</option>
+                  </SELECT>
+                    
               </div>
               <div class="form-group">
                 <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
               </div>
               <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5">
               </div>
             </form>
           
           </div>
 
-          <div class="col-md-6" id="map"></div>
-        </div>
+            <div class="col-md-6" id="map"></div>
+          <!-- pour la google map
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.615088858667!2d4.857584597324195!3d45.747185891511705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea726c48a669%3A0x98ee913399600aa8!2s1%20Avenue%20des%20Fr%C3%A8res%20Lumi%C3%A8re%2C%2069008%20Lyon!5e0!3m2!1sfr!2sfr!4v1583919270151!5m2!1sfr!2sfr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          -->
+          
       </div>
     </section>
 		
-		<section class="ftco-section-parallax">
+    <section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-              <h2>Subcribe to our Newsletter</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+              <h2>Souscrivez à notre Newsletter</h2>
               <div class="row d-flex justify-content-center mt-5">
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="Enter email address">
-                      <input type="submit" value="Subscribe" class="submit px-3">
+                      <input type="text" class="form-control" placeholder="Entez votre adresse email">
+                      <input type="submit" value="Souscrire" class="submit px-3">
                     </div>
                   </form>
                 </div>
@@ -196,52 +202,67 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalAppointmentLabel">Appointment</h5>
+            <h5 class="modal-title" id="modalAppointmentLabel">Connexion</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form action="#">
-              <div class="form-group">
-                <label for="appointment_name" class="text-black">Full Name</label>
-                <input type="text" class="form-control" id="appointment_name">
-              </div>
-              <div class="form-group">
-                <label for="appointment_email" class="text-black">Email</label>
-                <input type="text" class="form-control" id="appointment_email">
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_date" class="text-black">Date</label>
-                    <input type="text" class="form-control" id="appointment_date">
-                  </div>    
+        <div class="modal-body">
+            
+    <ul class="nav navbar-nav">
+        <div class="row">
+            <div class="col-md-12">
+                Vous êtes
+                <div class="social-buttons">
+                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Particulier</a>
+                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Entreprise</a>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_time" class="text-black">Time</label>
-                    <input type="text" class="form-control" id="appointment_time">
-                  </div>
-                </div>
-              </div>
+                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Mot de passe" required>
+                    <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox">Garder ma session active
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="bottom text-center">
+                    Vous êtes nouveau ? <a href="#"><b>Rejoignez-nous</b></a>
+            </div>
+        </div>
+    </ul>
               
-
-              <div class="form-group">
-                <label for="appointment_message" class="text-black">Message</label>
-                <textarea name="" id="appointment_message" class="form-control" cols="30" rows="10"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary">
-              </div>
-            </form>
-          </div>
-          
+          </div>          
         </div>
       </div>
     </div>
 
       <%@include file="script_js.jsp" %>
-    
+        <script>
+        function changeColor(s) {
+            if(s.options[s.selectedIndex].value == "") {
+                s.style.color = "#a9a9a9";
+            }
+            else {
+                s.style.color = "black";
+            }
+        }
+        </script>
+        <style>
+            select option:first-child{color:grey; display: none;}
+            select option {color:black;}
+        </style>
+        
   </body>
 </html>

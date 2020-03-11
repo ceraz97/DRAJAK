@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-
+    <link href="login.css">
       <%@include file="link_head.jsp" %>
   </head>
   <body>
@@ -33,7 +33,7 @@
           <li class="nav-item"><a href="particulier.jsp" class="nav-link">Particulier</a></li>
           <li class="nav-item"><a href="entreprise.jsp" class="nav-link">Entreprise</a></li>
           <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-          <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
+          <li class="nav-item cta"><a href="particulier.jsp" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
         </ul>
       </div>
     </div>
@@ -360,51 +360,52 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
   <!-- Modal -->
-    <div class="modal fade" id="modalAppointment" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentLabel" aria-hidden="true">
+<div class="modal fade" id="modalAppointment" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalAppointmentLabel">Appointment</h5>
+            <h5 class="modal-title" id="modalAppointmentLabel">Connexion</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form action="#">
-              <div class="form-group">
-                <label for="appointment_name" class="text-black">Full Name</label>
-                <input type="text" class="form-control" id="appointment_name">
-              </div>
-              <div class="form-group">
-                <label for="appointment_email" class="text-black">Email</label>
-                <input type="text" class="form-control" id="appointment_email">
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_date" class="text-black">Date</label>
-                    <input type="text" class="form-control" id="appointment_date">
-                  </div>    
+            
+    <ul class="nav navbar-nav">
+        <div class="row">
+            <div class="col-md-12">
+                Vous êtes
+                <div class="social-buttons">
+                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Particulier</a>
+                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Entreprise</a>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_time" class="text-black">Time</label>
-                    <input type="text" class="form-control" id="appointment_time">
-                  </div>
-                </div>
-              </div>
+                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Mot de passe" required>
+                    <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox">Garder ma session active
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="bottom text-center">
+                    Vous êtes nouveau ? <a href="#"><b>Rejoignez-nous</b></a>
+            </div>
+        </div>
+    </ul>
               
-
-              <div class="form-group">
-                <label for="appointment_message" class="text-black">Message</label>
-                <textarea name="" id="appointment_message" class="form-control" cols="30" rows="10"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary">
-              </div>
-            </form>
-          </div>
-          
+          </div>          
         </div>
       </div>
     </div>
