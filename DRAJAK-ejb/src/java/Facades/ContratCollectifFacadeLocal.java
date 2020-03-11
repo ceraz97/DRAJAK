@@ -5,7 +5,16 @@
  */
 package Facades;
 
+import Entity.CompteAssure;
+import Entity.CompteEmploye;
 import Entity.ContratCollectif;
+import Entity.ContratIndividuel;
+import Entity.ObjetGarantie;
+import Entity.PersonneMorale;
+import Entity.Produit;
+import Enum.ChoixPaiement;
+import Enum.StatutContrat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +39,11 @@ public interface ContratCollectifFacadeLocal {
 
     int count();
     
+    ContratCollectif CreerContratCollectif(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, PersonneMorale clePersonneMorale);
+    
+    void ModifierContratCollectif(ContratCollectif contratCollectif);
+    
+    void SupprimerContratCollectif(ContratCollectif contratCollectif);
+    
+    List<ContratCollectif> ListerAllContratCollectif();
 }
