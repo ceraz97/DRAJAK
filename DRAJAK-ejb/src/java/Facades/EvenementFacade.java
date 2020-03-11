@@ -56,7 +56,7 @@ public class EvenementFacade extends AbstractFacade<Evenement> implements Evenem
     @Override
     public List<Evenement> ListerAllEvenement() {
         List listeDesEvenements;
-        String tx = "SELECT E FROM Produit AS E";
+        String tx = "SELECT E FROM Evenement AS E";
         Query req = getEntityManager().createQuery(tx);
         listeDesEvenements=req.getResultList();
         return listeDesEvenements;

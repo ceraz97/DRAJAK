@@ -74,12 +74,15 @@ public abstract class Contrat implements Serializable {
     private ChoixPaiement paiement;
 
     @ManyToOne
-    private CompteAssure cleCompte;
+    @Column (nullable=false)
+    private CompteAssure cleCompteAssure;
 
     @ManyToOne
+    @Column (nullable=true)
     private CompteEmploye cleCompteEmploye;
     
     @ManyToOne
+    @Column (nullable=false)
     private Produit cleProduit;
 
     public Produit getCleProduit() {
@@ -99,12 +102,12 @@ public abstract class Contrat implements Serializable {
         this.cleCompteEmploye = cleCompteEmploye;
     }
 
-    public CompteAssure getCleCompte() {
-        return cleCompte;
+    public CompteAssure getCleCompteAssure() {
+        return cleCompteAssure;
     }
 
-    public void setCleCompte(CompteAssure cleCompte) {
-        this.cleCompte = cleCompte;
+    public void setCleCompteAssure(CompteAssure cleCompteAssure) {
+        this.cleCompteAssure = cleCompteAssure;
     }
 
     public ChoixPaiement getPaiement() {
