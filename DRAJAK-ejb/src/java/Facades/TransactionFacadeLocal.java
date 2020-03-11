@@ -6,12 +6,14 @@
 package Facades;
 
 import Entity.Transactions;
+import Enum.StatutTransaction;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author clementratz
+ * @author clementratz, Tristan
  */
 @Local
 public interface TransactionFacadeLocal {
@@ -30,4 +32,10 @@ public interface TransactionFacadeLocal {
 
     int count();
     
+    Transactions CreerTransactions(String libelle, Date date, double montant, StatutTransaction statut, String libelleStatut);
+    
+    void ModifierTransactions(String libelle, double montant, Transactions t);
+
+    void ModifierStatutTransactions(StatutTransaction statut, String libelleStatut, Transactions t);
+
 }

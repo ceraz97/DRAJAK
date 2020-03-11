@@ -4,3 +4,8 @@
 /dist/
 /DRAJAK-war/dist/
 /DRAJAK-war/build/
+/nbproject/private/
+/DRAJAK-war/nbproject/private/
+/DRAJAK-ejb/nbproject/private/
+/DRAJAK_BD/
+/BD_DRAJAK/
