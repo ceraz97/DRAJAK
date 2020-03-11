@@ -6,6 +6,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +31,16 @@ public class Fichier implements Serializable {
     private String nomFichier;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateEnvoiFichier;
+
+    private Blob stockageFichier;
+
+    public Blob getStockageFichier() {
+        return stockageFichier;
+    }
+
+    public void setStockageFichier(Blob stockageFichier) {
+        this.stockageFichier = stockageFichier;
+    }
 
     @ManyToOne
     private Contrat cleContrat;

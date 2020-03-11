@@ -30,5 +30,4 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }
     
     
-    
 }
