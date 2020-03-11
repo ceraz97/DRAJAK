@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.CompteEmploye;
+import Enum.Genre;
+import Enum.StatutPersonne;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,17 @@ public interface CompteEmployeFacadeLocal {
     List<CompteEmploye> findRange(int[] range);
 
     int count();
+    
+    CompteEmploye CreerCompteEmploye(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+    
+    CompteEmploye AuthentifierCompteEmploye(String login, String mdp);
+    
+    void ModifierCompteEmploye(CompteEmploye ce);
+            
+    void SupprimerCompteEmploye(CompteEmploye ce);
+    
+    List ListerAllCompteEmploye();
+    
+    CompteEmploye RechercherEmploye(String login);
     
 }

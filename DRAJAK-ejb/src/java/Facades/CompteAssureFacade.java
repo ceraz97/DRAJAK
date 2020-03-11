@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.Particulier;
 import java.util.List;
@@ -49,12 +50,13 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier) {
+    public CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier,  List<AyantDroit> lesAyantDroit) {
         CompteAssure ca = new CompteAssure();
         ca.setLogin(login);
         ca.setMdp(mdp);
         ca.setEmail(email);
         ca.setCleParticulier(cleParticulier);
+        ca.setCleAyantDroit(null);
         getEntityManager().persist(ca);
         return ca;  
     }
@@ -79,7 +81,7 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     }
     
     @Override
-    public CompteAssure RechercherCompte(String login) {
+    public CompteAssure RechercherCompteAssure(String login) {
         CompteAssure a;
         String txt = "SELECT a FROM CompteAssure CA WHERE a.login=:login ";
         Query req = getEntityManager().createQuery(txt);

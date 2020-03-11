@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.Particulier;
 import java.util.List;
@@ -33,7 +34,7 @@ public interface CompteAssureFacadeLocal {
     
     CompteAssure AuthentifierCompteAssure(String login, String mdp);
     
-    CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier);
+    CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier,  List<AyantDroit> lesAyantDroit);
             
     void ModifierCompteAssure(CompteAssure ca);
     
@@ -41,5 +42,5 @@ public interface CompteAssureFacadeLocal {
     
     List ListerAllCompteAssure();
 
-    CompteAssure RechercherCompte(String login);
+    CompteAssure RechercherCompteAssure(String login);
 }
