@@ -20,6 +20,17 @@ import javax.persistence.OneToMany;
 public class Particulier extends PersonnePhysique implements Serializable {
 
     @OneToMany(mappedBy = "cleParticulier")
+    private List<AyantDroit> lesAyantDroits;
+
+    public List<AyantDroit> getLesAyantDroits() {
+        return lesAyantDroits;
+    }
+
+    public void setLesAyantDroits(List<AyantDroit> lesAyantDroits) {
+        this.lesAyantDroits = lesAyantDroits;
+    }
+
+    @OneToMany(mappedBy = "cleParticulier")
     private List<CompteAssure> compteAssures;
 
     public List<CompteAssure> getCompteAssures() {
@@ -32,16 +43,7 @@ public class Particulier extends PersonnePhysique implements Serializable {
     @Column (nullable=false, unique=true)
     private int nAdherent;
     
-    @ManyToOne
-    private AyantDroit cleAyantDroit;
-
-    public AyantDroit getCleAyantDroit() {
-        return cleAyantDroit;
-    }
-
-    public void setCleAyantDroit(AyantDroit cleAyantDroit) {
-        this.cleAyantDroit = cleAyantDroit;
-    }
+    
 
 
     public int getnAdherent() {

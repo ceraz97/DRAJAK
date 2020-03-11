@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -21,6 +22,17 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Garantie implements Serializable {
+
+    @OneToMany(mappedBy = "cleGarantie")
+    private List<TauxGarantie> lestauxGaranties;
+
+    public List<TauxGarantie> getLestauxGaranties() {
+        return lestauxGaranties;
+    }
+
+    public void setLestauxGaranties(List<TauxGarantie> lestauxGaranties) {
+        this.lestauxGaranties = lestauxGaranties;
+    }
 
     @ManyToMany(mappedBy = "lesGaranties")
     private List<Modules> lesModules;
@@ -44,16 +56,6 @@ public class Garantie implements Serializable {
     @ManyToOne
     private TypeRemboursement cleTypeRemboursement;
 
-    @ManyToOne
-    private TauxGarantie cleTauxGarantie;
-
-    public TauxGarantie getCleTauxGarantie() {
-        return cleTauxGarantie;
-    }
-
-    public void setCleTauxGarantie(TauxGarantie cleTauxGarantie) {
-        this.cleTauxGarantie = cleTauxGarantie;
-    }
 
     public TypeRemboursement getCleTypeRemboursement() {
         return cleTypeRemboursement;

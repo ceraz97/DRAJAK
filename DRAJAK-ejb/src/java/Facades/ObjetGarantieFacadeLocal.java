@@ -31,7 +31,7 @@ public interface ObjetGarantieFacadeLocal {
 
     int count();
 
-    ObjetGarantie CreerObjetGarantie(String libelle, TauxGarantie txGarantie);
+    ObjetGarantie CreerObjetGarantie(String libelle);
 
     List<ObjetGarantie> ListerAllObjetGarantie();
 

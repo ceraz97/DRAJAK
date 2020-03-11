@@ -33,10 +33,9 @@ public class ObjetGarantieFacade extends AbstractFacade<ObjetGarantie> implement
     }
 
     @Override
-    public ObjetGarantie CreerObjetGarantie(String libelle, TauxGarantie txGarantie) {
+    public ObjetGarantie CreerObjetGarantie(String libelle) {
         ObjetGarantie objetGarantieInstance= new ObjetGarantie ();
         objetGarantieInstance.setLibelleTypePopulation(libelle);
-        objetGarantieInstance.setCleTauxGarantie(txGarantie);
         getEntityManager().persist(objetGarantieInstance); 
         return objetGarantieInstance;
     }

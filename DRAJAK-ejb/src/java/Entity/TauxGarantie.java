@@ -22,9 +22,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class TauxGarantie implements Serializable {
 
-    @OneToMany(mappedBy = "cleTauxGarantie")
-    private List<ObjetGarantie> typePopulations;
-
     @ManyToOne
     private TrancheAge cleTrancheAge;
 
@@ -36,25 +33,29 @@ public class TauxGarantie implements Serializable {
         this.cleTrancheAge = cleTrancheAge;
     }
 
-    public List<ObjetGarantie> getTypePopulations() {
-        return typePopulations;
+    @ManyToOne
+    private Garantie cleGarantie;
+
+    public Garantie getCleGarantie() {
+        return cleGarantie;
     }
 
-    public void setTypePopulations(List<ObjetGarantie> typePopulations) {
-        this.typePopulations = typePopulations;
+    public void setCleGarantie(Garantie cleGarantie) {
+        this.cleGarantie = cleGarantie;
     }
 
-    public List<Garantie> getGaranties() {
-        return garanties;
+    @ManyToOne
+    private ObjetGarantie cleObjetGarantie;
+
+    public ObjetGarantie getCleObjetGarantie() {
+        return cleObjetGarantie;
     }
 
-    public void setGaranties(List<Garantie> garanties) {
-        this.garanties = garanties;
+    public void setCleObjetGarantie(ObjetGarantie cleObjetGarantie) {
+        this.cleObjetGarantie = cleObjetGarantie;
     }
 
-    @OneToMany(mappedBy = "cleTauxGarantie")
-    private List<Garantie> garanties;
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

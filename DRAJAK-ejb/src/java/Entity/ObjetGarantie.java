@@ -23,6 +23,17 @@ import javax.persistence.OneToMany;
 public class ObjetGarantie implements Serializable {
 
     @OneToMany(mappedBy = "cleObjetGarantie")
+    private List<TauxGarantie> lesTauxGaranties;
+
+    public List<TauxGarantie> getLesTauxGaranties() {
+        return lesTauxGaranties;
+    }
+
+    public void setLesTauxGaranties(List<TauxGarantie> lesTauxGaranties) {
+        this.lesTauxGaranties = lesTauxGaranties;
+    }
+
+    @OneToMany(mappedBy = "cleObjetGarantie")
     private List<ContratIndividuel> contratIndividuels;
 
     public List<ContratIndividuel> getContratIndividuels() {
@@ -39,16 +50,7 @@ public class ObjetGarantie implements Serializable {
     private Long id;
     @Column (nullable=false)
     private String libelleTypePopulation;
-    @ManyToOne
-    private TauxGarantie cleTauxGarantie;
-
-    public TauxGarantie getCleTauxGarantie() {
-        return cleTauxGarantie;
-    }
-
-    public void setCleTauxGarantie(TauxGarantie cleTauxGarantie) {
-        this.cleTauxGarantie = cleTauxGarantie;
-    }
+    
 
     public String getLibelleTypePopulation() {
         return libelleTypePopulation;

@@ -63,7 +63,4 @@ public class ProduitFacade extends AbstractFacade<Produit> implements ProduitFac
         return listeDesProduits;
     }
     
-    
-    
-    
 }

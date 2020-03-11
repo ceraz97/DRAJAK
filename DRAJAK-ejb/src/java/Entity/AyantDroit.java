@@ -21,29 +21,29 @@ import javax.persistence.OneToMany;
 @Entity
 public class AyantDroit implements Serializable {
 
-    @OneToMany(mappedBy = "cleAyantDroit")
-    private List<Particulier> particuliers;
+    @ManyToOne
+    private CompteAssure cleCompteAssure;
 
-    public List<Particulier> getParticuliers() {
-        return particuliers;
+    public CompteAssure getCleCompteAssure() {
+        return cleCompteAssure;
     }
 
-    public void setParticuliers(List<Particulier> particuliers) {
-        this.particuliers = particuliers;
+    public void setCleCompteAssure(CompteAssure cleCompteAssure) {
+        this.cleCompteAssure = cleCompteAssure;
     }
-
-    public List<CompteAssure> getCompteAssures() {
-        return compteAssures;
-    }
-
-    public void setCompteAssures(List<CompteAssure> compteAssures) {
-        this.compteAssures = compteAssures;
-    }
-
-    @OneToMany(mappedBy = "cleAyantDroit")
-    private List<CompteAssure> compteAssures;
-
     
+    @ManyToOne
+    private Particulier cleParticulier;
+
+    public Particulier getCleParticulier() {
+        return cleParticulier;
+    }
+
+    public void setCleParticulier(Particulier cleParticulier) {
+        this.cleParticulier = cleParticulier;
+    }
+
+
     @ManyToOne
     private TypeAyantDroit cleTypeAyantDroit;
 

@@ -56,7 +56,6 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
         ca.setMdp(mdp);
         ca.setEmail(email);
         ca.setCleParticulier(cleParticulier);
-        ca.setCleAyantDroit(null);
         getEntityManager().persist(ca);
         return ca;  
     }

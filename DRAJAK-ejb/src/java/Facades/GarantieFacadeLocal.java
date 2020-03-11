@@ -33,7 +33,7 @@ public interface GarantieFacadeLocal {
 
     int count();
 
-    Garantie CreerGarantie(String libelle, List<Modules> listeModule, TypeRemboursement typeRemboursement, TauxGarantie tauxGarantie);
+    Garantie CreerGarantie(String libelle, List<Modules> listeModule, TypeRemboursement typeRemboursement);
 
     List<Garantie> ListerAllGarantie();
     
