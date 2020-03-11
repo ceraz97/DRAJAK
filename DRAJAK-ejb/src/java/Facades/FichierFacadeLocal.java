@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.Fichier;
+import Entity.TypeFichier;
+import java.sql.Blob;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +33,11 @@ public interface FichierFacadeLocal {
 
     int count();
     
+    Fichier CreerFichier(String nom, Date dateEnvoi, Blob Stockage, TypeFichier t);
+    
+    List ListerAllFichier();
+    
+    void ModifierParticulier(Fichier f);
+            
+    void SupprimerParticulier(Fichier f);
 }
