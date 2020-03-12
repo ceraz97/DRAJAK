@@ -20,6 +20,17 @@ import javax.persistence.OneToMany;
 @Entity
 public class ContratIndividuel extends Contrat implements Serializable {
 
+    @ManyToOne
+    private PersonnePublique clePersonnePublique;
+
+    public PersonnePublique getClePersonnePublique() {
+        return clePersonnePublique;
+    }
+
+    public void setClePersonnePublique(PersonnePublique clePersonnePublique) {
+        this.clePersonnePublique = clePersonnePublique;
+    }
+
     @OneToMany(mappedBy = "cleContratIndividuel")
     private List<AyantDroit> lesAyantDroits;
 

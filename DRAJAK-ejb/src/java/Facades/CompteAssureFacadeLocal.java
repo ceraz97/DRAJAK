@@ -34,7 +34,7 @@ public interface CompteAssureFacadeLocal {
     
     CompteAssure AuthentifierCompteAssure(String login, String mdp);
     
-    CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier,  List<AyantDroit> lesAyantDroit);
+    CompteAssure CreerCompteAssure(String login, String mdp, String email, Particulier cleParticulier);
             
     void ModifierCompteAssure(CompteAssure ca);
     
