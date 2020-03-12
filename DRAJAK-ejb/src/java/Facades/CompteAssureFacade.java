@@ -37,10 +37,10 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     @Override
     public CompteAssure AuthentifierCompteAssure(String login, String mdp) {
         CompteAssure ca;
-        String txt = "SELECT log FROM CompteAssure AS CA WHERE log.login=:login and log.mdp=:mdp";
+        String txt = "SELECT log FROM CompteAssure AS log WHERE log.login=:Login and log.mdp=:Mdp";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("login", login);
-        req = req.setParameter("mdp", mdp);
+        req = req.setParameter("Login", login);
+        req = req.setParameter("Mdp", mdp);
         ca = null;
         List<CompteAssure> result = req.getResultList();
         if (result.size() == 1) {

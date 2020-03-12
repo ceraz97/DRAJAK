@@ -64,6 +64,19 @@ public class PersonneMoraleFacade extends AbstractFacade<PersonneMorale> impleme
         return ListerAllPersonneMorale;
     }
 
-    
+    @Override
+    public PersonneMorale AuthentifierCompteEntreprise(String login, String mdp) {
+        PersonneMorale pm;
+        String txt = "SELECT log FROM CompteAssure AS log WHERE log.login=:Login and log.mdp=:Mdp";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("Login", login);
+        req = req.setParameter("Mdp", mdp);
+        pm = null;
+        List<PersonneMorale> result = req.getResultList();
+        if (result.size() == 1) {
+            pm = (PersonneMorale) result.get(0);
+        }
+        return pm;
+    }
     
 }

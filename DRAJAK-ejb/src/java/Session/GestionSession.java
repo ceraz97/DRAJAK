@@ -5,6 +5,9 @@
  */
 package Session;
 
+import Entity.CompteEmploye;
+import Facades.CompteEmployeFacadeLocal;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -14,6 +17,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class GestionSession implements GestionSessionLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private CompteEmployeFacadeLocal compteEmployeFacade;
+
+    
+    @Override
+    public CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp) {
+        return compteEmployeFacade.AuthentifierCompteEmploye(login, mdp);
+    }
 }

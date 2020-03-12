@@ -37,7 +37,8 @@ public interface PersonneMoraleFacadeLocal {
     void SupprimerPersonneMorale(PersonneMorale pm);
     
     List ListerAllPersonneMorale();
-            
-            
     
+    PersonneMorale AuthentifierCompteEntreprise(String login, String mdp);
+            
+            
 }

@@ -5,6 +5,8 @@
  */
 package Session;
 
+import Entity.CompteAssure;
+import Entity.PersonneMorale;
 import javax.ejb.Local;
 
 /**
@@ -12,6 +14,10 @@ import javax.ejb.Local;
  * @author clementratz
  */
 @Local
-public interface ClientSessionLocal {
+public interface AssureSessionLocal {
+
+    CompteAssure RechercherCompteAssurePourConnexion (String login, String mdp);
+
+    PersonneMorale RechercherCompteEntreprisePourConnexion(String login, String mdp);
     
 }

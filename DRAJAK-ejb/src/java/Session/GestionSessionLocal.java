@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.CompteEmploye;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +14,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface GestionSessionLocal {
+
+    CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp);
     
 }
