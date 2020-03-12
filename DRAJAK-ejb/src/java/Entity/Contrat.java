@@ -74,6 +74,9 @@ public abstract class Contrat implements Serializable {
     @Column (nullable=false)
     private ChoixPaiement paiement;
 
+    @Column (nullable=false)
+    private TypeContrat type;
+        
     @ManyToOne
     @JoinColumn (nullable=false)
     private CompteAssure cleCompteAssure;
@@ -114,7 +117,14 @@ public abstract class Contrat implements Serializable {
     public ChoixPaiement getPaiement() {
         return paiement;
     }
+    
+    public TypeContrat getType() {
+        return type;
+    }
 
+    public void setType(TypeContrat type) {
+        this.type = type;
+    }
     public void setPaiement(ChoixPaiement paiement) {
         this.paiement = paiement;
     }

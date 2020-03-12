@@ -35,7 +35,22 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }
     
     @Override
-    public ContratIndividuel CreerContratIndividuel(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ContratCollectif cleContratCollectif, ObjetGarantie cleObjetGarantie) {
+    public ContratIndividuel CreerContratIndividuel(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ObjetGarantie cleObjetGarantie) {
+        ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
+        contratIndividuelInstance.setDateCreation(datCreation);
+        contratIndividuelInstance.setDateFin(dateFin);
+        contratIndividuelInstance.setLibelleContrat(libelle);
+        contratIndividuelInstance.setStatut(statut);
+        contratIndividuelInstance.setPaiement(paiement);
+        contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
+        contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratIndividuelInstance.setCleProduit(cleProduit);
+        contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
+        getEntityManager().persist(contratIndividuelInstance);
+        return contratIndividuelInstance;
+    }
+    @Override
+    public ContratIndividuel CreerContratAdhesion(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ContratCollectif cleContratCollectif, ObjetGarantie cleObjetGarantie) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         contratIndividuelInstance.setDateCreation(datCreation);
         contratIndividuelInstance.setDateFin(dateFin);
@@ -49,7 +64,22 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
         getEntityManager().persist(contratIndividuelInstance);
         return contratIndividuelInstance;
-    }
+    }  
+    
+    @Override
+    public ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePhysique clePersonnePhysique, Produit cleProduit, ObjetGarantie cleObjetGarantie) {
+        ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
+        contratIndividuelInstance.setDateCreation(datCreation);
+        contratIndividuelInstance.setLibelleContrat(libelle);
+        StatutContrat statut = StatutContrat.Devis;
+        contratIndividuelInstance.setStatut(statut);
+        contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
+        contratIndividuelInstance.setCleProduit(cleProduit);
+        contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
+        getEntityManager().persist(contratIndividuelInstance);
+        return contratIndividuelInstance;
+    }    
+    
     
     @Override
     public void ModifierContratIndividuel(ContratIndividuel contratIndividuel) {

@@ -41,6 +41,8 @@ public abstract class PersonnePhysique implements Serializable {
     private Genre genre;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNaissance;
+    @Column (nullable=false, unique=true)
+    private String email;
     @Column (nullable=false)
     private StatutPersonne statutPersonne;
     

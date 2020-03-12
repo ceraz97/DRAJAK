@@ -63,8 +63,6 @@ public class CompteAssure implements Serializable {
     private String login;
     @Column (nullable=false)
     private String mdp;
-    @Column (nullable=false, unique=true)
-    private String email;
     @ManyToOne
     private Particulier cleParticulier;
     
@@ -76,13 +74,6 @@ public class CompteAssure implements Serializable {
         this.cleParticulier = cleParticulier;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
     
     public String getMdp() {
         return mdp;

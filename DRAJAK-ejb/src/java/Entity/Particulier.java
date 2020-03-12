@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -42,7 +41,8 @@ public class Particulier extends PersonnePhysique implements Serializable {
     }
     @Column (nullable=false, unique=true)
     private int nAdherent;
-    
+    @Column (nullable=false, unique=true)
+    private int nSecuriteSocial;
     
 
 
