@@ -22,15 +22,16 @@ import javax.persistence.OneToMany;
 public class AyantDroit implements Serializable {
 
     @ManyToOne
-    private CompteAssure cleCompteAssure;
+    private ContratIndividuel cleContratIndividuel;
 
-    public CompteAssure getCleCompteAssure() {
-        return cleCompteAssure;
+    public ContratIndividuel getCleContratIndividuel() {
+        return cleContratIndividuel;
     }
 
-    public void setCleCompteAssure(CompteAssure cleCompteAssure) {
-        this.cleCompteAssure = cleCompteAssure;
+    public void setCleContratIndividuel(ContratIndividuel cleContratIndividuel) {
+        this.cleContratIndividuel = cleContratIndividuel;
     }
+
     
     @ManyToOne
     private Particulier cleParticulier;

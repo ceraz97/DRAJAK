@@ -22,15 +22,15 @@ import javax.persistence.OneToMany;
 @Entity
 public class CompteAssure implements Serializable {
 
-    @OneToMany(mappedBy = "cleCompteAssure")
-    private List<AyantDroit> lesAyantDroits;
+    @ManyToOne
+    private RegimeSocial cleRegimeSocial;
 
-    public List<AyantDroit> getLesAyantDroits() {
-        return lesAyantDroits;
+    public RegimeSocial getCleRegimeSocial() {
+        return cleRegimeSocial;
     }
 
-    public void setLesAyantDroits(List<AyantDroit> lesAyantDroits) {
-        this.lesAyantDroits = lesAyantDroits;
+    public void setCleRegimeSocial(RegimeSocial cleRegimeSocial) {
+        this.cleRegimeSocial = cleRegimeSocial;
     }
 
     @OneToMany(mappedBy = "cleCompteAssure")
