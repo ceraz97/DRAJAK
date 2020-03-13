@@ -1,6 +1,6 @@
 <%-- 
-    Document   : menuGestionnaire
-    Created on : 12 mars 2020, 14:07:46
+    Document   : menuAdministrateur
+    Created on : 12 mars 2020, 16:31:28
     Author     : Ilkayk
 --%>
 
@@ -30,7 +30,7 @@
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Accueil</a></li>
+                        <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Gestion personnel</a></li>
                         <li class="nav-item"><a href="about.jsp" class="nav-link">Gestion personne</a></li>
                         <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
                         <li class="nav-item"><a href="particulier.jsp" class="nav-link">Gestion produits</a></li>
@@ -47,7 +47,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Gestionnaire</h1>
+                        <h1 class="mb-4">Admin</h1>
                     </div>
                 </div>
             </div>
