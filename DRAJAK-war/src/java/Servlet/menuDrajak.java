@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +60,7 @@ public class menuDrajak extends HttpServlet {
         CompteEmploye sessionAdministrateur = null;
         PersonneMorale sessionEntreprise = null;
         List<Object> Response;
-
+        System.out.println("=========" + act);
         if (session != null) {
             sessionAssure = (CompteAssure) session.getAttribute("sessionAssure");
             sessionGestionnaire = (CompteEmploye) session.getAttribute("sessionGestionnaire");
@@ -67,11 +68,10 @@ public class menuDrajak extends HttpServlet {
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
         //Initialisation de données dans la base de données
-        /*if(assureSession.RechercherExistenceAssurePourBDD()==true){
-            Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1",Genre.Homme, Date.from(Instant.now()), "1970733199834","login@test.com","0601020304", "adresse", StatutPersonne.Actif);
+        if (assureSession.RechercherExistenceAssurePourBDD() == true) {
+            Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
             assureSession.CreerCompteAssure("mdp", part);
-        }*/
-        
+        }
 
         if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals(""))) {
             jspAffiche = "/ErreurSession.jsp";
@@ -88,6 +88,7 @@ public class menuDrajak extends HttpServlet {
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
+            System.out.println("ali la");
         } else {
             switch (act) {
                 case "vide":
@@ -129,6 +130,7 @@ public class menuDrajak extends HttpServlet {
                 case "AssureAuthentification":
                     String assureLogin = request.getParameter("login");
                     String assureMdp = request.getParameter("mdp");
+                    System.out.println("login ="+assureLogin+" et mdp ="+assureMdp);
                     if (assureLogin.trim().isEmpty() || assureMdp.trim().isEmpty()) {
                         message = "Erreur : Vous n'avez pas rempli tous les champs";
                         request.setAttribute("typeConnexion", "AssureMenu");
@@ -146,7 +148,7 @@ public class menuDrajak extends HttpServlet {
                             session.setAttribute("sessionAssure", sessionAssure);
                         }
                     }
-                break;
+                    break;
 
                 case "GestionnaireAuthentification":
                     String GestionnaireLogin = request.getParameter("login");
@@ -168,8 +170,8 @@ public class menuDrajak extends HttpServlet {
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
                         }
                     }
-                break;
-                
+                    break;
+
                 case "EntrepriseAuthentification":
                     String EntrepriseLogin = request.getParameter("login");
                     String EntrepriseMdp = request.getParameter("mdp");
@@ -190,8 +192,8 @@ public class menuDrajak extends HttpServlet {
                             session.setAttribute("sessionEntreprise", sessionEntreprise);
                         }
                     }
-                break;
-                
+                    break;
+
                 case "AdministrateurAuthentification":
                     String AdministrateurLogin = request.getParameter("login");
                     String AdministrateurMdp = request.getParameter("mdp");
@@ -212,10 +214,14 @@ public class menuDrajak extends HttpServlet {
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
                         }
                     }
-                break;
-                
+                    break;
             }
+
         }
+        RequestDispatcher Rd;
+        Rd = getServletContext().getRequestDispatcher(jspAffiche);
+        request.setAttribute("message", message);
+        Rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
