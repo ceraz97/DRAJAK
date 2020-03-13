@@ -11,6 +11,7 @@ import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.ObjetGarantie;
 import Entity.PersonnePhysique;
+import Entity.PersonnePublique;
 import Entity.Produit;
 import Enum.ChoixPaiement;
 import Enum.StatutContrat;
@@ -40,11 +41,11 @@ public interface ContratIndividuelFacadeLocal {
 
     int count();
     
-    ContratIndividuel CreerContratIndividuel(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ObjetGarantie cleObjetGarantie);
+    ContratIndividuel CreerContratIndividuel(Date datCreation, Date datFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ContratIndividuel devis);
     
     ContratIndividuel CreerContratAdhesion(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ContratCollectif cleContratCollectif, ObjetGarantie cleObjetGarantie);
             
-    ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePhysique clePersonnePhysique, Produit cleProduit, ObjetGarantie cleObjetGarantie);
+    ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, Produit cleProduit, ObjetGarantie cleObjetGarantie);
     
     void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
         
