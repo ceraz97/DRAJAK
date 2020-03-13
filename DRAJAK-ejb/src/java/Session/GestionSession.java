@@ -7,6 +7,8 @@ package Session;
 
 import Entity.CompteEmploye;
 import Facades.CompteEmployeFacadeLocal;
+import Facades.ParticulierFacadeLocal;
+import Facades.PersonnePubliqueFacade;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -18,6 +20,12 @@ import javax.ejb.Stateless;
 public class GestionSession implements GestionSessionLocal {
 
     @EJB
+    private ParticulierFacadeLocal particulierFacade;
+    
+    @EJB
+    private PersonnePubliqueFacade personnePubliqueFacade;
+    
+    @EJB
     private CompteEmployeFacadeLocal compteEmployeFacade;
 
     
@@ -25,4 +33,11 @@ public class GestionSession implements GestionSessionLocal {
     public CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp) {
         return compteEmployeFacade.AuthentifierCompteEmploye(login, mdp);
     }
+
+    @Override
+    public void AjouterDonnée() {
+       
+    }
+    
+    
 }

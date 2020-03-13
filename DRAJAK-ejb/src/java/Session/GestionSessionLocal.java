@@ -16,5 +16,7 @@ import javax.ejb.Local;
 public interface GestionSessionLocal {
 
     CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp);
+
+    void AjouterDonnée();
     
 }
