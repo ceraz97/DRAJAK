@@ -35,7 +35,7 @@
                         <li class="nav-item"><a href="offre.jsp" class="nav-link">Simulation</a></li>
                         <li class="nav-item"><a href="particulier.jsp" class="nav-link">Mes infos</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <li class="nav-item cta"><a href="accueil.jsp" class="nav-link"><span>Se déconnecter</span></a></li>
+                        <li class="nav-item cta"><a onclick="location.href='menuDrajak?action=Deconnexion&typeConnexion=AssureMenu'" class="nav-link"><span>Se déconnecter</span></a></li>
                     </ul>
                 </div>
             </div>
