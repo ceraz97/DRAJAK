@@ -51,8 +51,7 @@ public class GestionSession implements GestionSessionLocal {
 
     @Override
     public void AjouterDonnee() {
-        System.out.println("=========elie pute");
-        Particulier p;
+       Particulier p;
        RegimeSocial rs;
        Genre neutre, femme, homme;
        neutre= Genre.Neutre; femme= Genre.Femme; homme= Genre.Homme;
