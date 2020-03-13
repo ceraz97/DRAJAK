@@ -61,24 +61,7 @@ public abstract class PersonnePhysique implements Serializable {
     }
     @Column (nullable=false)
     private StatutPersonne statutPersonne;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public StatutPersonne getStatutPersonne() {
-        return statutPersonne;
-    }
-
-    public void setStatutPersonne(StatutPersonne statutPersonne) {
-        this.statutPersonne = statutPersonne;
-    }
     
-
     public StatutPersonne getStatutPeronne() {
         return statutPersonne;
     }
