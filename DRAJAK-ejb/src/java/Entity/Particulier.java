@@ -42,13 +42,13 @@ public class Particulier extends PersonnePhysique implements Serializable {
     @Column (nullable=false, unique=true)
     private int nAdherent;
     @Column (nullable=false, unique=true)
-    private int nSecuriteSocial;
+    private String nSecuriteSocial;
 
-    public int getnSecuriteSocial() {
+    public String getnSecuriteSocial() {
         return nSecuriteSocial;
     }
 
-    public void setnSecuriteSocial(int nSecuriteSocial) {
+    public void setnSecuriteSocial(String nSecuriteSocial) {
         this.nSecuriteSocial = nSecuriteSocial;
     }
     

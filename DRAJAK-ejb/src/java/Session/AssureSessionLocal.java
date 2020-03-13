@@ -33,9 +33,9 @@ public interface AssureSessionLocal {
 
     String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion);
 
-    CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier);
+    CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier);
 
-    Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
 
     boolean RechercherExistenceAssurePourBDD();
 

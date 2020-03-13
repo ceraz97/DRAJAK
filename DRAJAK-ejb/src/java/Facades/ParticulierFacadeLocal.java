@@ -33,13 +33,14 @@ public interface ParticulierFacadeLocal {
 
     int count();
     
-    Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
 
     List ListerAllParticulier();
     
     void ModifierParticulier(Particulier p);
     
     void SupprimerParticulier(Particulier p);
+    
 
     
 }

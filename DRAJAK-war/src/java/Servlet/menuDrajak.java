@@ -68,8 +68,8 @@ public class menuDrajak extends HttpServlet {
         }
         //Initialisation de données dans la base de données
         /*if(assureSession.RechercherExistenceAssurePourBDD()==true){
-            Particulier part = assureSession.CreerParticulier("0601020304", "adresse", "NomAssure1", "PrenomAssure1",Genre.Homme, Date.from(Instant.now()), StatutPersonne.Actif);
-            assureSession.CreerCompteAssure("login@test.com", "mdp", part);
+            Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1",Genre.Homme, Date.from(Instant.now()), "1970733199834","login@test.com","0601020304", "adresse", StatutPersonne.Actif);
+            assureSession.CreerCompteAssure("mdp", part);
         }*/
         
 

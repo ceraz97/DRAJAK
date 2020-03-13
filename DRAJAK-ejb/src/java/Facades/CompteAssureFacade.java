@@ -50,9 +50,9 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier) {
+    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier) {
         CompteAssure ca = new CompteAssure();
-        ca.setLogin(email);
+        ca.setLogin(cleParticulier.getEmail());
         ca.setMdp(mdp);
         ca.setCleParticulier(cleParticulier);
         getEntityManager().persist(ca);

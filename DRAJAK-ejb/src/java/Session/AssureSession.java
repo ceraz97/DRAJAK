@@ -71,12 +71,12 @@ public class AssureSession implements AssureSessionLocal {
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier) {
-        return compteAssureFacade.CreerCompteAssure(email, mdp, cleParticulier);
+    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier) {
+        return compteAssureFacade.CreerCompteAssure(mdp, cleParticulier);
     }
     @Override
-    public Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne) {
-        return  particulierFacade.CreerParticulier(tel, adr, nom, prenom, genre, Dob, statutPersonne);
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr, statutPersonne);
     }
 
     @Override
