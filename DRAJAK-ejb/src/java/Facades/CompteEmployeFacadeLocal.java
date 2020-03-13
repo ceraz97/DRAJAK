@@ -34,7 +34,7 @@ public interface CompteEmployeFacadeLocal {
 
     int count();
     
-    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
+    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, String role, StatutPersonne statutPersonne);
     
     CompteEmploye AuthentifierCompteEmploye(String login, String mdp);
     
