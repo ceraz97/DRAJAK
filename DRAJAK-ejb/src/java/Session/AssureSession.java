@@ -33,9 +33,32 @@ public class AssureSession implements AssureSessionLocal {
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
     
+    @Override
+    public String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion) {
+        CompteAssure ca;
+        String message = null;
+        ca = compteAssureFacade.RechercherCompteAssure(login);
+        
+        if(SessConnexion == ca){
+            if(newMdp.length()>6){
+                ca.setMdp(newMdp);
+                compteAssureFacade.ModifierCompteAssure(ca);
+                message = "Le mot de passe a été modifié avec succès.";
+            }
+            else message = "Erreur : Mot de passe trop court, merci d'entrer un mot de passe de plus de 6 caractères.";
+        }
+        else message = "Erreur : Le login est incorrect. Le mot de passe n'a pas été modifié.";
+        return message;      
+    }
     
-    
-
+    @Override
+     public CompteAssure AuthentificationAssure(String login, String mdp) {
+        CompteAssure SessConnexion;
+        
+        SessConnexion=compteAssureFacade.AuthentifierCompteAssure(login, mdp);
+        
+        return SessConnexion;
+    }
     
     @Override
     public CompteAssure RechercherCompteAssurePourConnexion (String login, String mdp) {

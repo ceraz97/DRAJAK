@@ -6,8 +6,12 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.ObjetGarantie;
 import Entity.Particulier;
 import Entity.PersonneMorale;
+import Entity.PersonnePhysique;
+import Entity.PersonnePublique;
+import Entity.Produit;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import java.util.Date;
@@ -20,14 +24,19 @@ import javax.ejb.Local;
 @Local
 public interface AssureSessionLocal {
 
-    CompteAssure RechercherCompteAssurePourConnexion (String login, String mdp);
+    CompteAssure RechercherCompteAssurePourConnexion(String login, String mdp);
 
     PersonneMorale RechercherCompteEntreprisePourConnexion(String login, String mdp);
 
-    CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier);
     
+    CompteAssure AuthentificationAssure(String login, String mdp);
+
+    String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion);
+
+    CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier);
+
     Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
 
     boolean RechercherExistenceAssurePourBDD();
-    
+
 }

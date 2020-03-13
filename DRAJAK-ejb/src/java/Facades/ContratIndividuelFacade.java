@@ -8,6 +8,7 @@ package Facades;
 import Entity.*;
 import Enum.ChoixPaiement;
 import Enum.StatutContrat;
+import Enum.TypeContrat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -35,20 +36,22 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }
     
     @Override
-    public ContratIndividuel CreerContratIndividuel(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ObjetGarantie cleObjetGarantie) {
+    public ContratIndividuel CreerContratIndividuel(Date datCreation, Date datFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ContratIndividuel devis) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
+        contratIndividuelInstance = devis;
         contratIndividuelInstance.setDateCreation(datCreation);
-        contratIndividuelInstance.setDateFin(dateFin);
+        contratIndividuelInstance.setDateFin(datFin);
         contratIndividuelInstance.setLibelleContrat(libelle);
         contratIndividuelInstance.setStatut(statut);
         contratIndividuelInstance.setPaiement(paiement);
         contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
-        contratIndividuelInstance.setCleProduit(cleProduit);
-        contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
+        TypeContrat type = TypeContrat.Individuel;
+        contratIndividuelInstance.setType(type);
         getEntityManager().persist(contratIndividuelInstance);
         return contratIndividuelInstance;
     }
+    
     @Override
     public ContratIndividuel CreerContratAdhesion(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ContratCollectif cleContratCollectif, ObjetGarantie cleObjetGarantie) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
@@ -67,13 +70,14 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }  
     
     @Override
-    public ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePhysique clePersonnePhysique, Produit cleProduit, ObjetGarantie cleObjetGarantie) {
+    public ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, Produit cleProduit, ObjetGarantie cleObjetGarantie) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         contratIndividuelInstance.setDateCreation(datCreation);
         contratIndividuelInstance.setLibelleContrat(libelle);
         StatutContrat statut = StatutContrat.Devis;
         contratIndividuelInstance.setStatut(statut);
         contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
+        contratIndividuelInstance.setClePersonnePublique(clePersonnePublique);
         contratIndividuelInstance.setCleProduit(cleProduit);
         contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
         getEntityManager().persist(contratIndividuelInstance);
