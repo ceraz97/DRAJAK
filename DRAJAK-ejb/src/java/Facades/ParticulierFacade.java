@@ -62,11 +62,27 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
         return ListerAllParticulier;
     }
     
-        public void ModifierParticulier(Particulier p) {
+    public void ModifierParticulier(Particulier p) {
         em.merge(p);
-        }
+    }
         
-        public void SupprimerParticulier(Particulier p){
+    public void SupprimerParticulier(Particulier p){
         em.remove(p);
+    }
+    
+    @Override
+    public Particulier RechercherParticulier(String nSecu) {
+        Particulier p;
+        String txt = "SELECT p FROM Particulier P WHERE p.nSecu=:nNecu ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("nSecu", nSecu);
+        p = null;
+        List<Particulier> result = req.getResultList();
+        if (result.size() == 1) {
+            p = (Particulier) result.get(0);
         }
+        return p;
+
+    } 
+        
     }

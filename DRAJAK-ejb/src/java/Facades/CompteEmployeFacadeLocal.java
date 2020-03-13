@@ -7,6 +7,7 @@ package Facades;
 
 import Entity.CompteEmploye;
 import Enum.Genre;
+import Enum.Role;
 import Enum.StatutPersonne;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,7 @@ public interface CompteEmployeFacadeLocal {
 
     int count();
     
-    CompteEmploye CreerCompteEmploye(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, String role, StatutPersonne statutPersonne);
     
     CompteEmploye AuthentifierCompteEmploye(String login, String mdp);
     

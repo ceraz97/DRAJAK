@@ -8,6 +8,7 @@ package Facades;
 import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.Particulier;
+import Entity.RegimeSocial;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -34,7 +35,7 @@ public interface CompteAssureFacadeLocal {
     
     CompteAssure AuthentifierCompteAssure(String login, String mdp);
     
-    CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier);
+    CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial);
             
     void ModifierCompteAssure(CompteAssure ca);
     

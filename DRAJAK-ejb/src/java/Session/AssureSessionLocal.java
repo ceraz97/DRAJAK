@@ -12,6 +12,7 @@ import Entity.PersonneMorale;
 import Entity.PersonnePhysique;
 import Entity.PersonnePublique;
 import Entity.Produit;
+import Entity.RegimeSocial;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import java.util.Date;
@@ -33,7 +34,7 @@ public interface AssureSessionLocal {
 
     String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion);
 
-    CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier);
+    CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial);
 
     Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
 

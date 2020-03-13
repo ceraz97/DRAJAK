@@ -7,6 +7,7 @@ package Facades;
 
 import Entity.CompteEmploye;
 import Enum.Genre;
+import Enum.Role;
 import Enum.StatutPersonne;
 import java.util.Date;
 import java.util.List;
@@ -50,22 +51,24 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     }
 
     @Override
-    public CompteEmploye CreerCompteEmploye(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne) {
+    public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, String role, StatutPersonne statutPersonne) {
         CompteEmploye ce = new CompteEmploye();
-        
+        ce.setLogin(login);
+        ce.setMdp(mdp);
+        ce.setNom(nom);
+        ce.setPrenom(prenom);  
+        ce.setGenre(genre);   
+        ce.setDateNaissance(Dob);
+        ce.setEmail(email);
+        ce.setnTelephone(tel);
+        ce.setAdresse(adr);
+        ce.setRoleEmploye(role);
+        ce.setStatutPeronne(statutPersonne);
         //Création du code employé avec la première lettre du Nom, puis prenom, puis l'ID de la personne
         int id = (int)(long)ce.getId();
         String InitialP = prenom.substring(0,1);
         String InitialN = nom.substring(0,1);
         ce.setCodeEmploye(InitialN+InitialP+id);
-        
-        ce.setnTelephone(tel);
-        ce.setAdresse(adr);
-        ce.setNom(nom);
-        ce.setPrenom(prenom);
-        ce.setGenre(genre);
-        ce.setDateNaissance(Dob);
-        ce.setStatutPeronne(statutPersonne);
         return ce;  
     }
 
