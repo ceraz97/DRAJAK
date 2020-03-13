@@ -506,22 +506,33 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     Vous êtes
-                                    <div class="social-buttons">
-                                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Particulier</a>
-                                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Entreprise</a>
-                                    </div>
-                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                    <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+                                        <div class="social-buttons">
+                                            <a id="btnParticlier" class="btn btn-primary btn-blockCo">Particulier</a>
+                                            <a id="btnEntreprise" class="btn btn-primary btn-blockCo">Entreprise</a>
+                                        </div>
+                                        <div class="ensembleBooutonsRadio">
+                                            <div class = "radioButtonStyle">
+                                                <input class ="RadioButtonStyle" name="action" type="radio" id="AssureMenu" value="AssureAuthentification" checked="true"/>
+                                                <label for="action">Particulier</label>
+                                            </div>
+                                            <div class="radioButtonStyle">
+                                                <input class ="RadioButtonStyle" name="action" type="radio" id="EntrepriseMenu" value="EntrepriseAuthentification"/>
+                                                <label for="action">Entreprise</label>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse email" required>
+                                            <label class="sr-only" for="login">Adresse email</label>
+                                            <input type="email" class="form-control" name="login" placeholder="Adresse email" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Mot de passe" required>
+                                            <label class="sr-only" for="mdp">Mot de passe</label>
+                                            <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required>
                                             <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                                            <button type="submit" class="btn btn-primary btn-block" value="Valider">Connexion</button>
                                         </div>
                                         <div class="checkbox">
                                             <label>

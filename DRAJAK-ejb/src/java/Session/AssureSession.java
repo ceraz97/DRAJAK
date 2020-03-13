@@ -6,9 +6,14 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.Particulier;
 import Entity.PersonneMorale;
+import Enum.Genre;
+import Enum.StatutPersonne;
 import Facades.CompteAssureFacadeLocal;
+import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -20,10 +25,15 @@ import javax.ejb.Stateless;
 public class AssureSession implements AssureSessionLocal {
 
     @EJB
+    private ParticulierFacadeLocal particulierFacade;
+
+    @EJB
     private PersonneMoraleFacadeLocal personneMoraleFacade;
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+    
     
 
     
@@ -36,6 +46,22 @@ public class AssureSession implements AssureSessionLocal {
     public PersonneMorale RechercherCompteEntreprisePourConnexion(String login, String mdp) {
         return personneMoraleFacade.AuthentifierCompteEntreprise(login, mdp);
     }
-    
-    
+
+    @Override
+    public CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier) {
+        return compteAssureFacade.CreerCompteAssure(email, mdp, cleParticulier);
+    }
+    @Override
+    public Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne) {
+        return  particulierFacade.CreerParticulier(tel, adr, nom, prenom, genre, Dob, statutPersonne);
+    }
+
+    @Override
+    public boolean RechercherExistenceAssurePourBDD() {
+        boolean vide = true;
+        if (particulierFacade.ListerAllParticulier().size() != 0){
+            vide = false;
+        }
+        return vide;
+    }
 }

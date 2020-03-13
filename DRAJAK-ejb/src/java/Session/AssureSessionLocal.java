@@ -6,7 +6,11 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.Particulier;
 import Entity.PersonneMorale;
+import Enum.Genre;
+import Enum.StatutPersonne;
+import java.util.Date;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +23,11 @@ public interface AssureSessionLocal {
     CompteAssure RechercherCompteAssurePourConnexion (String login, String mdp);
 
     PersonneMorale RechercherCompteEntreprisePourConnexion(String login, String mdp);
+
+    CompteAssure CreerCompteAssure(String email, String mdp, Particulier cleParticulier);
+    
+    Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne);
+
+    boolean RechercherExistenceAssurePourBDD();
     
 }

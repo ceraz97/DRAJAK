@@ -6,10 +6,14 @@
 package Servlet;
 
 import Entity.*;
+import Enum.Genre;
+import Enum.StatutPersonne;
 import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -62,6 +66,12 @@ public class menuDrajak extends HttpServlet {
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
+        //Initialisation de données dans la base de données
+        /*if(assureSession.RechercherExistenceAssurePourBDD()==true){
+            Particulier part = assureSession.CreerParticulier("0601020304", "adresse", "NomAssure1", "PrenomAssure1",Genre.Homme, Date.from(Instant.now()), StatutPersonne.Actif);
+            assureSession.CreerCompteAssure("login@test.com", "mdp", part);
+        }*/
+        
 
         if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals(""))) {
             jspAffiche = "/ErreurSession.jsp";
@@ -75,7 +85,7 @@ public class menuDrajak extends HttpServlet {
             } else if (act.substring(0, 5).equals("Administrateur")) {
                 request.setAttribute("typeConnexion", "AdministrateurMenu");
             }
-        } else if (null == act) {
+        } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
         } else {

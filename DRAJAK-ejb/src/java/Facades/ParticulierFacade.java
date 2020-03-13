@@ -34,6 +34,7 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
         super(Particulier.class);
     }
     
+    
     @Override
     public Particulier CreerParticulier(String tel, String adr, String nom, String prenom, Genre genre, Date Dob, StatutPersonne statutPersonne) {
         Particulier p = new Particulier();
