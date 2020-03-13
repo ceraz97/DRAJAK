@@ -15,6 +15,7 @@ import Entity.PersonnePublique;
 import Entity.Produit;
 import Enum.ChoixPaiement;
 import Enum.StatutContrat;
+import Enum.TypeContrat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -41,11 +42,7 @@ public interface ContratIndividuelFacadeLocal {
 
     int count();
     
-    ContratIndividuel CreerContratIndividuel(Date datCreation, Date datFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ContratIndividuel devis);
-    
-    ContratIndividuel CreerContratAdhesion(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, ContratCollectif cleContratCollectif, ObjetGarantie cleObjetGarantie);
-            
-    ContratIndividuel CreerDevis(Date datCreation, String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, Produit cleProduit, ObjetGarantie cleObjetGarantie);
+    public ContratIndividuel CreerContrat(Date datCreation, Date datFin, String libelle, StatutContrat statut, TypeContrat type, ChoixPaiement paiement, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ContratIndividuel devis);
     
     void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
         

@@ -27,7 +27,7 @@ public interface AssureSessionLocal {
 
     PersonneMorale RechercherCompteEntreprisePourConnexion(String login, String mdp);
     
-    String CreationDevis(String tel, String adr, String nom, String prenom, Genre genre, Date dob, StatutPersonne statutPersonne, Produit produit, CompteAssure compteAssure, PersonnePublique personnePublique, ObjetGarantie objetGarantie);
+    String CreationDevis();
     
     String CreationContratIndividuel();
     

@@ -6,13 +6,16 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.CompteEmploye;
 import Entity.ContratIndividuel;
 import Entity.ObjetGarantie;
 import Entity.PersonneMorale;
 import Entity.PersonnePhysique;
 import Entity.PersonnePublique;
 import Entity.Produit;
+import Enum.ChoixPaiement;
 import Enum.Genre;
+import Enum.StatutContrat;
 import Enum.StatutPersonne;
 import Enum.TypeContrat;
 import Facades.CompteAssureFacade;
@@ -64,29 +67,14 @@ public class AssureSession implements AssureSessionLocal {
         return personneMoraleFacade.AuthentifierCompteEntreprise(login, mdp);
     }
     
-           //Faire un test dans la JSP pour savoir si le devis est fait par un assuré ou une personne publique ?
-    public String CreationDevis(String tel, String adr, String nom, String prenom, Genre genre, Date dob, StatutPersonne statutPersonne, Produit produit, CompteAssure compteAssure, PersonnePublique personnePublique, ObjetGarantie objetGarantie){
-        String message = "Devis crée";
-        TypeContrat contrat = TypeContrat.Individuel;
-        //Date de la création du devis
-        Date dateCrea = new Date();
-        String libelle = "Devis en date du" + dateCrea + "a traité par un gestionnaire";
-        //Choix du produit
-        ContratIndividuel devis;
-        devis=contratIndividuel.CreerDevis(dateCrea, libelle, compteAssure, personnePublique, produit, objetGarantie);
-        return message;   
+    
+    public String CreationDevis(){
+       String message = null;
+        return message; 
     }    
     
     public String CreationContratIndividuel(){
-        String message = "Contrat crée";
-        //Date de la création du devis
-        Calendar dateDebut = Calendar.getInstance();
-        dateDebut.add(Calendar.YEAR, 1);
-        Date dateFin = dateDebut.getTime();
-        String libelle = "Devis en date du" + dateDebut + "a traité par un gestionnaire";
-        //Choix du produit
-        ContratIndividuel devis;
-        //devis=contratIndividuel.CreerDevis(dateDebut, libelle, compteAssure, personnePhysique, produit, objetGarantie);
+       String message = null;
         return message;         
     }
     
