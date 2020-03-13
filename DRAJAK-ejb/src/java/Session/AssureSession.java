@@ -8,6 +8,7 @@ package Session;
 import Entity.CompteAssure;
 import Entity.Particulier;
 import Entity.PersonneMorale;
+import Entity.RegimeSocial;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import Facades.CompteAssureFacadeLocal;
@@ -71,8 +72,8 @@ public class AssureSession implements AssureSessionLocal {
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier) {
-        return compteAssureFacade.CreerCompteAssure(mdp, cleParticulier);
+    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial) {
+        return compteAssureFacade.CreerCompteAssure(mdp, cleParticulier, cleRegimeSocial);
     }
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {

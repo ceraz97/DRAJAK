@@ -8,6 +8,7 @@ package Facades;
 import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.Particulier;
+import Entity.RegimeSocial;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,7 +51,7 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     }
 
     @Override
-    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier) {
+    public CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial) {
         CompteAssure ca = new CompteAssure();
         ca.setLogin(cleParticulier.getEmail());
         ca.setMdp(mdp);

@@ -37,5 +37,7 @@ public interface RegimeSocialFacadeLocal {
     void SupprimerCompteAssure(RegimeSocial rs);
             
     List ListerAllRegimeSocial();
+    
+    RegimeSocial RechercherRegimeSocial(String libelle);
 }
 
