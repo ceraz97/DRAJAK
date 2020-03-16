@@ -27,7 +27,7 @@
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Accueil</a></li>
+                        <li class="nav-item active"><a href="accueilPublic.jsp" class="nav-link">Accueil</a></li>
                         <li class="nav-item"><a href="about.jsp" class="nav-link">Qui sommes-nous ?</a></li>
                         <li class="nav-item"><a href="offre.jsp" class="nav-link">Offres</a></li>
                         <li class="nav-item"><a href="particulier.jsp" class="nav-link">Particulier</a></li>

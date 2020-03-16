@@ -68,10 +68,10 @@ public class menuDrajak extends HttpServlet {
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
         //Initialisation de données dans la base de données
-        if (assureSession.RechercherExistenceAssurePourBDD() == true) {
+       /* if (assureSession.RechercherExistenceAssurePourBDD() == true) {
             Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
             assureSession.CreerCompteAssure("mdp", part);
-        }
+        }*/
 
         if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals(""))) {
             jspAffiche = "/ErreurSession.jsp";
