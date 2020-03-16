@@ -53,20 +53,23 @@ public class menuDrajak extends HttpServlet {
 
         String jspAffiche = null;
         String message = null;
+        String typeSession = null;
         String act = request.getParameter("action");
         HttpSession session = request.getSession(false);
         CompteAssure sessionAssure = null;
         CompteEmploye sessionGestionnaire = null;
         CompteEmploye sessionAdministrateur = null;
         PersonneMorale sessionEntreprise = null;
+        boolean sessionPublic = true;
         List<Object> Response;
-        System.out.println("=========" + act);
+        System.out.println("=== " + act + " ===");
         if (session != null) {
             sessionAssure = (CompteAssure) session.getAttribute("sessionAssure");
             sessionGestionnaire = (CompteEmploye) session.getAttribute("sessionGestionnaire");
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
+        
         //Initialisation de données dans la base de données
         /*if (assureSession.RechercherExistenceAssurePourBDD() == true) {
             Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
@@ -88,7 +91,7 @@ public class menuDrajak extends HttpServlet {
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
-            System.out.println("act == null");
+            System.out.println("act == Accueil Normale");
         } else {
             System.out.println("act != null");
             switch (act) {
@@ -127,6 +130,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("typeConnexion", request.getParameter("typeConnexion"));
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Vous êtes déconnecté";
+                    sessionPublic=true;
                     break;
 
                 case "AssureAuthentification":
@@ -147,6 +151,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAssure", sessionAssure);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -169,6 +174,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -191,6 +197,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionEntreprise", sessionEntreprise);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -213,7 +220,30 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
+                            sessionPublic=false;
                         }
+                    }
+                    break;
+                    
+                case "AssureVersPageAfficherContrat" :
+                    jspAffiche="/.jsp";
+                    message="";
+                    break;
+                    
+                case "DemandeDevis_besoins":
+                    if (sessionAssure != null) {
+                        jspAffiche = "/realiserDevisBesoins_Assure.jsp";
+                    } else if (sessionPublic=true) {
+                        jspAffiche = "/realiserDevisBesoins_Public.jsp";
+                    }
+                    break;
+                
+                case "DemandeDevis_infos":
+                    if (sessionAssure != null) {
+                        jspAffiche = "/realiserDevisInfos_Assure.jsp";
+                        session.setAttribute("sessionAssure", sessionAssure);
+                    } else if (sessionPublic=true) {
+                        jspAffiche = "/realiserDevisInfos_Public.jsp";
                     }
                     break;
             }
@@ -222,6 +252,7 @@ public class menuDrajak extends HttpServlet {
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
         request.setAttribute("message", message);
         Rd.forward(request, response);
+        System.out.println("Public : " + sessionPublic+", Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

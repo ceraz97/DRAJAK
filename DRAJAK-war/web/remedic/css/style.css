@@ -2473,11 +2473,11 @@ fieldset:disabled a.btn {
     margin-left: 10px;
 }
 
-#btnParticlier, #btnEntreprise {
+.btn-ajoute, #btnParticlier, #btnEntreprise {
     color: white;
 }
 
-#btnParticlier:hover, #btnEntreprise:hover {
+ .btn-ajoute:hover, #btnParticlier:hover, #btnEntreprise:hover{
     color: #167ce9;
 }
 
@@ -3580,8 +3580,7 @@ input[type="button"].btn-block {
 
 .navbar-dark .navbar-brand {
     color: #fff; }
-.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
-    color: #fff; }
+
 
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.5); }

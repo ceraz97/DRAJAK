@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="remedic/css/flaticon.css">
     <link rel="stylesheet" href="remedic/css/icomoon.css">
     <link rel="stylesheet" href="remedic/css/style.css">
+    <link rel="stylesheet" href="remedic/css/FormulaireDevis.css">
     
     
     
