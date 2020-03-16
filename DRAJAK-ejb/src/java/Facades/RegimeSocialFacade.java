@@ -59,4 +59,19 @@ public class RegimeSocialFacade extends AbstractFacade<RegimeSocial> implements 
         ListerAllRegimeSocial=req.getResultList();
         return ListerAllRegimeSocial;
     }
+    
+    @Override
+    public RegimeSocial RechercherRegimeSocial(String libelle) {
+        RegimeSocial rs;
+        String txt = "SELECT rs FROM RegimeSocial RS WHERE rs.libelle=:libelle ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("libelle", libelle);
+        rs = null;
+        List<RegimeSocial> result = req.getResultList();
+        if (result.size() == 1) {
+            rs = (RegimeSocial) result.get(0);
+        }
+        return rs;
+
+    }
 }
