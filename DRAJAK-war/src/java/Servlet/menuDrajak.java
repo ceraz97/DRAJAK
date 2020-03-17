@@ -69,12 +69,13 @@ public class menuDrajak extends HttpServlet {
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
-        
+ 
         //Initialisation de données dans la base de données
-        /*if (assureSession.RechercherExistenceAssurePourBDD() == true) {
-            Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
-            assureSession.CreerCompteAssure("mdp", part);
+        /*if (gestionSession.VerificationDonne()==true)
+        {
+            gestionSession.AjouterDonnee();
         }*/
+        
 
         if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos"))) {
             jspAffiche = "/ErreurSession.jsp";
