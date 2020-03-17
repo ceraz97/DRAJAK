@@ -147,7 +147,11 @@
     border-color:#167ce9;
 }
 
-.progressbar li.active_progressebar + li:after {
+/*.progressbar li.active_progressebar + li:after {
+    background-color: #167ce9;
+}
+*/
+.progressbar li.active_progressebar:after {
     background-color: #167ce9;
 }
 
@@ -184,4 +188,22 @@
 }
 ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
     width:5%;
+}
+
+.colonne2Lignehaut{
+    background-color: #e9eaf1;
+    padding: 5px 5px 5px 20px;
+}
+
+.colonne2LigneBas{
+    background-color: #f8f8fb;
+    padding: 5px 5px 5px 20px;
+}
+
+.champsAdresseDevis {
+    display: flex;
+    flex-direction: column;
+    width:60%;
+    margin: 5px auto;
+    position: relative;
 }

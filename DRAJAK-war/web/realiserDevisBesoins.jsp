@@ -3,12 +3,10 @@
     Created on : 12 mars 2020, 13:46:20
     Author     : Ilkayk
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
     <head>
         <title>Demande de devis</title>
         <meta charset="utf-8">
@@ -20,29 +18,24 @@
     </head>
 
     <body>
-        <!-- Menu Assure -->
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-            <div class="container">
-                <a class="navbar-brand" href="accueil.jsp"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="oi oi-menu"></span> Menu
-                </button>
+        
+        
+    <!-- Affichage du menu suivant l'utilisateur-->
+        
+        <%String attributSession = (String) request.getAttribute("typeSession");
+            if (attributSession.equalsIgnoreCase("sessionAssure")) {%>
+                <%@include file="Menus/NavBar_assure.jsp" %>
+            <%} else if (attributSession.equalsIgnoreCase("sessionPublic")) {%>
+                <%@include file="Menus/NavBar_public.jsp" %>
+            <%} else if (attributSession.equalsIgnoreCase("sessionGestionnaire")) {%>
+                <%@include file="Menus/NavBar_gestionnaire.jsp" %>
+            <%} else if (attributSession.equalsIgnoreCase("sessionEntreprise")) {%>
+                <%@include file="Menus/NavBar_entreprise.jsp" %>
+            <%} else if (attributSession.equalsIgnoreCase("sessionAdministrateur")) {%>
+                <%@include file="Menus/NavBar_administrateur.jsp" %>
+            <%}
+        %>
 
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Accueil</a></li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">Gérer mes contrats</a></li>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link">Simulation</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link">Mon espace</a>
-
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link">Mes infos</a></li>
-                        <li class="nav-item cta"><a onclick="location.href = 'menuDrajak?action=Deconnexion&typeConnexion=AssureMenu'" class="nav-link"><span>Se déconnecter</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Fin Menu Assure -->
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
@@ -177,7 +170,7 @@
                                 </section>
                             </div>
                             <div class="form-group">
-                                <input type="button" value="Obtenir tarifs" onclick="location.href='menuDrajak?action=DemandeDevis_infos'">
+                                <input type="hidden" name="action" value="DemandeDevis_infos"/>
                                 <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
                             </div>
                         </form>
