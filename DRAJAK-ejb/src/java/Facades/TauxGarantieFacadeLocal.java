@@ -5,6 +5,8 @@
  */
 package Facades;
 
+import Entity.Garantie;
+import Entity.ObjetGarantie;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
 import java.util.List;
@@ -31,7 +33,7 @@ public interface TauxGarantieFacadeLocal {
 
     int count();
 
-    TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge);
+    TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge, ObjetGarantie cleObjetGrantie, Garantie cleGarantie);
 
     List<TauxGarantie> ListerAllTauxGarantie();
     

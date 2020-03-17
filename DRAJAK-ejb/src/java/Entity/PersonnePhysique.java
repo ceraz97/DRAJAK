@@ -43,6 +43,8 @@ public abstract class PersonnePhysique implements Serializable {
     private Date dateNaissance;
     @Column (nullable=false, unique=true)
     private String email;
+    @Column (nullable=false)
+    private StatutPersonne statutPersonne;
 
     public String getEmail() {
         return email;
@@ -59,8 +61,6 @@ public abstract class PersonnePhysique implements Serializable {
     public void setStatutPersonne(StatutPersonne statutPersonne) {
         this.statutPersonne = statutPersonne;
     }
-    @Column (nullable=false)
-    private StatutPersonne statutPersonne;
     
     public StatutPersonne getStatutPeronne() {
         return statutPersonne;

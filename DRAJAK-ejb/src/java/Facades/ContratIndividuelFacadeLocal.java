@@ -42,11 +42,11 @@ public interface ContratIndividuelFacadeLocal {
 
     int count();
     
-    public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye);
+    public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit);
     
-    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye);
+    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit);
     
-    ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis);
+    ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis);
     
     void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
         

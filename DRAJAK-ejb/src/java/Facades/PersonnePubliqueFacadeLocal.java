@@ -40,4 +40,7 @@ public interface PersonnePubliqueFacadeLocal {
     void ModifierPersonnePublique(PersonnePublique pp);
     
     void SupprimerPersonnePublique(PersonnePublique pp);
+    
+    PersonnePublique RechercherPersonnePublique(String nSecu);
+    
 }

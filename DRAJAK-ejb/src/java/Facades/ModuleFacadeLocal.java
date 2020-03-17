@@ -33,7 +33,7 @@ public interface ModuleFacadeLocal {
 
     int count();
 
-    Modules CreerModule(String libelle,List<Produit>listeProduit, TypeModule typeModule, List<Garantie> listeGarantie);
+    Modules CreerModule(String libelle, TypeModule typeModule, List<Garantie> listeGarantie);
 
     void SupprimerModule(Modules module);
 

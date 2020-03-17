@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 public class ContratIndividuel extends Contrat implements Serializable {
 
     @ManyToOne
+    @JoinColumn (nullable=true)
     private PersonnePublique clePersonnePublique;
 
     public PersonnePublique getClePersonnePublique() {

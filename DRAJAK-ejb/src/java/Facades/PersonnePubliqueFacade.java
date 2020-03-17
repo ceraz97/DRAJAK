@@ -58,11 +58,26 @@ public class PersonnePubliqueFacade extends AbstractFacade<PersonnePublique> imp
         return ListerAllPersonnePublique;
     }
     
-        public void ModifierPersonnePublique(PersonnePublique pp) {
+    public void ModifierPersonnePublique(PersonnePublique pp) {
         em.merge(pp);
         }
         
-        public void SupprimerPersonnePublique(PersonnePublique pp){
+    public void SupprimerPersonnePublique(PersonnePublique pp){
         em.remove(pp);
         }
-}
+
+    @Override
+    public PersonnePublique RechercherPersonnePublique(String nSecu) {
+        PersonnePublique pp;
+        String txt = "SELECT pp FROM PersonnePublique PP WHERE pp.nSecu=:nSecu ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("nSecu", nSecu);
+        pp = null;
+        List<PersonnePublique> result = req.getResultList();
+        if (result.size() == 1) {
+            pp = (PersonnePublique) result.get(0);
+        }
+        return pp;
+
+    }}
+

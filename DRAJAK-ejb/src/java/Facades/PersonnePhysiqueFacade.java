@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entity.ContratIndividuel;
 import Entity.PersonnePhysique;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,4 +30,5 @@ public class PersonnePhysiqueFacade extends AbstractFacade<PersonnePhysique> imp
         super(PersonnePhysique.class);
     }
     
+
 }

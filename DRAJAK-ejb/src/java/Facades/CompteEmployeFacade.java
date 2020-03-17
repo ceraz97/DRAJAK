@@ -51,8 +51,9 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     }
 
     @Override
-    public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, String role, StatutPersonne statutPersonne) {
+    public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne) {
         CompteEmploye ce = new CompteEmploye();
+
         ce.setLogin(login);
         ce.setMdp(mdp);
         ce.setNom(nom);
@@ -64,17 +65,35 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
         ce.setAdresse(adr);
         ce.setRoleEmploye(role);
         ce.setStatutPeronne(statutPersonne);
-        //Création du code employé avec la première lettre du Nom, puis prenom, puis l'ID de la personne
-        int id = (int)(long)ce.getId();
-        String InitialP = prenom.substring(0,1);
-        String InitialN = nom.substring(0,1);
-        ce.setCodeEmploye(InitialN+InitialP+id);
+        
+       String IniP = ce.getPrenom();
+       String IniN = ce.getNom();
+       String InitialP = prenom.substring(0,1);
+       String InitialN = nom.substring(0,1);
+       ce.setCodeEmploye(IniP+IniN+"0");
+
+        getEntityManager().persist(ce);
         return ce;  
     }
 
+    public void CreerID(CompteEmploye ce){
+//Création du code employé avec la première lettre du Nom, puis prenom, puis l'ID de la personne
+//Ne peut pas être dans le méthode CreerCompteEmploye sous peine d'avoir un ID null
+       Long l = ce.getId();
+       String id = String.valueOf(l);       
+       String prenom = ce.getPrenom();
+       String nom = ce.getNom();
+       String IniP = prenom.substring(0,1);
+       String IniN = nom.substring(0,1);
+       String code = IniP+IniN+id;
+       ce.setCodeEmploye(code);   
+       em.merge(ce);
+       getEntityManager().persist(ce);
+    }
+    
     @Override
-    public void ModifierCompteEmploye(CompteEmploye ce) {
-        em.merge(ce);
+    public void ModifierCompteEmploye(CompteEmploye ce) {    
+       em.merge(ce);
     }
     
     @Override
@@ -94,7 +113,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     @Override
     public CompteEmploye RechercherEmploye(String login) {
         CompteEmploye ce;
-        String txt = "SELECT CE FROM CompteEmploye CE WHERE e.login=:login ";
+        String txt = "SELECT ce FROM CompteEmploye CE WHERE ce.login=:login ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("login", login);
         ce = null;

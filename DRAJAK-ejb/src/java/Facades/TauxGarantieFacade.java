@@ -5,6 +5,8 @@
  */
 package Facades;
 
+import Entity.Garantie;
+import Entity.ObjetGarantie;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
 import java.util.List;
@@ -33,7 +35,7 @@ public class TauxGarantieFacade extends AbstractFacade<TauxGarantie> implements 
     }
 
     @Override
-    public TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge) {
+    public TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge, ObjetGarantie cleObjetGrantie, Garantie cleGarantie) {
         TauxGarantie tauxGarantieInstance= new TauxGarantie ();
         tauxGarantieInstance.setMaxRemboursement(maxRemboursement);
         tauxGarantieInstance.setTarifCotisation(tarifCotisation);

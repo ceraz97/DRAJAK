@@ -37,7 +37,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }
     
     @Override
-    public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye) {
+    public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         Date datCreation = null;
         datCreation = new Date();
@@ -56,6 +56,8 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
         contratIndividuelInstance.setClePersonnePublique(clePersonnePublique);
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
+        contratIndividuelInstance.setCleProduit(cleProduit);
         contratIndividuelInstance.setType(type);
         
         getEntityManager().persist(contratIndividuelInstance);
@@ -64,7 +66,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     
     
     @Override
-    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye) {
+    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         PersonnePublique clePersonnePublique = null;
         Date datCreation = null;
@@ -98,7 +100,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     
     
     @Override
-    public ContratIndividuel CreerContratIndividuel( String libelle, ChoixPaiement paiement, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis) {
+    public ContratIndividuel CreerContratIndividuel( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         contratIndividuelInstance = recupDevis; //récupération des données du devis
         
@@ -119,7 +121,6 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         contratIndividuelInstance.setLibelleContrat(libelle);
         contratIndividuelInstance.setStatut(statut);
         contratIndividuelInstance.setPaiement(paiement);
-        contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
         
         getEntityManager().persist(contratIndividuelInstance);
