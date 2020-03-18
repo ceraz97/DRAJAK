@@ -245,7 +245,7 @@ public class GestionSession implements GestionSessionLocal {
        contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pri);
        individuel = contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", choixP, ce, devis);
        cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, prc, pm);
-       evenementFacade.CreerEvenement("Test", d, devis);
+       evenementFacade.CreerEvenement("Test", d, devis);//test
        c=devis;
        tf = typeFichierFacade.CreerTypeFichier("jpg");
        fichierFacade.CreerFichier("FichierDeTest", d, blob, tf, c);
