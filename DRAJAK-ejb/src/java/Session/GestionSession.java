@@ -5,7 +5,6 @@
  */
 package Session;
 
-import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.Contrat;
