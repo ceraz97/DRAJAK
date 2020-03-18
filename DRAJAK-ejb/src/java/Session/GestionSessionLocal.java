@@ -19,4 +19,6 @@ public interface GestionSessionLocal {
 
     void AjouterDonnee();
 
+    Boolean VerificationDonne();
+
 }
