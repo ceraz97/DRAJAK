@@ -71,14 +71,14 @@ public abstract class Contrat implements Serializable {
     @Column (nullable=false)
     private StatutContrat statut;
 
-    @Column (nullable=false)
+    @Column (nullable=true)
     private ChoixPaiement paiement;
 
     @Column (nullable=false)
     private TypeContrat type;
         
     @ManyToOne
-    @JoinColumn (nullable=false)
+    @JoinColumn (nullable=true)
     private CompteAssure cleCompteAssure;
 
     @ManyToOne

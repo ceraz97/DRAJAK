@@ -5,6 +5,8 @@
  */
 package Session;
 
+import Facades.ContratIndividuelFacadeLocal;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -14,6 +16,17 @@ import javax.ejb.Stateless;
 @Stateless
 public class PubliqueSession implements PubliqueSessionLocal {
 
+    @EJB 
+    private ContratIndividuelFacadeLocal contratIndividuelFacade;
+            
+    @Override
+    public void CreerDevis() {
+        
+        
+    }
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    
 }

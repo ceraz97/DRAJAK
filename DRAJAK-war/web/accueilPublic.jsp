@@ -41,6 +41,7 @@
             </div>
         </nav>
         <!-- END nav -->
+        
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed;">
             <div class="overlay"></div>
@@ -59,7 +60,7 @@
                 <div class="row no-gutters">
                     <div class="col-md-4 ftco-animate py-5 nav-link-wrap">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link px-4 active" id="v-pills-master-tab" data-toggle="pill" href="#v-pills-master" role="tab" aria-controls="v-pills-master" aria-selected="true"><span class="mr-3 flaticon-cardiogram"></span> Cardiology</a>
+                            <a class="nav-link px-4 active" id="v-pills-master-tab" data-toggle="pill" href="#v-pills-master" role="tab" aria-controls="v-pills-master" aria-selected="true"><span class="mr-3 flaticon-cardiogram"></span>Santé</a>
 
                             <a class="nav-link px-4" id="v-pills-buffet-tab" data-toggle="pill" href="#v-pills-buffet" role="tab" aria-controls="v-pills-buffet" aria-selected="false"><span class="mr-3 flaticon-neurology"></span> Neurology</a>
 
@@ -78,10 +79,10 @@
 
                             <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                                 <span class="icon mb-3 d-block flaticon-cardiogram"></span>
-                                <h2 class="mb-4">Cardiology Department</h2>
+                                <h2 class="mb-4">Protection mutuelle</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
                                 <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                                <p><a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Réaliser un devis</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">

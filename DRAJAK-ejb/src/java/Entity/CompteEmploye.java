@@ -33,7 +33,7 @@ public class CompteEmploye extends PersonnePhysique implements Serializable {
     @Column (nullable=false, unique=true)
     private String CodeEmploye;
     @Column (nullable=false)
-    private String roleEmploye;
+    private Role roleEmploye;
     
     @Column (nullable=false, unique=true)
     private String login;
@@ -66,11 +66,11 @@ public class CompteEmploye extends PersonnePhysique implements Serializable {
         this.login = login;
     }
 
-    public String getRoleEmploye() {
+    public Role getRoleEmploye() {
         return roleEmploye;
     }
 
-    public void setRoleEmploye(String roleEmploye) {
+    public void setRoleEmploye(Role roleEmploye) {
         this.roleEmploye = roleEmploye;
     }
 

@@ -62,7 +62,7 @@ public class menuDrajak extends HttpServlet {
         PersonneMorale sessionEntreprise = null;
         boolean sessionPublic = true;
         List<Object> Response;
-        System.out.println("=== " + act + " ===");
+        System.out.println("===" + act + "===");
         if (session != null) {
             sessionAssure = (CompteAssure) session.getAttribute("sessionAssure");
             sessionGestionnaire = (CompteEmploye) session.getAttribute("sessionGestionnaire");
@@ -76,7 +76,7 @@ public class menuDrajak extends HttpServlet {
             assureSession.CreerCompteAssure("mdp", part);
         }*/
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -231,20 +231,81 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                 case "DemandeDevis_besoins":
-                    if (sessionAssure != null) {
-                        jspAffiche = "/realiserDevisBesoins_Assure.jsp";
+                    jspAffiche = "/realiserDevisBesoins.jsp";
+                    message="";
+                   if (sessionAssure != null) {
+                        typeSession = "sessionAssure";
+                    } else if (sessionGestionnaire != null) {
+                        typeSession = "sessionGestionnaire";
+                    } else if (sessionEntreprise != null) {
+                        typeSession = "sessionEntreprise";
+                    } else if (sessionAdministrateur != null) {
+                        typeSession = "sessionAdministrateur";
                     } else if (sessionPublic=true) {
-                        jspAffiche = "/realiserDevisBesoins_Public.jsp";
-                    }
+                        typeSession = "sessionPublic";
+                    }  
+                    request.setAttribute("typeSession",typeSession);
                     break;
-                
+                    
                 case "DemandeDevis_infos":
+                    jspAffiche = "/realiserDevisInfos.jsp";
+                    message="";
+                    
+                    int nbAdulte =Integer.parseInt(request.getParameter("adulte").substring(6)); 
+                    int trancheAge =Integer.parseInt(request.getParameter("age").substring(3));
+                    String enfant =request.getParameter("enfant").substring(0,4);
+                    int couverture =Integer.parseInt(request.getParameter("couverture").substring(10));
+                    int optiqueDentaire =Integer.parseInt(request.getParameter("optiqueDentaire").substring(15));
+                    request.setAttribute("nbAdulte", nbAdulte);
+                    request.setAttribute("trancheAge", trancheAge);
+                    request.setAttribute("enfant", enfant); 
+                    request.setAttribute("couverture", couverture); 
+                    request.setAttribute("optiqueDentaire", optiqueDentaire); 
+                    
                     if (sessionAssure != null) {
-                        jspAffiche = "/realiserDevisInfos_Assure.jsp";
+                        typeSession = "sessionAssure";
                         session.setAttribute("sessionAssure", sessionAssure);
+                        System.out.println("genre = "+sessionAssure.getCleParticulier().getGenre());
+                    } else if (sessionGestionnaire != null) {
+                        typeSession = "sessionGestionnaire";
+                    } else if (sessionEntreprise != null) {
+                        typeSession = "sessionEntreprise";
+                    } else if (sessionAdministrateur != null) {
+                        typeSession = "sessionAdministrateur";
                     } else if (sessionPublic=true) {
-                        jspAffiche = "/realiserDevisInfos_Public.jsp";
-                    }
+                        typeSession = "sessionPublic";
+                    }  
+                    request.setAttribute("typeSession",typeSession);
+                    break;
+                    
+                case "DemandeDevis_tarif":
+                    jspAffiche = "/realiserDevisInfos.jsp";
+                    message="";
+                    
+                    int nbAdulteTarif =(Integer)request.getAttribute("nbAdulte"); 
+                    int trancheAgeTarif =(Integer)request.getAttribute("trancheAge");
+                    String enfantTarif =(String)request.getAttribute("enfant");
+                    int couvertureTarif =(Integer)request.getAttribute("couverture");
+                    int optiqueDentaireTarif =(Integer)request.getAttribute("optiqueDentaire");
+                    request.setAttribute("nbAdulte", nbAdulteTarif);
+                    request.setAttribute("trancheAge", trancheAgeTarif);
+                    request.setAttribute("enfant", enfantTarif); 
+                    request.setAttribute("couverture", couvertureTarif); 
+                    request.setAttribute("optiqueDentaire", optiqueDentaireTarif); 
+                    
+                    if (sessionAssure != null) {
+                        typeSession = "sessionAssure";
+                        session.setAttribute("sessionAssure", sessionAssure);
+                    } else if (sessionGestionnaire != null) {
+                        typeSession = "sessionGestionnaire";
+                    } else if (sessionEntreprise != null) {
+                        typeSession = "sessionEntreprise";
+                    } else if (sessionAdministrateur != null) {
+                        typeSession = "sessionAdministrateur";
+                    } else if (sessionPublic=true) {
+                        typeSession = "sessionPublic";
+                    }  
+                    request.setAttribute("typeSession",typeSession);
                     break;
             }
         }

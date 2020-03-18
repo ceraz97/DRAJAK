@@ -35,10 +35,9 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
     }
 
     @Override
-    public Modules CreerModule(String libelle ,List<Produit>listeProduit, TypeModule typeModule, List<Garantie> listeGarantie) {
+    public Modules CreerModule(String libelle, TypeModule typeModule, List<Garantie> listeGarantie) {
         Modules moduleInstance = new Modules ();
         moduleInstance.setLibelleModule(libelle);
-        moduleInstance.setLesProduits(listeProduit);
         moduleInstance.setCleTypeModule(typeModule);
         moduleInstance.setLesGaranties(listeGarantie);
         getEntityManager().persist(moduleInstance);

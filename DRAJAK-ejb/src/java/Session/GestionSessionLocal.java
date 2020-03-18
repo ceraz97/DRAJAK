@@ -18,5 +18,5 @@ public interface GestionSessionLocal {
     CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp);
 
     void AjouterDonnee();
-    
+
 }
