@@ -10,6 +10,15 @@ import Enum.Genre;
 import Enum.StatutPersonne;
 import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
@@ -77,7 +86,7 @@ public class menuDrajak extends HttpServlet {
         }
         
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos")&&!act.equals("DemandeDevis_tarif")&&!act.equals("DemandeDevis_souscription")&&!act.equals("DemandeDevis_exportpdf"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -280,19 +289,47 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                 case "DemandeDevis_tarif":
-                    jspAffiche = "/realiserDevisInfos.jsp";
+                    jspAffiche = "/realiserDevisTarif.jsp";
                     message="";
+                                        
+                    if (sessionAssure != null) {
+                        typeSession = "sessionAssure";
+                        session.setAttribute("sessionAssure", sessionAssure);
+                    } else if (sessionGestionnaire != null) {
+                        typeSession = "sessionGestionnaire";
+                    } else if (sessionEntreprise != null) {
+                        typeSession = "sessionEntreprise";
+                    } else if (sessionAdministrateur != null) {
+                        typeSession = "sessionAdministrateur";
+                    } else if (sessionPublic=true) {
+                        typeSession = "sessionPublic";
+                    }  
+                    request.setAttribute("typeSession",typeSession);
+                    break;
                     
-                    int nbAdulteTarif =(Integer)request.getAttribute("nbAdulte"); 
-                    int trancheAgeTarif =(Integer)request.getAttribute("trancheAge");
-                    String enfantTarif =(String)request.getAttribute("enfant");
-                    int couvertureTarif =(Integer)request.getAttribute("couverture");
-                    int optiqueDentaireTarif =(Integer)request.getAttribute("optiqueDentaire");
-                    request.setAttribute("nbAdulte", nbAdulteTarif);
-                    request.setAttribute("trancheAge", trancheAgeTarif);
-                    request.setAttribute("enfant", enfantTarif); 
-                    request.setAttribute("couverture", couvertureTarif); 
-                    request.setAttribute("optiqueDentaire", optiqueDentaireTarif); 
+                case "DemandeDevis_souscription":
+                    jspAffiche = "/realiserDevisTarif.jsp";
+                    message="";
+                                        
+                    if (sessionAssure != null) {
+                        typeSession = "sessionAssure";
+                        session.setAttribute("sessionAssure", sessionAssure);
+                    } else if (sessionGestionnaire != null) {
+                        typeSession = "sessionGestionnaire";
+                    } else if (sessionEntreprise != null) {
+                        typeSession = "sessionEntreprise";
+                    } else if (sessionAdministrateur != null) {
+                        typeSession = "sessionAdministrateur";
+                    } else if (sessionPublic=true) {
+                        typeSession = "sessionPublic";
+                    }  
+                    request.setAttribute("typeSession",typeSession);
+                    break;
+                    
+                case "DemandeDevis_exportpdf":
+                    jspAffiche = "/realiserDevisTarif.jsp";
+                    doActionEditionDevis(request, response);
+                    message="";
                     
                     if (sessionAssure != null) {
                         typeSession = "sessionAssure";
@@ -344,6 +381,35 @@ public class menuDrajak extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+    
+    protected void doActionEditionDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int idDocument =0;
+        try {
+            idDocument = Integer.parseInt(request.getParameter(("idDocument")));
+        } catch (Exception exception) {
+        }
+        
+        String TemplatePath = request.getServletContext().getRealPath("/WEB-INF/DevisTemplate.pdf");
+        response.setContentType("application/pdf");
+        
+        try (PdfReader reader = new PdfReader(TemplatePath);
+            PdfWriter writer = new PdfWriter (response.getOutputStream());
+            PdfDocument document = new PdfDocument (reader, writer)) {
+            
+            PdfPage page = document.getPage(1);
+            PdfCanvas canvas = new PdfCanvas(page);
+            
+            FontProgram fontProgram = FontProgramFactory.createFont();
+            PdfFont font = PdfFontFactory.createFont(fontProgram, "utf-8", true);
+            canvas.setFontAndSize(font, 12);
+                    
+            canvas.beginText();
+            canvas .setTextMatrix(0, 0);
+            canvas.showText("Origine");
+            canvas.endText();
+        }
+        
     }
 
     /**
