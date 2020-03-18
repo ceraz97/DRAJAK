@@ -104,7 +104,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     @Override
     public List ListerAllCompteEmploye() {
         List ListerAllCompteEmploye;
-        String tx = "SELECT CE FROM CompteEmploye AS CA";
+        String tx = "SELECT ce FROM CompteEmploye AS CE";
         Query req = getEntityManager().createQuery(tx);
         ListerAllCompteEmploye=req.getResultList();
         return ListerAllCompteEmploye;

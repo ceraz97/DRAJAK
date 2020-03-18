@@ -126,7 +126,8 @@ public class GestionSession implements GestionSessionLocal {
     public CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp) {
         return compteEmployeFacade.AuthentifierCompteEmploye(login, mdp);
     }
-
+    
+    
     @Override
     public void AjouterDonnee() {
        
@@ -208,6 +209,13 @@ public class GestionSession implements GestionSessionLocal {
        contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pr);
        evenementFacade.CreerEvenement("Test", d, ci);
         }
+
+    @Override
+    public Boolean VerificationDonne() {
+        Boolean b;
+        b = compteEmployeFacade.ListerAllCompteEmploye().isEmpty();
+        return b;
+    }
 
     
 }
