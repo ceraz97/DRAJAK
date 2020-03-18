@@ -345,7 +345,7 @@
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete"><a class ="ensembleLiens" onclick="location.href='menuDrajak?action=DemandeDevis_exportpdf'"><i id="faImpression"class="fas fa-print"></i> Imprimer</a></td>
+                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete"><a class ="ensembleLiens" onclick="window.open('menuDrajak?action=DemandeDevis_exportpdf','_blank')"><i id="faImpression"class="fas fa-print"></i> Imprimer</a></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
