@@ -32,7 +32,7 @@ public class TypeTransactionFacade extends AbstractFacade<TypeTransaction> imple
     }
 
     @Override
-    public TypeTransaction CreerTypeTransaction(String parameter, String libelle) {
+    public TypeTransaction CreerTypeTransaction(String libelle) {
         TypeTransaction typeTransactionInstance= new TypeTransaction ();
         typeTransactionInstance.setLibelleTypeTransaction(libelle);
         getEntityManager().persist(typeTransactionInstance);

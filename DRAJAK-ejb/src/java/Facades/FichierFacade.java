@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.CompteAssure;
+import Entity.Contrat;
 import Entity.Fichier;
 import Entity.TypeFichier;
 import java.sql.Blob;
@@ -36,12 +37,13 @@ public class FichierFacade extends AbstractFacade<Fichier> implements FichierFac
     }
    
     @Override
-    public Fichier CreerFichier(String nom, Date dateEnvoi, Blob Stockage, TypeFichier t) {
+    public Fichier CreerFichier(String nom, Date dateEnvoi, Blob Stockage, TypeFichier cleTypeFichier, Contrat cleContrat) {
         Fichier f = new Fichier();
         f.setNomFichier(nom);
         f.setDateEnvoiFichier(dateEnvoi);
         f.setStockageFichier(Stockage);
-        f.setCleTypeFichier(t);
+        f.setCleTypeFichier(cleTypeFichier);
+        f.setCleContrat(cleContrat);
         getEntityManager().persist(f);
         return f;  
     }

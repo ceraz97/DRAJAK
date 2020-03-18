@@ -71,10 +71,10 @@ public class menuDrajak extends HttpServlet {
         }
  
         //Initialisation de données dans la base de données
-        /*if (gestionSession.VerificationDonne()==true)
+        if (gestionSession.VerificationDonne()==true)
         {
             gestionSession.AjouterDonnee();
-        }*/
+        }
         
 
         if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos"))) {

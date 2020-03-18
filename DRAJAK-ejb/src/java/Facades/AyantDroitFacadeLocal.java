@@ -6,6 +6,9 @@
 package Facades;
 
 import Entity.AyantDroit;
+import Entity.ContratIndividuel;
+import Entity.Particulier;
+import Entity.TypeAyantDroit;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,15 @@ public interface AyantDroitFacadeLocal {
     List<AyantDroit> findRange(int[] range);
 
     int count();
+    
+    AyantDroit CreerPersonnePublique(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel);
+    
+    List ListerAllAyantDroit();
+    
+    List ListerAyantDroitContrat(ContratIndividuel ci);
+    
+    void ModifierAyantDroit(AyantDroit ad);
+    
+    void SupprimerAyantDroit(AyantDroit ad);
     
 }

@@ -30,7 +30,7 @@ public interface TypeTransactionFacadeLocal {
 
     int count();
 
-    TypeTransaction CreerTypeTransaction(String parameter, String libelle);
+    TypeTransaction CreerTypeTransaction(String libelle);
 
     List<TypeTransaction> ListerAllTypeTransaction();
     

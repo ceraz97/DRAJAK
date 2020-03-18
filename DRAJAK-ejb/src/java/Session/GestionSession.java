@@ -5,8 +5,10 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.Contrat;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
@@ -20,12 +22,16 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.TypeAyantDroit;
 import Entity.TypeFichier;
 import Entity.TypeModule;
 import Entity.TypeRemboursement;
+import Entity.TypeTransaction;
+import Enum.ChoixPaiement;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
+import Enum.StatutTransaction;
 import Enum.TypeProduit;
 import Facades.CompteAssureFacadeLocal;
 import Facades.CompteEmployeFacadeLocal;
@@ -39,15 +45,18 @@ import Facades.ModuleFacadeLocal;
 import Facades.ObjetGarantieFacadeLocal;
 import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
-import Facades.PersonnePubliqueFacade;
 import Facades.PersonnePubliqueFacadeLocal;
+import Facades.AyantDroitFacadeLocal;
+import Facades.TypeAyantDroitFacadeLocal;
 import Facades.ProduitFacadeLocal;
 import Facades.RegimeSocialFacadeLocal;
 import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
+import Facades.TransactionFacadeLocal;
 import Facades.TypeFichierFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
 import Facades.TypeRemboursementFacadeLocal;
+import Facades.TypeTransactionFacadeLocal;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
@@ -71,6 +80,12 @@ public class GestionSession implements GestionSessionLocal {
     private PersonneMoraleFacadeLocal personneMoraleFacade;
     
     @EJB
+    private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
+    
+    @EJB
+    private AyantDroitFacadeLocal ayantDroitFacade;
+    
+    @EJB
     private CompteEmployeFacadeLocal compteEmployeFacade;
 
     @EJB
@@ -90,6 +105,12 @@ public class GestionSession implements GestionSessionLocal {
 
     @EJB 
     private TypeFichierFacadeLocal typeFichierFacade;
+    
+    @EJB 
+    private TypeTransactionFacadeLocal typeTransactionFacade;
+    
+    @EJB 
+    private TransactionFacadeLocal transactionFacade;
     
     @EJB 
     private EvenementFacadeLocal evenementFacade;
@@ -128,24 +149,32 @@ public class GestionSession implements GestionSessionLocal {
     }
     
     
+    
+    
+    
     @Override
     public void AjouterDonnee() {
        
-       Particulier pa;
+       Particulier pa, paa, paaa;
        PersonneMorale pm;
        RegimeSocial rs;
        CompteEmploye ce;
+       TypeAyantDroit td;
        TypeFichier tf;
+       TypeTransaction tt;
        CompteAssure ca;
        PersonnePublique pp;
-       ContratIndividuel ci;
+       Contrat c;
+       ContratIndividuel devis;
+       ContratIndividuel adhesion;
+       ContratIndividuel individuel;
        ContratCollectif cc;
        ObjetGarantie og;
        TrancheAge ta;
        TauxGarantie tg;
        TypeProduit tp;
        DomaineProduit dm;
-       Produit pr;
+       Produit pri, prc;
        TypeModule tm;
        Modules md;
        TypeRemboursement tr;
@@ -157,7 +186,10 @@ public class GestionSession implements GestionSessionLocal {
        sp = StatutPersonne.Actif;
        Role role;
        role = Role.Administrateur; 
-       TypeProduit typeP = TypeProduit.Individuel;
+       TypeProduit typePi = TypeProduit.Individuel;
+       TypeProduit typePc = TypeProduit.Collectif;
+       StatutTransaction statT = StatutTransaction.EnAttente;
+       ChoixPaiement choixP = ChoixPaiement.Prélèvement;
        Blob blob = null;
        Genre neutre, femme, homme;
        neutre= Genre.Neutre; femme= Genre.Femme; homme= Genre.Homme;
@@ -165,28 +197,32 @@ public class GestionSession implements GestionSessionLocal {
        String mois = "1000", jour = "50";
        Double plafMois = Double.parseDouble(mois);
        Double plafJour = Double.parseDouble(jour);
-       String maxR = "5000", tarif = "20", fisc ="0.137";
+       String maxR = "5000", tarif = "20", fisc ="0.137", mont = "100";
        Double maxRemb = Double.parseDouble(maxR);
        Double tarifCot = Double.parseDouble(tarif);
        Double fiscalite = Double.parseDouble(fisc);
+       Double montant = Double.parseDouble(mont);
        Date d = new Date();
-       int min = 20, max = 35;
+       int min = 20, max = 35, nSire = 123213123;
        
-      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "128 Avenue Espariat", sp);
+      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "PrèsdeLaBas", sp);
+      pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMoral", "MdpMoral", "EntrepriseTest@yopmail.com");
+      ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",role ,sp);
+      compteEmployeFacade.CreerID(ce);
+       
 
-       ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",role ,sp);
-       compteEmployeFacade.CreerID(ce);
-       
-
-       pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "AuStade", sp);
-       particulierFacade.CreerID(pa);
-       
+      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "ParLàBas", sp);
+      paa = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "ParIci", sp);
+      paaa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "PrèsDeParIci", sp);
+      particulierFacade.CreerID(pa);
+      particulierFacade.CreerID(paa);
+      particulierFacade.CreerID(paaa);
        
        rs = regimeSocialFacade.CreerRegimeSocial("Régime Général", plafMois, plafJour);
        ca = compteAssureFacade.CreerCompteAssure("assure", pa, rs);
-      
-       tf = typeFichierFacade.CreerTypeFichier("jpg");
-       fichierFacade.CreerFichier("FichierDeTest", d, blob, tf);
+       
+       tt = typeTransactionFacade.CreerTypeTransaction("Acte");
+       transactionFacade.CreerTransactions("Remboursement 1", d, montant, statT, "En attente de validation", tt, ca);
        
        tr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
        gr = garantieFacade.CreerGarantie("Lunettes", tr);
@@ -197,17 +233,26 @@ public class GestionSession implements GestionSessionLocal {
        listM = moduleFacade.ListerAllModule();
        
        dm = domaineProduitFacade.CreerDomaineProduit("Santé");
-       pr = produitFacade.CreerProduit(typeP, "Produit Santé Basique", fiscalite, dm, listM);
-       
+       pri = produitFacade.CreerProduit(typePi, "Produit Santé Basique Individuel", fiscalite, dm, listM);
+       prc = produitFacade.CreerProduit(typePc, "Produit Santé Basique Collectif", fiscalite, dm, listM);
        
        og = objetGarantieFacade.CreerObjetGarantie("Vieux");
        ta = trancheAgeFacade.CreerTrancheAge("20-35 ans", min ,max );
        tg = tauxGarantieFacade.CreerTauxDeGarantie(maxRemb, tarifCot, ta, og, gr);
                 
 
-       ci = contratIndividuelFacade.CreerDevis("DevisDeTestAssure", ca, null, ce, og, pr);
-       contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pr);
-       evenementFacade.CreerEvenement("Test", d, ci);
+       devis = contratIndividuelFacade.CreerDevis("DevisDeTestAssure", ca, null, ce, og, pri);
+       contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pri);
+       individuel = contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", choixP, ce, devis);
+       cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, prc, pm);
+       evenementFacade.CreerEvenement("Test", d, devis);
+       c=devis;
+       tf = typeFichierFacade.CreerTypeFichier("jpg");
+       fichierFacade.CreerFichier("FichierDeTest", d, blob, tf, c);
+       
+      td = typeAyantDroitFacade.CreerTypeAyantDroit("Conjoint");
+      ayantDroitFacade.CreerPersonnePublique(td, paaa, devis);
+      ayantDroitFacade.CreerPersonnePublique(td, paa, devis);
         }
 
     @Override
@@ -216,6 +261,7 @@ public class GestionSession implements GestionSessionLocal {
         b = compteEmployeFacade.ListerAllCompteEmploye().isEmpty();
         return b;
     }
+    
 
     
 }

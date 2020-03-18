@@ -39,7 +39,7 @@ public interface ContratCollectifFacadeLocal {
 
     int count();
     
-    ContratCollectif CreerContratCollectif(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, PersonneMorale clePersonneMorale);
+    ContratCollectif CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, PersonneMorale clePersonneMorale);
     
     void ModifierContratCollectif(ContratCollectif contratCollectif);
     
