@@ -152,7 +152,7 @@ public class GestionSession implements GestionSessionLocal {
     
     
     @Override
-    public void AjouterDonnee() {//asup
+    public void AjouterDonnee() {
        
        Particulier pa, paa, paaa;
        PersonneMorale pm;
@@ -205,8 +205,8 @@ public class GestionSession implements GestionSessionLocal {
        int min = 20, max = 35, nSire = 123213123;
        
       pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "PrèsdeLaBas", sp);
-      pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMoral", "MdpMoral", "EntrepriseTest@yopmail.com");
-      ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",role ,sp);
+      /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
+      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",role ,sp);
       compteEmployeFacade.CreerID(ce);
        
 
@@ -218,7 +218,7 @@ public class GestionSession implements GestionSessionLocal {
       particulierFacade.CreerID(paaa);
        
        rs = regimeSocialFacade.CreerRegimeSocial("Régime Général", plafMois, plafJour);
-       ca = compteAssureFacade.CreerCompteAssure("assure", pa, rs);
+       /*LogCompteAssure*/ca = compteAssureFacade.CreerCompteAssure("MdpAssure", pa, rs);
        
        tt = typeTransactionFacade.CreerTypeTransaction("Acte");
        transactionFacade.CreerTransactions("Remboursement 1", d, montant, statT, "En attente de validation", tt, ca);
