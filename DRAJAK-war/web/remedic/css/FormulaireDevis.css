@@ -262,3 +262,6 @@ ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
 .colonneDevisTarif a {
     cursor: pointer;
 }
+#celluleVideTarifDevis{
+    background-color: transparent;
+}

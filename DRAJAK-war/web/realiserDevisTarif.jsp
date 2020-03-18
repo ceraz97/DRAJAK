@@ -68,254 +68,64 @@
                             <table class="devisPartieTarif">
                                 <!-- ligne tableau devis -->
                                 <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
+                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif" id="celluleVideTarifDevis"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                 </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
                                     <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Hospitalisation (en établissement conventionné, hors psychiatrie)</td>
-                                    <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
+                                    <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires hospitaliers</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Frais de séjour (hors chambre particulière)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Forfait journalier</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Chambre particulière</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lit d'accompagnant</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
                                     <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Soins courants</td>
-                                    <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
+                                    <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires médicaux (médecins généralistes et, radiologie)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires paramédicaux (kinésithérapeutes, infirmiers, auxiliaires médicaux)</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Médicaments prescrits remboursés à 65% par la Sécurité sociale</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Transport</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Analyses et examens de laboratoire</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Matériel médical</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisPartie">Dentaire</td>
-                                    <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
+                                    <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Soins dentaires remboursés par la Sécurité social</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Orthodontie remboursée par la Sécurité sociale</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Prothèses dentaires et soins prothétiques à prise en charge libre remboursés</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Soins et prothèses dentaires 100% santé**</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Dentaire non remboursé par la Sécurité Sociale (implants, orthodontie adulte...)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisPartie">Optique</td>
-                                    <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
+                                    <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Optique</td>
+                                    <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes adultes dans le réseau Partenaire</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples avec Bonus Conso Responsable</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes avec Bonus Conso Responsable</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes adultes hors réseau Partenaire</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes enfants dans le réseau Partenaire</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes enfants hors réseau Partenaire</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire">Détails <i class="fas fa-sort-down"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">Détails <i class="fas fa-sort-down"></i></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lentilles</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Équipements  100% santé (dont Offreclair)**</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                <tr class="ligneGeneraleTableauLignePaire">
-                                    <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Aides auditives</td>
-                                    <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
-                                </tr>
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Équipements  à prise en charge libre</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Équipements 100% santé (à partir du 1er janvier 2021)**</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisPartie">Services</td>
                                     <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
@@ -323,31 +133,21 @@
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Assistance</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Conseil et accompagnement maladie grave</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"><i class="fas fa-check"></i></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Tiers Payant</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Télétransmission</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"><i class="fas fa-check"></i></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete"><a class ="ensembleLiens" onclick="window.open('menuDrajak?action=DemandeDevis_exportpdf','_blank')"><i id="faImpression"class="fas fa-print"></i> Imprimer</a></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonneImpaire"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     </tr>
