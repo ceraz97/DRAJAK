@@ -152,7 +152,7 @@ public class GestionSession implements GestionSessionLocal {
     
     
     @Override
-    public void AjouterDonnee() {
+    public void AjouterDonnee() {//asup
        
        Particulier pa, paa, paaa;
        PersonneMorale pm;
