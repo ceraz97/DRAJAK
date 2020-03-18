@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active"><a href="menuAdministrateur.jsp" class="nav-link">Gestion personnel</a></li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">Gestion personne</a></li>
+                        <li class="nav-item"><a href="gestionPersonne.jsp" class="nav-link">Gestion personne</a></li>
                         <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
                         <li class="nav-item"><a href="particulier.jsp" class="nav-link">Gestion produits</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>

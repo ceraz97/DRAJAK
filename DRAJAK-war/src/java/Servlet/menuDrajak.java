@@ -53,27 +53,30 @@ public class menuDrajak extends HttpServlet {
 
         String jspAffiche = null;
         String message = null;
+        String typeSession = null;
         String act = request.getParameter("action");
         HttpSession session = request.getSession(false);
         CompteAssure sessionAssure = null;
         CompteEmploye sessionGestionnaire = null;
         CompteEmploye sessionAdministrateur = null;
         PersonneMorale sessionEntreprise = null;
+        boolean sessionPublic = true;
         List<Object> Response;
-        System.out.println("=========" + act);
+        System.out.println("=== " + act + " ===");
         if (session != null) {
             sessionAssure = (CompteAssure) session.getAttribute("sessionAssure");
             sessionGestionnaire = (CompteEmploye) session.getAttribute("sessionGestionnaire");
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
+        
         //Initialisation de données dans la base de données
-       /* if (assureSession.RechercherExistenceAssurePourBDD() == true) {
+        /*if (assureSession.RechercherExistenceAssurePourBDD() == true) {
             Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
             assureSession.CreerCompteAssure("mdp", part);
         }*/
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals(""))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -88,10 +91,12 @@ public class menuDrajak extends HttpServlet {
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
-            System.out.println("ali la");
+            System.out.println("act == Accueil Normale");
         } else {
+            System.out.println("act != null");
             switch (act) {
-                case "vide":
+                
+            case "vide":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -123,29 +128,30 @@ public class menuDrajak extends HttpServlet {
                     session = request.getSession(false);
                     session.invalidate();
                     request.setAttribute("typeConnexion", request.getParameter("typeConnexion"));
-                    jspAffiche = "/accueiPublic.jsp";
+                    jspAffiche = "/accueilPublic.jsp";
                     message = "Vous êtes déconnecté";
+                    sessionPublic=true;
                     break;
 
                 case "AssureAuthentification":
                     String assureLogin = request.getParameter("login");
                     String assureMdp = request.getParameter("mdp");
-                    System.out.println("login ="+assureLogin+" et mdp ="+assureMdp);
                     if (assureLogin.trim().isEmpty() || assureMdp.trim().isEmpty()) {
                         message = "Erreur : Vous n'avez pas rempli tous les champs";
                         request.setAttribute("typeConnexion", "AssureMenu");
-                        jspAffiche = "/accueiPublic.jsp";
+                        jspAffiche = "/accueilPublic.jsp";
                     } else {
                         sessionAssure = assureSession.RechercherCompteAssurePourConnexion(assureLogin, assureMdp);
                         if (sessionAssure == null) {
                             request.setAttribute("typeConnexion", "AssureMenu");
                             message = "Erreur : Le login ou le mot de passe est incorrect";
-                            jspAffiche = "/accueiPublic.jsp";
+                            jspAffiche = "/accueilPublic.jsp";
                         } else {
                             jspAffiche = "/menuAssure.jsp";
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAssure", sessionAssure);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -168,6 +174,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -178,18 +185,19 @@ public class menuDrajak extends HttpServlet {
                     if (EntrepriseLogin.trim().isEmpty() || EntrepriseMdp.trim().isEmpty()) {
                         message = "Erreur : Vous n'avez pas rempli tous les champs";
                         request.setAttribute("typeConnexion", "EntrepriseMenu");
-                        jspAffiche = "/accueilEmploye.jsp";
+                        jspAffiche = "/accueilPublic.jsp";
                     } else {
                         sessionEntreprise = assureSession.RechercherCompteEntreprisePourConnexion(EntrepriseLogin, EntrepriseMdp);
                         if (sessionEntreprise == null) {
                             request.setAttribute("typeConnexion", "EntrepriseMenu");
                             message = "Erreur : Le login ou le mot de passe est incorrect";
-                            jspAffiche = "/accueiPublic.jsp";
+                            jspAffiche = "/accueilPublic.jsp";
                         } else {
                             jspAffiche = "/menuEntreprise.jsp";
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionEntreprise", sessionEntreprise);
+                            sessionPublic=false;
                         }
                     }
                     break;
@@ -212,16 +220,39 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
+                            sessionPublic=false;
                         }
                     }
                     break;
+                    
+                case "AssureVersPageAfficherContrat" :
+                    jspAffiche="/.jsp";
+                    message="";
+                    break;
+                    
+                case "DemandeDevis_besoins":
+                    if (sessionAssure != null) {
+                        jspAffiche = "/realiserDevisBesoins_Assure.jsp";
+                    } else if (sessionPublic=true) {
+                        jspAffiche = "/realiserDevisBesoins_Public.jsp";
+                    }
+                    break;
+                
+                case "DemandeDevis_infos":
+                    if (sessionAssure != null) {
+                        jspAffiche = "/realiserDevisInfos_Assure.jsp";
+                        session.setAttribute("sessionAssure", sessionAssure);
+                    } else if (sessionPublic=true) {
+                        jspAffiche = "/realiserDevisInfos_Public.jsp";
+                    }
+                    break;
             }
-
         }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
         request.setAttribute("message", message);
         Rd.forward(request, response);
+        System.out.println("Public : " + sessionPublic+", Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

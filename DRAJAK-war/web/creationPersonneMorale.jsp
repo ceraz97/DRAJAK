@@ -1,6 +1,6 @@
 <%-- 
-    Document   : modificationGestionnaire
-    Created on : 16 mars 2020, 11:41:31
+    Document   : creationPersonneMorale
+    Created on : 17 mars 2020, 15:00:36
     Author     : Ilkayk
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Modifier gestionnaire</title>
+        <title>Créer personne Morale</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,20 +23,24 @@
                 <div class="row">
                     <div class="col-md-3">
                         <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                            <div class="form-group">
+                            <div class="form-group">                                
+                                <label class="sr-only" for="raisonSociale">Raison sociale</label>
+                                <input type="text" class="form-control"placeholder="Raison sociale" required>
+                                <label class="sr-only" for="siret">Siret</label>
+                                <input type="number" class="form-control" placeholder="Siret" required>
+                                <label class="sr-only" for="siren">Siren</label>
+                                <input type="number" class="form-control" placeholder="Siren" required>
                                 <label class="sr-only" for="adresse">Adresse</label>
                                 <input type="text" class="form-control"placeholder="Adresse" required>
-                                <label class="sr-only" for="numero">Numéro</label>
-                                <input type="tel" class="form-control"placeholder="Numéro" required>
-                            </div>
+                            </div>    
                             <div class="form-group">    
                                 <label class="sr-only" for="mail">Adresse email</label>
                                 <input type="email" class="form-control" placeholder="Adresse email" required>
                                 <label class="sr-only" for="mdp">Mot de passe</label>
-                                <input type="password" class="form-control" placeholder="Mot de passe" required> 
+                                <input type="password" class="form-control" placeholder="Mot de passe" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Modifier</button>
+                                <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
                             </div>
                         </form>
                     </div>

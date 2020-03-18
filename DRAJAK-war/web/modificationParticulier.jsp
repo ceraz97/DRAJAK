@@ -1,6 +1,6 @@
 <%-- 
-    Document   : modificationGestionnaire
-    Created on : 16 mars 2020, 11:41:31
+    Document   : modificationParticulier
+    Created on : 17 mars 2020, 14:39:09
     Author     : Ilkayk
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Modifier gestionnaire</title>
+        <title>Modifier particulier</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -33,7 +33,7 @@
                                 <label class="sr-only" for="mail">Adresse email</label>
                                 <input type="email" class="form-control" placeholder="Adresse email" required>
                                 <label class="sr-only" for="mdp">Mot de passe</label>
-                                <input type="password" class="form-control" placeholder="Mot de passe" required> 
+                                <input type="password" class="form-control" placeholder="Mot de passe" required>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Modifier</button>

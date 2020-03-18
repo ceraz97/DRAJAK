@@ -28,7 +28,7 @@
                 <td>Numero</td>
                 <td>Role</td></tr>
                 <% List<CompteEmploye> lesCompte = listeGestionnaire;
-                    for (CompteEmploye cp : lesCompte) {%>
+                    for (CompteEmploye cp : lesCompte) {%> 
             <tr> <td Width=15%><%=cp.getId()%></td>
                 <td Width=30%><%=cp.getNom()%></td>
                 <td Width=30%><%=cp.getPrenom()%></td>

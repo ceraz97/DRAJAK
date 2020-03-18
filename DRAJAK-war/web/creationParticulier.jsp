@@ -1,6 +1,6 @@
 <%-- 
-    Document   : creationGestionnaire
-    Created on : 16 mars 2020, 10:43:48
+    Document   : creationParticulier
+    Created on : 17 mars 2020, 14:38:32
     Author     : Ilkayk
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Créer gestionnaire</title>
+        <title>Créer particulier</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -49,6 +49,8 @@
                                     <OPTION value ="gestionnaire">Gestionnaire</option>
                                     <OPTION value ="administrateur">Administrateur</option>
                                 </SELECT>
+                                <label class="sr-only" for="numeroSS">Numéro sécurité sociale</label>
+                                <input type="text" class="form-control"placeholder="NuméroSS" required>
                             </div>    
                             <div class="form-group">    
                                 <label class="sr-only" for="mail">Adresse email</label>
@@ -64,7 +66,7 @@
                 </div>
             </div>          
         </div>
-        <%@include file="Shared/script_js.jsp" %> 
+        <%@include file="Shared/script_js.jsp" %>
         <script>
             function changeColor(s) {
                 if (s.options[s.selectedIndex].value == "") {
