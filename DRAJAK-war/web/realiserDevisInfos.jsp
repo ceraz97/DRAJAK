@@ -52,13 +52,13 @@
     <script language="JavaScript">
         function checkedOne(genreAssure)
         {
-            if (genreAssure == "Homme")
+            if (genreAssure === "Homme")
             {
                 document.formulaireDevis2.genre[0].checked = true;
-            } else if (genreAssure == "Femme")
+            } else if (genreAssure === "Femme")
             {
                 document.formulaireDevis2.genre[1].checked = true;
-            } else if (genreAssure == "Neutre")
+            } else if (genreAssure === "Neutre")
             {
                 document.formulaireDevis2.genre[2].checked = true;
             }
@@ -223,7 +223,7 @@
                                 <!-- fin ligne tableau devis -->
                             </table>
                             <div class="form-group">
-                                <input type="button" value="Obtenir tarifs" onclick="location.href = 'menuDrajak?action=DemandeDevis_infos'">
+                                <input type="hidden" name="action" value="DemandeDevis_tarif"/>
                                 <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
                             </div>
                         </form>

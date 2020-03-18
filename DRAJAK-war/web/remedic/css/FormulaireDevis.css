@@ -175,6 +175,7 @@
 /*================== Partie informations ====================*/
 .devisPartieInfos{
     width: 100%;
+    margin-bottom: 2em;
 }
 .colonneEntete{
     width:5%;
@@ -187,7 +188,7 @@
     background-color: #4c4e5f
 }
 ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
-    width:5%;
+    width:25%;
 }
 
 .colonne2Lignehaut{
@@ -206,4 +207,58 @@ ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
     width:60%;
     margin: 5px auto;
     position: relative;
+}
+
+/*================== Partie Tartifs ====================*/
+.devisPartieTarif{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2em;
+}
+.colonneDevisTarif{
+    width: 25%;
+    height: 50px;
+    text-align: center;
+    word-wrap: break-word;
+    vertical-align: middle; 
+    padding: 5px 20px 5px 20px;
+    border:1px solid #dadaee;
+}
+.colonneColspan{
+    background-color: #f5f5f8;
+}
+
+.colonneDevisTarifEnTete{
+    text-align: right;
+    color: white;
+    border:1px solid #dadaee;
+}
+
+.colonneDevisPartie{
+    text-align: right;
+    background-color: #696c78;
+    color: white;
+    border:1px solid #dadaee;
+}
+
+.colonneDevisTarif i {
+    font-size: 20px;
+    color:#5ac9e5;
+}
+#faImpression{
+    color: white;
+}
+
+.colonnePaire{
+    background-color: #e9ecf5;
+    color:#a0a5bd;
+}
+
+.colonneImpaire{
+    background-color: #f8f9fc;
+    color:#a0a5bd;
+}
+
+.colonneDevisTarif a {
+    cursor: pointer;
 }
