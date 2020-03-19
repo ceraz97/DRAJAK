@@ -36,17 +36,16 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
     
     
     @Override
-    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         Particulier p = new Particulier();   
-        int id = 777;
-        p.setnAdherent(id);
+        p.setnAdherent(777);
         p.setnTelephone(tel);
         p.setAdresse(adr);
         p.setNom(nom);
         p.setPrenom(prenom);
         p.setGenre(genre);
         p.setDateNaissance(Dob);
-        p.setStatutPeronne(statutPersonne);
+        p.setStatutPeronne(StatutPersonne.Actif);
         p.setEmail(email);
         p.setnSecuriteSocial(Nsecu);
         getEntityManager().persist(p);

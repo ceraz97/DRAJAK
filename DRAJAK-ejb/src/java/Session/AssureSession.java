@@ -77,7 +77,7 @@ public class AssureSession implements AssureSessionLocal {
     }
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr, statutPersonne);
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
     @Override

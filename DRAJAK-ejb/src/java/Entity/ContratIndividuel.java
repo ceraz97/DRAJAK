@@ -50,7 +50,7 @@ public class ContratIndividuel extends Contrat implements Serializable {
     private ContratCollectif cleContratCollectif;
     
     @ManyToOne
-    @JoinColumn (nullable=false)
+    @JoinColumn (nullable=true)
     private ObjetGarantie cleObjetGarantie;
 
     public ObjetGarantie getCleObjetGarantie() {

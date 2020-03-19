@@ -35,7 +35,7 @@ public class PersonnePubliqueFacade extends AbstractFacade<PersonnePublique> imp
         super(PersonnePublique.class);
     }
     @Override
-    public PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
+    public PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         PersonnePublique pp = new PersonnePublique();
         pp.setnTelephone(tel);
         pp.setAdresse(adr);
@@ -43,7 +43,7 @@ public class PersonnePubliqueFacade extends AbstractFacade<PersonnePublique> imp
         pp.setPrenom(prenom);
         pp.setGenre(genre);
         pp.setDateNaissance(Dob);
-        pp.setStatutPeronne(statutPersonne);
+        pp.setStatutPeronne(StatutPersonne.Actif);
         pp.setEmail(email);
         getEntityManager().persist(pp);
         return pp;  
