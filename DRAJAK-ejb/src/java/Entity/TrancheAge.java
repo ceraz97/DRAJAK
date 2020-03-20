@@ -44,7 +44,7 @@ public class TrancheAge implements Serializable {
     @Column (nullable=false)
     private int maxAge;
     @Column (nullable=false)
-    private Double Coefficient;
+    private Double Coefficient; // a supprimer, probablement
 
     
     public Double getCoefficient() {
