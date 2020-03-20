@@ -267,7 +267,6 @@ public class menuDrajak extends HttpServlet {
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     message="";
-                    
                     break;
                     
                 case "DemandeDevis_souscription":
@@ -402,6 +401,25 @@ public class menuDrajak extends HttpServlet {
         
     }
 
+    protected void doActionRecuperValeurDuDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int idDocument =0;
+        try {
+            //Récupération des données
+            String nbAdulte =request.getParameter("adulteHidden"); 
+            String trancheAge =request.getParameter("ageHidden");
+            String enfant =request.getParameter("enfantHidden");
+            String couverture = request.getParameter("couvertureHidden");
+            String optiqueDentaire = request.getParameter("optiqueDentaireHidden");
+            
+            //recherche des éléments de granties
+            
+            
+            //calcul des cotisations 
+            
+            
+        } catch (Exception exception) {
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *

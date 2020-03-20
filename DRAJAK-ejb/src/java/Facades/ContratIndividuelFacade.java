@@ -90,7 +90,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         contratIndividuelInstance.setDateCreation(new Date());
         contratIndividuelInstance.setDateFin(datFin);
         contratIndividuelInstance.setLibelleContrat(libelle);
-        contratIndividuelInstance.setStatut(StatutContrat.Actif);
+        contratIndividuelInstance.setStatut(StatutContrat.enCoursDeTraitement);
         contratIndividuelInstance.setPaiement(paiement);
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
         

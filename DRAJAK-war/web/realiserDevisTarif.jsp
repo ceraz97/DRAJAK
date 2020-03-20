@@ -6,6 +6,10 @@
 <%@page import="Entity.CompteAssure"%>
 <%@page import="Enum.Genre"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,23 +25,13 @@
     </head>
 
 
-
-    <!-- Affichage du menu suivant l'utilisateur-->
-    <%String attributSession = (String) request.getAttribute("typeSession");
-        if (attributSession.equalsIgnoreCase("sessionAssure")) {%>
-            <%@include file="Menus/NavBar_assure.jsp" %>
-            <jsp:useBean id="sessionAssure" scope="session" class="CompteAssure"></jsp:useBean>
-        <%} else if (attributSession.equalsIgnoreCase("sessionPublic")) {%>
-            <%@include file="Menus/NavBar_public.jsp" %>
-        <%} else if (attributSession.equalsIgnoreCase("sessionGestionnaire")) {%>
-            <%@include file="Menus/NavBar_gestionnaire.jsp" %>
-        <%} else if (attributSession.equalsIgnoreCase("sessionEntreprise")) {%>
-            <%@include file="Menus/NavBar_entreprise.jsp" %>
-        <%} else if (attributSession.equalsIgnoreCase("sessionAdministrateur")) {%>
-            <%@include file="Menus/NavBar_administrateur.jsp" %>
-        <%}
-    %>
-
+    <c:choose>
+        <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+        <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+        <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+        <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+        <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+    </c:choose>
 
     <body>
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
@@ -56,8 +50,8 @@
                 <div class="row no-gutters">
                     <div class="container_progressbar">
                         <ul class="progressbar">
-                            <li class="active_progressebar"><span>Vos besoins</span></li>
-                            <li class="active_progressebar"><span>Vos infos</span></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-2)"><span>Vos besoins</span></a></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-1)"><span>Vos infos</span></a></li>
                             <li class="active_progressebar"><span>Votre tarif</span></li>
                             <li><span>Souscription</span></li>
                         </ul>

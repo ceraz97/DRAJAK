@@ -194,7 +194,7 @@ public class GestionSession implements GestionSessionLocal {
        Double fiscalite = Double.parseDouble(fisc);
        Double montant = Double.parseDouble(mont);
        Date d = new Date();
-       int min = 20, max = 35, nSire = 123213123;
+       int min = 18, max = 34, nSire = 123213123;
        
       pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "Num,Rue,CP,Ville,Pays");
       /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
@@ -228,7 +228,10 @@ public class GestionSession implements GestionSessionLocal {
        prc = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", fiscalite, dm, listM);
        
        og = objetGarantieFacade.CreerObjetGarantie("Vieux");
-       ta = trancheAgeFacade.CreerTrancheAge("20-35 ans", min ,max );
+       ta = trancheAgeFacade.CreerTrancheAge("18-34 ans", min ,max );
+       trancheAgeFacade.CreerTrancheAge("35-54 ans", 35 ,54 );
+       trancheAgeFacade.CreerTrancheAge("55-70 ans", 55 ,70 );
+       trancheAgeFacade.CreerTrancheAge("71-80 ans", 71 ,80 );
        tg = tauxGarantieFacade.CreerTauxDeGarantie(maxRemb, tarifCot, ta, og, gr);
                 
 

@@ -75,7 +75,7 @@
                 <div class="row no-gutters">
                     <div class="container_progressbar">
                         <ul class="progressbar">
-                            <li class="active_progressebar"><span>Vos besoins</span></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-1)"><span>Vos besoins</span></a></li>
                             <li class="active_progressebar"><span>Vos infos</span></li>
                             <li><span>Votre tarif</span></li>
                             <li><span>Souscription</span></li>
