@@ -33,7 +33,7 @@ public interface ParticulierFacadeLocal {
 
     int count();
     
-    Particulier CreerParticulier( String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
+    Particulier CreerParticulier( String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
 
     void CreerID(Particulier p);
                     

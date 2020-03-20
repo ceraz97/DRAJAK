@@ -10,5 +10,5 @@ package Enum;
  * @author clementratz
  */
 public enum ChoixPaiement {
-    CB,Cheque,Espece,Prélèvement
+    Mensuel, Trimestriel, Annuel
 }

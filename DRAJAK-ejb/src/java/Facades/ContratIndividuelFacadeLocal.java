@@ -44,9 +44,11 @@ public interface ContratIndividuelFacadeLocal {
     
     public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit);
     
-    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit);
+    public ContratIndividuel CreerContratCollectif(String libelle, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit);
     
-    ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis);
+    ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye , ContratIndividuel recupDevis);
+    
+    ContratIndividuel CreerContratAdhesion( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, CompteAssure cleCompteAssure,ObjetGarantie cleObjetGarantie, ContratCollectif cleContratCollectif);
     
     void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
         

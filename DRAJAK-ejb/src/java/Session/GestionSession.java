@@ -182,14 +182,6 @@ public class GestionSession implements GestionSessionLocal {
        List listM;
               
        StatutPersonne sp;
-       sp = StatutPersonne.Actif;
-       Role role;
-       role = Role.Administrateur; 
-       TypeProduit typePi = TypeProduit.Individuel;
-       TypeProduit typePc = TypeProduit.Collectif;
-       StatutTransaction statT = StatutTransaction.EnAttente;
-       ChoixPaiement choixP = ChoixPaiement.Prélèvement;
-       Blob blob = null;
        Genre neutre, femme, homme;
        neutre= Genre.Neutre; femme= Genre.Femme; homme= Genre.Homme;
        
@@ -206,7 +198,7 @@ public class GestionSession implements GestionSessionLocal {
        
       pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "Num,Rue,CP,Ville,Pays", sp);
       /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
-      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",role ,sp);
+      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",Role.Administrateur);
       compteEmployeFacade.CreerID(ce);
        
 
@@ -221,7 +213,7 @@ public class GestionSession implements GestionSessionLocal {
        /*LogCompteAssure*/ca = compteAssureFacade.CreerCompteAssure("MdpAssure", pa, rs);
        
        tt = typeTransactionFacade.CreerTypeTransaction("Acte");
-       transactionFacade.CreerTransactions("Remboursement 1", d, montant, statT, "En attente de validation", tt, ca);
+       transactionFacade.CreerTransactions("Remboursement 1", montant, StatutTransaction.EnAttente, "En attente de validation", tt, ca);
        
        tr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
        gr = garantieFacade.CreerGarantie("Lunettes", tr);
@@ -232,8 +224,8 @@ public class GestionSession implements GestionSessionLocal {
        listM = moduleFacade.ListerAllModule();
        
        dm = domaineProduitFacade.CreerDomaineProduit("Santé");
-       pri = produitFacade.CreerProduit(typePi, "Produit Santé Basique Individuel", fiscalite, dm, listM);
-       prc = produitFacade.CreerProduit(typePc, "Produit Santé Basique Collectif", fiscalite, dm, listM);
+       pri = produitFacade.CreerProduit(TypeProduit.Individuel, "Produit Santé Basique Individuel", fiscalite, dm, listM);
+       prc = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", fiscalite, dm, listM);
        
        og = objetGarantieFacade.CreerObjetGarantie("Vieux");
        ta = trancheAgeFacade.CreerTrancheAge("20-35 ans", min ,max );
@@ -242,12 +234,13 @@ public class GestionSession implements GestionSessionLocal {
 
        devis = contratIndividuelFacade.CreerDevis("DevisDeTestAssure", ca, null, ce, og, pri);
        contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pri);
-       individuel = contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", choixP, ce, devis);
+       individuel = contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", ChoixPaiement.Annuel, ce, devis);
        cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, prc, pm);
+       contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, og, cc);
        evenementFacade.CreerEvenement("Test", d, devis);//test
        c=devis;
        tf = typeFichierFacade.CreerTypeFichier("jpg");
-       fichierFacade.CreerFichier("FichierDeTest", d, blob, tf, c);
+       fichierFacade.CreerFichier("FichierDeTest", /*blob*/null, tf, c);
        
       td = typeAyantDroitFacade.CreerTypeAyantDroit("Conjoint");
       ayantDroitFacade.CreerPersonnePublique(td, paaa, devis);

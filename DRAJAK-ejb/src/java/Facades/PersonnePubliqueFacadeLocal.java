@@ -33,7 +33,7 @@ public interface PersonnePubliqueFacadeLocal {
 
     int count();
     
-    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
+    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
 
     List ListerAllPersonnePublique();
     

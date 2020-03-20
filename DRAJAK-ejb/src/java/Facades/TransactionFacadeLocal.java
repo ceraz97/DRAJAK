@@ -34,10 +34,8 @@ public interface TransactionFacadeLocal {
 
     int count();
     
-    Transactions CreerTransactions(String libelle, Date date, double montant, StatutTransaction statut, String libelleStatut, TypeTransaction type, CompteAssure cleCompteAssure);
+    Transactions CreerTransactions(String libelle, double montant, StatutTransaction statut, String libelleStatut, TypeTransaction cleTypeTransaction, CompteAssure cleCompteAssure);
     
-    void ModifierTransactions(String libelle, double montant, Transactions t);
-
-    void ModifierStatutTransactions(StatutTransaction statut, String libelleStatut, Transactions t);
+    void ModifierTransactions(Transactions t);
 
 }
