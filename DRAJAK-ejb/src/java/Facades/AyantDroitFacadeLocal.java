@@ -33,7 +33,7 @@ public interface AyantDroitFacadeLocal {
 
     int count();
     
-    AyantDroit CreerPersonnePublique(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel);
+    AyantDroit CreerAyantDroit(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel);
     
     List ListerAllAyantDroit();
     

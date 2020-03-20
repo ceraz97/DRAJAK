@@ -30,7 +30,7 @@ public interface TrancheAgeFacadeLocal {
 
     int count();
 
-    TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge);
+    TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge, Double coefficient);
 
     List<TrancheAge> ListerAllTrancheAge();
     

@@ -30,7 +30,7 @@ public interface PersonneMoraleFacadeLocal {
 
     int count();
     
-    PersonneMorale CreerPersonneMorale(String raisonSociale, int nSiret, int nSiren, String login, String mdp, String email);
+    PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 
     void ModifierPersonneMorale(PersonneMorale pm);
 

@@ -38,11 +38,22 @@ public class TrancheAge implements Serializable {
     private Long id;
     @Column (nullable=false)
     private String libelletrancheAge;
+
     @Column (nullable=false)
     private int minAge;
     @Column (nullable=false)
     private int maxAge;
+    @Column (nullable=false)
+    private Double Coefficient;
 
+    
+    public Double getCoefficient() {
+        return Coefficient;
+    }
+
+    public void setCoefficient(Double Coefficient) {
+        this.Coefficient = Coefficient;
+    }
     
     public int getMaxAge() {
         return maxAge;
