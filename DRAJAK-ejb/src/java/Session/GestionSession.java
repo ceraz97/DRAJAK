@@ -12,7 +12,6 @@ import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
 import Entity.Garantie;
-import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
 import Entity.PersonneMorale;
@@ -154,97 +153,133 @@ public class GestionSession implements GestionSessionLocal {
  @Override
     public void AjouterDonnee() {
        
-       Particulier pa, paa, paaa;
+       Particulier pa, paa, pay, paay;
        PersonneMorale pm;
        RegimeSocial rs;
        CompteEmploye ce;
        TypeAyantDroit td;
        TypeFichier tf;
        TypeTransaction tt;
-       CompteAssure ca;
+       CompteAssure ca, caa;
        PersonnePublique pp;
        Contrat c;
-       ContratIndividuel devis;
-       ContratIndividuel adhesion;
-       ContratIndividuel individuel;
+       ContratIndividuel devisA, devisB;
        ContratCollectif cc;
        ObjetGarantie og;
-       TrancheAge ta;
-       TauxGarantie tg;
-       TypeProduit tp;
+       TrancheAge ta, tv;
        DomaineProduit dm;
        Produit pri, prc;
-       TypeModule tm;
-       Modules md;
-       TypeRemboursement tr;
-       Garantie gr;
+       TypeModule tmb, tmf;
+       TypeRemboursement fr, bd;
        List listG;
        List listM;
               
-       StatutPersonne sp;
-       Genre neutre, femme, homme;
-       neutre= Genre.Neutre; femme= Genre.Femme; homme= Genre.Homme;
+       Genre autre, femme, homme;
+       autre= Genre.Autre; femme= Genre.Femme; homme= Genre.Homme;
        
-       String mois = "1000", jour = "50";
-       Double plafMois = Double.parseDouble(mois);
-       Double plafJour = Double.parseDouble(jour);
-       String maxR = "5000", tarif = "20", fisc ="0.137", mont = "100";
-       Double maxRemb = Double.parseDouble(maxR);
-       Double tarifCot = Double.parseDouble(tarif);
-       Double fiscalite = Double.parseDouble(fisc);
-       Double montant = Double.parseDouble(mont);
+
        Date d = new Date();
-       int min = 20, max = 35, nSire = 123213123;
-       
-      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", neutre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "PrèsdeLaBas");
-      /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", nSire, nSire, "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
-      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","QuelquespartdansLyon",Role.Administrateur);
+      
+       //PERSONNE PUBLIQUE
+      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "39 avenue DeLaBas, 69006, Lyon, France");
+      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d , "1964569423458", "Jean.Eude@yopmail.com", "0666667666", "40 avenue DeLaBas, 69006, Lyon, France");
+      
+      //PERSONNE MORALE
+      /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", "999999999", "14141414141414", "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
+      
+      //COMPTE EMPLOYÉ
+      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","66 rue QuelquespartdansLyon, 69005, Lyon, France",Role.Administrateur);
       compteEmployeFacade.CreerID(ce);
        
-
-      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "ParLàBas");
-      paa = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "ParIci");
-      paaa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "PrèsDeParIci");
+      //PARTICULIER
+      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21 rue ParLàBas, 69004, Lyon, France");
+      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20 lotissement ParIci, 69003, Lyon, France");
+      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19 route PrèsDeParIci, Lyon, France");
+      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13 route Loindici, Lyon, France");
       particulierFacade.CreerID(pa);
+      particulierFacade.CreerID(pay);
       particulierFacade.CreerID(paa);
-      particulierFacade.CreerID(paaa);
-       
-       rs = regimeSocialFacade.CreerRegimeSocial("Régime Général", plafMois, plafJour);
+      particulierFacade.CreerID(paay);
+      
+      //COMPTE ASSURÉ
+       rs = regimeSocialFacade.CreerRegimeSocial("Régime Général", 1000.00, 100.00);
+       regimeSocialFacade.CreerRegimeSocial("Alsace Moselle", 1500.00, 150.00);
        /*LogCompteAssure*/ca = compteAssureFacade.CreerCompteAssure("MdpAssure", pa, rs);
+       /*LogCompteAssure*/caa = compteAssureFacade.CreerCompteAssure("MdpAssure", paa, rs);
        
+       //TRANSACTION
        tt = typeTransactionFacade.CreerTypeTransaction("Acte");
-       transactionFacade.CreerTransactions("Remboursement 1", montant, StatutTransaction.EnAttente, "En attente de validation", tt, ca);
+       transactionFacade.CreerTransactions("Remboursement 1", 100.00, StatutTransaction.EnAttente, "En attente de validation", tt, ca);
        
-       tr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
-       gr = garantieFacade.CreerGarantie("Lunettes", tr);
+       //GARANTIE
+       Garantie ga, gb, gc, gd, ge;
+       fr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
+       bd = typeRemboursementFacade.CreerTypeRemboursement("Base de remboursement");
+       ga = garantieFacade.CreerGarantie("Adherent CAS", bd);
+       gb = garantieFacade.CreerGarantie("Non Adherent CAS", bd);
+       gc = garantieFacade.CreerGarantie("Chambre particuliere", fr);
+       gd = garantieFacade.CreerGarantie("Lit d'accompagnement", fr);
+       ge = garantieFacade.CreerGarantie("Forfait naissance ou adoption", fr);
        listG = garantieFacade.ListerAllGarantie();
        
-       tm = typeModuleFacade.CreerTypeModule("Base");
-       md = moduleFacade.CreerModule("Santé base", tm, listG);
+       //MODULE
+       tmb = typeModuleFacade.CreerTypeModule("Base");
+       tmf = typeModuleFacade.CreerTypeModule("Facultatif");
+       moduleFacade.CreerModule("Santé Hospitalisation", tmb, listG);
+       moduleFacade.CreerModule("Santé Dentaire", tmb, listG);
+       moduleFacade.CreerModule("Santé Optique", tmb, listG);
        listM = moduleFacade.ListerAllModule();
        
+       //PRODUIT
        dm = domaineProduitFacade.CreerDomaineProduit("Santé");
-       pri = produitFacade.CreerProduit(TypeProduit.Individuel, "Produit Santé Basique Individuel", fiscalite, dm, listM);
-       prc = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", fiscalite, dm, listM);
+       pri = produitFacade.CreerProduit(TypeProduit.Individuel, "Cristal - 3 modules", 0.1327, dm, listM);
+       prc = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", 0.1327, dm, listM);
        
-       og = objetGarantieFacade.CreerObjetGarantie("Vieux");
-       ta = trancheAgeFacade.CreerTrancheAge("20-35 ans", min ,max );
-       tg = tauxGarantieFacade.CreerTauxDeGarantie(maxRemb, tarifCot, ta, og, gr);
-                
-
-       devis = contratIndividuelFacade.CreerDevis("DevisDeTestAssure", ca, null, ce, og, pri);
+       //PRIX&TAUX GARANTIE
+       og =  objetGarantieFacade.CreerObjetGarantie("Cadre");
+       objetGarantieFacade.CreerObjetGarantie("Non Cadre");
+       objetGarantieFacade.CreerObjetGarantie("Profession Liberale");
+       objetGarantieFacade.CreerObjetGarantie("TNS");
+       objetGarantieFacade.CreerObjetGarantie("Etudiant");
+       ta = trancheAgeFacade.CreerTrancheAge("jusqu'à 40 ans", 0 ,40, 1.0 );
+       tv = trancheAgeFacade.CreerTrancheAge("de 41 à 45 ans", 41 ,45, 1.5 );
+       trancheAgeFacade.CreerTrancheAge("de 46 à 50 ans", 46 ,50, 1.8 );
+       trancheAgeFacade.CreerTrancheAge("51 ans et plus", 51 ,200, 2.1 );
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, ga); //Pas d'influence sur ces garanties en particulier
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, ga);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gb);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gb);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gc);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gc);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gd);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gd);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, ge);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, ge);
+       
+       //CONTRAT
+       devisA = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 1", ca, null, ce, og, pri);
+       devisB = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 2", ca, null, ce, og, pri);
        contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pri);
-       individuel = contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", ChoixPaiement.Annuel, ce, devis);
+       contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", ChoixPaiement.Annuel, ce, devisA);
        cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, prc, pm);
        contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, og, cc);
-       evenementFacade.CreerEvenement("Test", d, devis);//test
-       c=devis;
-       tf = typeFichierFacade.CreerTypeFichier("jpg");
-       fichierFacade.CreerFichier("FichierDeTest", /*blob*/null, tf, c);
        
+       //EVENEMENT
+       evenementFacade.CreerEvenement("Test", d, devisA);//test
+
+       
+       //FICHIER
+       tf = typeFichierFacade.CreerTypeFichier("jpg");
+       typeFichierFacade.CreerTypeFichier("png");
+       typeFichierFacade.CreerTypeFichier("pdf");
+       fichierFacade.CreerFichier("FichierDeTest", /*blob*/null, tf, devisA);
+       
+      //AYANT DROIT
       td = typeAyantDroitFacade.CreerTypeAyantDroit("Conjoint");
-      ayantDroitFacade.CreerPersonnePublique(td, paaa, devis);
-      ayantDroitFacade.CreerPersonnePublique(td, paa, devis);
+      typeAyantDroitFacade.CreerTypeAyantDroit("Enfant");
+      typeAyantDroitFacade.CreerTypeAyantDroit("Conjointe");
+      ayantDroitFacade.CreerAyantDroit(td, paay, devisA);
+      ayantDroitFacade.CreerAyantDroit(td, pay, devisB);
         }
 
     @Override
