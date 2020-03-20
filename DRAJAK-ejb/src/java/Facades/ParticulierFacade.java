@@ -53,9 +53,7 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
     }
     
     public void CreerID(Particulier p){
-       Long l = p.getId();
-       int id = l.intValue();       
-       p.setnAdherent(id);   
+       p.setnAdherent(p.getId());   
        em.merge(p);
        getEntityManager().persist(p);
     }

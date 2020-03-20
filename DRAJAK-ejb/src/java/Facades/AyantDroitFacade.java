@@ -34,7 +34,7 @@ public class AyantDroitFacade extends AbstractFacade<AyantDroit> implements Ayan
         super(AyantDroit.class);
     }
         @Override
-    public AyantDroit CreerPersonnePublique(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel) {
+    public AyantDroit CreerAyantDroit(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel) {
         AyantDroit ad = new AyantDroit();
         ad.setCleTypeAyantDroit(cleTypeAyantDroit);
         ad.setCleParticulier(cleParticulier);
