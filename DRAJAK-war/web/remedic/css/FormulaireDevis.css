@@ -170,6 +170,21 @@
     
 }
 
+.btn.btn-primary.btn-formulaireSouscription {
+    width:auto;
+    background: #f2ac1d;
+    border: 1px solid #f2ac1d;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.btn.btn-primary.btn-formulaireSouscription:hover {
+    background:transparent;
+    border: 1px solid #f2ac1d;
+    color: #f2ac1d;
+    
+}
 
 
 /*================== Partie informations ====================*/
@@ -179,6 +194,8 @@
 }
 .colonneEntete{
     width:5%;
+    color: white;
+    text-align: center;
 }
 .colonneEnteteLigneImpaire{
     background-color: #282937;
@@ -228,18 +245,6 @@ ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
     background-color: #f5f5f8;
 }
 
-.colonneDevisTarifEnTete{
-    text-align: right;
-    color: white;
-    border:1px solid #dadaee;
-}
-
-.colonneDevisPartie{
-    text-align: right;
-    background-color: #696c78;
-    color: white;
-    border:1px solid #dadaee;
-}
 
 .colonneDevisTarif i {
     font-size: 20px;
@@ -264,4 +269,25 @@ ligneGeneraleTableauLigneImpaire>td, ligneGeneraleTableauLignePaire>td {
 }
 #celluleVideTarifDevis{
     background-color: transparent;
+    border: none;
+}
+
+
+.colonneEnteteLignePaireTarif, .colonneEnteteLigneImpaireTarif {
+    width: 33%;
+    background-color: #4c4e5f;
+    text-align: right;
+    color: white;
+    border:1px solid #dadaee;
+}
+
+.colonneGrilleTarif{
+    width: 67%;
+}
+
+.colonneDevisPartie{
+    text-align: right;
+    background-color: #696c78;
+    color: white;
+    border:1px solid #dadaee;
 }

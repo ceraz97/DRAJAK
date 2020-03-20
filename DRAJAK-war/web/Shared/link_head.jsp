@@ -17,8 +17,6 @@
 
     <link rel="stylesheet" href="remedic/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="remedic/css/jquery.timepicker.css">
-
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="remedic/css/flaticon.css">
     <link rel="stylesheet" href="remedic/css/icomoon.css">
     <link rel="stylesheet" href="remedic/css/style.css">

@@ -12,6 +12,7 @@ import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -243,107 +244,41 @@ public class menuDrajak extends HttpServlet {
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
                     message="";
-                   if (sessionAssure != null) {
-                        typeSession = "sessionAssure";
-                    } else if (sessionGestionnaire != null) {
-                        typeSession = "sessionGestionnaire";
-                    } else if (sessionEntreprise != null) {
-                        typeSession = "sessionEntreprise";
-                    } else if (sessionAdministrateur != null) {
-                        typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
-                        typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
                     break;
                     
                 case "DemandeDevis_infos":
                     jspAffiche = "/realiserDevisInfos.jsp";
                     message="";
                     
-                    int nbAdulte =Integer.parseInt(request.getParameter("adulte").substring(6)); 
-                    int trancheAge =Integer.parseInt(request.getParameter("age").substring(3));
+                    String nbAdulte =request.getParameter("adulte").substring(6); 
+                    String trancheAge =request.getParameter("age").substring(3);
                     String enfant =request.getParameter("enfant").substring(0,4);
-                    int couverture =Integer.parseInt(request.getParameter("couverture").substring(10));
-                    int optiqueDentaire =Integer.parseInt(request.getParameter("optiqueDentaire").substring(15));
+                    String couverture = request.getParameter("couverture").substring(10);
+                    String optiqueDentaire = request.getParameter("optiqueDentaire").substring(15);
+
                     request.setAttribute("nbAdulte", nbAdulte);
                     request.setAttribute("trancheAge", trancheAge);
                     request.setAttribute("enfant", enfant); 
                     request.setAttribute("couverture", couverture); 
                     request.setAttribute("optiqueDentaire", optiqueDentaire); 
                     
-                    if (sessionAssure != null) {
-                        typeSession = "sessionAssure";
-                        session.setAttribute("sessionAssure", sessionAssure);
-                        System.out.println("genre = "+sessionAssure.getCleParticulier().getGenre());
-                    } else if (sessionGestionnaire != null) {
-                        typeSession = "sessionGestionnaire";
-                    } else if (sessionEntreprise != null) {
-                        typeSession = "sessionEntreprise";
-                    } else if (sessionAdministrateur != null) {
-                        typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
-                        typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
                     break;
                     
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     message="";
-                                        
-                    if (sessionAssure != null) {
-                        typeSession = "sessionAssure";
-                        session.setAttribute("sessionAssure", sessionAssure);
-                    } else if (sessionGestionnaire != null) {
-                        typeSession = "sessionGestionnaire";
-                    } else if (sessionEntreprise != null) {
-                        typeSession = "sessionEntreprise";
-                    } else if (sessionAdministrateur != null) {
-                        typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
-                        typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
+                    
                     break;
                     
                 case "DemandeDevis_souscription":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     message="";
-                                        
-                    if (sessionAssure != null) {
-                        typeSession = "sessionAssure";
-                        session.setAttribute("sessionAssure", sessionAssure);
-                    } else if (sessionGestionnaire != null) {
-                        typeSession = "sessionGestionnaire";
-                    } else if (sessionEntreprise != null) {
-                        typeSession = "sessionEntreprise";
-                    } else if (sessionAdministrateur != null) {
-                        typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
-                        typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
                     break;
                     
                 case "DemandeDevis_exportpdf":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     doActionEditionDevis(request, response);
                     message="";
-                    
-                    if (sessionAssure != null) {
-                        typeSession = "sessionAssure";
-                        session.setAttribute("sessionAssure", sessionAssure);
-                    } else if (sessionGestionnaire != null) {
-                        typeSession = "sessionGestionnaire";
-                    } else if (sessionEntreprise != null) {
-                        typeSession = "sessionEntreprise";
-                    } else if (sessionAdministrateur != null) {
-                        typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
-                        typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
                     break;
             }
         }
@@ -401,12 +336,67 @@ public class menuDrajak extends HttpServlet {
             PdfCanvas canvas = new PdfCanvas(page);
             
             FontProgram fontProgram = FontProgramFactory.createFont();
-            PdfFont font = PdfFontFactory.createFont(fontProgram, "utf-8", true);
-            canvas.setFontAndSize(font, 12);
-                    
+            PdfFont font = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8, true);
+            canvas.setFontAndSize(font, 10);
+            
+            //Numéro du devis
             canvas.beginText();
-            canvas .setTextMatrix(0, 0);
-            canvas.showText("Origine");
+            canvas.setTextMatrix(100,753);
+            canvas.showText("nDevis");
+            canvas.endText();
+            
+            //Date du devis
+            canvas.beginText();
+            canvas.setTextMatrix(127,737);
+            canvas.showText("dateDevis");
+            canvas.endText();
+            
+            //Honnoraire Hospitalisation
+            canvas.beginText();
+            canvas.setTextMatrix(210,655);
+            canvas.showText("HonnoraireHospitalisation");
+            canvas.endText();
+            
+            //Forfait Hospitalisation
+            canvas.beginText();
+            canvas.setTextMatrix(210,625);
+            canvas.showText("HonnoraireHospitalisation");
+            canvas.endText();
+            
+            //Honnoraire Médicaux
+            canvas.beginText();
+            canvas.setTextMatrix(210,560);
+            canvas.showText("HonnoraireMédicaux");
+            canvas.endText();
+            
+            //Honnoraire Paramédicaux
+            canvas.beginText();
+            canvas.setTextMatrix(210,500);
+            canvas.showText("HonnoraireParamédicaux");
+            canvas.endText();
+            
+            //soins dentaire
+            canvas.beginText();
+            canvas.setTextMatrix(210,410);
+            canvas.showText("soins dentaire");
+            canvas.endText();
+            
+            //Orthodontie
+            canvas.beginText();
+            canvas.setTextMatrix(210,373);
+            canvas.showText("Orthodontie");
+            canvas.endText();
+            
+            //Lunettes verres simples
+            canvas.beginText();
+            canvas.setTextMatrix(210,315);
+            canvas.showText("Lunettes verres simples");
+            canvas.endText();
+            
+            //Lunettes verres complexes
+            canvas.beginText();
+            canvas.setTextMatrix(210,285);
+            canvas.showText("Lunettes verres complexes");
             canvas.endText();
         }
         

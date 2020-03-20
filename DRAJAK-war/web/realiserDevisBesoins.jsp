@@ -4,7 +4,7 @@
     Author     : Ilkayk
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -19,22 +19,13 @@
 
     <body>
         
-        
-    <!-- Affichage du menu suivant l'utilisateur-->
-        
-        <%String attributSession = (String) request.getAttribute("typeSession");
-            if (attributSession.equalsIgnoreCase("sessionAssure")) {%>
-                <%@include file="Menus/NavBar_assure.jsp" %>
-            <%} else if (attributSession.equalsIgnoreCase("sessionPublic")) {%>
-                <%@include file="Menus/NavBar_public.jsp" %>
-            <%} else if (attributSession.equalsIgnoreCase("sessionGestionnaire")) {%>
-                <%@include file="Menus/NavBar_gestionnaire.jsp" %>
-            <%} else if (attributSession.equalsIgnoreCase("sessionEntreprise")) {%>
-                <%@include file="Menus/NavBar_entreprise.jsp" %>
-            <%} else if (attributSession.equalsIgnoreCase("sessionAdministrateur")) {%>
-                <%@include file="Menus/NavBar_administrateur.jsp" %>
-            <%}
-        %>
+        <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
 
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
@@ -178,7 +169,6 @@
                 </div>
 
         </section>
-
         <%@include file="Shared/ElementFooter.jsp" %>
 
         <!-- loader -->

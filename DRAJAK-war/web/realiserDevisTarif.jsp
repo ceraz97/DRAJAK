@@ -67,96 +67,94 @@
 
                             <table class="devisPartieTarif">
                                 <!-- ligne tableau devis -->
-                                <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif" id="celluleVideTarifDevis"></td>
+                                <tr class="ligneGeneraleTableauLigneImpaire premiereLigneTarifDevis" style="height: 150px;">
+                                    <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif" id="celluleVideTarifDevis"></td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                 </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
-                                    <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Hospitalisation (en établissement conventionné, hors psychiatrie)</td>
+                                    <td class="colonneDevisPartie colonneEnteteLignePaireTarif colonneDevisTarif ">Hospitalisation (en établissement conventionné, hors psychiatrie)</td>
                                     <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires hospitaliers</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires hospitaliers</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Frais de séjour (hors chambre particulière)</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Frais de séjour (hors chambre particulière)</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Forfait journalier</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Forfait journalier</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
-                                    <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Soins courants</td>
+                                    <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisPartie">Soins courants</td>
                                     <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires médicaux (médecins généralistes et, radiologie)</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires médicaux (médecins généralistes et, radiologie)</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Honoraires paramédicaux (kinésithérapeutes, infirmiers, auxiliaires médicaux)</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires paramédicaux (kinésithérapeutes, infirmiers, auxiliaires médicaux)</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisPartie">Dentaire</td>
+                                    <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisPartie">Dentaire</td>
                                     <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Soins dentaires remboursés par la Sécurité social</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Soins dentaires remboursés par la Sécurité social</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Orthodontie remboursée par la Sécurité sociale</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Orthodontie remboursée par la Sécurité sociale</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisPartie">Optique</td>
+                                    <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisPartie">Optique</td>
                                     <td class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisPartie">Services</td>
+                                    <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisPartie">Services</td>
                                     <td colspan="3"class="colonneGrilleTarif colonneDevisTarif colonneColspan"></td>
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Assistance</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Assistance</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Conseil et accompagnement maladie grave</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Conseil et accompagnement maladie grave</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete">Tiers Payant</td>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Tiers Payant</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td class="colonneEnteteLigneImpaire colonneDevisTarif colonneDevisTarifEnTete">Télétransmission</td>
+                                        <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Télétransmission</td>
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><i class="fas fa-check"></i></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaire colonneDevisTarif colonneDevisTarifEnTete"><a class ="ensembleLiens" onclick="window.open('menuDrajak?action=DemandeDevis_exportpdf','_blank')"><i id="faImpression"class="fas fa-print"></i> Imprimer</a></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
+                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete"><a class ="ensembleLiens" onclick="window.open('menuDrajak?action=DemandeDevis_exportpdf','_blank')"><i id="faImpression"class="fas fa-print"></i> Imprimer</a></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">
+                                            <div class="form-group">
+                                                <input type="hidden" name="action" value="DemandeDevis_souscription"/>
+                                                <button type="submit" class="btn btn-primary btn-block btn-formulaireSouscription" value="Valider">Souscription</button>
+                                            </div>
+                                        </td>
                                     </tr>
                                     
                             </table>
-                            <div class="form-group">
-                                <input type="hidden" name="action" value="DemandeDevis_souscription"/>
-                                <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
