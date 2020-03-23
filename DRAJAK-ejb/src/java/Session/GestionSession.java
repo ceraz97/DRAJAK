@@ -12,6 +12,7 @@ import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
 import Entity.Garantie;
+import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
 import Entity.PersonneMorale;
@@ -56,6 +57,7 @@ import Facades.TypeModuleFacadeLocal;
 import Facades.TypeRemboursementFacadeLocal;
 import Facades.TypeTransactionFacadeLocal;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -165,10 +167,9 @@ public class GestionSession implements GestionSessionLocal {
        Contrat c;
        ContratIndividuel devisA, devisB;
        ContratCollectif cc;
-       ObjetGarantie og;
        TrancheAge ta, tv;
        DomaineProduit dm;
-       Produit pri, prc;
+       Produit pr1, pr2;
        TypeModule tmb, tmf;
        TypeRemboursement fr, bd;
        List listG;
@@ -212,57 +213,104 @@ public class GestionSession implements GestionSessionLocal {
        transactionFacade.CreerTransactions("Remboursement 1", 100.00, StatutTransaction.EnAttente, "En attente de validation", tt, ca);
        
        //GARANTIE
-       Garantie ga, gb, gc, gd, ge;
+       Garantie ga1, gb1, gc1, gd1, ga2, gb2, ga3, gb3, ga4, gb4;
        fr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
        bd = typeRemboursementFacade.CreerTypeRemboursement("Base de remboursement");
-       ga = garantieFacade.CreerGarantie("Adherent CAS", bd);
-       gb = garantieFacade.CreerGarantie("Non Adherent CAS", bd);
-       gc = garantieFacade.CreerGarantie("Chambre particuliere", fr);
-       gd = garantieFacade.CreerGarantie("Lit d'accompagnement", fr);
-       ge = garantieFacade.CreerGarantie("Forfait naissance ou adoption", fr);
-       listG = garantieFacade.ListerAllGarantie();
+       ga1 = garantieFacade.CreerGarantie("Lunettes verres simples", bd);
+       gb1 = garantieFacade.CreerGarantie("Lunettes verres complexes", bd);
+       gc1 = garantieFacade.CreerGarantie("Soins dentaires remboursés par la sécurité sociale", bd);
+       gd1 = garantieFacade.CreerGarantie("Orthodontie remboursée par la Sécurité Sociale", bd);
+       ga2 = garantieFacade.CreerGarantie("Honoraires hospitaliers", bd);
+       gb2 = garantieFacade.CreerGarantie("Forfait journalier", bd);
+       ga3 = garantieFacade.CreerGarantie("Honoraires médicaux", bd);
+       gb3 = garantieFacade.CreerGarantie("Honoraires paramédicaux", bd);
+       ga4 = garantieFacade.CreerGarantie("Appareillage et prothèses", fr);
+       gb4 = garantieFacade.CreerGarantie("Acupuncture, Ostépathie, Chiropractie", fr);
+
+       List<Garantie> listGOptiqueDentaire = new ArrayList<>() ;
+       listGOptiqueDentaire.add(ga1); listGOptiqueDentaire.add(gb1); listGOptiqueDentaire.add(gc1);  listGOptiqueDentaire.add(gd1);
+       
+       List<Garantie> listHospi = new ArrayList<>() ;
+       listHospi.add(ga2); listHospi.add(gb2);
+       
+       List<Garantie> listSoin = new ArrayList<>() ;
+       listSoin.add(ga3); listSoin.add(gb3);
+       
+       List<Garantie> listDiver = new ArrayList<>() ;
+       listDiver.add(ga4); listDiver.add(gb4);
        
        //MODULE
+       Modules m1, m2, m3, m4;
        tmb = typeModuleFacade.CreerTypeModule("Base");
        tmf = typeModuleFacade.CreerTypeModule("Facultatif");
-       moduleFacade.CreerModule("Santé Hospitalisation", tmb, listG);
-       moduleFacade.CreerModule("Santé Dentaire", tmb, listG);
-       moduleFacade.CreerModule("Santé Optique", tmb, listG);
-       listM = moduleFacade.ListerAllModule();
+       m1 = moduleFacade.CreerModule("OptiqueDentaire Individuel Base", tmf, listGOptiqueDentaire);
+       m2 = moduleFacade.CreerModule("Santé Hospitalisation", tmb, listHospi);
+       m3 = moduleFacade.CreerModule("Santé Soins Courants", tmb, listSoin);
+       m4 = moduleFacade.CreerModule("Santé Divers", tmf, listDiver);
+       
+       List<Modules> listSante1 = new ArrayList<>() ; //Module base + Optique/dentaire 
+       listSante1.add(m1); listSante1.add(m2); listSante1.add(m3);
+       List<Modules> listSante2 = new ArrayList<>() ; //Module base + Divers
+       listSante2.add(m4); listSante2.add(m2); listSante2.add(m3);
        
        //PRODUIT
        dm = domaineProduitFacade.CreerDomaineProduit("Santé");
-       pri = produitFacade.CreerProduit(TypeProduit.Individuel, "Cristal - 3 modules", 0.1327, dm, listM);
-       prc = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", 0.1327, dm, listM);
+       pr1 = produitFacade.CreerProduit(TypeProduit.Individuel, "Cristal - 3 modules", 0.1327, dm, listSante1);
+       pr2 = produitFacade.CreerProduit(TypeProduit.Collectif, "Produit Santé Basique Collectif", 0.1327, dm, listSante2);
        
        //PRIX&TAUX GARANTIE
-       og =  objetGarantieFacade.CreerObjetGarantie("Cadre");
+       ObjetGarantie cadre, tns, Na, Nb, Nc;
+       cadre =  objetGarantieFacade.CreerObjetGarantie("Cadre");
        objetGarantieFacade.CreerObjetGarantie("Non Cadre");
-       objetGarantieFacade.CreerObjetGarantie("Profession Liberale");
-       objetGarantieFacade.CreerObjetGarantie("TNS");
        objetGarantieFacade.CreerObjetGarantie("Etudiant");
+       tns = objetGarantieFacade.CreerObjetGarantie("TNS");
+       objetGarantieFacade.CreerObjetGarantie("Retraité");
+       Na = objetGarantieFacade.CreerObjetGarantie("N1");
+       Nb = objetGarantieFacade.CreerObjetGarantie("N2");
+       Nc = objetGarantieFacade.CreerObjetGarantie("N3");
        ta = trancheAgeFacade.CreerTrancheAge("jusqu'à 40 ans", 0 ,40, 1.0 );
        tv = trancheAgeFacade.CreerTrancheAge("de 41 à 45 ans", 41 ,45, 1.5 );
        trancheAgeFacade.CreerTrancheAge("de 46 à 50 ans", 46 ,50, 1.8 );
        trancheAgeFacade.CreerTrancheAge("51 ans et plus", 51 ,200, 2.1 );
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, ga); //Pas d'influence sur ces garanties en particulier
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, ga);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gb);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gb);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gc);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gc);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, gd);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, gd);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, null, ge);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 7.0, tv, null, ge);
+       //OptiqueDentaire
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga1); //L'age n'a pas d'impact sur ce produit
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb1); 
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gd1); 
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gd1);
+       //Hospi
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga2); 
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga2);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, ga2); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, gb2);
+       //SoinsCourant
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga3);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, gb3);
+       //Divers
+       tauxGarantieFacade.CreerTauxDeGarantie(50.0, 4.0, null, Na, ga4); 
+       tauxGarantieFacade.CreerTauxDeGarantie(65.0, 7.0, null, Nb, ga4);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 10.0, null, Nc, ga4); 
+       tauxGarantieFacade.CreerTauxDeGarantie(250.0, 4.0, null, Na, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(600.0, 7.0, null, Nb, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(1000.0, 10.0, null, Nc, gb4);
+       
        
        //CONTRAT
-       devisA = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 1", ca, null, ce, og, pri);
-       devisB = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 2", ca, null, ce, og, pri);
-       contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, og, pri);
+       devisA = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 1", ca, null, ce, tns, pr1);
+       devisB = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 2", ca, null, ce, tns, pr1);
+       contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, cadre, pr1);
        contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", ChoixPaiement.Annuel, ce, devisA);
-       cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, prc, pm);
-       contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, og, cc);
+       cc =contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, pr2, pm);
+       contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, cadre, cc);
        
        //EVENEMENT
        evenementFacade.CreerEvenement("Test", d, devisA);//test
