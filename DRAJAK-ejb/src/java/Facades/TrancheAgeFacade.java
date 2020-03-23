@@ -32,12 +32,11 @@ public class TrancheAgeFacade extends AbstractFacade<TrancheAge> implements Tran
     }
 
     @Override
-    public TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge, Double coefficient) {
+    public TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge) {
         TrancheAge trancheAgeInstance= new TrancheAge ();
         trancheAgeInstance.setLibelletrancheAge(libelle);
         trancheAgeInstance.setMinAge(minAge);
         trancheAgeInstance.setMaxAge(maxAge);
-        trancheAgeInstance.setCoefficient(coefficient);
         getEntityManager().persist(trancheAgeInstance);
         return trancheAgeInstance;
     }

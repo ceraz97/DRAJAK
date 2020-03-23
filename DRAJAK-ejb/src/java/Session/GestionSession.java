@@ -58,6 +58,7 @@ import Facades.TypeRemboursementFacadeLocal;
 import Facades.TypeTransactionFacadeLocal;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -172,31 +173,37 @@ public class GestionSession implements GestionSessionLocal {
        Produit pr1, pr2;
        TypeModule tmb, tmf;
        TypeRemboursement fr, bd;
-       List listG;
-       List listM;
               
        Genre autre, femme, homme;
        autre= Genre.Autre; femme= Genre.Femme; homme= Genre.Homme;
        
-
-       Date d = new Date();
-      
+       Date d20;
+       Calendar c20 = Calendar.getInstance(); 
+       c20.setTime(new Date()); 
+       c20.add(Calendar.DATE, -8000);
+       d20 = c20.getTime();
+       
+       Date d40;
+       Calendar c40 = Calendar.getInstance(); 
+       c40.setTime(new Date()); 
+       c40.add(Calendar.DATE, -16000);
+       d40 = c40.getTime();
        //PERSONNE PUBLIQUE
-      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre,d , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "39 avenue DeLaBas, 69006, Lyon, France");
-      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d , "1964569423458", "Jean.Eude@yopmail.com", "0666667666", "40 avenue DeLaBas, 69006, Lyon, France");
+      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20 , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "39 avenue DeLaBas, 69006, Lyon, France");
+      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d20 , "1964569423458", "Jean.Eude@yopmail.com", "0666667666", "40 avenue DeLaBas, 69006, Lyon, France");
       
       //PERSONNE MORALE
       /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", "999999999", "14141414141414", "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
       
       //COMPTE EMPLOYÉ
-      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d,"Clement.ratz0@yopmail.com","0707070707","66 rue QuelquespartdansLyon, 69005, Lyon, France",Role.Administrateur);
+      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d20,"Clement.ratz0@yopmail.com","0707070707","66 rue QuelquespartdansLyon, 69005, Lyon, France",Role.Administrateur);
       compteEmployeFacade.CreerID(ce);
        
       //PARTICULIER
-      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21 rue ParLàBas, 69004, Lyon, France");
-      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20 lotissement ParIci, 69003, Lyon, France");
-      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19 route PrèsDeParIci, Lyon, France");
-      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13 route Loindici, Lyon, France");
+      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21 rue ParLàBas, 69004, Lyon, France");
+      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20 lotissement ParIci, 69003, Lyon, France");
+      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19 route PrèsDeParIci, Lyon, France");
+      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13 route Loindici, Lyon, France");
       particulierFacade.CreerID(pa);
       particulierFacade.CreerID(pay);
       particulierFacade.CreerID(paa);
@@ -243,7 +250,7 @@ public class GestionSession implements GestionSessionLocal {
        Modules m1, m2, m3, m4;
        tmb = typeModuleFacade.CreerTypeModule("Base");
        tmf = typeModuleFacade.CreerTypeModule("Facultatif");
-       m1 = moduleFacade.CreerModule("OptiqueDentaire Individuel Base", tmf, listGOptiqueDentaire);
+       m1 = moduleFacade.CreerModule("Santé OptiqueDentaire Individuel", tmf, listGOptiqueDentaire);
        m2 = moduleFacade.CreerModule("Santé Hospitalisation", tmb, listHospi);
        m3 = moduleFacade.CreerModule("Santé Soins Courants", tmb, listSoin);
        m4 = moduleFacade.CreerModule("Santé Divers", tmf, listDiver);
@@ -268,40 +275,67 @@ public class GestionSession implements GestionSessionLocal {
        Na = objetGarantieFacade.CreerObjetGarantie("N1");
        Nb = objetGarantieFacade.CreerObjetGarantie("N2");
        Nc = objetGarantieFacade.CreerObjetGarantie("N3");
-       ta = trancheAgeFacade.CreerTrancheAge("jusqu'à 40 ans", 0 ,40, 1.0 );
-       tv = trancheAgeFacade.CreerTrancheAge("de 41 à 45 ans", 41 ,45, 1.5 );
-       trancheAgeFacade.CreerTrancheAge("de 46 à 50 ans", 46 ,50, 1.8 );
-       trancheAgeFacade.CreerTrancheAge("51 ans et plus", 51 ,200, 2.1 );
+       trancheAgeFacade.CreerTrancheAge("0-17 ans", 0 ,17);
+       ta = trancheAgeFacade.CreerTrancheAge("18-34 ans", 18 ,34);
+       tv = trancheAgeFacade.CreerTrancheAge("35-54 ans", 35 ,54);
+       trancheAgeFacade.CreerTrancheAge("55-70 ans", 55, 70);
+       trancheAgeFacade.CreerTrancheAge("71-80 ans", 71, 80);
        //OptiqueDentaire
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga1); //L'age n'a pas d'impact sur ce produit
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga1);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb1); 
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb1);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gc1);
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gc1);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gd1); 
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gd1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, ga1); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, ga1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, ga1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, ga1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, gb1); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, gb1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, gb1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, gb1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, gc1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, gd1);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, gd1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, gd1);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, gd1);
        //Hospi
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga2); 
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga2);
-       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, ga2); 
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb2);
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb2);
-       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, ga2); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, ga2);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, ga2);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, ga2);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, ta, Nc, ga2); 
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 12.0, tv, Nc, ga2); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, ta, Nc, gb2);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 12.0, tv, Nc, gb2);
        //SoinsCourant
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, ga3); 
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, ga3);
-       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, ga3); 
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, null, Na, gb3);
-       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, null, Nb, gb3);
-       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, null, Nc, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, ga3);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, ga3);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, ta, Nc, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 12.0, tv, Nc, ga3); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 4.0, ta, Na, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 5.0, tv, Na, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 7.0, ta, Nb, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(200.0, 8.0, tv, Nb, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 10.0, ta, Nc, gb3);
+       tauxGarantieFacade.CreerTauxDeGarantie(300.0, 12.0, tv, Nc, gb3);
        //Divers
-       tauxGarantieFacade.CreerTauxDeGarantie(50.0, 4.0, null, Na, ga4); 
-       tauxGarantieFacade.CreerTauxDeGarantie(65.0, 7.0, null, Nb, ga4);
-       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 10.0, null, Nc, ga4); 
-       tauxGarantieFacade.CreerTauxDeGarantie(250.0, 4.0, null, Na, gb4);
-       tauxGarantieFacade.CreerTauxDeGarantie(600.0, 7.0, null, Nb, gb4);
-       tauxGarantieFacade.CreerTauxDeGarantie(1000.0, 10.0, null, Nc, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(50.0, 4.0, ta, Na, ga4); 
+       tauxGarantieFacade.CreerTauxDeGarantie(50.0, 5.0, tv, Na, ga4);
+       tauxGarantieFacade.CreerTauxDeGarantie(65.0, 7.0, ta, Nb, ga4);
+       tauxGarantieFacade.CreerTauxDeGarantie(65.0, 8.0, tv, Nb, ga4);
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 10.0, ta, Nc, ga4); 
+       tauxGarantieFacade.CreerTauxDeGarantie(100.0, 12.0, tv, Nc, ga4); 
+       tauxGarantieFacade.CreerTauxDeGarantie(250.0, 4.0, ta, Na, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(250.0, 5.0, tv, Na, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(600.0, 7.0, ta, Nb, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(600.0, 8.0, tv, Nb, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(1000.0, 10.0, ta, Nc, gb4);
+       tauxGarantieFacade.CreerTauxDeGarantie(1000.0, 12.0, tv, Nc, gb4);
        
        
        //CONTRAT
@@ -313,7 +347,7 @@ public class GestionSession implements GestionSessionLocal {
        contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, cadre, cc);
        
        //EVENEMENT
-       evenementFacade.CreerEvenement("Test", d, devisA);//test
+       evenementFacade.CreerEvenement("Test", new Date(), devisA);//test
 
        
        //FICHIER
