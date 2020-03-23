@@ -33,5 +33,7 @@ public interface TypeModuleFacadeLocal {
     TypeModule CreerTypeModule(String libelle);
 
     List<TypeModule> ListerAllTypeModule();
+
+    TypeModule RechercherTypeModule(String libelle);
     
 }

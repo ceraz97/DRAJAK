@@ -144,7 +144,7 @@
                             </div>
 
                             <div class='partie_formulaire_devis'>
-                                <p>Pour vous, être bien remlboursé en optique et dentaire :</p>
+                                <p>Pour vous, être bien remboursé en optique et dentaire :</p>
                                 <section class="sectionFormulaireRadio">
                                     <div>
                                         <input type="radio" name="optiqueDentaire" id="optiqueDentaire1" value="optiqueDentaire1" checked>

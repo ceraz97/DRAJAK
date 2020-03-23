@@ -22,9 +22,11 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Instant;
+import java.util.Calendar;
+import static java.util.Calendar.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,7 +72,7 @@ public class menuDrajak extends HttpServlet {
         CompteEmploye sessionGestionnaire = null;
         CompteEmploye sessionAdministrateur = null;
         PersonneMorale sessionEntreprise = null;
-        boolean sessionPublic = true;
+        //boolean sessionPublic = true;
         List<Object> Response;
         System.out.println("===" + act + "===");
         if (session != null) {
@@ -102,12 +104,9 @@ public class menuDrajak extends HttpServlet {
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
-            System.out.println("act == Accueil Normale");
         } else {
-            System.out.println("act != null");
             switch (act) {
-                
-            case "vide":
+                case "vide":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -141,7 +140,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("typeConnexion", request.getParameter("typeConnexion"));
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Vous êtes déconnecté";
-                    sessionPublic=true;
+                    //sessionPublic=true;
                     break;
 
                 case "AssureAuthentification":
@@ -162,7 +161,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAssure", sessionAssure);
-                            sessionPublic=false;
+                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -185,7 +184,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
-                            sessionPublic=false;
+                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -208,7 +207,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionEntreprise", sessionEntreprise);
-                            sessionPublic=false;
+                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -231,7 +230,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
-                            sessionPublic=false;
+                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -267,6 +266,186 @@ public class menuDrajak extends HttpServlet {
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     message="";
+                    
+                    String nbAdulteTarif = null, trancheAgeTarif =null,  enfantTarif = null, couvertureTarif =null,optiqueDentaireTarif=null;  
+                    Genre genreAdulte1,genreAdulte2,genreEnfant1,genreEnfant2,genreEnfant3;
+                    String DobA1String,DobA2String,DobE1String,DobE2String,DobE3String;
+                    Date DobA1Date,DobA2Date,DobE1Date,DobE2Date,DobE3Date;
+                    int ageA1, ageA2, ageE1, ageE2, ageE3;
+                    String nomA1,prenomA1;
+                    String regimeA1;
+                    String nbEnfant=null;
+                    String numRueTarif,nomRueTarif,cpTarif,villeTarif,paysTarif,adresseTarif, email;
+                    Particulier particulierDevis = null;
+                    
+                    //Récupération des données
+                    try {
+                        nbAdulteTarif =request.getParameter("adulteHidden"); 
+                        trancheAgeTarif =request.getParameter("ageHidden");
+                        enfantTarif =request.getParameter("enfantHidden");
+                        couvertureTarif = request.getParameter("couvertureHidden");
+                        optiqueDentaireTarif = request.getParameter("optiqueDentaireHidden");
+                    } catch (Exception e){
+                        message="Erreur : une information sur les besoins n'a pu être récupérée";
+                        jspAffiche="/realiserDevisBesoins.jsp";
+                    }
+                    //recherche des éléments de granties
+                        //Adulte
+                        if (sessionAssure != null){
+                            particulierDevis = assureSession.RechercherParticulier(sessionAssure.getCleParticulier().getnSecuriteSocial());
+                            if (particulierDevis==null){ 
+                                message="Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
+                            }
+                        } else { 
+                            try {
+                                String gA1 = request.getParameter("genreA1");
+                                if (gA1.equalsIgnoreCase("Homme")){genreAdulte1 = Genre.Homme;}
+                                else if (gA1.equalsIgnoreCase("Femme")){genreAdulte1 = Genre.Femme;}
+                                else {genreAdulte1 = Genre.Autre;}
+                                DobA1String = request.getParameter("bdayA1");
+                                DobA1Date=java.sql.Date.valueOf(DobA1String);
+                                regimeA1 = request.getParameter("selectRegimeA1");
+                                nomA1 = request.getParameter("nomA1");
+                                prenomA1 = request.getParameter("prenomA1");
+                                ageA1=doActionCalculerAge(DobA1Date,request, response);
+                            } catch (Exception e){
+                                message="Erreur : une information sur le premier adulte n'a pu être récupérée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                        }
+                        
+                        try {
+                            nbEnfant = request.getParameter("enfantSelect");
+                        } catch (Exception e) {
+                            message="Erreur : le nombre d'enfant n'a pu être récupéré";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                        }
+
+                        if (nbAdulteTarif.equalsIgnoreCase("2")){
+                            try {
+                                String gA2 = request.getParameter("genre2");
+                                if (gA2.equalsIgnoreCase("Homme")){genreAdulte2 = Genre.Homme;}
+                                else if (gA2.equalsIgnoreCase("Femme")){genreAdulte2 = Genre.Femme;}
+                                else {genreAdulte2 = Genre.Autre;}
+                                DobA2String = request.getParameter("bdayA2");
+                                DobA2Date=java.sql.Date.valueOf(DobA2String);
+                                ageA2=doActionCalculerAge(DobA2Date,request, response);
+                            } catch (Exception e){
+                                message="Erreur : une information sur le deuxième adulte n'a pu être récupéreée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                        }
+
+                        //Enfant
+                        if (enfantTarif.equalsIgnoreCase("avec")){
+                            try {
+                                String gE1 = request.getParameter("genreE1");
+                                if (gE1.equalsIgnoreCase("Homme")){genreEnfant1 = Genre.Homme;}
+                                else if (gE1.equalsIgnoreCase("Femme")){genreEnfant1 = Genre.Femme;}
+                                else {genreEnfant1 = Genre.Autre;}
+                                DobE1String=request.getParameter("bdayE1");
+                                DobE1Date=java.sql.Date.valueOf(DobE1String);
+                                ageE1=doActionCalculerAge(DobE1Date,request, response);
+                            } catch (Exception e){
+                                message="Erreur : une information sur le premier enfant n'a pu être récupéreée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                            
+                            if (nbEnfant.equalsIgnoreCase("2") || nbEnfant.equalsIgnoreCase("3")){
+                                try {
+                                    String gE2 = request.getParameter("genreE2");
+                                    if (gE2.equalsIgnoreCase("Homme")){genreEnfant2 = Genre.Homme;}
+                                    else if (gE2.equalsIgnoreCase("Femme")){genreEnfant2 = Genre.Femme;}
+                                    else {genreEnfant2 = Genre.Autre;}
+                                    DobE2String=request.getParameter("bdayE2");
+                                    DobE2Date=java.sql.Date.valueOf(DobE2String);
+                                    ageE2=doActionCalculerAge(DobE2Date,request, response);
+                                } catch (Exception e){
+                                    message="Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
+                                    jspAffiche="/realiserDevisBesoins.jsp";
+                                }
+                            } 
+                            if(nbEnfant.equalsIgnoreCase("3")){
+                                try {
+                                    String gE3 = request.getParameter("genreE3");
+                                    if (gE3.equalsIgnoreCase("Homme")){genreEnfant3 = Genre.Homme;}
+                                    else if (gE3.equalsIgnoreCase("Femme")){genreEnfant3 = Genre.Femme;}
+                                    else {genreEnfant3 = Genre.Autre;}
+                                    DobE3String=request.getParameter("bdayE3");
+                                    DobE3Date=java.sql.Date.valueOf(DobE3String);
+                                    ageE3=doActionCalculerAge(DobE3Date,request, response);
+                                } catch (Exception e){
+                                    message="Erreur : une information sur le troisième enfant n'a pu être récupéreée";
+                                    jspAffiche="/realiserDevisBesoins.jsp";
+                                }
+                            }
+                        }
+
+                        if (sessionAssure == null){
+                            try {
+                                //Adresse
+                                numRueTarif = request.getParameter("adrNum");
+                                nomRueTarif = request.getParameter("adrNomRue");
+                                cpTarif = request.getParameter("adrCP");
+                                villeTarif = request.getParameter("adrVille");
+                                paysTarif = request.getParameter("adrPays");
+                                adresseTarif=numRueTarif+","+nomRueTarif+","+cpTarif+","+villeTarif+","+paysTarif;
+
+                                //Mail
+                                email = request.getParameter("adrMail");
+                            } catch (Exception e){
+                                message="Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                        }
+                        
+                        if (trancheAgeTarif.equalsIgnoreCase("1")){
+                            //TrancheAge trancheMaxTarif = assureSession;
+                        }
+                           
+                        
+                    //Cotisations 
+                        //Recherche TypeModuyle
+                        
+                        TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
+                        TypeModule typeModuleFacultatifInstanceTarif = assureSession.RechercherTypeModule("Base");
+                        Modules moduleInstanceHosipitalisationTarif,moduleInstanceSoinsTarif,moduleInstanceOptiqueTarif,moduleInstanceDentaireTarif;  
+                        //Tarif Pépins
+                        if (couvertureTarif.equalsIgnoreCase("1")){
+                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N1",typeModuleBaseInstanceTarif);
+                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N1",typeModuleBaseInstanceTarif);
+                        } else if (couvertureTarif.equalsIgnoreCase("2")){
+                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N2",typeModuleBaseInstanceTarif);
+                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N2",typeModuleBaseInstanceTarif);
+                        } else {
+                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N3",typeModuleBaseInstanceTarif);
+                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N3",typeModuleBaseInstanceTarif);
+                        }
+                        
+                        //Tarif Optique / Dentaire
+                        if (optiqueDentaireTarif.equalsIgnoreCase("1")){
+                            moduleInstanceOptiqueTarif = assureSession.RechercherModules("Santé Optique N1",typeModuleBaseInstanceTarif);
+                            moduleInstanceDentaireTarif = assureSession.RechercherModules("Santé Dentaire N1",typeModuleBaseInstanceTarif);
+                        } else {
+                            moduleInstanceOptiqueTarif = assureSession.RechercherModules("Santé Optique N2",typeModuleBaseInstanceTarif);
+                            moduleInstanceDentaireTarif = assureSession.RechercherModules("Santé Dentaire N2",typeModuleBaseInstanceTarif);
+                        }
+                        
+                        if (moduleInstanceHosipitalisationTarif==null || moduleInstanceSoinsTarif==null || moduleInstanceOptiqueTarif==null || moduleInstanceDentaireTarif==null) {
+                            message="Erreur : un ou plusieurs modules n'ont pas été trouvés";
+                        } else {
+                            
+                        }
+                        
+                        //Calcul des cotisations
+                        
+                    //Enregistrement du devis
+                        
+                    
+            
+                    
+                    
+                    
                     break;
                     
                 case "DemandeDevis_souscription":
@@ -285,7 +464,7 @@ public class menuDrajak extends HttpServlet {
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
         request.setAttribute("message", message);
         Rd.forward(request, response);
-        System.out.println("Public : " + sessionPublic+", Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
+        System.out.println("Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -400,25 +579,18 @@ public class menuDrajak extends HttpServlet {
         }
         
     }
-
-    protected void doActionRecuperValeurDuDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idDocument =0;
-        try {
-            //Récupération des données
-            String nbAdulte =request.getParameter("adulteHidden"); 
-            String trancheAge =request.getParameter("ageHidden");
-            String enfant =request.getParameter("enfantHidden");
-            String couverture = request.getParameter("couvertureHidden");
-            String optiqueDentaire = request.getParameter("optiqueDentaireHidden");
-            
-            //recherche des éléments de granties
-            
-            
-            //calcul des cotisations 
-            
-            
-        } catch (Exception exception) {
+    
+    protected int doActionCalculerAge (Date DOB, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+        Date currentDate = new Date ();
+        Calendar a = getCalendar(DOB);
+        Calendar b = getCalendar(currentDate);
+        int age = b.get(YEAR) - a.get(YEAR);
+        if (a.get(MONTH) > b.get(MONTH) || 
+            (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+            age--;
         }
+        return age;
     }
     /**
      * Returns a short description of the servlet.
@@ -429,5 +601,11 @@ public class menuDrajak extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(date);
+        return cal;
+    }
 
 }

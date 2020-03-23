@@ -40,5 +40,7 @@ public interface ModuleFacadeLocal {
     void ModifierModule(Modules module);
 
     List<Modules> ListerAllModule();
+
+    Modules RechercherModule(String libelle, TypeModule type);
     
 }

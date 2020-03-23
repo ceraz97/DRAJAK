@@ -6,14 +6,18 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.RegimeSocial;
+import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import Facades.CompteAssureFacadeLocal;
+import Facades.ModuleFacadeLocal;
 import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
+import Facades.TypeModuleFacadeLocal;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,6 +30,12 @@ import javax.ejb.Stateless;
 public class AssureSession implements AssureSessionLocal {
 
     @EJB
+    private ModuleFacadeLocal moduleFacade;
+
+    @EJB
+    private TypeModuleFacadeLocal typeModuleFacade;
+
+    @EJB
     private ParticulierFacadeLocal particulierFacade;
 
     @EJB
@@ -33,6 +43,9 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+    
+    
     
     @Override
     public String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion) {
@@ -88,4 +101,25 @@ public class AssureSession implements AssureSessionLocal {
         }
         return vide;
     }
+
+    @Override
+    public Particulier RechercherParticulier(String nSecu) {
+        Particulier p = particulierFacade.RechercherParticulier(nSecu);
+        return p;
+    }
+
+    @Override
+    public TypeModule RechercherTypeModule(String libelle) {
+        TypeModule typeModuleInstance = typeModuleFacade.RechercherTypeModule(libelle);
+        return typeModuleInstance;
+    }
+
+    @Override
+    public Modules RechercherModules(String libelle, TypeModule typeM) {
+        Modules moduleInstance = moduleFacade.RechercherModule(libelle, typeM);
+        return moduleInstance;
+    }
+    
+    
+    
 }

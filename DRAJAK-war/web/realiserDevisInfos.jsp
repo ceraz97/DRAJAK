@@ -15,7 +15,7 @@
 
     <head>
         <title>Demande de devis</title>
-        <meta charset="utf-8">
+        <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -94,34 +94,39 @@
                                 </tr>
                                 <tr class="ligneGeneraleTableau">
                                     <td class="colonne2LigneBas">
+                                        <section>
+                                            <div class="NomPrenomDevis">
+                                                <input type="text" id="nomA1" name="nomA1" placeholder="Nom" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getNom()}"</c:if>  <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> required>
+                                                <input type="text" id="prenomA1" name="prenomA1" placeholder="Prénom" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}"</c:if> <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if>required>
+                                            </div>
+                                        </section>
+                                        
                                         <section class="sectionFormulaireRadio" style="background-color: transparent">
                                             <div style="flex:0">
-                                                <input type="radio" name="genre" id="genre1" value="adulte1g1" <c:choose><c:when test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Homme'}">checked</c:when><c:otherwise>checked</c:otherwise></c:choose>>
-                                                        <label for="genre1">Homme</label>
-                                                    </div>
-                                                    <div style="flex:0">
-                                                            <input type="radio" name="genre" id="genre2" value="adulte1g2" <c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Femme'}">checked</c:if>>
-                                                    <label for="genre2">Femme</label>
-                                                </div>
-                                                <div style="flex:0">
-                                                    <input type="radio" name="genre" id="genre3" value="adulte1g3" <c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Neutre'}">checked</c:if>>
-                                                    <label for="genre3">Neutre</label>
-                                                </div>
-                                            </section>
-                                            <section>
-                                                <div>
-                                                    <label for="bday">Date de naissance :</label>
-
-                                                    <input type="date" id="bday" name="bday" value="${fmtDate}" required>
+                                                <input type="radio" name="genreA1" id="genre1" value="Homme" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if><c:choose><c:when test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Homme'}">checked</c:when><c:otherwise>checked</c:otherwise></c:choose>>
+                                                <label for="genre1">Homme</label>
+                                            </div>
+                                            <div style="flex:0">
+                                                <input type="radio" name="genreA1" id="genre2" value="Femme" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if><c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Femme'}">checked</c:if>>
+                                                <label for="genre2">Femme</label>
+                                            </div>
+                                            <div style="flex:0">
+                                                <input type="radio" name="genreA1" id="genre3" value="Autre" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> <c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Autre'}">checked</c:if>>
+                                                <label for="genre3">Autre</label>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div>
+                                                <label for="bdayA1">Date de naissance :</label>
+                                                    <input type="date" id="bdayA1" name="bdayA1" <c:if test="${ !empty sessionScope.sessionAssure }">value="${fmtDate}" disabled="disabled"</c:if> required>
                                             </div>
                                             <div>
-                                                <label for="selectRegime">Régime :</label>
-                                                <select name="selectRegime" required>
-                                                    <option value="SS" <c:choose><c:when test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Régime Général'}">selected</c:when><c:otherwise>checked</c:otherwise></c:choose>>Sécurité sociale</option>
-                                                    <option value="AM" <c:if test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Alsace Moselle'}">selected</c:if>>Alsace Moselle</option>
+                                                <label for="selectRegimeA1">Régime :</label>
+                                                <select name="selectRegimeA1" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> required>
+                                                    <option value="Régime Général" <c:choose><c:when test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Régime Général'}">selected</c:when><c:otherwise>checked</c:otherwise></c:choose>>Régime Général</option>
+                                                    <option value="Alsace Moselle" <c:if test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Alsace Moselle'}">selected</c:if>>Alsace Moselle</option>
                                                 </select>
                                             </div>
-                                            <c:out value="${param.selectRegime}"/>
                                         </section>
                                     </td>
                                 </tr>
@@ -135,29 +140,22 @@
                                         <td class="colonne2LigneBas">
                                             <section class="sectionFormulaireRadio" style="background-color: transparent">
                                                 <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre1A2" value="adulte2g1" checked>
+                                                    <input type="radio" name="genre2" id="genre1A2" value="Homme" checked>
                                                     <label for="genre1A2">Homme</label>
                                                 </div>
                                                 <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre2A2" value="adulte2g2" >
+                                                    <input type="radio" name="genre2" id="genre2A2" value="Femme" >
                                                     <label for="genre2A2">Femme</label>
                                                 </div>
                                                 <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre3A2" value="adulte2g3">
-                                                    <label for="genre3A2">Neutre</label>
+                                                    <input type="radio" name="genre2" id="genre3A2" value="Autre">
+                                                    <label for="genre3A2">Autre</label>
                                                 </div>
                                             </section>
                                             <section>
                                                 <div>
                                                     <label for="bdayA2">Date de naissance :</label>
                                                     <input type="date" id="bdayA2" name="bdayA2" required>
-                                                </div>
-                                                <div>
-                                                    <label for="selectRegimeA2">Régime :</label>
-                                                    <select name="selectRegimeA2">
-                                                        <option value="SS" required>Sécurité sociale</option>
-                                                        <option value="AM">Alsace Moselle</option>
-                                                    </select>
                                                 </div>
                                             </section>
                                         </td>
@@ -176,9 +174,9 @@
                                                 <div>
                                                     <label for="enfantSelect">Combien d'enfants souhaitez-vous assurer ?</label>
                                                     <select name="enfantSelect" id="enfantSelectId" onchange="functionNbEnfant()" required>
-                                                        <option selected>1 enfant</option>
-                                                        <option>2 enfants</option>
-                                                        <option>3 enfants</option>
+                                                        <option value="1" selected>1 enfant</option>
+                                                        <option value="2">2 enfants</option>
+                                                        <option value="3">3 enfants</option>
                                                     </select>
                                                 </div>
                                             </section>
@@ -187,17 +185,17 @@
                                                 <div>
                                                     <section class="sectionFormulaireRadio" style="background-color: transparent" selected>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre1E1" value="genre1E1" checked> 
+                                                            <input type="radio" name="genreE1" id="genre1E1" value="Homme" checked> 
 
                                                             <label for="genre1E1">Garcon</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre2E1" value="genre2E1">
+                                                            <input type="radio" name="genreE1" id="genre2E1" value="Femme">
                                                             <label for="genre2E1">Fille</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre3E1" value="genre3E1">
-                                                            <label for="genre3E1">Neutre</label>
+                                                            <input type="radio" name="genreE1" id="genre3E1" value="Autre">
+                                                            <label for="genre3E1">Autre</label>
                                                         </div>
                                                     </section>
                                                     <div>
@@ -210,17 +208,17 @@
                                                 <div style="margin: 50px auto;">
                                                     <section class="sectionFormulaireRadio" style="background-color: transparent">
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre1E2" value="genre1E1" checked> 
+                                                            <input type="radio" name="genreE2" id="genre1E2" value="Homme" checked> 
 
                                                             <label for="genre1E2">Garcon</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre2E2" value="genre2E1">
+                                                            <input type="radio" name="genreE2" id="genre2E2" value="Femme">
                                                             <label for="genre2E2">Fille</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre3E2" value="genre3E1">
-                                                            <label for="genre3E2">Neutre</label>
+                                                            <input type="radio" name="genreE2" id="genre3E2" value="Autre">
+                                                            <label for="genre3E2">Autre</label>
                                                         </div>
                                                     </section>
                                                     <div>
@@ -233,17 +231,17 @@
                                                 <div>
                                                     <section class="sectionFormulaireRadio" style="background-color: transparent">
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre1E3" value="genre1E3" checked> 
+                                                            <input type="radio" name="genreE3" id="genre1E3" value="Homme" checked> 
 
                                                             <label for="genre1E3">Garcon</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre2E3" value="genre2E3">
+                                                            <input type="radio" name="genreE3" id="genre2E3" value="Femme">
                                                             <label for="genre2E3">Fille</label>
                                                         </div>
                                                         <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre3E3" value="genre3E3">
-                                                            <label for="genre3E3">Neutre</label>
+                                                            <input type="radio" name="genreE3" id="genre3E3" value="Autre">
+                                                            <label for="genre3E3">Autre</label>
                                                         </div>
                                                     </section>
                                                     <div>
@@ -265,11 +263,11 @@
                                     <td class="colonne2LigneBas">
                                         <section>
                                             <div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" value="${adresseSplit[0]}" required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" value="${adresseSplit[1]}" required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" value="${adresseSplit[2]}" required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrVille" name="adrVille" placeholder="Ville" value="${adresseSplit[3]}" required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrPays" name="adrPays" placeholder="Pays" value="${adresseSplit[4]}" required></div>
+                                                <div class="champsAdresseDevis"><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[0]}" disabled="disabled"</c:if> required></div>
+                                                <div class="champsAdresseDevis"><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[1]}" disabled="disabled"</c:if> required></div>
+                                                <div class="champsAdresseDevis"><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[2]}" disabled="disabled"</c:if> required></div>
+                                                <div class="champsAdresseDevis"><input type="text" id="adrVille" name="adrVille" placeholder="Ville" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[3]}" disabled="disabled"</c:if> required></div>
+                                                <div class="champsAdresseDevis"><input type="text" id="adrPays" name="adrPays" placeholder="Pays" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[4]}" disabled="disabled"</c:if> required></div>
                                             </div>
                                         </section>
                                     </td>
@@ -284,7 +282,7 @@
                                     <td class="colonne2LigneBas">
                                         <section>
                                             <div>
-                                                <div class="champsAdresseDevis"><input type="mail" id="adrMail" name="adrMail" placeholder="email@exemple.com" value="${sessionScope.sessionAssure.getLogin()}" required></div>
+                                                <div class="champsAdresseDevis"><input type="email" id="adrMail" name="adrMail" placeholder="email@exemple.com" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getLogin()}" disabled="disabled"</c:if> required></div>
                                             </div>
                                         </section>
                                     </td>
