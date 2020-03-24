@@ -6,8 +6,7 @@
 package Servlet;
 
 import Entity.*;
-import Enum.Genre;
-import Enum.StatutPersonne;
+import Enum.*;
 import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
 import com.itextpdf.io.font.FontProgram;
@@ -235,17 +234,17 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
-                    
-                case "AssureVersPageAfficherContrat" :
-                    jspAffiche="/.jsp";
-                    message="";
+
+                case "AssureVersPageAfficherContrat":
+                    jspAffiche = "/.jsp";
+                    message = "";
                     break;
-                    
+
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
                     message="";
                     break;
-                    
+
                 case "DemandeDevis_infos":
                     jspAffiche = "/realiserDevisInfos.jsp";
                     message="";
@@ -263,7 +262,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("optiqueDentaire", optiqueDentaire); 
                     
                     break;
-                    
+
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     message="";

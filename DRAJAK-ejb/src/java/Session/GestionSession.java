@@ -73,13 +73,13 @@ public class GestionSession implements GestionSessionLocal {
 
     @EJB
     private ParticulierFacadeLocal particulierFacade;
-    
+
     @EJB
     private PersonnePubliqueFacadeLocal personnePubliqueFacade;
 
     @EJB
     private PersonneMoraleFacadeLocal personneMoraleFacade;
-    
+
     @EJB
     private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
     
@@ -91,20 +91,20 @@ public class GestionSession implements GestionSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
-    
+
     @EJB
     private ContratIndividuelFacadeLocal contratIndividuelFacade;
-    
+
     @EJB
     private ContratCollectifFacadeLocal contratCollectifFacade;
-    
+
     @EJB
     private RegimeSocialFacadeLocal regimeSocialFacade;
-    
-    @EJB 
+
+    @EJB
     private FichierFacadeLocal fichierFacade;
 
-    @EJB 
+    @EJB
     private TypeFichierFacadeLocal typeFichierFacade;
     
     @EJB 
@@ -116,34 +116,33 @@ public class GestionSession implements GestionSessionLocal {
     @EJB 
     private EvenementFacadeLocal evenementFacade;
 
-    @EJB 
+    @EJB
     private DomaineProduitFacadeLocal domaineProduitFacade;
-        
-    @EJB 
+
+    @EJB
     private ProduitFacadeLocal produitFacade;
-    
-    @EJB 
+
+    @EJB
     private TypeModuleFacadeLocal typeModuleFacade;
-    
-    @EJB 
+
+    @EJB
     private ModuleFacadeLocal moduleFacade;
-    
-    @EJB 
+
+    @EJB
     private TypeRemboursementFacadeLocal typeRemboursementFacade;
-        
-    @EJB 
+
+    @EJB
     private GarantieFacadeLocal garantieFacade;
-     
-    @EJB 
+
+    @EJB
     private TrancheAgeFacadeLocal trancheAgeFacade;
-    
-    @EJB 
+
+    @EJB
     private TauxGarantieFacadeLocal tauxGarantieFacade;
-    
-    @EJB 
+
+    @EJB
     private ObjetGarantieFacadeLocal objetGarantieFacade;
-    
-    
+
     @Override
     public CompteEmploye RechercherCompteEmployePourConnexion(String login, String mdp) {
         return compteEmployeFacade.AuthentifierCompteEmploye(login, mdp);
