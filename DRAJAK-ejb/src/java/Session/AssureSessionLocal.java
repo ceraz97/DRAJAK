@@ -6,6 +6,10 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.CompteEmploye;
+import Entity.ContratIndividuel;
+import Entity.Garantie;
+import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
 import Entity.PersonneMorale;
@@ -13,6 +17,9 @@ import Entity.PersonnePhysique;
 import Entity.PersonnePublique;
 import Entity.Produit;
 import Entity.RegimeSocial;
+import Entity.TauxGarantie;
+import Entity.TrancheAge;
+import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import java.util.Date;
@@ -39,5 +46,21 @@ public interface AssureSessionLocal {
     Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
 
     boolean RechercherExistenceAssurePourBDD();
+
+    Particulier RechercherParticulier(String nSecu);
+
+    TypeModule RechercherTypeModule(String libelle);
+
+    Modules RechercherModules(String libelle, TypeModule typeM);
+
+    TrancheAge RechercherTrancheAgeParLibelle(String libelle);
+
+    ObjetGarantie RechercherObjetGarantieParLibelle(String libelle);
+
+    Garantie RechercherGarantieParLibelle(String libelle);
+
+    TauxGarantie RechercherTauxGarantie(TrancheAge tranche, ObjetGarantie objet, Garantie garantie);
+
+    ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod);
 
 }

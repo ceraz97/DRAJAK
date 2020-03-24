@@ -6,9 +6,14 @@
 package Facades;
 
 import Entity.AyantDroit;
+import Entity.ContratIndividuel;
+import Entity.Particulier;
+import Entity.TypeAyantDroit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +33,39 @@ public class AyantDroitFacade extends AbstractFacade<AyantDroit> implements Ayan
     public AyantDroitFacade() {
         super(AyantDroit.class);
     }
+        @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit cleTypeAyantDroit, Particulier cleParticulier, ContratIndividuel cleContratIndividuel) {
+        AyantDroit ad = new AyantDroit();
+        ad.setCleTypeAyantDroit(cleTypeAyantDroit);
+        ad.setCleParticulier(cleParticulier);
+        ad.setCleContratIndividuel(cleContratIndividuel);
+        getEntityManager().persist(ad);
+        return ad;  
+    }
+        
+    @Override
+    public List ListerAllAyantDroit() {
+        List ListerAllAyantDroit;
+        String tx = "SELECT ad FROM AyantDroit AS AD";
+        Query req = getEntityManager().createQuery(tx);
+        ListerAllAyantDroit=req.getResultList();
+        return ListerAllAyantDroit;
+    }
     
+        @Override
+    public List ListerAyantDroitContrat(ContratIndividuel ci) {
+        List ListerAllAyantDroitContrat;
+        String tx = "SELECT ad FROM AyantDroit AS AD WHERE ad.cleContratIndividuel=:cleContratIndividuel";
+        Query req = getEntityManager().createQuery(tx);
+        ListerAllAyantDroitContrat=req.getResultList();
+        return ListerAllAyantDroitContrat;
+    }
+    
+    public void ModifierAyantDroit(AyantDroit ad) {
+        em.merge(ad);
+        }
+        
+    public void SupprimerAyantDroit(AyantDroit ad){
+        em.remove(ad);
+        }
 }

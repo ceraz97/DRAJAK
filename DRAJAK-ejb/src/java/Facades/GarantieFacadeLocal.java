@@ -36,5 +36,7 @@ public interface GarantieFacadeLocal {
     Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
 
     List<Garantie> ListerAllGarantie();
+
+    Garantie RechercherGarantie(String libelle);
     
 }

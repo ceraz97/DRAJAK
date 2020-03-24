@@ -39,9 +39,9 @@ public class PersonneMorale implements Serializable {
     @Column (nullable=false)
     private String raisonSociale;
     @Column (nullable=false)
-    private int nSiret;
+    private String nSiret;
     @Column (nullable=false)
-    private int nSiren;
+    private String nSiren;
     @Column (nullable=false, unique=true)
     private String login;
     @Column (nullable=false)
@@ -85,19 +85,19 @@ public class PersonneMorale implements Serializable {
         this.id = id;
     }
     
-    public int getnSiren() {
+    public String getnSiren() {
         return nSiren;
     }
 
-    public void setnSiren(int nSiren) {
+    public void setnSiren(String nSiren) {
         this.nSiren = nSiren;
     }
 
-    public int getnSiret() {
+    public String getnSiret() {
         return nSiret;
     }
 
-    public void setnSiret(int nSiret) {
+    public void setnSiret(String nSiret) {
         this.nSiret = nSiret;
     }
 

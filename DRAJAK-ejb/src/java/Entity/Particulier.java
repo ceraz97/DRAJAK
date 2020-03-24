@@ -40,7 +40,7 @@ public class Particulier extends PersonnePhysique implements Serializable {
         this.compteAssures = compteAssures;
     }
     @Column (nullable=false, unique=true)
-    private int nAdherent;
+    private long nAdherent;
     @Column (nullable=false, unique=true)
     private String nSecuriteSocial;
 
@@ -52,11 +52,11 @@ public class Particulier extends PersonnePhysique implements Serializable {
         this.nSecuriteSocial = nSecuriteSocial;
     }
     
-    public int getnAdherent() {
+    public long getnAdherent() {
         return nAdherent;
     }
 
-    public void setnAdherent(int nAdherent) {
+    public void setnAdherent(long nAdherent) {
         this.nAdherent = nAdherent;
     }
 

@@ -49,6 +49,16 @@ public class TrancheAgeFacade extends AbstractFacade<TrancheAge> implements Tran
         listeDesTrancheAge=req.getResultList();
         return listeDesTrancheAge;
     }
+
+    @Override
+    public TrancheAge RechercherTrancheAgeParLibelle(String libelle) {
+        TrancheAge trancheAgeInstance;
+        String tx = "SELECT t FROM TrancheAge AS t WHERE t.libelletrancheAge=:LibelleTranche";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("LibelleTranche", libelle);
+        trancheAgeInstance = (TrancheAge) req.getSingleResult();
+        return trancheAgeInstance;
+    }
     
     
     

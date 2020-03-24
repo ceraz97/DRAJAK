@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entity.Contrat;
 import Entity.Fichier;
 import Entity.TypeFichier;
 import java.sql.Blob;
@@ -33,7 +34,7 @@ public interface FichierFacadeLocal {
 
     int count();
     
-    Fichier CreerFichier(String nom, Date dateEnvoi, Blob Stockage, TypeFichier t);
+    Fichier CreerFichier(String nom, Blob Stockage,TypeFichier cleTypeFichier, Contrat cleContrat);
     
     List ListerAllFichier();
     

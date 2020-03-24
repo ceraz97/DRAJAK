@@ -6,14 +6,31 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.CompteEmploye;
+import Entity.ContratIndividuel;
+import Entity.Garantie;
+import Entity.Modules;
+import Entity.ObjetGarantie;
 import Entity.Particulier;
 import Entity.PersonneMorale;
+import Entity.PersonnePublique;
+import Entity.Produit;
 import Entity.RegimeSocial;
+import Entity.TauxGarantie;
+import Entity.TrancheAge;
+import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import Facades.CompteAssureFacadeLocal;
+import Facades.ContratIndividuelFacadeLocal;
+import Facades.GarantieFacadeLocal;
+import Facades.ModuleFacadeLocal;
+import Facades.ObjetGarantieFacadeLocal;
 import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
+import Facades.TauxGarantieFacadeLocal;
+import Facades.TrancheAgeFacadeLocal;
+import Facades.TypeModuleFacadeLocal;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,6 +43,27 @@ import javax.ejb.Stateless;
 public class AssureSession implements AssureSessionLocal {
 
     @EJB
+    private ContratIndividuelFacadeLocal contratIndividuelFacade;
+
+    @EJB
+    private TauxGarantieFacadeLocal tauxGarantieFacade;
+
+    @EJB
+    private GarantieFacadeLocal garantieFacade;
+
+    @EJB
+    private ObjetGarantieFacadeLocal objetGarantieFacade;
+
+    @EJB
+    private TrancheAgeFacadeLocal trancheAgeFacade;
+
+    @EJB
+    private ModuleFacadeLocal moduleFacade;
+
+    @EJB
+    private TypeModuleFacadeLocal typeModuleFacade;
+
+    @EJB
     private ParticulierFacadeLocal particulierFacade;
 
     @EJB
@@ -33,6 +71,11 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+    
+    
+    
+    
     
     @Override
     public String ChangementMdp(String login, String newMdp, CompteAssure SessConnexion) {
@@ -77,7 +120,7 @@ public class AssureSession implements AssureSessionLocal {
     }
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr, statutPersonne);
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
     @Override
@@ -88,4 +131,54 @@ public class AssureSession implements AssureSessionLocal {
         }
         return vide;
     }
+
+    @Override
+    public Particulier RechercherParticulier(String nSecu) {
+        Particulier p = particulierFacade.RechercherParticulier(nSecu);
+        return p;
+    }
+
+    @Override
+    public TypeModule RechercherTypeModule(String libelle) {
+        TypeModule typeModuleInstance = typeModuleFacade.RechercherTypeModule(libelle);
+        return typeModuleInstance;
+    }
+
+    @Override
+    public Modules RechercherModules(String libelle, TypeModule typeM) {
+        Modules moduleInstance = moduleFacade.RechercherModule(libelle, typeM);
+        return moduleInstance;
+    }
+
+    @Override
+    public TrancheAge RechercherTrancheAgeParLibelle(String libelle) {
+        TrancheAge trancheAgeInstance = trancheAgeFacade.RechercherTrancheAgeParLibelle(libelle);
+        return trancheAgeInstance;
+    }
+
+    @Override
+    public ObjetGarantie RechercherObjetGarantieParLibelle(String libelle) {
+        ObjetGarantie objetInstance = objetGarantieFacade.RechercherObjetGarantieParLibelle(libelle);
+        return objetInstance;
+    }
+
+    @Override
+    public Garantie RechercherGarantieParLibelle(String libelle) {
+        Garantie GarantieInstance = garantieFacade.RechercherGarantie(libelle);
+        return GarantieInstance;
+    }
+
+    @Override
+    public TauxGarantie RechercherTauxGarantie(TrancheAge tranche, ObjetGarantie objet, Garantie garantie) {
+        TauxGarantie tauxGarantieInstance = tauxGarantieFacade.RechercherTauxGarantie(tranche, objet, garantie);
+        return tauxGarantieInstance;
+    }
+
+    @Override
+    public ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod) {
+        ContratIndividuel contratIndivDevis = new ContratIndividuel();
+        contratIndivDevis = contratIndividuelFacade.CreerDevis(libelle, compteA, persoPublique, compteE, objetGar, prod);
+        return contratIndivDevis;
+    }
+    
 }

@@ -14,6 +14,8 @@ import Entity.PersonneMorale;
 import Entity.Produit;
 import Enum.ChoixPaiement;
 import Enum.StatutContrat;
+import Enum.TypeContrat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -41,13 +43,21 @@ public class ContratCollectifFacade extends AbstractFacade<ContratCollectif> imp
     }
     
     @Override
-    public ContratCollectif CreerContratCollectif(Date datCreation, Date dateFin, String libelle, StatutContrat statut, ChoixPaiement paiement, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, PersonneMorale clePersonneMorale) {
+    public ContratCollectif CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, Produit cleProduit, PersonneMorale clePersonneMorale) {
         ContratCollectif contratCollectifInstance = new ContratCollectif ();
-        contratCollectifInstance.setDateCreation(datCreation);
-        contratCollectifInstance.setDateFin(dateFin);
+        //La date de fin de contrat est égal à la date de création + 365 jours
+        Date datFin; 
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(new Date()); 
+        c.add(Calendar.DATE, 365);
+        datFin = c.getTime();
+        ChoixPaiement choix = null;
+        contratCollectifInstance.setDateCreation(new Date());
+        contratCollectifInstance.setDateFin(datFin);
         contratCollectifInstance.setLibelleContrat(libelle);
-        contratCollectifInstance.setStatut(statut);
-        contratCollectifInstance.setPaiement(paiement);
+        contratCollectifInstance.setStatut(StatutContrat.Actif);
+        contratCollectifInstance.setPaiement(choix);
+        contratCollectifInstance.setType(TypeContrat.Collectif);
         contratCollectifInstance.setCleCompteAssure(cleCompteAssure);
         contratCollectifInstance.setCleCompteEmploye(cleCompteEmploye);
         contratCollectifInstance.setCleProduit(cleProduit);

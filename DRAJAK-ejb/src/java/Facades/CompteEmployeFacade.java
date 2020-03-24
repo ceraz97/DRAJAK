@@ -51,7 +51,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     }
 
     @Override
-    public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne) {
+    public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role) {
         CompteEmploye ce = new CompteEmploye();
 
         ce.setLogin(login);
@@ -64,7 +64,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
         ce.setnTelephone(tel);
         ce.setAdresse(adr);
         ce.setRoleEmploye(role);
-        ce.setStatutPeronne(statutPersonne);
+        ce.setStatutPeronne(StatutPersonne.Actif);
         
        String IniP = ce.getPrenom();
        String IniN = ce.getNom();
@@ -104,7 +104,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     @Override
     public List ListerAllCompteEmploye() {
         List ListerAllCompteEmploye;
-        String tx = "SELECT CE FROM CompteEmploye AS CA";
+        String tx = "SELECT ce FROM CompteEmploye AS CE";
         Query req = getEntityManager().createQuery(tx);
         ListerAllCompteEmploye=req.getResultList();
         return ListerAllCompteEmploye;

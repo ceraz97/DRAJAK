@@ -33,7 +33,7 @@ public class PersonneMoraleFacade extends AbstractFacade<PersonneMorale> impleme
     }
     
         @Override
-    public PersonneMorale CreerPersonneMorale(String raisonSociale, int nSiret, int nSiren, String login, String mdp, String email) {
+    public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         PersonneMorale PM = new PersonneMorale();
         PM.setLogin(login);
         PM.setMdp(mdp);

@@ -62,5 +62,17 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
         listeDesModules=req.getResultList();
         return listeDesModules;
     }
+
+    @Override
+    public Modules RechercherModule(String libelle, TypeModule type) {
+        Modules modulesInstance;
+        String tx = "SELECT m FROM Modules AS m WHERE m.libelleModule=:LibelleModule and m.cleTypeModule=:typeDuModule";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("LibelleModule", libelle);
+        req.setParameter("typeDuModule", type);
+        modulesInstance = (Modules) req.getSingleResult();
+        return modulesInstance;
+    }
+    
     
 }

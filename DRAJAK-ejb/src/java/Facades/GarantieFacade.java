@@ -51,6 +51,17 @@ public class GarantieFacade extends AbstractFacade<Garantie> implements Garantie
         listeDesGarantie=req.getResultList();
         return listeDesGarantie;
     }
+
+    @Override
+    public Garantie RechercherGarantie(String libelle) {
+        Garantie garantieInstance;
+        String tx = "SELECT t FROM Garantie AS t WHERE t.libelleGarantie=:libelleG";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("libelleG", libelle);
+        garantieInstance = (Garantie) req.getSingleResult();
+        return garantieInstance;
+    }
+    
     
     
 }

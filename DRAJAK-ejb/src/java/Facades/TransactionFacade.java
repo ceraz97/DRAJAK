@@ -7,6 +7,7 @@ package Facades;
 
 import Entity.CompteAssure;
 import Entity.Transactions;
+import Entity.TypeTransaction;
 import Enum.StatutTransaction;
 import java.util.Date;
 import javax.ejb.Stateless;
@@ -33,27 +34,20 @@ public class TransactionFacade extends AbstractFacade<Transactions> implements T
     }
     
     @Override
-    public Transactions CreerTransactions(String libelle, Date date, double montant, StatutTransaction statut, String libelleStatut) {
+    public Transactions CreerTransactions(String libelle, double montant, StatutTransaction statut, String libelleStatut, TypeTransaction cleTypeTransaction, CompteAssure cleCompteAssure) {
         Transactions t = new Transactions();
         t.setLibelleTransaction(libelle);
-        t.setDateTransaction(date);
+        t.setDateTransaction(new Date());
         t.setMontantTransaction(montant);
         t.setStatutTransaction(statut);
         t.setLibelleStatut(libelleStatut);
+        t.setCleTypeTransaction(cleTypeTransaction);
+        t.setCleCompteAssure(cleCompteAssure);
         getEntityManager().persist(t);
         return t;  
     }
     @Override    
-    public void ModifierTransactions(String libelle, double montant, Transactions t) {
-        t.setLibelleTransaction(libelle);
-        t.setMontantTransaction(montant);
-        em.merge(t);
-    }
-    
-    @Override    
-    public void ModifierStatutTransactions(StatutTransaction statut, String libelleStatut, Transactions t) {
-        t.setStatutTransaction(statut);
-        t.setLibelleStatut(libelleStatut);
+    public void ModifierTransactions(Transactions t) {
         em.merge(t);
     }
     

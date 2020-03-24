@@ -38,12 +38,12 @@ public class TrancheAge implements Serializable {
     private Long id;
     @Column (nullable=false)
     private String libelletrancheAge;
+
     @Column (nullable=false)
     private int minAge;
     @Column (nullable=false)
     private int maxAge;
 
-    
     public int getMaxAge() {
         return maxAge;
     }

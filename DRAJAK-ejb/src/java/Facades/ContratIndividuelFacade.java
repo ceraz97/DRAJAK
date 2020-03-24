@@ -38,64 +38,41 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     
     @Override
     public ContratIndividuel CreerDevis(String libelle, CompteAssure cleCompteAssure, PersonnePublique clePersonnePublique, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit) {
-        ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
-        Date datCreation = null;
-        datCreation = new Date();
-        Date datFin = null;
-        StatutContrat statut;
-        statut = StatutContrat.Devis;
-        TypeContrat type;
-        type = TypeContrat.Individuel;
-        ChoixPaiement paiement = null;
+        ContratIndividuel contratDevisInstance = new ContratIndividuel ();
+        contratDevisInstance.setDateCreation(new Date());
+        contratDevisInstance.setDateFin(null);
+        contratDevisInstance.setLibelleContrat(libelle);
+        contratDevisInstance.setStatut(StatutContrat.Devis);
+        contratDevisInstance.setPaiement(null);
+        contratDevisInstance.setCleCompteAssure(cleCompteAssure);
+        contratDevisInstance.setClePersonnePublique(clePersonnePublique);
+        contratDevisInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratDevisInstance.setCleObjetGarantie(cleObjetGarantie);
+        contratDevisInstance.setCleProduit(cleProduit);
+        contratDevisInstance.setType(TypeContrat.Individuel);
         
-        contratIndividuelInstance.setDateCreation(datCreation);
-        contratIndividuelInstance.setDateFin(datFin);
-        contratIndividuelInstance.setLibelleContrat(libelle);
-        contratIndividuelInstance.setStatut(statut);
-        contratIndividuelInstance.setPaiement(paiement);
-        contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
-        contratIndividuelInstance.setClePersonnePublique(clePersonnePublique);
-        contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
-        contratIndividuelInstance.setCleObjetGarantie(cleObjetGarantie);
-        contratIndividuelInstance.setCleProduit(cleProduit);
-        contratIndividuelInstance.setType(type);
-        
-        getEntityManager().persist(contratIndividuelInstance);
-        return contratIndividuelInstance;
+        getEntityManager().persist(contratDevisInstance);
+        return contratDevisInstance;
     } 
     
     
     @Override
-    public ContratIndividuel CreerContratCollectif(String libelle, CompteAssure cleCompteAssure, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit) {
-        ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
-        PersonnePublique clePersonnePublique = null;
-        Date datCreation = null;
-        datCreation = new Date();
+    public ContratIndividuel CreerContratCollectif(String libelle, CompteEmploye cleCompteEmploye, ObjetGarantie cleObjetGarantie, Produit cleProduit) {
+        ContratIndividuel contratCollectifInstance = new ContratIndividuel ();
         //La date de fin de contrat est égal à la date de création + 365 jours
         Date datFin; 
         Calendar c = Calendar.getInstance(); 
-        c.setTime(datCreation); 
+        c.setTime(new Date()); 
         c.add(Calendar.DATE, 365);
         datFin = c.getTime();
-        
-        StatutContrat statut;
-        statut = StatutContrat.Actif;
-        TypeContrat type;
-        type = TypeContrat.Collectif;
-        ChoixPaiement paiement =null;
-        
-        contratIndividuelInstance.setDateCreation(datCreation);
-        contratIndividuelInstance.setDateFin(datFin);
-        contratIndividuelInstance.setLibelleContrat(libelle);
-        contratIndividuelInstance.setStatut(statut);
-        contratIndividuelInstance.setPaiement(paiement);
-        contratIndividuelInstance.setCleCompteAssure(cleCompteAssure);
-        contratIndividuelInstance.setClePersonnePublique(clePersonnePublique);
-        contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
-        contratIndividuelInstance.setType(type);
-        
-        getEntityManager().persist(contratIndividuelInstance);
-        return contratIndividuelInstance;
+        contratCollectifInstance.setDateCreation(new Date());
+        contratCollectifInstance.setDateFin(datFin);
+        contratCollectifInstance.setLibelleContrat(libelle);
+        contratCollectifInstance.setStatut(StatutContrat.Actif);
+        contratCollectifInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratCollectifInstance.setType(TypeContrat.Collectif);      
+        getEntityManager().persist(StatutContrat.Actif);
+        return contratCollectifInstance;
     } 
     
     
@@ -103,28 +80,49 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     public ContratIndividuel CreerContratIndividuel( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
         contratIndividuelInstance = recupDevis; //récupération des données du devis
-        
-        Date datCreation = null;
-        datCreation = new Date();
         //La date de fin de contrat est égal à la date de création + 365 jours
         Date datFin; 
         Calendar c = Calendar.getInstance(); 
-        c.setTime(datCreation); 
+        c.setTime(new Date()); 
         c.add(Calendar.DATE, 365);
         datFin = c.getTime();
         
-        StatutContrat statut;
-        statut = StatutContrat.Actif;
-        
-        contratIndividuelInstance.setDateCreation(datCreation);
+        contratIndividuelInstance.setDateCreation(new Date());
         contratIndividuelInstance.setDateFin(datFin);
         contratIndividuelInstance.setLibelleContrat(libelle);
-        contratIndividuelInstance.setStatut(statut);
+        contratIndividuelInstance.setStatut(StatutContrat.enCoursDeTraitement);
         contratIndividuelInstance.setPaiement(paiement);
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
         
         getEntityManager().persist(contratIndividuelInstance);
         return contratIndividuelInstance;
+    }  
+    
+        @Override
+    public ContratIndividuel CreerContratAdhesion( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, CompteAssure cleCompteAssure, ObjetGarantie cleObjetGarantie, ContratCollectif cleContratCollectif) {
+        ContratIndividuel contratAdhesionInstance = new ContratIndividuel ();
+
+        //La date de fin de contrat est égal à la date de création + 365 jours
+        Date datFin; 
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(new Date()); 
+        c.add(Calendar.DATE, 365);
+        datFin = c.getTime();
+        Produit cleProduit = cleContratCollectif.getCleProduit();
+        
+        contratAdhesionInstance.setDateCreation(new Date());
+        contratAdhesionInstance.setDateFin(datFin);
+        contratAdhesionInstance.setLibelleContrat(libelle);
+        contratAdhesionInstance.setStatut(StatutContrat.Actif);
+        contratAdhesionInstance.setPaiement(paiement);
+        contratAdhesionInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratAdhesionInstance.setCleCompteAssure(cleCompteAssure);
+        contratAdhesionInstance.setCleProduit(cleProduit);
+        contratAdhesionInstance.setCleContratCollectif(cleContratCollectif);
+        contratAdhesionInstance.setCleObjetGarantie(cleObjetGarantie);
+        contratAdhesionInstance.setType(TypeContrat.Individuel);
+        getEntityManager().persist(contratAdhesionInstance);
+        return contratAdhesionInstance;
     }  
     
     @Override
