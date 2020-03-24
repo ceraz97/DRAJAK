@@ -35,11 +35,14 @@ public class TauxGarantieFacade extends AbstractFacade<TauxGarantie> implements 
     }
 
     @Override
-    public TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge, ObjetGarantie cleObjetGrantie, Garantie cleGarantie) {
+    public TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge, ObjetGarantie cleObjetGarantie, Garantie cleGarantie) {
         TauxGarantie tauxGarantieInstance= new TauxGarantie ();
         tauxGarantieInstance.setMaxRemboursement(maxRemboursement);
         tauxGarantieInstance.setTarifCotisation(tarifCotisation);
         tauxGarantieInstance.setCleTrancheAge(trancheAge);
+        tauxGarantieInstance.setCleObjetGarantie(cleObjetGarantie);
+        tauxGarantieInstance.setCleGarantie(cleGarantie);
+        
         getEntityManager().persist(tauxGarantieInstance);
         return tauxGarantieInstance;
     }
@@ -52,9 +55,18 @@ public class TauxGarantieFacade extends AbstractFacade<TauxGarantie> implements 
         listeDesTauxGarantie=req.getResultList();
         return listeDesTauxGarantie;
     }
-    
-    
-    
+
+    @Override
+    public TauxGarantie RechercherTauxGarantie(TrancheAge age, ObjetGarantie objet, Garantie garantie) {
+        TauxGarantie tauxGarantieInstance;
+        String tx = "SELECT t FROM TauxGarantie AS t WHERE t.cleTrancheAge=:ageTG and t.cleObjetGarantie=:objTG and t.cleGarantie=:gTG";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("ageTG", age);
+        req.setParameter("objTG", objet);
+        req.setParameter("gTG", garantie);
+        tauxGarantieInstance = (TauxGarantie) req.getSingleResult();
+        return tauxGarantieInstance;
+    }
     
     
 }

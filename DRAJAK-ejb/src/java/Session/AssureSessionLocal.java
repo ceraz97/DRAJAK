@@ -6,6 +6,9 @@
 package Session;
 
 import Entity.CompteAssure;
+import Entity.CompteEmploye;
+import Entity.ContratIndividuel;
+import Entity.Garantie;
 import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
@@ -14,6 +17,8 @@ import Entity.PersonnePhysique;
 import Entity.PersonnePublique;
 import Entity.Produit;
 import Entity.RegimeSocial;
+import Entity.TauxGarantie;
+import Entity.TrancheAge;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
@@ -47,5 +52,15 @@ public interface AssureSessionLocal {
     TypeModule RechercherTypeModule(String libelle);
 
     Modules RechercherModules(String libelle, TypeModule typeM);
+
+    TrancheAge RechercherTrancheAgeParLibelle(String libelle);
+
+    ObjetGarantie RechercherObjetGarantieParLibelle(String libelle);
+
+    Garantie RechercherGarantieParLibelle(String libelle);
+
+    TauxGarantie RechercherTauxGarantie(TrancheAge tranche, ObjetGarantie objet, Garantie garantie);
+
+    ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod);
 
 }

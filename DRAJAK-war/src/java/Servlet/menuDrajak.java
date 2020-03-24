@@ -22,6 +22,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Calendar;
 import static java.util.Calendar.*;
 import java.util.Date;
@@ -289,6 +290,7 @@ public class menuDrajak extends HttpServlet {
                         message="Erreur : une information sur les besoins n'a pu être récupérée";
                         jspAffiche="/realiserDevisBesoins.jsp";
                     }
+                    
                     //recherche des éléments de granties
                         //Adulte
                         if (sessionAssure != null){
@@ -398,48 +400,83 @@ public class menuDrajak extends HttpServlet {
                                 jspAffiche="/realiserDevisBesoins.jsp";
                             }
                         }
-                        
-                        if (trancheAgeTarif.equalsIgnoreCase("1")){
-                            //TrancheAge trancheMaxTarif = assureSession;
+                        //Obtention tranche Age
+                        TrancheAge trancheAgeMaxTarif = null;
+                        try {
+                            if (trancheAgeTarif.equalsIgnoreCase("1")){
+                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("18-34 ans");
+                            } else if (trancheAgeTarif.equalsIgnoreCase("2")){
+                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("35-54 ans");
+                            } else if (trancheAgeTarif.equalsIgnoreCase("3")){
+                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("55-70 ans");
+                            } else if (trancheAgeTarif.equalsIgnoreCase("4")){
+                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
+                            } 
+                        }catch (Exception e) {
+                            message="Erreur : l'âge n'a pu être récupéreée";
+                            jspAffiche="/realiserDevisBesoins.jsp";
                         }
-                           
+                        
+                        //Obetenir objet garantie
+                        ObjetGarantie objGarantieHSC =null, objGarantieOD=null;
+                        try {
+                            objGarantieHSC = assureSession.RechercherObjetGarantieParLibelle("N"+couvertureTarif);
+                            objGarantieOD = assureSession.RechercherObjetGarantieParLibelle("N"+optiqueDentaireTarif);
+                            TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
+                        } catch (Exception e){
+                            message="Erreur : les niveaux de garantie n'ont pu être récupérés";
+                            jspAffiche="/realiserDevisBesoins.jsp";
+                        }
+                        
+                        //Obtenir Garantie 
+                        List<String> listObjetGarantieHSC = Arrays.asList(new String[]{"Honoraires hospitaliers","Forfait journalier"});
+                        List<TauxGarantie> listeTauxGarantieHospitalisation = null;
+                        List<TauxGarantie> listeTauxGarantieTotale = null;
+                        for(int i=0; i<listObjetGarantieHSC.size(); i++){ 
+                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
+                            listeTauxGarantieHospitalisation.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        }
+                        request.setAttribute("honorairesHospitaliers", listeTauxGarantieHospitalisation.get(0));
+                        request.setAttribute("forfaitJournalier", listeTauxGarantieHospitalisation.get(1));
+                        
+                        List<String> listObjetGarantieSoinsCourants = Arrays.asList(new String[]{"Honoraires médicaux","Honoraires paramédicaux"});
+                        List<TauxGarantie> listeTauxGarantieSoinsCourants = null;
+                        for(int i=0; i<listObjetGarantieSoinsCourants.size(); i++){ 
+                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieSoinsCourants.get(i));
+                            listeTauxGarantieSoinsCourants.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
+                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        }
+                        request.setAttribute("honorairesMedicaux", listObjetGarantieSoinsCourants.get(0));
+                        request.setAttribute("honorairesParamedicaux", listObjetGarantieSoinsCourants.get(1));
+                        
+                        List<String> listObjetGarantieOD = Arrays.asList(new String[]{"Soins dentaires remboursés par la sécurité sociale","Orthodontie remboursée par la Sécurité Sociale","Lunettes verres simples", "Lunettes verres complexes"});
+                        List<TauxGarantie> listeTauxGarantieOptiqueDentaire = null;
+                        for(int i=0; i<listObjetGarantieOD.size(); i++){ 
+                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieOD.get(i));
+                            listeTauxGarantieOptiqueDentaire.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
+                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        }
+                        request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
+                        request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
+                        request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
+                        request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
+                        
+                        //Recherche des modules
+                        
+                        //Recherche du produit
                         
                     //Cotisations 
-                        //Recherche TypeModuyle
-                        
-                        TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
-                        TypeModule typeModuleFacultatifInstanceTarif = assureSession.RechercherTypeModule("Base");
-                        Modules moduleInstanceHosipitalisationTarif,moduleInstanceSoinsTarif,moduleInstanceOptiqueTarif,moduleInstanceDentaireTarif;  
-                        //Tarif Pépins
-                        if (couvertureTarif.equalsIgnoreCase("1")){
-                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N1",typeModuleBaseInstanceTarif);
-                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N1",typeModuleBaseInstanceTarif);
-                        } else if (couvertureTarif.equalsIgnoreCase("2")){
-                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N2",typeModuleBaseInstanceTarif);
-                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N2",typeModuleBaseInstanceTarif);
-                        } else {
-                            moduleInstanceHosipitalisationTarif = assureSession.RechercherModules("Santé Hosipitalisation N3",typeModuleBaseInstanceTarif);
-                            moduleInstanceSoinsTarif = assureSession.RechercherModules("Santé Soins N3",typeModuleBaseInstanceTarif);
-                        }
-                        
-                        //Tarif Optique / Dentaire
-                        if (optiqueDentaireTarif.equalsIgnoreCase("1")){
-                            moduleInstanceOptiqueTarif = assureSession.RechercherModules("Santé Optique N1",typeModuleBaseInstanceTarif);
-                            moduleInstanceDentaireTarif = assureSession.RechercherModules("Santé Dentaire N1",typeModuleBaseInstanceTarif);
-                        } else {
-                            moduleInstanceOptiqueTarif = assureSession.RechercherModules("Santé Optique N2",typeModuleBaseInstanceTarif);
-                            moduleInstanceDentaireTarif = assureSession.RechercherModules("Santé Dentaire N2",typeModuleBaseInstanceTarif);
-                        }
-                        
-                        if (moduleInstanceHosipitalisationTarif==null || moduleInstanceSoinsTarif==null || moduleInstanceOptiqueTarif==null || moduleInstanceDentaireTarif==null) {
-                            message="Erreur : un ou plusieurs modules n'ont pas été trouvés";
-                        } else {
-                            
-                        }
-                        
                         //Calcul des cotisations
+                        double TarifCotisation = 0;
+                        for(int i=0; i<listeTauxGarantieTotale.size(); i++){ 
+                            TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation()*(Integer.parseInt(nbAdulteTarif))) + (listeTauxGarantieTotale.get(i).getTarifCotisation()*(Integer.parseInt(nbEnfant))/3));
+                        }
+                        request.setAttribute("MontantCotisationTotale", TarifCotisation);
                         
                     //Enregistrement du devis
+                        //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
+                        
                         
                     
             

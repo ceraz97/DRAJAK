@@ -36,5 +36,7 @@ public interface ObjetGarantieFacadeLocal {
     List<ObjetGarantie> ListerAllObjetGarantie();
 
     void ModifierObjetGarantie(ObjetGarantie objetGarantie);
+
+    ObjetGarantie RechercherObjetGarantieParLibelle(String libelle);
     
 }

@@ -63,7 +63,7 @@
                                 <!-- ligne tableau devis -->
                                 <tr class="ligneGeneraleTableauLigneImpaire premiereLigneTarifDevis" style="height: 150px;">
                                     <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif" id="celluleVideTarifDevis"></td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                    <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.MontantCotisationTotale}"/></td>
                                 </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
                                     <td class="colonneDevisPartie colonneEnteteLignePaireTarif colonneDevisTarif ">Hospitalisation (en établissement conventionné, hors psychiatrie)</td>
@@ -71,15 +71,11 @@
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires hospitaliers</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Frais de séjour (hors chambre particulière)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.honorairesHospitaliers.getTarifCotisation()}"/></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Forfait journalier</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.forfaitJournalier.getTarifCotisation()}"/></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLignePaire">
                                     <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisPartie">Soins courants</td>
@@ -87,11 +83,11 @@
                                 </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires médicaux (médecins généralistes et, radiologie)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.honorairesMedicaux.getTarifCotisation()}"/></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Honoraires paramédicaux (kinésithérapeutes, infirmiers, auxiliaires médicaux)</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.honorairesParamedicaux.getTarifCotisation()}"/></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisPartie">Dentaire</td>
@@ -99,11 +95,11 @@
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Soins dentaires remboursés par la Sécurité social</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.soinsDentaires.getTarifCotisation()}"/></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLigneImpaire">
                                         <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Orthodontie remboursée par la Sécurité sociale</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.Orthodontie.getTarifCotisation()}"/></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisPartie">Optique</td>
@@ -111,11 +107,11 @@
                                 </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres simples</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.verresSimples.getTarifCotisation()}"/></td>
                                     </tr>
                                     <tr class="ligneGeneraleTableauLignePaire">
                                         <td class="colonneEnteteLignePaireTarif colonneDevisTarif colonneDevisTarifEnTete">Lunettes verres complexes</td>
-                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"></td>
+                                        <td class="colonneGrilleTarif colonneDevisTarif colonnePaire"><c:out value="${requestScope.verresComplexes.getTarifCotisation()}"/></td>
                                     </tr>
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td class="colonneEnteteLigneImpaireTarif colonneDevisTarif colonneDevisPartie">Services</td>

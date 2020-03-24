@@ -53,6 +53,16 @@ public class ObjetGarantieFacade extends AbstractFacade<ObjetGarantie> implement
     public void ModifierObjetGarantie(ObjetGarantie objetGarantie) {
         getEntityManager().merge(objetGarantie);
     }
+
+    @Override
+    public ObjetGarantie RechercherObjetGarantieParLibelle(String libelle) {
+        ObjetGarantie objetInstance;
+        String tx = "SELECT t FROM ObjetGarantie AS t WHERE t.libelleTypePopulation=:libelleObjetG";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("libelleObjetG", libelle);
+        objetInstance = (ObjetGarantie) req.getSingleResult();
+        return objetInstance;
+    }
     
     
     

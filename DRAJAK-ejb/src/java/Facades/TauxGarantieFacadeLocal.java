@@ -36,5 +36,7 @@ public interface TauxGarantieFacadeLocal {
     TauxGarantie CreerTauxDeGarantie(double maxRemboursement, double tarifCotisation, TrancheAge trancheAge, ObjetGarantie cleObjetGrantie, Garantie cleGarantie);
 
     List<TauxGarantie> ListerAllTauxGarantie();
+
+    TauxGarantie RechercherTauxGarantie(TrancheAge age, ObjetGarantie objet, Garantie garantie);
     
 }

@@ -32,12 +32,11 @@ public class TrancheAgeFacade extends AbstractFacade<TrancheAge> implements Tran
     }
 
     @Override
-    public TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge, Double coefficient) {
+    public TrancheAge CreerTrancheAge(String libelle, int minAge, int maxAge) {
         TrancheAge trancheAgeInstance= new TrancheAge ();
         trancheAgeInstance.setLibelletrancheAge(libelle);
         trancheAgeInstance.setMinAge(minAge);
         trancheAgeInstance.setMaxAge(maxAge);
-        trancheAgeInstance.setCoefficient(coefficient);
         getEntityManager().persist(trancheAgeInstance);
         return trancheAgeInstance;
     }
@@ -49,6 +48,16 @@ public class TrancheAgeFacade extends AbstractFacade<TrancheAge> implements Tran
         Query req = getEntityManager().createQuery(tx);
         listeDesTrancheAge=req.getResultList();
         return listeDesTrancheAge;
+    }
+
+    @Override
+    public TrancheAge RechercherTrancheAgeParLibelle(String libelle) {
+        TrancheAge trancheAgeInstance;
+        String tx = "SELECT t FROM TrancheAge AS t WHERE t.libelletrancheAge=:LibelleTranche";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("LibelleTranche", libelle);
+        trancheAgeInstance = (TrancheAge) req.getSingleResult();
+        return trancheAgeInstance;
     }
     
     
