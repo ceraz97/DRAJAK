@@ -88,7 +88,7 @@
                                 <span class="icon mb-3 d-block flaticon-cardiogram"></span>
                                 <h2 class="mb-4">Afficher la liste des gestionnaires</h2>
                                 <p>Permet de visualier la liste de tous les gestionnaires.</p>
-                                <p><a href="listeGestionnaire.jsp" class="btn btn-primary">Cliquez ici</a></p>
+                                <p><a href="menuDrajak?action=AfficherGest" class="btn btn-primary">Cliquez ici</a></p>
                             </div>
 
                         </div>

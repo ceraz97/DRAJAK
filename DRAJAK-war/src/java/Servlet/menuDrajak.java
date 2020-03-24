@@ -6,10 +6,10 @@
 package Servlet;
 
 import Entity.*;
-import Enum.Genre;
-import Enum.StatutPersonne;
+import Enum.*;
 import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
+import Session.PubliqueSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
@@ -69,14 +69,13 @@ public class menuDrajak extends HttpServlet {
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
-        
+
         //Initialisation de données dans la base de données
         /*if (assureSession.RechercherExistenceAssurePourBDD() == true) {
             Particulier part = assureSession.CreerParticulier("NomAssure1", "PrenomAssure1", Genre.Homme, Date.from(Instant.now()), "1970733199834", "login@test.com", "0601020304", "adresse", StatutPersonne.Actif);
             assureSession.CreerCompteAssure("mdp", part);
         }*/
-
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("CreerGestionnaire"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -95,8 +94,8 @@ public class menuDrajak extends HttpServlet {
         } else {
             System.out.println("act != null");
             switch (act) {
-                
-            case "vide":
+
+                case "vide":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -130,7 +129,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("typeConnexion", request.getParameter("typeConnexion"));
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Vous êtes déconnecté";
-                    sessionPublic=true;
+                    sessionPublic = true;
                     break;
 
                 case "AssureAuthentification":
@@ -151,7 +150,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAssure", sessionAssure);
-                            sessionPublic=false;
+                            sessionPublic = false;
                         }
                     }
                     break;
@@ -174,7 +173,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
-                            sessionPublic=false;
+                            sessionPublic = false;
                         }
                     }
                     break;
@@ -197,7 +196,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionEntreprise", sessionEntreprise);
-                            sessionPublic=false;
+                            sessionPublic = false;
                         }
                     }
                     break;
@@ -220,20 +219,20 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
-                            sessionPublic=false;
+                            sessionPublic = false;
                         }
                     }
                     break;
-                    
-                case "AssureVersPageAfficherContrat" :
-                    jspAffiche="/.jsp";
-                    message="";
+
+                case "AssureVersPageAfficherContrat":
+                    jspAffiche = "/.jsp";
+                    message = "";
                     break;
-                    
+
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
-                    message="";
-                   if (sessionAssure != null) {
+                    message = "";
+                    if (sessionAssure != null) {
                         typeSession = "sessionAssure";
                     } else if (sessionGestionnaire != null) {
                         typeSession = "sessionGestionnaire";
@@ -241,58 +240,58 @@ public class menuDrajak extends HttpServlet {
                         typeSession = "sessionEntreprise";
                     } else if (sessionAdministrateur != null) {
                         typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
+                    } else if (sessionPublic = true) {
                         typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
+                    }
+                    request.setAttribute("typeSession", typeSession);
                     break;
-                    
+
                 case "DemandeDevis_infos":
                     jspAffiche = "/realiserDevisInfos.jsp";
-                    message="";
-                    
-                    int nbAdulte =Integer.parseInt(request.getParameter("adulte").substring(6)); 
-                    int trancheAge =Integer.parseInt(request.getParameter("age").substring(3));
-                    String enfant =request.getParameter("enfant").substring(0,4);
-                    int couverture =Integer.parseInt(request.getParameter("couverture").substring(10));
-                    int optiqueDentaire =Integer.parseInt(request.getParameter("optiqueDentaire").substring(15));
+                    message = "";
+
+                    int nbAdulte = Integer.parseInt(request.getParameter("adulte").substring(6));
+                    int trancheAge = Integer.parseInt(request.getParameter("age").substring(3));
+                    String enfant = request.getParameter("enfant").substring(0, 4);
+                    int couverture = Integer.parseInt(request.getParameter("couverture").substring(10));
+                    int optiqueDentaire = Integer.parseInt(request.getParameter("optiqueDentaire").substring(15));
                     request.setAttribute("nbAdulte", nbAdulte);
                     request.setAttribute("trancheAge", trancheAge);
-                    request.setAttribute("enfant", enfant); 
-                    request.setAttribute("couverture", couverture); 
-                    request.setAttribute("optiqueDentaire", optiqueDentaire); 
-                    
+                    request.setAttribute("enfant", enfant);
+                    request.setAttribute("couverture", couverture);
+                    request.setAttribute("optiqueDentaire", optiqueDentaire);
+
                     if (sessionAssure != null) {
                         typeSession = "sessionAssure";
                         session.setAttribute("sessionAssure", sessionAssure);
-                        System.out.println("genre = "+sessionAssure.getCleParticulier().getGenre());
+                        System.out.println("genre = " + sessionAssure.getCleParticulier().getGenre());
                     } else if (sessionGestionnaire != null) {
                         typeSession = "sessionGestionnaire";
                     } else if (sessionEntreprise != null) {
                         typeSession = "sessionEntreprise";
                     } else if (sessionAdministrateur != null) {
                         typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
+                    } else if (sessionPublic = true) {
                         typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
+                    }
+                    request.setAttribute("typeSession", typeSession);
                     break;
-                    
+
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisInfos.jsp";
-                    message="";
-                    
-                    int nbAdulteTarif =(Integer)request.getAttribute("nbAdulte"); 
-                    int trancheAgeTarif =(Integer)request.getAttribute("trancheAge");
-                    String enfantTarif =(String)request.getAttribute("enfant");
-                    int couvertureTarif =(Integer)request.getAttribute("couverture");
-                    int optiqueDentaireTarif =(Integer)request.getAttribute("optiqueDentaire");
+                    message = "";
+
+                    int nbAdulteTarif = (Integer) request.getAttribute("nbAdulte");
+                    int trancheAgeTarif = (Integer) request.getAttribute("trancheAge");
+                    String enfantTarif = (String) request.getAttribute("enfant");
+                    int couvertureTarif = (Integer) request.getAttribute("couverture");
+                    int optiqueDentaireTarif = (Integer) request.getAttribute("optiqueDentaire");
                     request.setAttribute("nbAdulte", nbAdulteTarif);
                     request.setAttribute("trancheAge", trancheAgeTarif);
-                    request.setAttribute("enfant", enfantTarif); 
-                    request.setAttribute("couverture", couvertureTarif); 
-                    request.setAttribute("optiqueDentaire", optiqueDentaireTarif); 
-                    
+                    request.setAttribute("enfant", enfantTarif);
+                    request.setAttribute("couverture", couvertureTarif);
+                    request.setAttribute("optiqueDentaire", optiqueDentaireTarif);
+
                     if (sessionAssure != null) {
                         typeSession = "sessionAssure";
                         session.setAttribute("sessionAssure", sessionAssure);
@@ -302,10 +301,51 @@ public class menuDrajak extends HttpServlet {
                         typeSession = "sessionEntreprise";
                     } else if (sessionAdministrateur != null) {
                         typeSession = "sessionAdministrateur";
-                    } else if (sessionPublic=true) {
+                    } else if (sessionPublic = true) {
                         typeSession = "sessionPublic";
-                    }  
-                    request.setAttribute("typeSession",typeSession);
+                    }
+                    request.setAttribute("typeSession", typeSession);
+                    break;
+
+                case "CreerGestionnaire":
+                    jspAffiche = "/creationGestionnaire.jsp";
+                    message = "";
+                    String nom = request.getParameter("nom");
+                    String prenom = request.getParameter("prenom");
+                    String dateNaissance = request.getParameter("dateNaissance");
+                    String adresse = request.getParameter("adresse");
+                    String numero = request.getParameter("numero");
+                    String genre = request.getParameter("genre");
+                    String role = request.getParameter("role");
+                    String mail = request.getParameter("mail");
+                    String mdp = request.getParameter("mdp");
+
+                    Date d = java.sql.Date.valueOf(dateNaissance);
+                    Role r;
+                    if (role.equalsIgnoreCase("gestionnaire")) {
+                        r = Role.Gestionnaire;
+                    } else {
+                        r = Role.Administrateur;
+                    }
+                    Genre g;
+                    if (genre.equalsIgnoreCase("Homme")) {
+                        g = Genre.Homme;
+                    } else if (genre.equalsIgnoreCase("Femme")) {
+                        g = Genre.Femme;
+                    } else {
+                        g = Genre.Autre;
+                    }
+
+                    gestionSession.CreerCompteEmploye(mail, mdp, nom, prenom, g, d, mail, numero, adresse, r, StatutPersonne.Actif);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;
+
+                case "AfficherGest":
+                    jspAffiche = "/listeGestionaire.jsp";
+                    List<CompteEmploye> list = gestionSession.ListerAllCompteEmploye();
+                    request.setAttribute("listeGestionnaire", list);
+
                     break;
             }
         }
@@ -313,7 +353,7 @@ public class menuDrajak extends HttpServlet {
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
         request.setAttribute("message", message);
         Rd.forward(request, response);
-        System.out.println("Public : " + sessionPublic+", Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
+        System.out.println("Public : " + sessionPublic + ", Assuré : " + sessionAssure + ", Administrateur : " + sessionAdministrateur + ", Entreprise : " + sessionEntreprise + ", Gestionnaire : " + sessionGestionnaire);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

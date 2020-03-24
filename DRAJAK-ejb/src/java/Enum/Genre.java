@@ -10,5 +10,5 @@ package Enum;
  * @author clementratz
  */
 public enum Genre {
-    Homme, Femme, Neutre
+    Homme, Femme, Autre
 }
