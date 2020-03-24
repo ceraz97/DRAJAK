@@ -81,15 +81,13 @@ public class menuDrajak extends HttpServlet {
             sessionEntreprise = (PersonneMorale) session.getAttribute("sessionEntreprise");
             sessionAdministrateur = (CompteEmploye) session.getAttribute("sessionAdministrateur");
         }
- 
+
         //Initialisation de données dans la base de données
-        if (gestionSession.VerificationDonne()==true)
-        {
+        if (gestionSession.VerificationDonne() == true) {
             gestionSession.AjouterDonnee();
         }
-        
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos")&&!act.equals("DemandeDevis_tarif")&&!act.equals("DemandeDevis_souscription")&&!act.equals("DemandeDevis_exportpdf"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("CreerGestionnaire")&& !act.equals("AfficherGest"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -242,257 +240,336 @@ public class menuDrajak extends HttpServlet {
 
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
-                    message="";
+                    message = "";
                     break;
 
                 case "DemandeDevis_infos":
                     jspAffiche = "/realiserDevisInfos.jsp";
-                    message="";
-                    
-                    String nbAdulte =request.getParameter("adulte").substring(6); 
-                    String trancheAge =request.getParameter("age").substring(3);
-                    String enfant =request.getParameter("enfant").substring(0,4);
+                    message = "";
+
+                    String nbAdulte = request.getParameter("adulte").substring(6);
+                    String trancheAge = request.getParameter("age").substring(3);
+                    String enfant = request.getParameter("enfant").substring(0, 4);
                     String couverture = request.getParameter("couverture").substring(10);
                     String optiqueDentaire = request.getParameter("optiqueDentaire").substring(15);
 
                     request.setAttribute("nbAdulte", nbAdulte);
                     request.setAttribute("trancheAge", trancheAge);
-                    request.setAttribute("enfant", enfant); 
-                    request.setAttribute("couverture", couverture); 
-                    request.setAttribute("optiqueDentaire", optiqueDentaire); 
-                    
+                    request.setAttribute("enfant", enfant);
+                    request.setAttribute("couverture", couverture);
+                    request.setAttribute("optiqueDentaire", optiqueDentaire);
+
+                    break;
+                case "CreerGestionnaire":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Gestionnaire crée avec succès";
+                    String nom = request.getParameter("nom");
+                    String prenom = request.getParameter("prenom");
+                    String dateNaissance = request.getParameter("dateNaissance");
+                    String adresse = request.getParameter("adresse");
+                    String numero = request.getParameter("numero");
+                    String genre = request.getParameter("genre");
+                    String role = request.getParameter("role");
+                    String mail = request.getParameter("mail");
+                    String mdp = request.getParameter("mdp");
+
+                    Date d = java.sql.Date.valueOf(dateNaissance);
+                    Role r;
+                    if (role.equalsIgnoreCase("gestionnaire")) {
+                        r = Role.Gestionnaire;
+                    } else {
+                        r = Role.Administrateur;
+                    }
+                    Genre g;
+                    if (genre.equalsIgnoreCase("Homme")) {
+                        g = Genre.Homme;
+                    } else if (genre.equalsIgnoreCase("Femme")) {
+                        g = Genre.Femme;
+                    } else {
+                        g = Genre.Autre;
+                    }
+
+                    gestionSession.CreerCompteEmploye(mail, mdp, nom, prenom, g, d, mail, numero, adresse, r, StatutPersonne.Actif);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;
+
+                case "AfficherGest":
+                    jspAffiche = "/listeGestionaire.jsp";
+                    List<CompteEmploye> list = gestionSession.ListerAllCompteEmploye();
+                    request.setAttribute("listeGestionnaire", list);
+
                     break;
 
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
-                    message="";
-                    
-                    String nbAdulteTarif = null, trancheAgeTarif =null,  enfantTarif = null, couvertureTarif =null,optiqueDentaireTarif=null;  
-                    Genre genreAdulte1,genreAdulte2,genreEnfant1,genreEnfant2,genreEnfant3;
-                    String DobA1String,DobA2String,DobE1String,DobE2String,DobE3String;
-                    Date DobA1Date,DobA2Date,DobE1Date,DobE2Date,DobE3Date;
-                    int ageA1, ageA2, ageE1, ageE2, ageE3;
-                    String nomA1,prenomA1;
+                    message = "";
+
+                    String nbAdulteTarif = null,
+                     trancheAgeTarif = null,
+                     enfantTarif = null,
+                     couvertureTarif = null,
+                     optiqueDentaireTarif = null;
+                    Genre genreAdulte1,
+                     genreAdulte2,
+                     genreEnfant1,
+                     genreEnfant2,
+                     genreEnfant3;
+                    String DobA1String,
+                     DobA2String,
+                     DobE1String,
+                     DobE2String,
+                     DobE3String;
+                    Date DobA1Date,
+                     DobA2Date,
+                     DobE1Date,
+                     DobE2Date,
+                     DobE3Date;
+                    int ageA1,
+                     ageA2,
+                     ageE1,
+                     ageE2,
+                     ageE3;
+                    String nomA1,
+                     prenomA1;
                     String regimeA1;
-                    String nbEnfant=null;
-                    String numRueTarif,nomRueTarif,cpTarif,villeTarif,paysTarif,adresseTarif, email;
+                    String nbEnfant = null;
+                    String numRueTarif,
+                     nomRueTarif,
+                     cpTarif,
+                     villeTarif,
+                     paysTarif,
+                     adresseTarif,
+                     email;
                     Particulier particulierDevis = null;
-                    
+
                     //Récupération des données
                     try {
-                        nbAdulteTarif =request.getParameter("adulteHidden"); 
-                        trancheAgeTarif =request.getParameter("ageHidden");
-                        enfantTarif =request.getParameter("enfantHidden");
+                        nbAdulteTarif = request.getParameter("adulteHidden");
+                        trancheAgeTarif = request.getParameter("ageHidden");
+                        enfantTarif = request.getParameter("enfantHidden");
                         couvertureTarif = request.getParameter("couvertureHidden");
                         optiqueDentaireTarif = request.getParameter("optiqueDentaireHidden");
-                    } catch (Exception e){
-                        message="Erreur : une information sur les besoins n'a pu être récupérée";
-                        jspAffiche="/realiserDevisBesoins.jsp";
+                    } catch (Exception e) {
+                        message = "Erreur : une information sur les besoins n'a pu être récupérée";
+                        jspAffiche = "/realiserDevisBesoins.jsp";
                     }
-                    
+
                     //recherche des éléments de granties
-                        //Adulte
-                        if (sessionAssure != null){
-                            particulierDevis = assureSession.RechercherParticulier(sessionAssure.getCleParticulier().getnSecuriteSocial());
-                            if (particulierDevis==null){ 
-                                message="Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
-                            }
-                        } else { 
-                            try {
-                                String gA1 = request.getParameter("genreA1");
-                                if (gA1.equalsIgnoreCase("Homme")){genreAdulte1 = Genre.Homme;}
-                                else if (gA1.equalsIgnoreCase("Femme")){genreAdulte1 = Genre.Femme;}
-                                else {genreAdulte1 = Genre.Autre;}
-                                DobA1String = request.getParameter("bdayA1");
-                                DobA1Date=java.sql.Date.valueOf(DobA1String);
-                                regimeA1 = request.getParameter("selectRegimeA1");
-                                nomA1 = request.getParameter("nomA1");
-                                prenomA1 = request.getParameter("prenomA1");
-                                ageA1=doActionCalculerAge(DobA1Date,request, response);
-                            } catch (Exception e){
-                                message="Erreur : une information sur le premier adulte n'a pu être récupérée";
-                                jspAffiche="/realiserDevisBesoins.jsp";
-                            }
+                    //Adulte
+                    if (sessionAssure != null) {
+                        particulierDevis = assureSession.RechercherParticulier(sessionAssure.getCleParticulier().getnSecuriteSocial());
+                        if (particulierDevis == null) {
+                            message = "Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
                         }
-                        
+                    } else {
                         try {
-                            nbEnfant = request.getParameter("enfantSelect");
+                            String gA1 = request.getParameter("genreA1");
+                            if (gA1.equalsIgnoreCase("Homme")) {
+                                genreAdulte1 = Genre.Homme;
+                            } else if (gA1.equalsIgnoreCase("Femme")) {
+                                genreAdulte1 = Genre.Femme;
+                            } else {
+                                genreAdulte1 = Genre.Autre;
+                            }
+                            DobA1String = request.getParameter("bdayA1");
+                            DobA1Date = java.sql.Date.valueOf(DobA1String);
+                            regimeA1 = request.getParameter("selectRegimeA1");
+                            nomA1 = request.getParameter("nomA1");
+                            prenomA1 = request.getParameter("prenomA1");
+                            ageA1 = doActionCalculerAge(DobA1Date, request, response);
                         } catch (Exception e) {
-                            message="Erreur : le nombre d'enfant n'a pu être récupéré";
-                                jspAffiche="/realiserDevisBesoins.jsp";
+                            message = "Erreur : une information sur le premier adulte n'a pu être récupérée";
+                            jspAffiche = "/realiserDevisBesoins.jsp";
                         }
+                    }
 
-                        if (nbAdulteTarif.equalsIgnoreCase("2")){
-                            try {
-                                String gA2 = request.getParameter("genre2");
-                                if (gA2.equalsIgnoreCase("Homme")){genreAdulte2 = Genre.Homme;}
-                                else if (gA2.equalsIgnoreCase("Femme")){genreAdulte2 = Genre.Femme;}
-                                else {genreAdulte2 = Genre.Autre;}
-                                DobA2String = request.getParameter("bdayA2");
-                                DobA2Date=java.sql.Date.valueOf(DobA2String);
-                                ageA2=doActionCalculerAge(DobA2Date,request, response);
-                            } catch (Exception e){
-                                message="Erreur : une information sur le deuxième adulte n'a pu être récupéreée";
-                                jspAffiche="/realiserDevisBesoins.jsp";
-                            }
-                        }
+                    try {
+                        nbEnfant = request.getParameter("enfantSelect");
+                    } catch (Exception e) {
+                        message = "Erreur : le nombre d'enfant n'a pu être récupéré";
+                        jspAffiche = "/realiserDevisBesoins.jsp";
+                    }
 
-                        //Enfant
-                        if (enfantTarif.equalsIgnoreCase("avec")){
-                            try {
-                                String gE1 = request.getParameter("genreE1");
-                                if (gE1.equalsIgnoreCase("Homme")){genreEnfant1 = Genre.Homme;}
-                                else if (gE1.equalsIgnoreCase("Femme")){genreEnfant1 = Genre.Femme;}
-                                else {genreEnfant1 = Genre.Autre;}
-                                DobE1String=request.getParameter("bdayE1");
-                                DobE1Date=java.sql.Date.valueOf(DobE1String);
-                                ageE1=doActionCalculerAge(DobE1Date,request, response);
-                            } catch (Exception e){
-                                message="Erreur : une information sur le premier enfant n'a pu être récupéreée";
-                                jspAffiche="/realiserDevisBesoins.jsp";
-                            }
-                            
-                            if (nbEnfant.equalsIgnoreCase("2") || nbEnfant.equalsIgnoreCase("3")){
-                                try {
-                                    String gE2 = request.getParameter("genreE2");
-                                    if (gE2.equalsIgnoreCase("Homme")){genreEnfant2 = Genre.Homme;}
-                                    else if (gE2.equalsIgnoreCase("Femme")){genreEnfant2 = Genre.Femme;}
-                                    else {genreEnfant2 = Genre.Autre;}
-                                    DobE2String=request.getParameter("bdayE2");
-                                    DobE2Date=java.sql.Date.valueOf(DobE2String);
-                                    ageE2=doActionCalculerAge(DobE2Date,request, response);
-                                } catch (Exception e){
-                                    message="Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
-                                    jspAffiche="/realiserDevisBesoins.jsp";
-                                }
-                            } 
-                            if(nbEnfant.equalsIgnoreCase("3")){
-                                try {
-                                    String gE3 = request.getParameter("genreE3");
-                                    if (gE3.equalsIgnoreCase("Homme")){genreEnfant3 = Genre.Homme;}
-                                    else if (gE3.equalsIgnoreCase("Femme")){genreEnfant3 = Genre.Femme;}
-                                    else {genreEnfant3 = Genre.Autre;}
-                                    DobE3String=request.getParameter("bdayE3");
-                                    DobE3Date=java.sql.Date.valueOf(DobE3String);
-                                    ageE3=doActionCalculerAge(DobE3Date,request, response);
-                                } catch (Exception e){
-                                    message="Erreur : une information sur le troisième enfant n'a pu être récupéreée";
-                                    jspAffiche="/realiserDevisBesoins.jsp";
-                                }
-                            }
-                        }
-
-                        if (sessionAssure == null){
-                            try {
-                                //Adresse
-                                numRueTarif = request.getParameter("adrNum");
-                                nomRueTarif = request.getParameter("adrNomRue");
-                                cpTarif = request.getParameter("adrCP");
-                                villeTarif = request.getParameter("adrVille");
-                                paysTarif = request.getParameter("adrPays");
-                                adresseTarif=numRueTarif+","+nomRueTarif+","+cpTarif+","+villeTarif+","+paysTarif;
-
-                                //Mail
-                                email = request.getParameter("adrMail");
-                            } catch (Exception e){
-                                message="Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
-                                jspAffiche="/realiserDevisBesoins.jsp";
-                            }
-                        }
-                        //Obtention tranche Age
-                        TrancheAge trancheAgeMaxTarif = null;
+                    if (nbAdulteTarif.equalsIgnoreCase("2")) {
                         try {
-                            if (trancheAgeTarif.equalsIgnoreCase("1")){
-                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("18-34 ans");
-                            } else if (trancheAgeTarif.equalsIgnoreCase("2")){
-                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("35-54 ans");
-                            } else if (trancheAgeTarif.equalsIgnoreCase("3")){
-                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("55-70 ans");
-                            } else if (trancheAgeTarif.equalsIgnoreCase("4")){
-                                trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
-                            } 
-                        }catch (Exception e) {
-                            message="Erreur : l'âge n'a pu être récupéreée";
-                            jspAffiche="/realiserDevisBesoins.jsp";
+                            String gA2 = request.getParameter("genre2");
+                            if (gA2.equalsIgnoreCase("Homme")) {
+                                genreAdulte2 = Genre.Homme;
+                            } else if (gA2.equalsIgnoreCase("Femme")) {
+                                genreAdulte2 = Genre.Femme;
+                            } else {
+                                genreAdulte2 = Genre.Autre;
+                            }
+                            DobA2String = request.getParameter("bdayA2");
+                            DobA2Date = java.sql.Date.valueOf(DobA2String);
+                            ageA2 = doActionCalculerAge(DobA2Date, request, response);
+                        } catch (Exception e) {
+                            message = "Erreur : une information sur le deuxième adulte n'a pu être récupéreée";
+                            jspAffiche = "/realiserDevisBesoins.jsp";
                         }
-                        
-                        //Obetenir objet garantie
-                        ObjetGarantie objGarantieHSC =null, objGarantieOD=null;
+                    }
+
+                    //Enfant
+                    if (enfantTarif.equalsIgnoreCase("avec")) {
                         try {
-                            objGarantieHSC = assureSession.RechercherObjetGarantieParLibelle("N"+couvertureTarif);
-                            objGarantieOD = assureSession.RechercherObjetGarantieParLibelle("N"+optiqueDentaireTarif);
-                            TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
-                        } catch (Exception e){
-                            message="Erreur : les niveaux de garantie n'ont pu être récupérés";
-                            jspAffiche="/realiserDevisBesoins.jsp";
+                            String gE1 = request.getParameter("genreE1");
+                            if (gE1.equalsIgnoreCase("Homme")) {
+                                genreEnfant1 = Genre.Homme;
+                            } else if (gE1.equalsIgnoreCase("Femme")) {
+                                genreEnfant1 = Genre.Femme;
+                            } else {
+                                genreEnfant1 = Genre.Autre;
+                            }
+                            DobE1String = request.getParameter("bdayE1");
+                            DobE1Date = java.sql.Date.valueOf(DobE1String);
+                            ageE1 = doActionCalculerAge(DobE1Date, request, response);
+                        } catch (Exception e) {
+                            message = "Erreur : une information sur le premier enfant n'a pu être récupéreée";
+                            jspAffiche = "/realiserDevisBesoins.jsp";
                         }
-                        
-                        //Obtenir Garantie 
-                        List<String> listObjetGarantieHSC = Arrays.asList(new String[]{"Honoraires hospitaliers","Forfait journalier"});
-                        List<TauxGarantie> listeTauxGarantieHospitalisation = null;
-                        List<TauxGarantie> listeTauxGarantieTotale = null;
-                        for(int i=0; i<listObjetGarantieHSC.size(); i++){ 
-                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
-                            listeTauxGarantieHospitalisation.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+
+                        if (nbEnfant.equalsIgnoreCase("2") || nbEnfant.equalsIgnoreCase("3")) {
+                            try {
+                                String gE2 = request.getParameter("genreE2");
+                                if (gE2.equalsIgnoreCase("Homme")) {
+                                    genreEnfant2 = Genre.Homme;
+                                } else if (gE2.equalsIgnoreCase("Femme")) {
+                                    genreEnfant2 = Genre.Femme;
+                                } else {
+                                    genreEnfant2 = Genre.Autre;
+                                }
+                                DobE2String = request.getParameter("bdayE2");
+                                DobE2Date = java.sql.Date.valueOf(DobE2String);
+                                ageE2 = doActionCalculerAge(DobE2Date, request, response);
+                            } catch (Exception e) {
+                                message = "Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
+                                jspAffiche = "/realiserDevisBesoins.jsp";
+                            }
                         }
-                        request.setAttribute("honorairesHospitaliers", listeTauxGarantieHospitalisation.get(0));
-                        request.setAttribute("forfaitJournalier", listeTauxGarantieHospitalisation.get(1));
-                        
-                        List<String> listObjetGarantieSoinsCourants = Arrays.asList(new String[]{"Honoraires médicaux","Honoraires paramédicaux"});
-                        List<TauxGarantie> listeTauxGarantieSoinsCourants = null;
-                        for(int i=0; i<listObjetGarantieSoinsCourants.size(); i++){ 
-                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieSoinsCourants.get(i));
-                            listeTauxGarantieSoinsCourants.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
-                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        if (nbEnfant.equalsIgnoreCase("3")) {
+                            try {
+                                String gE3 = request.getParameter("genreE3");
+                                if (gE3.equalsIgnoreCase("Homme")) {
+                                    genreEnfant3 = Genre.Homme;
+                                } else if (gE3.equalsIgnoreCase("Femme")) {
+                                    genreEnfant3 = Genre.Femme;
+                                } else {
+                                    genreEnfant3 = Genre.Autre;
+                                }
+                                DobE3String = request.getParameter("bdayE3");
+                                DobE3Date = java.sql.Date.valueOf(DobE3String);
+                                ageE3 = doActionCalculerAge(DobE3Date, request, response);
+                            } catch (Exception e) {
+                                message = "Erreur : une information sur le troisième enfant n'a pu être récupéreée";
+                                jspAffiche = "/realiserDevisBesoins.jsp";
+                            }
                         }
-                        request.setAttribute("honorairesMedicaux", listObjetGarantieSoinsCourants.get(0));
-                        request.setAttribute("honorairesParamedicaux", listObjetGarantieSoinsCourants.get(1));
-                        
-                        List<String> listObjetGarantieOD = Arrays.asList(new String[]{"Soins dentaires remboursés par la sécurité sociale","Orthodontie remboursée par la Sécurité Sociale","Lunettes verres simples", "Lunettes verres complexes"});
-                        List<TauxGarantie> listeTauxGarantieOptiqueDentaire = null;
-                        for(int i=0; i<listObjetGarantieOD.size(); i++){ 
-                            Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieOD.get(i));
-                            listeTauxGarantieOptiqueDentaire.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
-                            listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                    }
+
+                    if (sessionAssure == null) {
+                        try {
+                            //Adresse
+                            numRueTarif = request.getParameter("adrNum");
+                            nomRueTarif = request.getParameter("adrNomRue");
+                            cpTarif = request.getParameter("adrCP");
+                            villeTarif = request.getParameter("adrVille");
+                            paysTarif = request.getParameter("adrPays");
+                            adresseTarif = numRueTarif + "," + nomRueTarif + "," + cpTarif + "," + villeTarif + "," + paysTarif;
+
+                            //Mail
+                            email = request.getParameter("adrMail");
+                        } catch (Exception e) {
+                            message = "Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
+                            jspAffiche = "/realiserDevisBesoins.jsp";
                         }
-                        request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
-                        request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
-                        request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
-                        request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
-                        
-                        //Recherche des modules
-                        
-                        //Recherche du produit
-                        
+                    }
+                    //Obtention tranche Age
+                    TrancheAge trancheAgeMaxTarif = null;
+                    try {
+                        if (trancheAgeTarif.equalsIgnoreCase("1")) {
+                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("18-34 ans");
+                        } else if (trancheAgeTarif.equalsIgnoreCase("2")) {
+                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("35-54 ans");
+                        } else if (trancheAgeTarif.equalsIgnoreCase("3")) {
+                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("55-70 ans");
+                        } else if (trancheAgeTarif.equalsIgnoreCase("4")) {
+                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
+                        }
+                    } catch (Exception e) {
+                        message = "Erreur : l'âge n'a pu être récupéreée";
+                        jspAffiche = "/realiserDevisBesoins.jsp";
+                    }
+
+                    //Obetenir objet garantie
+                    ObjetGarantie objGarantieHSC = null,
+                     objGarantieOD = null;
+                    try {
+                        objGarantieHSC = assureSession.RechercherObjetGarantieParLibelle("N" + couvertureTarif);
+                        objGarantieOD = assureSession.RechercherObjetGarantieParLibelle("N" + optiqueDentaireTarif);
+                        TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
+                    } catch (Exception e) {
+                        message = "Erreur : les niveaux de garantie n'ont pu être récupérés";
+                        jspAffiche = "/realiserDevisBesoins.jsp";
+                    }
+
+                    //Obtenir Garantie 
+                    List<String> listObjetGarantieHSC = Arrays.asList(new String[]{"Honoraires hospitaliers", "Forfait journalier"});
+                    List<TauxGarantie> listeTauxGarantieHospitalisation = null;
+                    List<TauxGarantie> listeTauxGarantieTotale = null;
+                    for (int i = 0; i < listObjetGarantieHSC.size(); i++) {
+                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
+                        listeTauxGarantieHospitalisation.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                    }
+                    request.setAttribute("honorairesHospitaliers", listeTauxGarantieHospitalisation.get(0));
+                    request.setAttribute("forfaitJournalier", listeTauxGarantieHospitalisation.get(1));
+
+                    List<String> listObjetGarantieSoinsCourants = Arrays.asList(new String[]{"Honoraires médicaux", "Honoraires paramédicaux"});
+                    List<TauxGarantie> listeTauxGarantieSoinsCourants = null;
+                    for (int i = 0; i < listObjetGarantieSoinsCourants.size(); i++) {
+                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieSoinsCourants.get(i));
+                        listeTauxGarantieSoinsCourants.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
+                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                    }
+                    request.setAttribute("honorairesMedicaux", listObjetGarantieSoinsCourants.get(0));
+                    request.setAttribute("honorairesParamedicaux", listObjetGarantieSoinsCourants.get(1));
+
+                    List<String> listObjetGarantieOD = Arrays.asList(new String[]{"Soins dentaires remboursés par la sécurité sociale", "Orthodontie remboursée par la Sécurité Sociale", "Lunettes verres simples", "Lunettes verres complexes"});
+                    List<TauxGarantie> listeTauxGarantieOptiqueDentaire = null;
+                    for (int i = 0; i < listObjetGarantieOD.size(); i++) {
+                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieOD.get(i));
+                        listeTauxGarantieOptiqueDentaire.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
+                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                    }
+                    request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
+                    request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
+                    request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
+                    request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
+
+                    //Recherche des modules
+                    //Recherche du produit
                     //Cotisations 
-                        //Calcul des cotisations
-                        double TarifCotisation = 0;
-                        for(int i=0; i<listeTauxGarantieTotale.size(); i++){ 
-                            TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation()*(Integer.parseInt(nbAdulteTarif))) + (listeTauxGarantieTotale.get(i).getTarifCotisation()*(Integer.parseInt(nbEnfant))/3));
-                        }
-                        request.setAttribute("MontantCotisationTotale", TarifCotisation);
-                        
+                    //Calcul des cotisations
+                    double TarifCotisation = 0;
+                    for (int i = 0; i < listeTauxGarantieTotale.size(); i++) {
+                        TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation() * (Integer.parseInt(nbAdulteTarif))) + (listeTauxGarantieTotale.get(i).getTarifCotisation() * (Integer.parseInt(nbEnfant)) / 3));
+                    }
+                    request.setAttribute("MontantCotisationTotale", TarifCotisation);
+
                     //Enregistrement du devis
-                        //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
-                        
-                        
-                    
-            
-                    
-                    
-                    
+                    //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
                     break;
-                    
+
                 case "DemandeDevis_souscription":
                     jspAffiche = "/realiserDevisTarif.jsp";
-                    message="";
+                    message = "";
                     break;
-                    
+
                 case "DemandeDevis_exportpdf":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     doActionEditionDevis(request, response);
-                    message="";
+                    message = "";
                     break;
             }
         }
@@ -500,7 +577,7 @@ public class menuDrajak extends HttpServlet {
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
         request.setAttribute("message", message);
         Rd.forward(request, response);
-        System.out.println("Assuré : "+sessionAssure+", Administrateur : "+ sessionAdministrateur+", Entreprise : "+sessionEntreprise+", Gestionnaire : "+sessionGestionnaire);
+        System.out.println("Assuré : " + sessionAssure + ", Administrateur : " + sessionAdministrateur + ", Entreprise : " + sessionEntreprise + ", Gestionnaire : " + sessionGestionnaire);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -531,103 +608,104 @@ public class menuDrajak extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     protected void doActionEditionDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idDocument =0;
+        int idDocument = 0;
         try {
             idDocument = Integer.parseInt(request.getParameter(("idDocument")));
         } catch (Exception exception) {
         }
-        
+
         String TemplatePath = request.getServletContext().getRealPath("/WEB-INF/DevisTemplate.pdf");
         response.setContentType("application/pdf");
-        
+
         try (PdfReader reader = new PdfReader(TemplatePath);
-            PdfWriter writer = new PdfWriter (response.getOutputStream());
-            PdfDocument document = new PdfDocument (reader, writer)) {
-            
+                PdfWriter writer = new PdfWriter(response.getOutputStream());
+                PdfDocument document = new PdfDocument(reader, writer)) {
+
             PdfPage page = document.getPage(1);
             PdfCanvas canvas = new PdfCanvas(page);
-            
+
             FontProgram fontProgram = FontProgramFactory.createFont();
             PdfFont font = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8, true);
             canvas.setFontAndSize(font, 10);
-            
+
             //Numéro du devis
             canvas.beginText();
-            canvas.setTextMatrix(100,753);
+            canvas.setTextMatrix(100, 753);
             canvas.showText("nDevis");
             canvas.endText();
-            
+
             //Date du devis
             canvas.beginText();
-            canvas.setTextMatrix(127,737);
+            canvas.setTextMatrix(127, 737);
             canvas.showText("dateDevis");
             canvas.endText();
-            
+
             //Honnoraire Hospitalisation
             canvas.beginText();
-            canvas.setTextMatrix(210,655);
+            canvas.setTextMatrix(210, 655);
             canvas.showText("HonnoraireHospitalisation");
             canvas.endText();
-            
+
             //Forfait Hospitalisation
             canvas.beginText();
-            canvas.setTextMatrix(210,625);
+            canvas.setTextMatrix(210, 625);
             canvas.showText("HonnoraireHospitalisation");
             canvas.endText();
-            
+
             //Honnoraire Médicaux
             canvas.beginText();
-            canvas.setTextMatrix(210,560);
+            canvas.setTextMatrix(210, 560);
             canvas.showText("HonnoraireMédicaux");
             canvas.endText();
-            
+
             //Honnoraire Paramédicaux
             canvas.beginText();
-            canvas.setTextMatrix(210,500);
+            canvas.setTextMatrix(210, 500);
             canvas.showText("HonnoraireParamédicaux");
             canvas.endText();
-            
+
             //soins dentaire
             canvas.beginText();
-            canvas.setTextMatrix(210,410);
+            canvas.setTextMatrix(210, 410);
             canvas.showText("soins dentaire");
             canvas.endText();
-            
+
             //Orthodontie
             canvas.beginText();
-            canvas.setTextMatrix(210,373);
+            canvas.setTextMatrix(210, 373);
             canvas.showText("Orthodontie");
             canvas.endText();
-            
+
             //Lunettes verres simples
             canvas.beginText();
-            canvas.setTextMatrix(210,315);
+            canvas.setTextMatrix(210, 315);
             canvas.showText("Lunettes verres simples");
             canvas.endText();
-            
+
             //Lunettes verres complexes
             canvas.beginText();
-            canvas.setTextMatrix(210,285);
+            canvas.setTextMatrix(210, 285);
             canvas.showText("Lunettes verres complexes");
             canvas.endText();
         }
-        
+
     }
-    
-    protected int doActionCalculerAge (Date DOB, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-        Date currentDate = new Date ();
+
+    protected int doActionCalculerAge(Date DOB, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Date currentDate = new Date();
         Calendar a = getCalendar(DOB);
         Calendar b = getCalendar(currentDate);
         int age = b.get(YEAR) - a.get(YEAR);
-        if (a.get(MONTH) > b.get(MONTH) || 
-            (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+        if (a.get(MONTH) > b.get(MONTH)
+                || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
             age--;
         }
         return age;
     }
+
     /**
      * Returns a short description of the servlet.
      *

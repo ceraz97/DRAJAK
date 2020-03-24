@@ -6,6 +6,11 @@
 package Session;
 
 import Entity.CompteEmploye;
+import Enum.Genre;
+import Enum.Role;
+import Enum.StatutPersonne;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -21,4 +26,8 @@ public interface GestionSessionLocal {
 
     Boolean VerificationDonne();
 
+    List ListerAllCompteEmploye();
+    
+    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
+    
 }
