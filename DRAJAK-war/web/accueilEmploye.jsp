@@ -22,6 +22,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                         <div class="ensembleBooutonsRadio">
+                                            <div class = "radioButtonStyle">
+                                                <input class ="RadioButtonStyle" name="action" type="radio" id="GestionnaireMenu" value="GestionnaireAuthentification" checked="true"/>
+                                                <label for="action">Gestionnaire</label>
+                                            </div>
+                                            <div class="radioButtonStyle">
+                                                <input class ="RadioButtonStyle" name="action" type="radio" id="AdministrateurMenu" value="AdministrateurAuthentification"/>
+                                                <label for="action">Administrateur</label>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
                                             <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse email" required>
