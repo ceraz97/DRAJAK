@@ -34,11 +34,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
-                                            <input type="email" class="form-control" id="login" placeholder="Adresse email" required>
+                                            <input type="email" class="form-control" name="login" placeholder="Adresse email" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
-                                            <input type="password" class="form-control" id="mdp" placeholder="Mot de passe" required>
+                                            <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required>
                                             <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
                                         </div>
                                         <div class="form-group">

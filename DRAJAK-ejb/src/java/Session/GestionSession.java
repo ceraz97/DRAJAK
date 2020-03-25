@@ -150,84 +150,6 @@ public class GestionSession implements GestionSessionLocal {
 
     @Override
     public void AjouterDonnee() {
-       
-       Particulier pa, paa, pay, paay;
-       PersonneMorale pm;
-       RegimeSocial rs;
-       CompteEmploye ce;
-       TypeAyantDroit td;
-       TypeFichier tf;
-       TypeTransaction tt;
-       CompteAssure ca, caa;
-       PersonnePublique pp;
-       Contrat c;
-       ContratIndividuel devisA, devisB;
-       ContratCollectif cc;
-       TrancheAge ta, tv;
-       DomaineProduit dm;
-       Produit pr1, pr2;
-       TypeModule tmb, tmf;
-       TypeRemboursement fr, bd;
-              
-       Genre autre, femme, homme;
-       autre= Genre.Autre; femme= Genre.Femme; homme= Genre.Homme;
-       
-       Date d20;
-       Calendar c20 = Calendar.getInstance(); 
-       c20.setTime(new Date()); 
-       c20.add(Calendar.DATE, -8000);
-       d20 = c20.getTime();
-       
-       Date d40;
-       Calendar c40 = Calendar.getInstance(); 
-       c40.setTime(new Date()); 
-       c40.add(Calendar.DATE, -16000);
-       d40 = c40.getTime();
-       //PERSONNE PUBLIQUE
-      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20 , "Tristan.alexandre841200@yopmail.com", "0666666666", "39,avenue DeLaBas,69006,Lyon,France");
-      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d20 , "Jean.Eude@yopmail.com", "0666667666", "40,avenue DeLaBas,69006,Lyon,France");
-      
-      //PERSONNE MORALE
-      /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", "999999999", "14141414141414", "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
-      
-      //COMPTE EMPLOYÉ
-      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d20,"Clement.ratz0@yopmail.com","0707070707","66,rue QuelquespartdansLyon,69005,Lyon,France",Role.Administrateur);
-      compteEmployeFacade.CreerID(ce);
-       
-      //PARTICULIER
-      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");
-      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20,lotissement ParIci, 69003,Lyon,France");
-      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19,route PrèsDeParIci,Lyon,France");
-      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13,route Loindici,Lyon,France");
-      particulierFacade.CreerID(pa);
-      particulierFacade.CreerID(pay);
-      particulierFacade.CreerID(paa);
-      particulierFacade.CreerID(paay);
-      
-      //COMPTE ASSURÉ
-       rs = regimeSocialFacade.CreerRegimeSocial("Régime Général", 1000.00, 100.00);
-       regimeSocialFacade.CreerRegimeSocial("Alsace Moselle", 1500.00, 150.00);
-       /*LogCompteAssure*/ca = compteAssureFacade.CreerCompteAssure("MdpAssure", pa, rs);
-       /*LogCompteAssure*/caa = compteAssureFacade.CreerCompteAssure("MdpAssure", paa, rs);
-       
-       //TRANSACTION
-       tt = typeTransactionFacade.CreerTypeTransaction("Acte");
-       transactionFacade.CreerTransactions("Remboursement 1", 100.00, StatutTransaction.EnAttente, "En attente de validation", tt, ca);
-       
-       //GARANTIE
-       Garantie ga1, gb1, gc1, gd1, ga2, gb2, ga3, gb3, ga4, gb4;
-       fr = typeRemboursementFacade.CreerTypeRemboursement("Frais Réel");
-       bd = typeRemboursementFacade.CreerTypeRemboursement("Base de remboursement");
-       ga1 = garantieFacade.CreerGarantie("Lunettes verres simples", bd);
-       gb1 = garantieFacade.CreerGarantie("Lunettes verres complexes", bd);
-       gc1 = garantieFacade.CreerGarantie("Soins dentaires remboursés par la sécurité sociale", bd);
-       gd1 = garantieFacade.CreerGarantie("Orthodontie remboursée par la Sécurité Sociale", bd);
-       ga2 = garantieFacade.CreerGarantie("Honoraires hospitaliers", bd);
-       gb2 = garantieFacade.CreerGarantie("Forfait journalier", bd);
-       ga3 = garantieFacade.CreerGarantie("Honoraires médicaux", bd);
-       gb3 = garantieFacade.CreerGarantie("Honoraires paramédicaux", bd);
-       ga4 = garantieFacade.CreerGarantie("Appareillage et prothèses", fr);
-       gb4 = garantieFacade.CreerGarantie("Acupuncture, Ostépathie, Chiropractie", fr);
 
         Particulier pa, paa, pay, paay;
         PersonneMorale pm;
@@ -264,22 +186,23 @@ public class GestionSession implements GestionSessionLocal {
         c40.add(Calendar.DATE, -16000);
         d40 = c40.getTime();
         //PERSONNE PUBLIQUE
-        pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20, "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "39 avenue DeLaBas, 69006, Lyon, France");
-        personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre, d20, "1964569423458", "Jean.Eude@yopmail.com", "0666667666", "40 avenue DeLaBas, 69006, Lyon, France");
+        pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20, "Tristan.alexandre841200@yopmail.com", "0666666666", "39,avenue DeLaBas,69006,Lyon,France");
+        personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre, d20, "Jean.Eude@yopmail.com", "0666667666", "40,avenue DeLaBas,69006,Lyon,France");
+
 
         //PERSONNE MORALE
         /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", "999999999", "14141414141414", "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
 
         //COMPTE EMPLOYÉ
         /*LogEmploye*/
-        ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin", "Ratz", "Clement", homme, d20, "Clement.ratz0@yopmail.com", "0707070707", "66 rue QuelquespartdansLyon, 69005, Lyon, France", Role.Administrateur);
+        ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin", "Ratz", "Clement", homme, d20, "Clement.ratz0@yopmail.com", "0707070707", "66,rue QuelquespartdansLyon,69005,Lyon,France", Role.Administrateur);
         compteEmployeFacade.CreerID(ce);
 
         //PARTICULIER
-        pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21 rue ParLàBas, 69004, Lyon, France");
-        pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20 lotissement ParIci, 69003, Lyon, France");
-        paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19 route PrèsDeParIci, Lyon, France");
-        paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13 route Loindici, Lyon, France");
+        pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");
+        pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20,lotissement ParIci, 69003,Lyon,France");
+        paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19,route PrèsDeParIci,Lyon,France");
+        paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13,route Loindici,Lyon,France");
         particulierFacade.CreerID(pa);
         particulierFacade.CreerID(pay);
         particulierFacade.CreerID(paa);
@@ -457,7 +380,6 @@ public class GestionSession implements GestionSessionLocal {
         return b;
     }
 
-    @Override
     public List ListerAllCompteEmploye() {
         return compteEmployeFacade.ListerAllCompteEmploye();
     }
