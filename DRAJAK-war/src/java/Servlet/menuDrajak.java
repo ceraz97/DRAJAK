@@ -571,6 +571,16 @@ public class menuDrajak extends HttpServlet {
                     doActionEditionDevis(request, response);
                     message = "";
                     break;
+                    
+                case "Assure_GestionContrat_ListeContrat":
+                    jspAffiche = "/gestionContratMenu_Assure.jsp";
+                    List listeContrats = assureSession.RechercherListeContratAssure(sessionAssure);
+                    if (listeContrats == null){
+                        message="Aucun contrat n'a été trouvé";
+                    }
+                    message = "";
+                    request.setAttribute("listeContrats", listeContrats);
+                    break;
             }
         }
         RequestDispatcher Rd;
