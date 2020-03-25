@@ -33,6 +33,7 @@ import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -196,6 +197,12 @@ public class AssureSession implements AssureSessionLocal {
     public PersonnePublique RechercherPersonnePublique(String Email) {
         PersonnePublique persoPublique = personnePubliqueFacade.RechercherPersonnePublique(Email);
         return persoPublique;
+    }
+
+    @Override
+    public List<ContratIndividuel> RechercherListeContratAssure(CompteAssure cptAssure) {
+        List<ContratIndividuel> listecontrat = contratIndividuelFacade.RechercherContratIndividuelParAssure(cptAssure);
+        return listecontrat;
     }
     
     
