@@ -63,4 +63,8 @@ public interface AssureSessionLocal {
 
     ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod);
 
+    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date dateNais, String email, String tel, String adr);
+
+    PersonnePublique RechercherPersonnePublique(String Email);
+
 }

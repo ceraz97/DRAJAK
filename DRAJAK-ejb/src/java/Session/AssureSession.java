@@ -28,6 +28,7 @@ import Facades.ModuleFacadeLocal;
 import Facades.ObjetGarantieFacadeLocal;
 import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
+import Facades.PersonnePubliqueFacadeLocal;
 import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
@@ -41,6 +42,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AssureSession implements AssureSessionLocal {
+
+    @EJB
+    private PersonnePubliqueFacadeLocal personnePubliqueFacade;
 
     @EJB
     private ContratIndividuelFacadeLocal contratIndividuelFacade;
@@ -71,6 +75,7 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
     
     
     
@@ -180,5 +185,18 @@ public class AssureSession implements AssureSessionLocal {
         contratIndivDevis = contratIndividuelFacade.CreerDevis(libelle, compteA, persoPublique, compteE, objetGar, prod);
         return contratIndivDevis;
     }
+
+    @Override
+    public PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date dateNais, String email, String tel, String adr) {
+        PersonnePublique persoPublique = personnePubliqueFacade.CreerPersonnePublique(nom, prenom, genre, dateNais, email, tel, adr);
+        return persoPublique;
+    }
+
+    @Override
+    public PersonnePublique RechercherPersonnePublique(String Email) {
+        PersonnePublique persoPublique = personnePubliqueFacade.RechercherPersonnePublique(Email);
+        return persoPublique;
+    }
+    
     
 }

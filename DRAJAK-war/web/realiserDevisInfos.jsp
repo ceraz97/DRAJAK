@@ -276,13 +276,14 @@
                                 <!-- ligne tableau devis -->
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td rowspan="2"class="colonneEnteteLigneImpaire">4</td>
-                                    <td class="colonne2Lignehaut">Votre adresse email :</td>
+                                    <td class="colonne2Lignehaut">Éléments de contact :</td>
                                 </tr>
                                 <tr class="ligneGeneraleTableau">
                                     <td class="colonne2LigneBas">
                                         <section>
                                             <div>
                                                 <div class="champsAdresseDevis"><input type="email" id="adrMail" name="adrMail" placeholder="email@exemple.com" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getLogin()}" disabled="disabled"</c:if> required></div>
+                                            <div class="champsAdresseDevis"><input type="tel" id="numTel" name="numTel" placeholder="Numéro de téléphone" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getnTelephone()}" disabled="disabled"</c:if> required></div>
                                             </div>
                                         </section>
                                     </td>

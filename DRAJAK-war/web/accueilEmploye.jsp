@@ -24,21 +24,21 @@
                                     <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                                          <div class="ensembleBooutonsRadio">
                                             <div class = "radioButtonStyle">
-                                                <input class ="RadioButtonStyle" name="action" type="radio" id="GestionnaireMenu" value="GestionnaireAuthentification" checked="true"/>
+                                                <input class ="RadioButtonStyle" name="action" type="radio" name="GestionnaireMenu" value="GestionnaireAuthentification" checked="true"/>
                                                 <label for="action">Gestionnaire</label>
                                             </div>
                                             <div class="radioButtonStyle">
-                                                <input class ="RadioButtonStyle" name="action" type="radio" id="AdministrateurMenu" value="AdministrateurAuthentification"/>
+                                                <input class ="RadioButtonStyle" name="action" type="radio" name="AdministrateurMenu" value="AdministrateurAuthentification"/>
                                                 <label for="action">Administrateur</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
-                                            <input type="email" class="form-control" name="login" placeholder="Adresse email" required>
+                                            <input type="email" class="form-control" id="login" placeholder="Adresse email" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
-                                            <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required>
+                                            <input type="password" class="form-control" id="mdp" placeholder="Mot de passe" required>
                                             <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
                                         </div>
                                         <div class="form-group">

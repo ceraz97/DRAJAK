@@ -29,7 +29,7 @@
                 <div class="container">
                     <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                         <div class="col-md-8 ftco-animate text-center">
-                            <h1 class="mb-4">Bonjour, </h1>
+                            <h1 class="mb-4">Bonjour</h1>
                             <p><%out.println(sessionAssure.getCleParticulier().getNom() + " " + sessionAssure.getCleParticulier().getPrenom());%></p>
                     </div>
                 </div>
@@ -41,13 +41,13 @@
                 <div class="row no-gutters" style="height: 700px;">
                     <div class="col-md-4 ftco-animate py-5 nav-link-wrap">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link px-4 active" id="v-pills-master-tab" data-toggle="pill" href="#v-pills-master" role="tab" aria-controls="v-pills-master" aria-selected="true"><span class="mr-3 flaticon-cardiogram"></span>Contrats</a>
+                            <a class="nav-link px-4 active" id="v-pills-master-tab" data-toggle="pill" href="#v-pills-master" role="tab" aria-controls="v-pills-master" aria-selected="true"><span class="mr-3"><i style="margin-right: 10px;" class="far fa-file-alt"></i></span>Contrats</a>
 
-                            <a class="nav-link px-4" id="v-pills-buffet-tab" data-toggle="pill" href="#v-pills-buffet" role="tab" aria-controls="v-pills-buffet" aria-selected="false"><span class="mr-3 flaticon-neurology"></span> Devis</a>
+                            <a class="nav-link px-4" id="v-pills-buffet-tab" data-toggle="pill" href="#v-pills-buffet" role="tab" aria-controls="v-pills-buffet" aria-selected="false"><span><i style="margin-right: 10px;" class="fas fa-calculator"></i></span> Devis</a>
 
                             <a class="nav-link px-4" id="v-pills-fitness-tab" data-toggle="pill" href="#v-pills-fitness" role="tab" aria-controls="v-pills-fitness" aria-selected="false"><span class="mr-3 flaticon-stethoscope"></span> Diagnostic</a>
 
-                            <a class="nav-link px-4" id="v-pills-reception-tab" data-toggle="pill" href="#v-pills-reception" role="tab" aria-controls="v-pills-reception" aria-selected="false"><span class="mr-3 flaticon-tooth"></span> Dental</a>
+                            <a class="nav-link px-4" id="v-pills-reception-tab" data-toggle="pill" href="#v-pills-reception" role="tab" aria-controls="v-pills-reception" aria-selected="false"><span class=" flaticon-tooth"></span> Dental</a>
 
                             <a class="nav-link px-4" id="v-pills-sea-tab" data-toggle="pill" href="#v-pills-sea" role="tab" aria-controls="v-pills-sea" aria-selected="false"><span class="mr-3 flaticon-vision"></span> Ophthalmology</a>
 
@@ -59,15 +59,15 @@
                         <div class="tab-content pl-md-5" id="v-pills-tabContent">
 
                             <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
-                                <span class="icon mb-3 d-block flaticon-cardiogram"></span>
+                                <span><i style="font-size: 7em; color: #167ce9;margin-bottom: 20px;" class="far fa-file-alt"></i></span>
                                 <h2 class="mb-4">Gérer mes contrats</h2>
                                 <p>Accédez à vos contrats simplement. Suivez l'avancer de vos demandes et réalisez en d'autres</p>
                                 <p>Consulter la totalité de vos contrats ainsi que les garanties dont vous disposez.</p>
-                                <p><a href="#" class="btn btn-primary">Accéder aux contrats</a></p>
+                                <p><a onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_ListeContrat'" class="btn btn-primary">Accéder aux contrats</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">
-                                <span class="icon mb-3 d-block flaticon-neurology"></span>
+                                <span><i style="font-size: 7em; color: #167ce9;margin-bottom: 20px;" class="fas fa-calculator"></i></span>
                                 <h2 class="mb-4">Réaliser des devis</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
                                 <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>

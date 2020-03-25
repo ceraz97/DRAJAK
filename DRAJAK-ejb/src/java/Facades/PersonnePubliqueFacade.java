@@ -35,7 +35,7 @@ public class PersonnePubliqueFacade extends AbstractFacade<PersonnePublique> imp
         super(PersonnePublique.class);
     }
     @Override
-    public PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
+    public PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr) {
         PersonnePublique pp = new PersonnePublique();
         pp.setnTelephone(tel);
         pp.setAdresse(adr);
@@ -67,11 +67,11 @@ public class PersonnePubliqueFacade extends AbstractFacade<PersonnePublique> imp
         }
 
     @Override
-    public PersonnePublique RechercherPersonnePublique(String nSecu) {
+    public PersonnePublique RechercherPersonnePublique(String Email) {
         PersonnePublique pp;
-        String txt = "SELECT pp FROM PersonnePublique PP WHERE pp.nSecu=:nSecu ";
+        String txt = "SELECT pp FROM PersonnePublique PP WHERE pp.email=:aEmail ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nSecu", nSecu);
+        req = req.setParameter("aEmail", Email);
         pp = null;
         List<PersonnePublique> result = req.getResultList();
         if (result.size() == 1) {

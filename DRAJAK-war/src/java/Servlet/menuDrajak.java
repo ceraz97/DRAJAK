@@ -87,24 +87,24 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("AfficherGest"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&& !act.equals("accueilPublic")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos")&&!act.equals("DemandeDevis_tarif")&&!act.equals("DemandeDevis_souscription")&&!act.equals("DemandeDevis_exportpdf"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
-            if (act.substring(0, 5).equals("Assure")) {
-                request.setAttribute("typeConnexion", "AssureMenu");
-            } else if (act.substring(0, 5).equals("Gestionnaire")) {
-                request.setAttribute("typeConnexion", "GestionnaireMenu");
-            } else if (act.substring(0, 5).equals("Entreprise")) {
-                request.setAttribute("typeConnexion", "EntrepriseMenu");
-            } else if (act.substring(0, 5).equals("Administrateur")) {
-                request.setAttribute("typeConnexion", "AdministrateurMenu");
-            }
+            /*if (act.substring(0, 6).equalsIgnoreCase("Assure")) {
+            request.setAttribute("typeConnexion", "AssureMenu");
+            } else if (act.substring(0, 12).equalsIgnoreCase("Gestionnaire")) {
+            request.setAttribute("typeConnexion", "GestionnaireMenu");
+            } else if (act.substring(0, 10).equalsIgnoreCase("Entreprise")) {
+            request.setAttribute("typeConnexion", "EntrepriseMenu");
+            } else if (act.substring(0, 14).equalsIgnoreCase("Administrateur")) {
+            request.setAttribute("typeConnexion", "AdministrateurMenu");
+            }*/
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
         } else {
             switch (act) {
-                case "vide":
+                case "accueilPublic":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -182,7 +182,6 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
-                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -233,10 +232,6 @@ public class menuDrajak extends HttpServlet {
                     }
                     break;
 
-                case "AssureVersPageAfficherContrat":
-                    jspAffiche = "/.jsp";
-                    message = "";
-                    break;
 
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
@@ -303,44 +298,17 @@ public class menuDrajak extends HttpServlet {
 
                 case "DemandeDevis_tarif":
                     jspAffiche = "/realiserDevisTarif.jsp";
-                    message = "";
-
-                    String nbAdulteTarif = null,
-                     trancheAgeTarif = null,
-                     enfantTarif = null,
-                     couvertureTarif = null,
-                     optiqueDentaireTarif = null;
-                    Genre genreAdulte1,
-                     genreAdulte2,
-                     genreEnfant1,
-                     genreEnfant2,
-                     genreEnfant3;
-                    String DobA1String,
-                     DobA2String,
-                     DobE1String,
-                     DobE2String,
-                     DobE3String;
-                    Date DobA1Date,
-                     DobA2Date,
-                     DobE1Date,
-                     DobE2Date,
-                     DobE3Date;
-                    int ageA1,
-                     ageA2,
-                     ageE1,
-                     ageE2,
-                     ageE3;
-                    String nomA1,
-                     prenomA1;
+                    message="";
+                    
+                    String nbAdulteTarif = null, trancheAgeTarif =null,  enfantTarif = null, couvertureTarif =null,optiqueDentaireTarif=null;  
+                    Genre genreAdulte1 = null,genreAdulte2,genreEnfant1,genreEnfant2,genreEnfant3;
+                    String DobA1String,DobA2String,DobE1String,DobE2String,DobE3String;
+                    Date DobA1Date = null, DobA2Date,DobE1Date,DobE2Date,DobE3Date;
+                    int ageA1, ageA2, ageE1, ageE2, ageE3;
+                    String nomA1=null,prenomA1=null;
                     String regimeA1;
-                    String nbEnfant = null;
-                    String numRueTarif,
-                     nomRueTarif,
-                     cpTarif,
-                     villeTarif,
-                     paysTarif,
-                     adresseTarif,
-                     email;
+                    String nbEnfant=null;
+                    String numRueTarif,nomRueTarif,cpTarif,villeTarif,paysTarif,adresseTarif=null, email = null, tel =null;
                     Particulier particulierDevis = null;
 
                     //Récupération des données
@@ -356,11 +324,38 @@ public class menuDrajak extends HttpServlet {
                     }
 
                     //recherche des éléments de granties
-                    //Adulte
-                    if (sessionAssure != null) {
-                        particulierDevis = assureSession.RechercherParticulier(sessionAssure.getCleParticulier().getnSecuriteSocial());
-                        if (particulierDevis == null) {
-                            message = "Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
+                        //Adulte
+                        if (sessionAssure != null){
+                            particulierDevis = assureSession.RechercherParticulier(sessionAssure.getCleParticulier().getnSecuriteSocial());
+                            if (particulierDevis==null){ 
+                                message="Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
+                            }
+                            genreAdulte1 = particulierDevis.getGenre();
+                            DobA1Date = particulierDevis.getDateNaissance();
+                            regimeA1 = sessionAssure.getCleRegimeSocial().getLibelle();
+                            nomA1 = particulierDevis.getNom();
+                            prenomA1 = particulierDevis.getPrenom();
+                            ageA1 = doActionCalculerAge(DobA1Date,request, response);;
+                            adresseTarif = particulierDevis.getAdresse();
+                            email = particulierDevis.getEmail();
+                            tel = particulierDevis.getnTelephone();
+                            
+                        } else { 
+                            try {
+                                String gA1 = request.getParameter("genreA1");
+                                if (gA1.equalsIgnoreCase("Homme")){genreAdulte1 = Genre.Homme;}
+                                else if (gA1.equalsIgnoreCase("Femme")){genreAdulte1 = Genre.Femme;}
+                                else {genreAdulte1 = Genre.Autre;}
+                                DobA1String = request.getParameter("bdayA1");
+                                DobA1Date=java.sql.Date.valueOf(DobA1String);
+                                regimeA1 = request.getParameter("selectRegimeA1");
+                                nomA1 = request.getParameter("nomA1");
+                                prenomA1 = request.getParameter("prenomA1");
+                                ageA1=doActionCalculerAge(DobA1Date,request, response);
+                            } catch (Exception e){
+                                message="Erreur : une information sur le premier adulte n'a pu être récupérée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
                         }
                     } else {
                         try {
@@ -391,7 +386,71 @@ public class menuDrajak extends HttpServlet {
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
-                    if (nbAdulteTarif.equalsIgnoreCase("2")) {
+                        //Enfant
+                        if (enfantTarif.equalsIgnoreCase("avec")){
+                            try {
+                                String gE1 = request.getParameter("genreE1");
+                                if (gE1.equalsIgnoreCase("Homme")){genreEnfant1 = Genre.Homme;}
+                                else if (gE1.equalsIgnoreCase("Femme")){genreEnfant1 = Genre.Femme;}
+                                else {genreEnfant1 = Genre.Autre;}
+                                DobE1String=request.getParameter("bdayE1");
+                                DobE1Date=java.sql.Date.valueOf(DobE1String);
+                                ageE1=doActionCalculerAge(DobE1Date,request, response);
+                            } catch (Exception e){
+                                message="Erreur : une information sur le premier enfant n'a pu être récupéreée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                            
+                            if (nbEnfant.equalsIgnoreCase("2") || nbEnfant.equalsIgnoreCase("3")){
+                                try {
+                                    String gE2 = request.getParameter("genreE2");
+                                    if (gE2.equalsIgnoreCase("Homme")){genreEnfant2 = Genre.Homme;}
+                                    else if (gE2.equalsIgnoreCase("Femme")){genreEnfant2 = Genre.Femme;}
+                                    else {genreEnfant2 = Genre.Autre;}
+                                    DobE2String=request.getParameter("bdayE2");
+                                    DobE2Date=java.sql.Date.valueOf(DobE2String);
+                                    ageE2=doActionCalculerAge(DobE2Date,request, response);
+                                } catch (Exception e){
+                                    message="Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
+                                    jspAffiche="/realiserDevisBesoins.jsp";
+                                }
+                            } 
+                            if(nbEnfant.equalsIgnoreCase("3")){
+                                try {
+                                    String gE3 = request.getParameter("genreE3");
+                                    if (gE3.equalsIgnoreCase("Homme")){genreEnfant3 = Genre.Homme;}
+                                    else if (gE3.equalsIgnoreCase("Femme")){genreEnfant3 = Genre.Femme;}
+                                    else {genreEnfant3 = Genre.Autre;}
+                                    DobE3String=request.getParameter("bdayE3");
+                                    DobE3Date=java.sql.Date.valueOf(DobE3String);
+                                    ageE3=doActionCalculerAge(DobE3Date,request, response);
+                                } catch (Exception e){
+                                    message="Erreur : une information sur le troisième enfant n'a pu être récupéreée";
+                                    jspAffiche="/realiserDevisBesoins.jsp";
+                                }
+                            }
+                        }
+
+                        if (sessionAssure == null){
+                            try {
+                                //Adresse
+                                numRueTarif = request.getParameter("adrNum");
+                                nomRueTarif = request.getParameter("adrNomRue");
+                                cpTarif = request.getParameter("adrCP");
+                                villeTarif = request.getParameter("adrVille");
+                                paysTarif = request.getParameter("adrPays");
+                                adresseTarif=numRueTarif+","+nomRueTarif+","+cpTarif+","+villeTarif+","+paysTarif;
+
+                                //Mail et téléphone
+                                email = request.getParameter("adrMail");
+                                
+                            } catch (Exception e){
+                                message="Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
+                                jspAffiche="/realiserDevisBesoins.jsp";
+                            }
+                        }
+                        //Obtention tranche Age
+                        TrancheAge trancheAgeMaxTarif = null;
                         try {
                             String gA2 = request.getParameter("genre2");
                             if (gA2.equalsIgnoreCase("Homme")) {
@@ -483,72 +542,16 @@ public class menuDrajak extends HttpServlet {
                             message = "Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
                         }
-                    }
-                    //Obtention tranche Age
-                    TrancheAge trancheAgeMaxTarif = null;
-                    try {
-                        if (trancheAgeTarif.equalsIgnoreCase("1")) {
-                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("18-34 ans");
-                        } else if (trancheAgeTarif.equalsIgnoreCase("2")) {
-                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("35-54 ans");
-                        } else if (trancheAgeTarif.equalsIgnoreCase("3")) {
-                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("55-70 ans");
-                        } else if (trancheAgeTarif.equalsIgnoreCase("4")) {
-                            trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
-                        }
-                    } catch (Exception e) {
-                        message = "Erreur : l'âge n'a pu être récupéreée";
-                        jspAffiche = "/realiserDevisBesoins.jsp";
-                    }
-
-                    //Obetenir objet garantie
-                    ObjetGarantie objGarantieHSC = null,
-                     objGarantieOD = null;
-                    try {
-                        objGarantieHSC = assureSession.RechercherObjetGarantieParLibelle("N" + couvertureTarif);
-                        objGarantieOD = assureSession.RechercherObjetGarantieParLibelle("N" + optiqueDentaireTarif);
-                        TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
-                    } catch (Exception e) {
-                        message = "Erreur : les niveaux de garantie n'ont pu être récupérés";
-                        jspAffiche = "/realiserDevisBesoins.jsp";
-                    }
-
-                    //Obtenir Garantie 
-                    List<String> listObjetGarantieHSC = Arrays.asList(new String[]{"Honoraires hospitaliers", "Forfait journalier"});
-                    List<TauxGarantie> listeTauxGarantieHospitalisation = null;
-                    List<TauxGarantie> listeTauxGarantieTotale = null;
-                    for (int i = 0; i < listObjetGarantieHSC.size(); i++) {
-                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
-                        listeTauxGarantieHospitalisation.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                    }
-                    request.setAttribute("honorairesHospitaliers", listeTauxGarantieHospitalisation.get(0));
-                    request.setAttribute("forfaitJournalier", listeTauxGarantieHospitalisation.get(1));
-
-                    List<String> listObjetGarantieSoinsCourants = Arrays.asList(new String[]{"Honoraires médicaux", "Honoraires paramédicaux"});
-                    List<TauxGarantie> listeTauxGarantieSoinsCourants = null;
-                    for (int i = 0; i < listObjetGarantieSoinsCourants.size(); i++) {
-                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieSoinsCourants.get(i));
-                        listeTauxGarantieSoinsCourants.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
-                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                    }
-                    request.setAttribute("honorairesMedicaux", listObjetGarantieSoinsCourants.get(0));
-                    request.setAttribute("honorairesParamedicaux", listObjetGarantieSoinsCourants.get(1));
-
-                    List<String> listObjetGarantieOD = Arrays.asList(new String[]{"Soins dentaires remboursés par la sécurité sociale", "Orthodontie remboursée par la Sécurité Sociale", "Lunettes verres simples", "Lunettes verres complexes"});
-                    List<TauxGarantie> listeTauxGarantieOptiqueDentaire = null;
-                    for (int i = 0; i < listObjetGarantieOD.size(); i++) {
-                        Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieOD.get(i));
-                        listeTauxGarantieOptiqueDentaire.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
-                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                    }
-                    request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
-                    request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
-                    request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
-                    request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
-
-                    //Recherche des modules
-                    //Recherche du produit
+                        request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
+                        request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
+                        request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
+                        request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
+                        
+                        //Recherche des modules
+                        
+                        //Recherche du produit
+                        Produit prod = null;
+                        
                     //Cotisations 
                     //Calcul des cotisations
                     double TarifCotisation = 0;
@@ -558,7 +561,18 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("MontantCotisationTotale", TarifCotisation);
 
                     //Enregistrement du devis
-                    //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
+                        PersonnePublique pPublique=null;
+                        if (sessionAssure==null){
+                            pPublique = assureSession.RechercherPersonnePublique(email);
+                            if (pPublique==null) {
+                                pPublique = assureSession.CreerPersonnePublique(nomA1, prenomA1,genreAdulte1 , DobA1Date, email, tel ,adresseTarif);
+                                if (pPublique==null){
+                                    message="Erreur : la création de la personne publique a échoué";
+                                }
+                            } 
+                        }
+                        ContratIndividuel contratIndivDevis = assureSession.CreerDevis(pPublique.getEmail(), sessionAssure, pPublique, sessionGestionnaire, objGarantieOD, prod);
+                        session.setAttribute("DevisAtribute", contratIndivDevis);
                     break;
 
                 case "DemandeDevis_souscription":
@@ -570,6 +584,11 @@ public class menuDrajak extends HttpServlet {
                     jspAffiche = "/realiserDevisTarif.jsp";
                     doActionEditionDevis(request, response);
                     message = "";
+                    break;
+                
+                case "Assure_GestionContrat_ListeContrat":
+                    jspAffiche = "/gestionContratMenu_Assure.jsp";
+                    message="";
                     break;
             }
         }
