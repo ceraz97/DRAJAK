@@ -38,7 +38,7 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     @Override
     public CompteEmploye AuthentifierCompteEmploye(String login, String mdp) {
         CompteEmploye ce;
-        String txt = "SELECT log FROM CompteEmploye AS log WHERE log.login=:Login and log.Mdp=:mdp";
+        String txt = "SELECT log FROM CompteEmploye AS log WHERE log.login=:Login and log.mdp=:Mdp";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("Login", login);
         req = req.setParameter("Mdp", mdp);

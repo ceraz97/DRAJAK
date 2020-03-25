@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Entity.CompteEmploye"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="listeGestionnaire" scope="request" class="java.util.List"></jsp:useBean>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +23,8 @@
     <body>
         <h1>Afficher gestionnaires</h1>
         <TABLE border width=50%>
-            <tr><td>Nom</td> 
+            <tr><td>Id</td> 
+                <td>Nom</td> 
                 <td>Prenom</TD>
                 <td>Date de naissance</td>
                 <td>Numero</td>
