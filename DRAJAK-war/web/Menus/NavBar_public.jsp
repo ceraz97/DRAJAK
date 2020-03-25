@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="accueil.jsp"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
+                <a class="navbar-brand" onclick="location.href = 'menuDrajak?action=accueilPublic'" style="cursor: pointer"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
                 </button>
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Accueil</a></li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">Qui sommes-nous ?</a></li>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link">Offres</a></li>
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link">Particulier</a></li>
-                        <li class="nav-item"><a href="entreprise.jsp" class="nav-link">Entreprise</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <li class="nav-item cta"><a href="accueil.jsp" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
+                        <li class="nav-item active"><a onclick="location.href = 'menuDrajak?action=accueilPublic'" style="cursor: pointer" class="nav-link">Accueil</a></li>
+                        <li class="nav-item"><a href="about.jsp" class="nav-link" style="cursor: pointer">Qui sommes-nous ?</a></li>
+                        <li class="nav-item"><a href="offre.jsp" class="nav-link" style="cursor: pointer">Offres</a></li>
+                        <li class="nav-item"><a href="particulier.jsp" class="nav-link" style="cursor: pointer">Particulier</a></li>
+                        <li class="nav-item"><a href="entreprise.jsp" class="nav-link" style="cursor: pointer">Entreprise</a></li>
+                        <li class="nav-item"><a href="contact.jsp" class="nav-link" style="cursor: pointer">Contact</a></li>
+                        <li class="nav-item cta"><a style="cursor: pointer" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
                     </ul>
                 </div>
             </div>

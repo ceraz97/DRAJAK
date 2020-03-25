@@ -33,7 +33,7 @@ public interface PersonnePubliqueFacadeLocal {
 
     int count();
     
-    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr);
 
     List ListerAllPersonnePublique();
     
@@ -41,6 +41,6 @@ public interface PersonnePubliqueFacadeLocal {
     
     void SupprimerPersonnePublique(PersonnePublique pp);
     
-    PersonnePublique RechercherPersonnePublique(String nSecu);
+    PersonnePublique RechercherPersonnePublique(String Email);
     
 }

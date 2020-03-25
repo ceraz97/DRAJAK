@@ -188,21 +188,21 @@ public class GestionSession implements GestionSessionLocal {
        c40.add(Calendar.DATE, -16000);
        d40 = c40.getTime();
        //PERSONNE PUBLIQUE
-      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20 , "1964569123458", "Tristan.alexandre841200@yopmail.com", "0666666666", "39 avenue DeLaBas, 69006, Lyon, France");
-      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d20 , "1964569423458", "Jean.Eude@yopmail.com", "0666667666", "40 avenue DeLaBas, 69006, Lyon, France");
+      pp = personnePubliqueFacade.CreerPersonnePublique("Alexandre", "Tristan", autre, d20 , "Tristan.alexandre841200@yopmail.com", "0666666666", "39,avenue DeLaBas,69006,Lyon,France");
+      personnePubliqueFacade.CreerPersonnePublique("Jean", "Eude", autre,d20 , "Jean.Eude@yopmail.com", "0666667666", "40,avenue DeLaBas,69006,Lyon,France");
       
       //PERSONNE MORALE
       /*LogMoral*/ pm = personneMoraleFacade.CreerPersonneMorale("EntrepriseTest", "999999999", "14141414141414", "LogMorale", "MdpMorale", "EntrepriseTest@yopmail.com");
       
       //COMPTE EMPLOYÉ
-      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d20,"Clement.ratz0@yopmail.com","0707070707","66 rue QuelquespartdansLyon, 69005, Lyon, France",Role.Administrateur);
+      /*LogEmploye*/ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin","Ratz","Clement",homme,d20,"Clement.ratz0@yopmail.com","0707070707","66,rue QuelquespartdansLyon,69005,Lyon,France",Role.Administrateur);
       compteEmployeFacade.CreerID(ce);
        
       //PARTICULIER
-      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21 rue ParLàBas, 69004, Lyon, France");
-      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20 lotissement ParIci, 69003, Lyon, France");
-      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19 route PrèsDeParIci, Lyon, France");
-      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13 route Loindici, Lyon, France");
+      pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");
+      pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20,lotissement ParIci, 69003,Lyon,France");
+      paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19,route PrèsDeParIci,Lyon,France");
+      paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13,route Loindici,Lyon,France");
       particulierFacade.CreerID(pa);
       particulierFacade.CreerID(pay);
       particulierFacade.CreerID(paa);

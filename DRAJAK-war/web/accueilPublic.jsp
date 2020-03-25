@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,27 +21,14 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-            <div class="container">
-                <a class="navbar-brand" href="accueilPublic.jsp"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="oi oi-menu"></span> Menu
-                </button>
-
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="accueilPublic.jsp" class="nav-link">Accueil</a></li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">Qui sommes-nous ?</a></li>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link">Offres</a></li>
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link">Particulier</a></li>
-                        <li class="nav-item"><a href="entreprise.jsp" class="nav-link">Entreprise</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <li class="nav-item cta"><a href="accueilPublic.jsp" class="nav-link" data-toggle="modal" data-target="#modalAppointment"><span>Se connecter</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- END nav -->
+        
+        <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
         
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed;">
@@ -48,7 +36,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Bienvenue</h1>
+                        <h1 class="mb-4">Bienvenue <c:if test="${ !empty sessionScope.sessionAssure}"><c:out value="${sessionScope.sessionAssure.getCleParticulier().getNom()}"/> <c:out value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}"/></c:if></h1>
                         <p>Une mutuelle pour tous, adaptée aux besoins de chacun.</p>
                     </div>
                 </div>
@@ -82,7 +70,7 @@
                                 <h2 class="mb-4">Protection mutuelle</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
                                 <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Réaliser un devis</a></p>
+                                <p><a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute" >Réaliser un devis</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">

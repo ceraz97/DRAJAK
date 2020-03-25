@@ -89,24 +89,24 @@ public class menuDrajak extends HttpServlet {
         }
         
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos")&&!act.equals("DemandeDevis_tarif")&&!act.equals("DemandeDevis_souscription")&&!act.equals("DemandeDevis_exportpdf"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("")&& !act.equals("accueilPublic")&&!act.equals("AssureMenu")&&!act.equals("GestionnaireMenu")&&!act.equals("EntrepriseMenu")&&!act.equals("AdministrateurMenu")&&!act.equals("AssureAuthentification")&&!act.equals("GestionnaireAuthentification")&&!act.equals("EntrepriseAuthentification")&&!act.equals("AdministrateurAuthentification")&&!act.equals("Deconnexion")&&!act.equals("DemandeDevis_besoins")&&!act.equals("DemandeDevis_infos")&&!act.equals("DemandeDevis_tarif")&&!act.equals("DemandeDevis_souscription")&&!act.equals("DemandeDevis_exportpdf"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
-            if (act.substring(0, 5).equals("Assure")) {
-                request.setAttribute("typeConnexion", "AssureMenu");
-            } else if (act.substring(0, 5).equals("Gestionnaire")) {
-                request.setAttribute("typeConnexion", "GestionnaireMenu");
-            } else if (act.substring(0, 5).equals("Entreprise")) {
-                request.setAttribute("typeConnexion", "EntrepriseMenu");
-            } else if (act.substring(0, 5).equals("Administrateur")) {
-                request.setAttribute("typeConnexion", "AdministrateurMenu");
-            }
+            /*if (act.substring(0, 6).equalsIgnoreCase("Assure")) {
+            request.setAttribute("typeConnexion", "AssureMenu");
+            } else if (act.substring(0, 12).equalsIgnoreCase("Gestionnaire")) {
+            request.setAttribute("typeConnexion", "GestionnaireMenu");
+            } else if (act.substring(0, 10).equalsIgnoreCase("Entreprise")) {
+            request.setAttribute("typeConnexion", "EntrepriseMenu");
+            } else if (act.substring(0, 14).equalsIgnoreCase("Administrateur")) {
+            request.setAttribute("typeConnexion", "AdministrateurMenu");
+            }*/
         } else if (act == null) {
             jspAffiche = "/accueilPublic.jsp";
             message = "Bienvenue";
         } else {
             switch (act) {
-                case "vide":
+                case "accueilPublic":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -125,7 +125,7 @@ public class menuDrajak extends HttpServlet {
                         jspAffiche = "/menuEntreprise.jsp";
                         message = "";
                     } else if (sessionAdministrateur != null) {
-                        jspAffiche = "/menuAministrateur.jsp";
+                        jspAffiche = "/menuAdministrateur.jsp";
                         message = "";
                     } else {
                         jspAffiche = "/accueilPublic.jsp";
@@ -184,7 +184,6 @@ public class menuDrajak extends HttpServlet {
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionGestionnaire", sessionGestionnaire);
-                            //sessionPublic=false;
                         }
                     }
                     break;
@@ -226,7 +225,7 @@ public class menuDrajak extends HttpServlet {
                             message = "Erreur : Le login ou le mot de passe est incorrect";
                             jspAffiche = "/accueilEmploye.jsp";
                         } else {
-                            jspAffiche = "/menuAministrateur.jsp";
+                            jspAffiche = "/menuAdministrateur.jsp";
                             message = "Connexion réussie";
                             session = request.getSession(true);
                             session.setAttribute("sessionAdministrateur", sessionAdministrateur);
@@ -235,10 +234,6 @@ public class menuDrajak extends HttpServlet {
                     }
                     break;
 
-                case "AssureVersPageAfficherContrat":
-                    jspAffiche = "/.jsp";
-                    message = "";
-                    break;
 
                 case "DemandeDevis_besoins":
                     jspAffiche = "/realiserDevisBesoins.jsp";
@@ -268,14 +263,14 @@ public class menuDrajak extends HttpServlet {
                     message="";
                     
                     String nbAdulteTarif = null, trancheAgeTarif =null,  enfantTarif = null, couvertureTarif =null,optiqueDentaireTarif=null;  
-                    Genre genreAdulte1,genreAdulte2,genreEnfant1,genreEnfant2,genreEnfant3;
+                    Genre genreAdulte1 = null,genreAdulte2,genreEnfant1,genreEnfant2,genreEnfant3;
                     String DobA1String,DobA2String,DobE1String,DobE2String,DobE3String;
-                    Date DobA1Date,DobA2Date,DobE1Date,DobE2Date,DobE3Date;
+                    Date DobA1Date = null, DobA2Date,DobE1Date,DobE2Date,DobE3Date;
                     int ageA1, ageA2, ageE1, ageE2, ageE3;
-                    String nomA1,prenomA1;
+                    String nomA1=null,prenomA1=null;
                     String regimeA1;
                     String nbEnfant=null;
-                    String numRueTarif,nomRueTarif,cpTarif,villeTarif,paysTarif,adresseTarif, email;
+                    String numRueTarif,nomRueTarif,cpTarif,villeTarif,paysTarif,adresseTarif=null, email = null, tel =null;
                     Particulier particulierDevis = null;
                     
                     //Récupération des données
@@ -297,6 +292,16 @@ public class menuDrajak extends HttpServlet {
                             if (particulierDevis==null){ 
                                 message="Erreur : le propiétaire du compte n'a pas été trouvé dans la base de données";
                             }
+                            genreAdulte1 = particulierDevis.getGenre();
+                            DobA1Date = particulierDevis.getDateNaissance();
+                            regimeA1 = sessionAssure.getCleRegimeSocial().getLibelle();
+                            nomA1 = particulierDevis.getNom();
+                            prenomA1 = particulierDevis.getPrenom();
+                            ageA1 = doActionCalculerAge(DobA1Date,request, response);;
+                            adresseTarif = particulierDevis.getAdresse();
+                            email = particulierDevis.getEmail();
+                            tel = particulierDevis.getnTelephone();
+                            
                         } else { 
                             try {
                                 String gA1 = request.getParameter("genreA1");
@@ -392,8 +397,9 @@ public class menuDrajak extends HttpServlet {
                                 paysTarif = request.getParameter("adrPays");
                                 adresseTarif=numRueTarif+","+nomRueTarif+","+cpTarif+","+villeTarif+","+paysTarif;
 
-                                //Mail
+                                //Mail et téléphone
                                 email = request.getParameter("adrMail");
+                                
                             } catch (Exception e){
                                 message="Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
                                 jspAffiche="/realiserDevisBesoins.jsp";
@@ -464,6 +470,7 @@ public class menuDrajak extends HttpServlet {
                         //Recherche des modules
                         
                         //Recherche du produit
+                        Produit prod = null;
                         
                     //Cotisations 
                         //Calcul des cotisations
@@ -474,14 +481,18 @@ public class menuDrajak extends HttpServlet {
                         request.setAttribute("MontantCotisationTotale", TarifCotisation);
                         
                     //Enregistrement du devis
-                        //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
-                        
-                        
-                    
-            
-                    
-                    
-                    
+                        PersonnePublique pPublique=null;
+                        if (sessionAssure==null){
+                            pPublique = assureSession.RechercherPersonnePublique(email);
+                            if (pPublique==null) {
+                                pPublique = assureSession.CreerPersonnePublique(nomA1, prenomA1,genreAdulte1 , DobA1Date, email, tel ,adresseTarif);
+                                if (pPublique==null){
+                                    message="Erreur : la création de la personne publique a échoué";
+                                }
+                            } 
+                        }
+                        ContratIndividuel contratIndivDevis = assureSession.CreerDevis(pPublique.getEmail(), sessionAssure, pPublique, sessionGestionnaire, objGarantieOD, prod);
+                        session.setAttribute("DevisAtribute", contratIndivDevis);
                     break;
                     
                 case "DemandeDevis_souscription":
@@ -492,6 +503,11 @@ public class menuDrajak extends HttpServlet {
                 case "DemandeDevis_exportpdf":
                     jspAffiche = "/realiserDevisTarif.jsp";
                     doActionEditionDevis(request, response);
+                    message="";
+                    break;
+                
+                case "Assure_GestionContrat_ListeContrat":
+                    jspAffiche = "/gestionContratMenu_Assure.jsp";
                     message="";
                     break;
             }
