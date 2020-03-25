@@ -10,7 +10,7 @@
                 <li class="nav-item active"><a href="accueil.jsp" class="nav-link">Accueil</a></li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link">Gestion personne</a></li>
                 <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
-                <li class="nav-item"><a href="particulier.jsp" class="nav-link">Gestion produits</a></li>
+                <li class="nav-item"><a href="gestionProduit.jsp" class="nav-link">Gestion produits</a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>
                 <li class="nav-item cta"><a href="accueil.jsp" class="nav-link"><span>Se déconnecter</span></a></li>
             </ul>
