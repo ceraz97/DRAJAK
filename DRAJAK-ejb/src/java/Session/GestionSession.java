@@ -46,6 +46,7 @@ import Facades.ParticulierFacadeLocal;
 import Facades.PersonneMoraleFacadeLocal;
 import Facades.PersonnePubliqueFacadeLocal;
 import Facades.AyantDroitFacadeLocal;
+import Facades.ModuleFacade;
 import Facades.TypeAyantDroitFacadeLocal;
 import Facades.ProduitFacadeLocal;
 import Facades.RegimeSocialFacadeLocal;
@@ -388,5 +389,33 @@ public class GestionSession implements GestionSessionLocal {
     public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne) {
         return compteEmployeFacade.CreerCompteEmploye(login, mdp, nom, prenom, genre, Dob, email, tel, adr, role);
     }
+    
+        @Override
+    public List<Produit> afficherLesProduits(){
+ 
+        List<Produit> listp = new ArrayList<Produit>(); 
+        listp =  produitFacade.ListerAllProduit();
+        
+        return listp;
+    }
+    
+            @Override
+    public List<Modules> afficherLesModules(){
+ 
+        List<Modules> listm = new ArrayList<Modules>(); 
+        listm = moduleFacade.ListerAllModule();
+        
+        return listm;
+    }
+    
+            @Override
+    public List<Garantie> afficherLesGaranties(){
+ 
+        List<Garantie> listg = new ArrayList<Garantie>(); 
+        listg =  garantieFacade.ListerAllGarantie();
+        
+        return listg;
+    }
+    
 
 }

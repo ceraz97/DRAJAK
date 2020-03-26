@@ -1,7 +1,7 @@
 <%-- 
-    Document   : gestionPersonne
-    Created on : 16 mars 2020, 16:21:18
-    Author     : Ilkayk
+    Document   : gestionProduit
+    Created on : 25 mars 2020, 16:21:18
+    Author     : Djabri
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -30,7 +30,7 @@
                         <li class="nav-item active"><a href="menuAdministrateur.jsp" class="nav-link">Gestion personnel</a></li>
                         <li class="nav-item"><a href="gestionPersonne.jsp" class="nav-link">Gestion personne</a></li>
                         <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link">Gestion produits</a></li>
+                        <li class="nav-item"><a href="gestionProduit.jsp" class="nav-link">Gestion produits</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>
                         <li class="nav-item cta"><a href="accueilEmploye.jsp" class="nav-link"><span>Se déconnecter</span></a></li>
                     </ul>
@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Les Personnes</h1>
+                        <h1 class="mb-4">Les produits</h1>
                     </div>
                 </div>
             </div>
@@ -56,44 +56,28 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="creationParticulier.jsp" class="services-wrap ftco-animate">
+                                <a href="creationProduit.jsp" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>
                                         <span class="ion-ios-arrow-forward"></span>
                                     </div>
-                                    <h2>Créer particulier</h2>
+                                    <h2>Créer un produit</h2>
                                     <p></p>
                                 </a>
-                                <a href="modificationParticulier.jsp" class="services-wrap ftco-animate">
+                                <a href="modificationProduit.jsp" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>
                                         <span class="ion-ios-arrow-forward"></span>
                                     </div>
-                                    <h2>Modifier particulier</h2>
+                                    <h2>Modifier un produit</h2>
                                     <p></p>
                                 </a>
-                                <a href="creationPersonneMorale.jsp" class="services-wrap ftco-animate">
+                                <a href="listeProduit.jsp" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>
                                         <span class="ion-ios-arrow-forward"></span>
                                     </div>
-                                    <h2>Créer personne morale</h2>
-                                    <p></p>
-                                </a>
-                                <a href="modificationPersonneMorale.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Modifier personne morale</h2>
-                                    <p></p>
-                                </a>
-                                <a href="listePersonne.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Liste de toutes les personnes</h2>
+                                    <h2>Liste de toutes les produits</h2>
                                     <p></p>
                                 </a>
                             </div>
