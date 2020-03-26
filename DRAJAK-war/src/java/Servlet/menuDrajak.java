@@ -104,7 +104,7 @@ public class menuDrajak extends HttpServlet {
             message = "Bienvenue";
         } else {
             switch (act) {
-                case "vide":
+                case "accueilPublic":
                     jspAffiche = "/accueilPublic.jsp";
                     message = "Bienvenue";
                     break;
@@ -574,12 +574,29 @@ public class menuDrajak extends HttpServlet {
                     
                 case "Assure_GestionContrat_ListeContrat":
                     jspAffiche = "/gestionContratMenu_Assure.jsp";
+                    message = "";
                     List listeContrats = assureSession.RechercherListeContratAssure(sessionAssure);
                     if (listeContrats == null){
                         message="Aucun contrat n'a été trouvé";
                     }
-                    message = "";
                     request.setAttribute("listeContrats", listeContrats);
+                    break;
+                    
+                case "Assure_GestionContrat_resilier":
+                    jspAffiche = "/resiliationContrat_Assure.jsp";
+                    String idc=request.getParameter("idc");
+                    System.out.println("idc= "+idc);
+                    long idContratIndivPourRsiliation =(long)Integer.valueOf(idc);
+                    ContratIndividuel contratIndivPourResiliation = assureSession.RechercherContratIndivParId(idContratIndivPourRsiliation);
+                    if (contratIndivPourResiliation == null){
+                        message="Aucun contrat n'a été trouvé";
+                    } else {
+                        request.setAttribute("contrat", contratIndivPourResiliation);
+                    }
+                    
+                    break;
+                    
+                case "Assure_GestionContrat_resilierJustificatif":
                     break;
             }
         }

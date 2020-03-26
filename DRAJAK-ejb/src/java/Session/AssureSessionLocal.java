@@ -70,4 +70,6 @@ public interface AssureSessionLocal {
 
     List<ContratIndividuel> RechercherListeContratAssure(CompteAssure cptAssure);
 
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
+
 }

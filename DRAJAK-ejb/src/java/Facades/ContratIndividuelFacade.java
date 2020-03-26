@@ -153,6 +153,16 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         listeContratRecherche = req.getResultList();
         return listeContratRecherche;
     }
+
+    @Override
+    public ContratIndividuel RechercherContratIndivParId(long idContrat) {
+        ContratIndividuel ContratRecherche;
+        String tx = "SELECT t FROM ContratIndividuel AS t WHERE t.id=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", idContrat);
+        ContratRecherche = (ContratIndividuel)req.getSingleResult();
+        return ContratRecherche;
+    }
     
     
     

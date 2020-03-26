@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Admin</h1>
+                        <h1 class="mb-4">Les Personnes</h1>
                     </div>
                 </div>
             </div>

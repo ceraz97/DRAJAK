@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Demande de devis</title>
+        <title>Vos Contrats</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -20,6 +20,14 @@
     </head>
 
     <body>
+        <script type="text/javascript">
+            function getConfirmResiliation(nomContrat,idContrat)  {
+                var result = confirm("Voulez vous résilier le contrat "+nomContrat+"?");
+                if(result)  {
+                    location.href = "menuDrajak?action=Assure_GestionContrat_resilier&idc="+idContrat;
+                } 
+            }
+      </script>    
 
         <c:choose>
             <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
@@ -54,7 +62,7 @@
                                 <th>Statut</th>
                                 <th>Type</th>
                                 <th>Paiement</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                             <c:forEach items="${requestScope.listeContrats}" var="document">
                                 <tr>
@@ -79,9 +87,9 @@
                                         <c:out value="${document.getPaiement()}" />
                                     </td>
                                     <td id="TD7">
-                                        
-                                    </td>
-                                </tr>
+                                        <c:if test="${document.getStatut() eq 'Actif'}"><button onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
+                                        </td>
+                                    </tr>
                             </c:forEach>
                         </table>
                     </div>
@@ -98,7 +106,7 @@
 
         <%@include file="Shared/script_js.jsp" %>
     </body>
-    
+
     <style>
         table{width: 100%;}
         table>tr{ margin-bottom: 20px;}

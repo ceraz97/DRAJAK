@@ -45,9 +45,9 @@
 
                             <a class="nav-link px-4" id="v-pills-buffet-tab" data-toggle="pill" href="#v-pills-buffet" role="tab" aria-controls="v-pills-buffet" aria-selected="false"><span><i style="margin-right: 10px;" class="fas fa-calculator"></i></span> Devis</a>
 
-                            <a class="nav-link px-4" id="v-pills-fitness-tab" data-toggle="pill" href="#v-pills-fitness" role="tab" aria-controls="v-pills-fitness" aria-selected="false"><span class="mr-3 flaticon-stethoscope"></span> Diagnostic</a>
+                            <a class="nav-link px-4" id="v-pills-fitness-tab" data-toggle="pill" href="#v-pills-fitness" role="tab" aria-controls="v-pills-fitness" aria-selected="false"><span class="mr-3 flaticon-stethoscope"></span> Soins</a>
 
-                            <a class="nav-link px-4" id="v-pills-reception-tab" data-toggle="pill" href="#v-pills-reception" role="tab" aria-controls="v-pills-reception" aria-selected="false"><span class=" flaticon-tooth"></span> Dental</a>
+                            <a class="nav-link px-4" id="v-pills-reception-tab" data-toggle="pill" href="#v-pills-reception" role="tab" aria-controls="v-pills-reception" aria-selected="false"><span class=" flaticon-tooth"></span> Mon compte</a>
 
                             <a class="nav-link px-4" id="v-pills-sea-tab" data-toggle="pill" href="#v-pills-sea" role="tab" aria-controls="v-pills-sea" aria-selected="false"><span class="mr-3 flaticon-vision"></span> Ophthalmology</a>
 
@@ -69,17 +69,23 @@
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">
                                 <span><i style="font-size: 7em; color: #167ce9;margin-bottom: 20px;" class="fas fa-calculator"></i></span>
                                 <h2 class="mb-4">Réaliser des devis</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Réaliser un devis</a></p>
+                                <p>Vous souhaitez réaliser un devis.</p>
+                                <p>Choisissez les éléments qui vous intéresse et obtenez le prix de votre prochaine cotisation.</p>
+                                <p>
+                                    <a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Réaliser un devis santé</a>
+                                    <a onclick=" href='#'" class="btn btn-primary btn-ajoute">Réaliser un devis assurance</a>
+                                </p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-fitness" role="tabpanel" aria-labelledby="v-pills-fitness-tab">
                                 <span class="icon mb-3 d-block flaticon-stethoscope"></span>
-                                <h2 class="mb-4">Diagnostic Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                                <h2 class="mb-4">Prise en charge</h2>
+                                <p>Vous avez réaliser une dépense pour des soins et vous souhaitez vous faire rembourser, vous souhaiter faire une demande de prise en charge</p>
+                                <p>Mu nissez vous de votre justificatif et nous nous occupons du reste.</p>
+                                <p>
+                                    <a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Remboursements des soins</a>
+                                    <a onclick="location.href='menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute">Demande de prise en charge</a>
+                                </p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-reception" role="tabpanel" aria-labelledby="v-pills-reception-tab">
