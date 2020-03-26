@@ -87,7 +87,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("AfficherGest"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -260,6 +260,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("optiqueDentaire", optiqueDentaire);
 
                     break;
+
                 case "CreerGestionnaire":
                     jspAffiche = "/menuAdministrateur.jsp";
                     message = "Gestionnaire crée avec succès";
@@ -294,11 +295,62 @@ public class menuDrajak extends HttpServlet {
                     //request.setAttribute("messsage", message);
                     break;
 
+                case "CreerParticulier":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Particulier crée avec succès";
+                    String nomPart = request.getParameter("nom");
+                    String prenomPart = request.getParameter("prenom");
+                    String dateNaissancePart = request.getParameter("dateNaissance");
+                    String adressePart = request.getParameter("adresse");
+                    String numeroPart = request.getParameter("numero");
+                    String genrePart = request.getParameter("genre");
+                    String numSSPart = request.getParameter("numeroSS");
+                    String mailPart = request.getParameter("mail");
+
+                    Date date = java.sql.Date.valueOf(dateNaissancePart);
+
+                    Genre gr;
+                    if (genrePart.equalsIgnoreCase("Homme")) {
+                        gr = Genre.Homme;
+                    } else if (genrePart.equalsIgnoreCase("Femme")) {
+                        gr = Genre.Femme;
+                    } else {
+                        gr = Genre.Autre;
+                    }
+
+                    gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;
+
+                case "CreerPersMorale":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Personne morale créee avec succès";
+                    String raisonSociale = request.getParameter("raisonSociale");
+                    String siret = request.getParameter("siret");
+                    String siren = request.getParameter("siren");
+                    String adressePersMorale = request.getParameter("adresse");
+                    String mailPersMorale = request.getParameter("mail");
+                    String mdpPersMorale = request.getParameter("mdp");
+
+                    gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;
+
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
                     List<CompteEmploye> list = gestionSession.ListerAllCompteEmploye();
                     request.setAttribute("listeGestionnaire", list);
+                    break;
 
+                case "AfficherPart":
+                    jspAffiche = "/listePersonne.jsp";
+                    List<Particulier> listePart = gestionSession.ListerAllParticulier();
+                    List<PersonneMorale> listeMorale = gestionSession.ListerAllPersonneMorale();
+
+                    request.setAttribute("listeParticulier", listePart);
+                    request.setAttribute("listePersMorale", listeMorale);
                     break;
 
                 case "DemandeDevis_tarif":

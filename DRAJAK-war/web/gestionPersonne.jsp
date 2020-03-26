@@ -88,7 +88,7 @@
                                     <h2>Modifier personne morale</h2>
                                     <p></p>
                                 </a>
-                                <a href="listePersonne.jsp" class="services-wrap ftco-animate">
+                                <a href="menuDrajak?action=AfficherPart" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>
                                         <span class="ion-ios-arrow-forward"></span>

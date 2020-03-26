@@ -380,8 +380,19 @@ public class GestionSession implements GestionSessionLocal {
         return b;
     }
 
+    @Override
     public List ListerAllCompteEmploye() {
         return compteEmployeFacade.ListerAllCompteEmploye();
+    }
+
+    @Override
+    public List ListerAllParticulier() {
+        return particulierFacade.ListerAllParticulier();
+    }
+
+    @Override
+    public List ListerAllPersonneMorale() {
+        return personneMoraleFacade.ListerAllPersonneMorale();
     }
 
     @Override
@@ -389,4 +400,13 @@ public class GestionSession implements GestionSessionLocal {
         return compteEmployeFacade.CreerCompteEmploye(login, mdp, nom, prenom, genre, Dob, email, tel, adr, role);
     }
 
+    @Override
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+    }
+
+    @Override
+    public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
+        return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
+    }
 }

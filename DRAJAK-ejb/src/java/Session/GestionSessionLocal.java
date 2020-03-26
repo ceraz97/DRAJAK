@@ -6,6 +6,8 @@
 package Session;
 
 import Entity.CompteEmploye;
+import Entity.Particulier;
+import Entity.PersonneMorale;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -30,4 +32,11 @@ public interface GestionSessionLocal {
     
     CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
     
+    List ListerAllParticulier();
+    
+    List ListerAllPersonneMorale();
+    
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    
+    PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 }
