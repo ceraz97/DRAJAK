@@ -23,6 +23,7 @@ import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -66,5 +67,9 @@ public interface AssureSessionLocal {
     PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date dateNais, String email, String tel, String adr);
 
     PersonnePublique RechercherPersonnePublique(String Email);
+
+    List<ContratIndividuel> RechercherListeContratAssure(CompteAssure cptAssure);
+
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
 
 }

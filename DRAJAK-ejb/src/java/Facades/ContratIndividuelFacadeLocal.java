@@ -55,4 +55,8 @@ public interface ContratIndividuelFacadeLocal {
     void SupprimerContratIndividuel(ContratIndividuel contratIndividuel);
     
    List<ContratIndividuel> ListerAllContratIndividuel();
+
+   List<ContratIndividuel> RechercherContratIndividuelParAssure(CompteAssure cptAssure);
+
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
 }

@@ -6,8 +6,9 @@
 package Session;
 
 import Entity.CompteEmploye;
-import Entity.Particulier;
-import Entity.PersonneMorale;
+import Entity.Garantie;
+import Entity.Modules;
+import Entity.Produit;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -31,6 +32,9 @@ public interface GestionSessionLocal {
     List ListerAllCompteEmploye();
     
     CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
+    List<Produit> afficherLesProduits();
+    List<Modules> afficherLesModules();
+    List<Garantie> afficherLesGaranties();
     
     List ListerAllParticulier();
     
