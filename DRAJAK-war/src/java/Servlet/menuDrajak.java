@@ -87,7 +87,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -318,10 +318,10 @@ public class menuDrajak extends HttpServlet {
                         gr = Genre.Autre;
                     }
 
-                    gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
+                   /* gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
                     //message = "Gestionnaire créé avec succès !";
                     //request.setAttribute("messsage", message);
-                    break;
+                    break;*/
 
                 case "CreerPersMorale":
                     jspAffiche = "/menuAdministrateur.jsp";
@@ -333,10 +333,10 @@ public class menuDrajak extends HttpServlet {
                     String mailPersMorale = request.getParameter("mail");
                     String mdpPersMorale = request.getParameter("mdp");
 
-                    gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
+                  /*  gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
                     //message = "Gestionnaire créé avec succès !";
                     //request.setAttribute("messsage", message);
-                    break;
+                    break; */
 
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
@@ -650,6 +650,20 @@ public class menuDrajak extends HttpServlet {
                     
                 case "Assure_GestionContrat_resilierJustificatif":
                     break;
+                    
+                case "Module_ListeCreation_Produit":
+                    jspAffiche = "/listeModule.jsp";
+                    message = "";
+                    List listeModules = gestionSession.afficherLesModules();
+                    if (listeModules == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeModules", listeModules);}
+                    catch (Exception e){}
+                    break;
+                    
+          
             }
         }
         RequestDispatcher Rd;

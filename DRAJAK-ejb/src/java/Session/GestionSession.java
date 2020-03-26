@@ -413,8 +413,7 @@ public class GestionSession implements GestionSessionLocal {
             @Override
     public List<Modules> afficherLesModules(){
  
-        List<Modules> listm = new ArrayList<Modules>(); 
-        listm = moduleFacade.ListerAllModule();
+        List<Modules> listm = moduleFacade.ListerAllModule();
         
         return listm;
     }
@@ -434,7 +433,7 @@ public class GestionSession implements GestionSessionLocal {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
-    @Override
+   @Override
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
     }
