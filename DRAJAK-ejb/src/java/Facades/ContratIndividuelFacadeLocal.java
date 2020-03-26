@@ -57,4 +57,6 @@ public interface ContratIndividuelFacadeLocal {
    List<ContratIndividuel> ListerAllContratIndividuel();
 
    List<ContratIndividuel> RechercherContratIndividuelParAssure(CompteAssure cptAssure);
+
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
 }

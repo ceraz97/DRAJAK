@@ -204,6 +204,11 @@ public class AssureSession implements AssureSessionLocal {
         List<ContratIndividuel> listecontrat = contratIndividuelFacade.RechercherContratIndividuelParAssure(cptAssure);
         return listecontrat;
     }
+
+    @Override
+    public ContratIndividuel RechercherContratIndivParId(long idContrat) {
+        return contratIndividuelFacade.RechercherContratIndivParId(idContrat);
+    }
     
     
 }
