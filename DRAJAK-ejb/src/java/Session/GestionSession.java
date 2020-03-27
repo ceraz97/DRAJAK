@@ -427,8 +427,12 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
+    
+    
+    
+    
 
-    @Override
+  /*  @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
@@ -436,5 +440,34 @@ public class GestionSession implements GestionSessionLocal {
    @Override
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
+    }*/
+
+    @Override
+    public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules) {
+        Produit p;
+         p = produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
+         return p;  
     }
+
+    @Override
+    public DomaineProduit AffecterDomaineAProduit(String libelle)  {
+        DomaineProduit p;
+        p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+        return p;
+    }
+    
+    @Override
+    public Modules RechercherModuleParId (Long Id){
+        Modules m;
+        m = moduleFacade.RechercherModuleId(Id);
+        return m;
+    }
+
+    
+   
+
+    
+    
+    
+    
 }

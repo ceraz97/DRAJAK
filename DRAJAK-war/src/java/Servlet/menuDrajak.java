@@ -20,7 +20,7 @@ import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import static java.util.Calendar.*;
@@ -87,7 +87,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -652,7 +652,7 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                 case "Module_ListeCreation_Produit":
-                    jspAffiche = "/listeModule.jsp";
+                    jspAffiche = "/creationProduit.jsp";
                     message = "";
                     List listeModules = gestionSession.afficherLesModules();
                     if (listeModules == null){
@@ -662,9 +662,62 @@ public class menuDrajak extends HttpServlet {
                         request.setAttribute("listeModules", listeModules);}
                     catch (Exception e){}
                     break;
+                
+                
+                case "CreerProduit":
+                    jspAffiche = "/creationProduit.jsp";
+                    message = "";
+                    String libelle = request.getParameter("libelle");
+                    System.out.println("libelle "+libelle);
+                    String fiscalite = request.getParameter("fiscalite");
+                    System.out.println("fisc "+fiscalite);
+                    String typeproduitpart = request.getParameter("typeproduit");
+                    System.out.println("tyep "+typeproduitpart);
+                    String domaineproduitpart = request.getParameter("domaineproduit");
+                    System.out.println("domaine "+domaineproduitpart);
                     
-          
+                    Double fisc = Double.parseDouble(fiscalite);
+                    System.out.println("fisc double "+fisc);
+                    
+                    DomaineProduit dp;
+                    List  <Modules> listemodulet = new ArrayList<> ();
+                   
+                    String [] lesmodules 
+                            = request.getParameterValues("checkbox");
+                    System.out.println("les moduls "+lesmodules);
+                        for (int i=0;i<lesmodules.length;i++){
+                        long values=Long.valueOf(lesmodules[i]);
+                        Modules m = gestionSession.RechercherModuleParId(values);
+                        listemodulet.add(m);
+                        }
+                    
+                
+                    List listeModuless = gestionSession.afficherLesModules();
+                     if (listeModuless == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeModules", listeModuless);}
+                    catch (Exception e){}
+                    
+              
+                    
+                 
+                   
+                     TypeProduit az = null ;
+                    if (typeproduitpart.equalsIgnoreCase("collectif")) {
+                        az = TypeProduit.Collectif;
+                    } else if (typeproduitpart.equalsIgnoreCase("individuel")) {
+                        az = TypeProduit.Individuel;}
+                    
+                 dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
+                 gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
+                 
+                 
+                    break;
+                 
             }
+            
         }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspAffiche);

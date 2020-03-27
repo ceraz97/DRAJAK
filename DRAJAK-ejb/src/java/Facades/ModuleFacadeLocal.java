@@ -43,4 +43,6 @@ public interface ModuleFacadeLocal {
 
     Modules RechercherModule(String libelle, TypeModule type);
     
+    Modules RechercherModuleId(Long Id);
+    
 }

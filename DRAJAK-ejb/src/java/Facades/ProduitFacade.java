@@ -43,7 +43,8 @@ public class ProduitFacade extends AbstractFacade<Produit> implements ProduitFac
         getEntityManager().persist(produitInstance);
         return produitInstance;
     }
-
+    
+ 
     @Override
     public void ModifierProduit(Produit produit) {
         getEntityManager().merge(produit);
