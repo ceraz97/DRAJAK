@@ -6,12 +6,14 @@
 package Session;
 
 import Entity.CompteEmploye;
+import Entity.DomaineProduit;
 import Entity.Garantie;
 import Entity.Modules;
 import Entity.Produit;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
+import Enum.TypeProduit;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -36,4 +38,20 @@ public interface GestionSessionLocal {
     List<Modules> afficherLesModules();
     List<Garantie> afficherLesGaranties();
     
+    List ListerAllParticulier();
+    
+    List ListerAllPersonneMorale();
+    
+   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    
+  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+
+    Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
+
+    DomaineProduit AffecterDomaineAProduit (String libelle) ;
+    
+    Modules RechercherModuleParId (Long Id);
+
+   
+   
 }

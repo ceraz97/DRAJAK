@@ -23,6 +23,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -102,7 +103,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("AfficherGest"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -275,6 +276,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("optiqueDentaire", optiqueDentaire);
 
                     break;
+
                 case "CreerGestionnaire":
                     jspAffiche = "/menuAdministrateur.jsp";
                     message = "Gestionnaire crée avec succès";
@@ -309,11 +311,62 @@ public class menuDrajak extends HttpServlet {
                     //request.setAttribute("messsage", message);
                     break;
 
+                case "CreerParticulier":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Particulier crée avec succès";
+                    String nomPart = request.getParameter("nom");
+                    String prenomPart = request.getParameter("prenom");
+                    String dateNaissancePart = request.getParameter("dateNaissance");
+                    String adressePart = request.getParameter("adresse");
+                    String numeroPart = request.getParameter("numero");
+                    String genrePart = request.getParameter("genre");
+                    String numSSPart = request.getParameter("numeroSS");
+                    String mailPart = request.getParameter("mail");
+
+                    Date date = java.sql.Date.valueOf(dateNaissancePart);
+
+                    Genre gr;
+                    if (genrePart.equalsIgnoreCase("Homme")) {
+                        gr = Genre.Homme;
+                    } else if (genrePart.equalsIgnoreCase("Femme")) {
+                        gr = Genre.Femme;
+                    } else {
+                        gr = Genre.Autre;
+                    }
+
+                   /* gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;*/
+
+                case "CreerPersMorale":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Personne morale créee avec succès";
+                    String raisonSociale = request.getParameter("raisonSociale");
+                    String siret = request.getParameter("siret");
+                    String siren = request.getParameter("siren");
+                    String adressePersMorale = request.getParameter("adresse");
+                    String mailPersMorale = request.getParameter("mail");
+                    String mdpPersMorale = request.getParameter("mdp");
+
+                  /*  gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break; */
+
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
                     List<CompteEmploye> list = gestionSession.ListerAllCompteEmploye();
                     request.setAttribute("listeGestionnaire", list);
+                    break;
 
+                case "AfficherPart":
+                    jspAffiche = "/listePersonne.jsp";
+                    List<Particulier> listePart = gestionSession.ListerAllParticulier();
+                    List<PersonneMorale> listeMorale = gestionSession.ListerAllPersonneMorale();
+
+                    request.setAttribute("listeParticulier", listePart);
+                    request.setAttribute("listePersMorale", listeMorale);
                     break;
 
                 case "DemandeDevis_tarif":
@@ -659,7 +712,74 @@ public class menuDrajak extends HttpServlet {
                     jspAffiche = "/informationCompte_Assure.jsp";
                     message = "";
                     break;
+                    
+                case "Module_ListeCreation_Produit":
+                    jspAffiche = "/creationProduit.jsp";
+                    message = "";
+                    List listeModules = gestionSession.afficherLesModules();
+                    if (listeModules == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeModules", listeModules);}
+                    catch (Exception e){}
+                    break;
+                
+                
+                case "CreerProduit":
+                    jspAffiche = "/creationProduit.jsp";
+                    message = "";
+                    String libelle = request.getParameter("libelle");
+                    System.out.println("libelle "+libelle);
+                    String fiscalite = request.getParameter("fiscalite");
+                    System.out.println("fisc "+fiscalite);
+                    String typeproduitpart = request.getParameter("typeproduit");
+                    System.out.println("tyep "+typeproduitpart);
+                    String domaineproduitpart = request.getParameter("domaineproduit");
+                    System.out.println("domaine "+domaineproduitpart);
+                    
+                    Double fisc = Double.parseDouble(fiscalite);
+                    System.out.println("fisc double "+fisc);
+                    
+                    DomaineProduit dp;
+                    List  <Modules> listemodulet = new ArrayList<> ();
+                   
+                    String [] lesmodules 
+                            = request.getParameterValues("checkbox");
+                    System.out.println("les moduls "+lesmodules);
+                        for (int i=0;i<lesmodules.length;i++){
+                        long values=Long.valueOf(lesmodules[i]);
+                        Modules m = gestionSession.RechercherModuleParId(values);
+                        listemodulet.add(m);
+                        }
+                    
+                
+                    List listeModuless = gestionSession.afficherLesModules();
+                     if (listeModuless == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeModules", listeModuless);}
+                    catch (Exception e){}
+                    
+              
+                    
+                 
+                   
+                     TypeProduit az = null ;
+                    if (typeproduitpart.equalsIgnoreCase("collectif")) {
+                        az = TypeProduit.Collectif;
+                    } else if (typeproduitpart.equalsIgnoreCase("individuel")) {
+                        az = TypeProduit.Individuel;}
+                    
+                 dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
+                 gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
+                 
+                 
+                    break;
+                 
             }
+            
         }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspAffiche);
