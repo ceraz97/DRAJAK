@@ -55,8 +55,8 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
     }
 
     @Override
-    public List ListerAllModule() {
-        List listeDesModules;
+    public List<Modules> ListerAllModule() {
+        List <Modules>listeDesModules;
         String tx = "SELECT M FROM Modules AS M";
         Query req = getEntityManager().createQuery(tx);
         listeDesModules=req.getResultList();

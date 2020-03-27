@@ -19,14 +19,25 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Calendar;
 import static java.util.Calendar.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +46,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -43,6 +55,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "menuDrajak", urlPatterns = {"/menuDrajak"})
 public class menuDrajak extends HttpServlet {
 
+    public static final int TAILLE_TAMPON = 10240;
+    public static final String CHEMIN_FICHIERS = "/Users/mateo21/fichiers/"; // A changer
+    
     @EJB
     private GestionSessionLocal gestionSession;
 
@@ -60,7 +75,7 @@ public class menuDrajak extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
         String jspAffiche = null;
@@ -579,7 +594,9 @@ public class menuDrajak extends HttpServlet {
                     if (listeContrats == null){
                         message="Aucun contrat n'a été trouvé";
                     }
-                    request.setAttribute("listeContrats", listeContrats);
+                    try {
+                        request.setAttribute("listeContrats", listeContrats);}
+                    catch (Exception e){}
                     break;
                     
                 case "Assure_GestionContrat_resilier":
@@ -597,6 +614,50 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                 case "Assure_GestionContrat_resilierJustificatif":
+                    
+                    Connection myConn = null;
+                    PreparedStatement myStmt = null;
+
+                    FileInputStream input = null;
+
+                    try {
+                            // 1. Get a connection to database
+                            myConn = DriverManager.getConnection(
+                            "jdbc:derby://localhost:1527/DRAJAK_BDX", "administrator", "Drajak_2020");
+
+                            // 2. Prepare statement
+                            String sql = "update employees set resume=? where email='john.doe@foo.com'";
+                            myStmt = myConn.prepareStatement(sql);
+
+                            // 3. Set parameter for resume file name
+                            File theFile = new File("");
+                            input = new FileInputStream(theFile);
+                            myStmt.setBinaryStream(1, input);
+
+                            System.out.println("Reading input file: " + theFile.getAbsolutePath());
+
+                            // 4. Execute statement
+                            System.out.println("\nStoring resume in database: " + theFile);
+                            System.out.println(sql);
+
+                            myStmt.executeUpdate();
+
+                            System.out.println("\nCompleted successfully!");
+
+                    } catch (Exception exc) {
+                            exc.printStackTrace();
+                    } finally {			
+                            if (input != null) {
+                                    input.close();
+                            }
+
+                            close(myConn, myStmt);			
+                    }
+                    break;
+                
+                case "Assure_InformationsCompte":
+                    jspAffiche = "/informationCompte_Assure.jsp";
+                    message = "";
                     break;
             }
         }
@@ -619,7 +680,11 @@ public class menuDrajak extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(menuDrajak.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -633,7 +698,11 @@ public class menuDrajak extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(menuDrajak.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     protected void doActionEditionDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -732,7 +801,40 @@ public class menuDrajak extends HttpServlet {
         }
         return age;
     }
+    
+    private void ecrireFichier( Part part, String nomFichier, String chemin ) throws IOException {
+        BufferedInputStream entree = null;
+        BufferedOutputStream sortie = null;
+        try {
+            entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
+            sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)), TAILLE_TAMPON);
 
+            byte[] tampon = new byte[TAILLE_TAMPON];
+            int longueur;
+            while ((longueur = entree.read(tampon)) > 0) {
+                sortie.write(tampon, 0, longueur);
+            }
+        } finally {
+            try {
+                sortie.close();
+            } catch (IOException ignore) {
+            }
+            try {
+                entree.close();
+            } catch (IOException ignore) {
+            }
+        }
+    }
+    
+    private static String getNomFichier( Part part ) {
+        for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
+            if ( contentDisposition.trim().startsWith( "filename" ) ) {
+                return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 ).trim().replace( "\"", "" );
+            }
+        }
+        return null;
+    } 
+    
     /**
      * Returns a short description of the servlet.
      *
@@ -748,5 +850,17 @@ public class menuDrajak extends HttpServlet {
         cal.setTime(date);
         return cal;
     }
+    
+    private static void close(Connection myConn, Statement myStmt)
+			throws SQLException {
+
+		if (myStmt != null) {
+			myStmt.close();
+		}
+		
+		if (myConn != null) {
+			myConn.close();
+		}
+	}
 
 }
