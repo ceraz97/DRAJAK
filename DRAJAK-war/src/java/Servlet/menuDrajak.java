@@ -673,7 +673,7 @@ public class menuDrajak extends HttpServlet {
                     System.out.println("fisc "+fiscalite);
                     String typeproduitpart = request.getParameter("typeproduit");
                     System.out.println("tyep "+typeproduitpart);
-                    String domaineproduitpart = request.getParameter("domaineproduit");
+                    String domaineproduitpart = request.getParameter("libelledomaineproduit");
                     System.out.println("domaine "+domaineproduitpart);
                     
                     Double fisc = Double.parseDouble(fiscalite);
@@ -711,6 +711,7 @@ public class menuDrajak extends HttpServlet {
                         az = TypeProduit.Individuel;}
                     
                  dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
+                 System.out.println("domaine formule "+dp);
                  gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
                  
                  
