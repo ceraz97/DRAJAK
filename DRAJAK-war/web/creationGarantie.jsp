@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Creer Garantie</title>
     </head>
     <body>
         <c:choose>
@@ -28,8 +28,7 @@
                             <div class="form-group">                                
                                 <label class="sr-only" for="Libelle">Libelle</label>
                                 <input type="text" class="form-control"placeholder="Libelle" required>
-                                <label class="sr-only" for="Type">Type de module</label></p>
-                                <input type="text" class="form-control"placeholder="fiscalite" required>
+                               
                                 <p>Type produit :</p>
                                 <div>
                                     <input type="radio" id="homme" name="type produit" value="individuel" checked>
@@ -37,7 +36,15 @@
                                     <input type="radio" id="femme" name="genre" value="femme">
                                     <label for="collectif"> collectif </label>
                                 </div>
-                            </div>    
+                            </div>  
+                              <c:forEach items="${requestScope.listeTypeRemboursement}" var="elementRemboursement">
+                         <div>
+                        <input type="checkbox" id="listeremboursement" name="checkbox" value="${elementModules.getId()}"/>
+                             <label for="checkbox"><c:out value="${elementModules.getLibelleModule()}"/></label>
+                        </div>
+                         </c:forEach>
+                            
+                            
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
                             </div>

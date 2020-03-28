@@ -13,6 +13,7 @@ import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.Produit;
+import Entity.TypeModule;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -55,6 +56,11 @@ public interface GestionSessionLocal {
     
     Modules RechercherModuleParId (Long Id);
 
+     Garantie RechercherGarantieParId (Long Id);
+     
+     TypeModule AffecterTypeAModule(String libelle);
+     
+     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
     ContratIndividuel RechercherContratIndivParId(long idContrat);
 
     List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);

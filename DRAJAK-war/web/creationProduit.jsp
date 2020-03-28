@@ -68,7 +68,7 @@
                                 </div>
                                 <p>Domaine produit :</p>
                                   <div>
-                                    <input type="radio" id="sante" name="domaineproduit" value="sante" checked>
+                                    <input type="radio" id="sante" name="libelledomaineproduit" value="sante" checked>
                                     <label for="sante">sante</label>
                                   </div>
                             </div>    

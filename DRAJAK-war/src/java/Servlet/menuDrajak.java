@@ -103,7 +103,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit")&& !act.equals("Module_ListeCreation_Module")&& !act.equals("CreerModule"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -834,6 +834,59 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
+                    
+                 case "Module_ListeCreation_Module":
+                    jspAffiche = "/creationModule.jsp";
+                    message = "";
+                    List listeGarantie = gestionSession.afficherLesGaranties();
+                    if (listeGarantie == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeGarantie", listeGarantie);}
+                    catch (Exception e){}
+                    break;
+                    
+                case "CreerModule" : 
+         
+                    jspAffiche = "/creationModule.jsp";
+                    message = "";
+                    String libelleModule = request.getParameter("libelle");
+                    System.out.println("libelle "+libelleModule);
+                    String TypeModule = request.getParameter("typeModule");
+                    System.out.println("tyep "+TypeModule);
+                   
+                    TypeModule tp;
+                    List  <Garantie> listeGaranties = new ArrayList<> ();
+                   
+                    String [] lesGaranties 
+                            = request.getParameterValues("checkbox");
+                    System.out.println("les garant "+lesGaranties);
+                        for (int i=0;i<lesGaranties.length;i++){
+                        long values=Long.valueOf(lesGaranties[i]);
+                        Garantie ga = gestionSession.RechercherGarantieParId(values);
+                       listeGaranties.add(ga);
+                        }
+                
+                    List listeGarantiee = gestionSession.afficherLesGaranties();
+                     if (listeGarantiee == null){
+                        message="Aucune Garantie n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeGarantie", listeGarantiee);}
+                    catch (Exception e){}
+                   
+                  
+                    
+                    
+                tp = gestionSession.AffecterTypeAModule(TypeModule);
+                 System.out.println("Type Module "+tp);
+                 gestionSession.CreerModule(libelleModule, tp, listeGaranties);
+                 
+                 
+                    break;
+                    
+
                  
                 case "Assure_ModifierInformations_AffichagePage":
                     jspAffiche = "/informationCompte_Assure.jsp";
