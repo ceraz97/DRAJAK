@@ -45,4 +45,6 @@ public interface ModuleFacadeLocal {
     
     Modules RechercherModuleId(Long Id);
     
+    Modules CreerModules(String libelle, TypeModule typeModules, List<Garantie> listeGarantie);
+    
 }

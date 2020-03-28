@@ -10,6 +10,7 @@ import Entity.DomaineProduit;
 import Entity.Garantie;
 import Entity.Modules;
 import Entity.Produit;
+import Entity.TypeModule;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -52,6 +53,11 @@ public interface GestionSessionLocal {
     
     Modules RechercherModuleParId (Long Id);
 
+     Garantie RechercherGarantieParId (Long Id);
+     
+     TypeModule AffecterTypeAModule(String libelle);
+     
+     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
    
    
 }

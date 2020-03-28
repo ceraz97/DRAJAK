@@ -464,8 +464,28 @@ public class GestionSession implements GestionSessionLocal {
     }
 
     
-   
+     @Override
+    public Garantie RechercherGarantieParId (Long Id){
+        Garantie m;
+        m = garantieFacade.RechercherGarantieId(Id);
+        return m;
+    }
 
+    
+    @Override
+    public TypeModule AffecterTypeAModule(String libelle)  {
+        TypeModule p;
+        p = typeModuleFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
+
+    
+    @Override
+    public Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie) {
+        Modules p;
+         p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
+         return p;  
+    }
     
     
     

@@ -86,6 +86,17 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
         return modulesInstance;
     }
     
+            @Override
+    public Modules CreerModules(String libelle, TypeModule typeModules, List<Garantie> listeGarantie) {
+        Modules moduleInstance = new Modules ();
+        moduleInstance.setLibelleModule(libelle);
+        moduleInstance.setCleTypeModule(typeModules);
+        moduleInstance.setLesGaranties(listeGarantie);
+        getEntityManager().persist(moduleInstance);
+        return moduleInstance;
+    }
+
+    
     
     
 }
