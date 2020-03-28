@@ -51,12 +51,13 @@
             grid-column: 2/3;
         }
     </style>
-    <script>
+    <script type="text/javascript">
         function phoneMask() {
             var num = $(this).val().replace(/\D/g, '');
             $(this).val(num.substring(0, 2) + ' ' + num.substring(2, 4) + ' ' + num.substring(4, 6) + ' ' + num.substring(6, 8) + ' ' + num.substring(8, 10));
         }
         $('[type="tel"]').keyup(phoneMask);
+        
     </script>
     <body>
 
@@ -67,7 +68,8 @@
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
             <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
-        <fmt:formatDate var="fmtDate" value="${sessionScope.sessionAssure.getCleParticulier().getDateNaissance()}" pattern="yyyy-MM-dd"/>
+        <fmt:formatDate var="fmtDate" value="${sessionScope.sessionAssure.getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
+        <fmt:formatDate var="fmtDateForm" value="${sessionScope.sessionAssure.getCleParticulier().getDateNaissance()}" pattern="yyyy-MM-dd"/>
         <c:set var="adresseFromBD" value="${sessionScope.sessionAssure.getCleParticulier().getAdresse()}"/>
         <c:set var="adresseSplit" value="${fn:split(adresseFromBD, ',')}"/>
 
@@ -88,31 +90,55 @@
                 <div class="row no-gutters">
                     <div class="wrapper">
                         <div class="box2">
-                            <p><i class="fas fa-info-circle"></i> Mes informations</p>
+                            <p style="color:#167ce9;text-align: center; font-size: 24px"><i class="fas fa-info-circle"></i> Mes informations</p>
                             <form role="form" method="post" action="menuDrajak">
-                                <div class="NomPrenomDevis">
-                                    <label for="nomA1">Nom :</label>
-                                    <input type="text" id="nomA1" name="nomA1" placeholder="Nom" value="${sessionScope.sessionAssure.getCleParticulier().getNom()}" disabled="disabled" required>
-                                    <label for="prenomA1">Prénom :</label>
-                                    <input type="text" id="prenomA1" name="prenomA1" placeholder="Prénom" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}"</c:if> <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if>required>
-                                    </div>
-                                <div>
-                                    <label for="bdayA1">Date de naissance :</label>
-                                    <input type="date" id="bdayA1" name="bdayA1" value="${fmtDate}" disabled="disabled" required>
-                                </div>
-                                <div class="champsAdresseDevis">
-                                    <label for="phone-input">Téléphone :</label>
-                                    <input id="phone-input" type="tel" value="${sessionScope.sessionAssure.getCleParticulier().getnTelephone()}" name="PhoneIn" aria-label="Entré votre numéro de téléphone" placeholder="ex. 01 02 03 04 05" disabled="disabled">
-                                </div>
-                                <div>
-                                    <div class="champsAdresseDevis"><label for="adrNum">Numéro :</label><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" value="${adresseSplit[0]}" disabled="disabled" required></div>
-                                    <div class="champsAdresseDevis"><label for="adrNomRue">Rue :</label><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" value="${adresseSplit[1]}" disabled="disabled" required></div>
-                                    <div class="champsAdresseDevis"><label for="adrCP">Code Postal :</label><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" value="${adresseSplit[2]}" disabled="disabled" required></div>
-                                    <div class="champsAdresseDevis"><label for="adrVille">Ville :</label><input type="text" id="adrVille" name="adrVille" placeholder="Ville" value="${adresseSplit[3]}" disabled="disabled" required></div>
-                                    <div class="champsAdresseDevis"><label for="adrPays">Pays :</label><input type="text" id="adrPays" name="adrPays" placeholder="Pays" value="${adresseSplit[4]}" disabled="disabled" required></div>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${requestScope.origineModification eq 'true'}">
+                                        <div class="NomPrenomDevis">
+                                            <label for="nomA1">Nom :</label>
+                                            <input type="text" id="nomA1" name="nomA1" placeholder="Nom" value="${sessionScope.sessionAssure.getCleParticulier().getNom()}" disabled="disabled" required>
+                                            <label for="prenomA1">Prénom :</label>
+                                            <input type="text" id="prenomA1" name="prenomA1" placeholder="Prénom" value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}" disabled="disabled" required>
+                                            </div>
+                                        <div>
+                                            <label for="bdayA1">Date de naissance :</label>
+                                            <input type="date" id="bdayA1" name="bdayA1" value="${fmtDateForm}" disabled="disabled" required>
+                                        </div>
+                                        <div class="NomPrenomDevis">
+                                            <label for="phone-input">Téléphone :</label>
+                                            <input id="phone-input" type="tel" name="PhoneIn" aria-label="Entré votre numéro de téléphone" placeholder="${sessionScope.sessionAssure.getCleParticulier().getnTelephone()}" disabled="disabled">
+                                        </div>
+                                        <div>
+                                            <div class="champsAdresseDevis"><label for="adrNum">Numéro :</label><input type="text" id="adrNum" name="adrNum" placeholder="${adresseSplit[0]}" value=""></div>
+                                            <div class="champsAdresseDevis"><label for="adrNomRue">Rue :</label><input type="text" id="adrNomRue" name="adrNomRue" placeholder="${adresseSplit[1]}" value="" ></div>
+                                            <div class="champsAdresseDevis"><label for="adrCP">Code Postal :</label><input type="text" id="adrCP" name="adrCP" placeholder="${adresseSplit[2]}" value=""></div>
+                                            <div class="champsAdresseDevis"><label for="adrVille">Ville :</label><input type="text" id="adrVille" name="adrVille" placeholder="${adresseSplit[3]}" value=""></div>
+                                            <div class="champsAdresseDevis"><label for="adrPays">Pays :</label><input type="text" id="adrPays" name="adrPays" placeholder="${adresseSplit[4]}" value=""></div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Nom : <c:out value="${sessionScope.sessionAssure.getCleParticulier().getNom()}"/></p>
+                                        <p>Prénom : <c:out value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}"/></p>
+                                        <p>Date de naissance : <c:out value="${fmtDate}"/></p>
+                                        <p>Téléphone : <c:out value="${sessionScope.sessionAssure.getCleParticulier().getnTelephone()}"/></p>
+                                        <p></p>
+                                        <p>Numéro : <c:out value="${adresseSplit[0]}"/></p>
+                                        <p>Rue : <c:out value="${adresseSplit[1]}"/></p>
+                                        <p>Code Postal : <c:out value="${adresseSplit[2]}"/></p>
+                                        <p>Ville : <c:out value="${adresseSplit[3]}"/></p>
+                                        <p>Pays : <c:out value="${adresseSplit[4]}"/></p>
+                                    </c:otherwise>
+                                </c:choose>
+                                
                                 <div style="margin: auto; position: relative; display: block; text-align: center;">
-                                    <input type="hidden" name="axction" value="Assure_ModifierInfosCompte">
+                                    <c:choose>
+                                        <c:when test="${requestScope.origineModification eq 'true'}">    
+                                            <input type="hidden" name="action" value="Assure_ModifierInformations_Modifications">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="hidden" name="action" value="Assure_ModifierInformations_AffichagePage">
+                                        </c:otherwise>
+                                    </c:choose>
                                     <button type="submit" class="btn btn-primary btn-co">Modifier</button>
                                 </div>
                             </form>

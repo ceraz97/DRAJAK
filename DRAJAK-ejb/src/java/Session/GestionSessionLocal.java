@@ -6,9 +6,12 @@
 package Session;
 
 import Entity.CompteEmploye;
+import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
 import Entity.Garantie;
 import Entity.Modules;
+import Entity.Particulier;
+import Entity.PersonneMorale;
 import Entity.Produit;
 import Enum.Genre;
 import Enum.Role;
@@ -42,15 +45,19 @@ public interface GestionSessionLocal {
     
     List ListerAllPersonneMorale();
     
-   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
     
-  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+    PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
 
     DomaineProduit AffecterDomaineAProduit (String libelle) ;
     
     Modules RechercherModuleParId (Long Id);
+
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
+
+    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
 
    
    

@@ -27,7 +27,8 @@
                     location.href = "menuDrajak?action=Assure_GestionContrat_resilier&idc="+idContrat;
                 } 
             }
-      </script>    
+            
+        </script>    
 
         <c:choose>
             <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
@@ -70,11 +71,11 @@
                                         <c:out value="${document.getLibelleContrat()}" />
                                     </td>
                                     <td id="td2">
-                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateCreation()}" pattern="dd-MM-yyyy"/>
+                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateCreation()}" pattern="dd/MM/yyyy"/>
                                         <c:out value="${fmtDateDebut}" />
                                     </td>
                                     <td id="td3">
-                                        <fmt:formatDate var="fmtDateFin" value="${document.getDateFin()}" pattern="dd-MM-yyyy"/>
+                                        <fmt:formatDate var="fmtDateFin" value="${document.getDateFin()}" pattern="dd/MM/yyyy"/>
                                         <c:out value="${fmtDateFin}" />
                                     </td>
                                     <td id="td4">
@@ -87,9 +88,17 @@
                                         <c:out value="${document.getPaiement()}" />
                                     </td>
                                     <td id="TD7">
+                                        <c:choose>
+                                            <c:when test="${ !empty sessionScope.sessionAssure }">
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                            </c:when>
+                                            <c:when test="${ !empty sessionScope.sessionGestionnaire }">
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                            </c:when>
+                                        </c:choose>
                                         <c:if test="${document.getStatut() eq 'Actif'}"><button class="btn btn-primary btn-co" onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                             </c:forEach>
                         </table>
                     </div>

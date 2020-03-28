@@ -311,20 +311,35 @@ public class menuDrajak extends HttpServlet {
                     //request.setAttribute("messsage", message);
                     break;
 
-                case "CreerParticulier":
-                    jspAffiche = "/menuAdministrateur.jsp";
-                    message = "Particulier crée avec succès";
-                    String nomPart = request.getParameter("nom");
-                    String prenomPart = request.getParameter("prenom");
-                    String dateNaissancePart = request.getParameter("dateNaissance");
-                    String adressePart = request.getParameter("adresse");
-                    String numeroPart = request.getParameter("numero");
-                    String genrePart = request.getParameter("genre");
-                    String numSSPart = request.getParameter("numeroSS");
-                    String mailPart = request.getParameter("mail");
-
+                case "Assure_CreerParticulier":
+                case "Gestionnaire_CreerParticulier":
+                case "Administrateur_CreerParticulier":
+                    String numRueNewPersonne, nomRueNewPersonne,cpNewPersonne,villeNewPersonne,paysNewPersonne, adresseNewPersonne=null;
+                    String nomPart=null, prenomPart=null, dateNaissancePart = null, numeroPart=null, genrePart =null, numSSPart=null,mailPart=null;
+                    //Adresse
+                    try {
+                        try{
+                        if (sessionAssure==null){
+                            numRueNewPersonne = request.getParameter("adrNum").trim();
+                            nomRueNewPersonne = request.getParameter("adrNomRue").trim();
+                            cpNewPersonne= request.getParameter("adrCP").trim();
+                            villeNewPersonne = request.getParameter("adrVille").trim();
+                            paysNewPersonne = request.getParameter("adrPays").trim();
+                            adresseNewPersonne = numRueNewPersonne + "," + nomRueNewPersonne + "," + cpNewPersonne + "," + villeNewPersonne + "," + paysNewPersonne;
+                        } else{
+                            adresseNewPersonne = sessionAssure.getCleParticulier().getAdresse();
+                        }
+                        nomPart = request.getParameter("nom");
+                        prenomPart = request.getParameter("prenom");
+                        dateNaissancePart = request.getParameter("dateNaissance");
+                        numeroPart = request.getParameter("numero");
+                        genrePart = request.getParameter("genre");
+                        numSSPart = request.getParameter("numeroSS");
+                        mailPart = request.getParameter("mail");}
+                        catch (Exception e){
+                            message ="Erreur : Une des données saisie n'a pu etre récupérée";
+                        }
                     Date date = java.sql.Date.valueOf(dateNaissancePart);
-
                     Genre gr;
                     if (genrePart.equalsIgnoreCase("Homme")) {
                         gr = Genre.Homme;
@@ -333,11 +348,42 @@ public class menuDrajak extends HttpServlet {
                     } else {
                         gr = Genre.Autre;
                     }
-
-                   /* gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
-                    //message = "Gestionnaire créé avec succès !";
-                    //request.setAttribute("messsage", message);
-                    break;*/
+                    String origineCreationParticulier = request.getParameter("origine");
+                    String idContratHidden = request.getParameter("idContratHidden");
+                    ContratIndividuel contratIndivDetailsApresAjoutAyantDroit = null;
+                    if (origineCreationParticulier.equals("true") && !idContratHidden.equals("")) {
+                        long idContratIndivAjoutAyantDroit =(long)Integer.valueOf(idContratHidden);
+                        if (sessionAssure!=null){
+                            contratIndivDetailsApresAjoutAyantDroit = assureSession.RechercherContratIndivParId(idContratIndivAjoutAyantDroit);
+                        } else {
+                            contratIndivDetailsApresAjoutAyantDroit = gestionSession.RechercherContratIndivParId(idContratIndivAjoutAyantDroit);
+                        }
+                        if (contratIndivDetailsApresAjoutAyantDroit == null){
+                            message="Aucun contrat n'a été trouvé";
+                        } else {
+                            request.setAttribute("contrat", contratIndivDetailsApresAjoutAyantDroit);
+                            List <AyantDroit> listeAyantsDroits = contratIndivDetailsApresAjoutAyantDroit.getLesAyantDroits();
+                            if (listeAyantsDroits!=null){request.setAttribute("listeAyantDroit", listeAyantsDroits);}
+                        }
+                    }
+                    
+                    if (sessionAssure != null) {
+                        jspAffiche = "/menuAssure.jsp";
+                        assureSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                        
+                    } else if (sessionGestionnaire != null) {
+                        jspAffiche = "/menuGestionnaire.jsp";
+                        gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                    } else if (sessionAdministrateur != null) {
+                        jspAffiche = "/menuAdministrateur.jsp";
+                        gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                    } 
+                    
+                    message = "Particulier crée avec succès";
+                    } catch (Exception e){
+                        message="Erreur : Un problème a été rencpntré lors de la création de la personne";
+                    }
+                    break;
 
                 case "CreerPersMorale":
                     jspAffiche = "/menuAdministrateur.jsp";
@@ -538,11 +584,11 @@ public class menuDrajak extends HttpServlet {
                     if (sessionAssure == null) {
                         try {
                             //Adresse
-                            numRueTarif = request.getParameter("adrNum");
-                            nomRueTarif = request.getParameter("adrNomRue");
-                            cpTarif = request.getParameter("adrCP");
-                            villeTarif = request.getParameter("adrVille");
-                            paysTarif = request.getParameter("adrPays");
+                            numRueTarif = request.getParameter("adrNum").trim();
+                            nomRueTarif = request.getParameter("adrNomRue").trim();
+                            cpTarif = request.getParameter("adrCP").trim();
+                            villeTarif = request.getParameter("adrVille").trim();
+                            paysTarif = request.getParameter("adrPays").trim();
                             adresseTarif = numRueTarif + "," + nomRueTarif + "," + cpTarif + "," + villeTarif + "," + paysTarif;
 
                             //Mail
@@ -730,54 +776,126 @@ public class menuDrajak extends HttpServlet {
                     jspAffiche = "/creationProduit.jsp";
                     message = "";
                     String libelle = request.getParameter("libelle");
-                    System.out.println("libelle "+libelle);
                     String fiscalite = request.getParameter("fiscalite");
-                    System.out.println("fisc "+fiscalite);
                     String typeproduitpart = request.getParameter("typeproduit");
-                    System.out.println("tyep "+typeproduitpart);
                     String domaineproduitpart = request.getParameter("domaineproduit");
-                    System.out.println("domaine "+domaineproduitpart);
+                    if (libelle==null || fiscalite==null || typeproduitpart==null || domaineproduitpart==null ) {
+                        message="Erreur : Au moins un des champs n'est pas rempli";
                     
-                    Double fisc = Double.parseDouble(fiscalite);
-                    System.out.println("fisc double "+fisc);
-                    
-                    DomaineProduit dp;
-                    List  <Modules> listemodulet = new ArrayList<> ();
-                   
-                    String [] lesmodules 
-                            = request.getParameterValues("checkbox");
-                    System.out.println("les moduls "+lesmodules);
-                        for (int i=0;i<lesmodules.length;i++){
-                        long values=Long.valueOf(lesmodules[i]);
-                        Modules m = gestionSession.RechercherModuleParId(values);
-                        listemodulet.add(m);
+                    } else {
+                        Double fisc = Double.parseDouble(fiscalite);
+
+                        DomaineProduit dp;
+                        List<Modules> listemodulet = new ArrayList<>();
+
+                        String[] lesmodules = request.getParameterValues("checkbox");
+                        for (int i = 0; i < lesmodules.length; i++) {
+                            long values = Long.valueOf(lesmodules[i]);
+                            Modules m = gestionSession.RechercherModuleParId(values);
+                            listemodulet.add(m);
                         }
-                    
-                
-                    List listeModuless = gestionSession.afficherLesModules();
-                     if (listeModuless == null){
-                        message="Aucun module n'a été trouvé";
+
+                        List listeModuless = gestionSession.afficherLesModules();
+                        if (listeModuless == null) {
+                            message = "Aucun module n'a été trouvé";
+                        } else {
+                            request.setAttribute("listeModules", listeModuless);
+                        }
+
+                        TypeProduit az = null;
+                        if (typeproduitpart.equalsIgnoreCase("collectif")) {
+                            az = TypeProduit.Collectif;
+                        } else if (typeproduitpart.equalsIgnoreCase("individuel")) {
+                            az = TypeProduit.Individuel;
+                        }
+
+                        dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
+                        if (dp != null) {
+                            gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
+                        } else {
+                            message = "Erreur : Le domaine produit n'a pas été trouvé";
+                        }
                     }
-                  try {
-                        request.setAttribute("listeModules", listeModuless);}
-                    catch (Exception e){}
+                    break;
                     
-              
-                    
-                 
-                   
-                     TypeProduit az = null ;
-                    if (typeproduitpart.equalsIgnoreCase("collectif")) {
-                        az = TypeProduit.Collectif;
-                    } else if (typeproduitpart.equalsIgnoreCase("individuel")) {
-                        az = TypeProduit.Individuel;}
-                    
-                 dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
-                 gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
-                 
-                 
+                case "Assure_ModifierMotDePasse":
+                    jspAffiche = "/informationCompte_Assure.jsp";
+                    String ancienMdp = request.getParameter("ancienMDP");
+                    String nouveauMdp = request.getParameter("newMDP");
+                    String nouveauMdpConfirmation = request.getParameter("newMDPConf");
+                    if (ancienMdp==null || nouveauMdp==null || nouveauMdpConfirmation==null) {
+                        message="Erreur : Au moins un des champs n'est pas rempli";
+                    } else {
+                        if (nouveauMdp.equals(nouveauMdpConfirmation)){
+                            assureSession.ModifierMotDePasse(nouveauMdp, sessionAssure);
+                            message="Votre mot de passe à bien été mit à jour";
+                        } else {
+                            message = "Erreur : les mots de passes saisis ne correspondent pas ";
+                        }
+                    }
                     break;
                  
+                case "Assure_ModifierInformations_AffichagePage":
+                    jspAffiche = "/informationCompte_Assure.jsp";
+                    message="";
+                    request.setAttribute("origineModification", "true");
+                    break;
+                
+                case "Assure_ModifierInformations_Modifications":
+                    jspAffiche = "/informationCompte_Assure.jsp";
+                    try {
+                        String adrNumModif = request.getParameter("adrNum").trim();
+                        String adrRueModif = request.getParameter("adrNomRue").trim();
+                        String adrCPModif = request.getParameter("adrCP").trim();
+                        String adrVilleModif = request.getParameter("adrVille").trim();
+                        String adrPaysModif = request.getParameter("adrPays").trim();
+
+                        assureSession.ModifierAdresse(adrNumModif, adrRueModif, adrCPModif, adrVilleModif, adrPaysModif, sessionAssure);
+
+                        message="Le changement d'adresse a bien été effectué";
+                    } catch (Exception e){ message="Le changement d'adresse a échoué";}
+                    break;
+                    
+                case "Assure_GestionContrat_detailContrat":
+                case "Gestionnaire_GestionContrat_detailContrat":
+                    jspAffiche = "/gestionContrat_DetailsContat.jsp";
+                    String idContratDetail=request.getParameter("idc");
+                    long idContratIndivDetail =(long)Integer.valueOf(idContratDetail);
+                    ContratIndividuel contratIndivDetail = null;
+                    if (sessionAssure!=null){
+                        contratIndivDetail = assureSession.RechercherContratIndivParId(idContratIndivDetail);
+                    } else {
+                        contratIndivDetail = gestionSession.RechercherContratIndivParId(idContratIndivDetail);
+                    }
+                    if (contratIndivDetail == null){
+                        message="Aucun contrat n'a été trouvé";
+                    } else {
+                        request.setAttribute("contrat", contratIndivDetail);
+                        List <AyantDroit> listeAyantDroit = contratIndivDetail.getLesAyantDroits();
+                        if (listeAyantDroit!=null){request.setAttribute("listeAyantDroit", listeAyantDroit);}
+                    }
+                    break;
+                    
+                case "Assure_GestionContrat_AjoutAyantDroit":
+                case "Gestionnaire_GestionContrat_AjoutAyantDroit":
+                case "Administrateur_GestionContrat_AjoutAyantDroit":
+                    jspAffiche = "/creationParticulier.jsp";
+                    String idContratAjoutAyantDroit=request.getParameter("idc");
+                    long idContratIndivAjoutAyantDroit =(long)Integer.valueOf(idContratAjoutAyantDroit);
+                    ContratIndividuel contratIndivAjoutAyantDroit = null;
+                    if (sessionAssure!=null){
+                        contratIndivAjoutAyantDroit = assureSession.RechercherContratIndivParId(idContratIndivAjoutAyantDroit);
+                    } else {
+                        contratIndivAjoutAyantDroit = gestionSession.RechercherContratIndivParId(idContratIndivAjoutAyantDroit);
+                    }
+                    if (contratIndivAjoutAyantDroit == null){
+                        message="Aucun contrat n'a été trouvé";
+                    } else {
+                        request.setAttribute("contrat", contratIndivAjoutAyantDroit);
+                        request.setAttribute("depuisInfosContrat", "true");
+                        
+                    }
+                    break;
             }
             
         }
