@@ -87,7 +87,7 @@
                                         <c:out value="${document.getPaiement()}" />
                                     </td>
                                     <td id="TD7">
-                                        <c:if test="${document.getStatut() eq 'Actif'}"><button onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
+                                        <c:if test="${document.getStatut() eq 'Actif'}"><c:if test="${document.getStatut() eq 'Actif'}"><button onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
                                         </td>
                                     </tr>
                             </c:forEach>

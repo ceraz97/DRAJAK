@@ -38,4 +38,5 @@ public interface DomaineProduitFacadeLocal {
 
     List<DomaineProduit> ListerAllDomaineProduit();
     
+    DomaineProduit RechercherDomaineParLibelle(String libelle);
 }
