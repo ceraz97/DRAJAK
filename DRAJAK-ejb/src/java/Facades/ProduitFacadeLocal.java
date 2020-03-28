@@ -34,6 +34,8 @@ public interface ProduitFacadeLocal {
     int count();
 
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
+    
+   
 
     void ModifierProduit(Produit produit);
 

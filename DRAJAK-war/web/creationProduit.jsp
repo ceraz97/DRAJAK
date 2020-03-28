@@ -16,7 +16,7 @@
 <html>
     <head>
 
-        <title>CrÈer produit</title>
+        <title>Créer produit</title>
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -26,7 +26,7 @@
     <body>
          <script type="text/javascript">
             function getAjouterModule(id)  {
-              var result = confirm("Voulez vous ajouter de nouveau module ? Une rÈponse nÈgative entrainera la crÈation du produit ");
+              var result = confirm("Voulez vous ajouter de nouveau module ? Une réponse négative entrainera la création du produit ");
                 listemodule.push(id); 
                 if(result)  {
                    
@@ -68,7 +68,7 @@
                                 </div>
                                 <p>Domaine produit :</p>
                                   <div>
-                                    <input type="radio" id="sante" name="domaineproduit" value="sante" checked>
+                                    <input type="radio" id="sante" name="libelledomaineproduit" value="sante" checked>
                                     <label for="sante">sante</label>
                                   </div>
                             </div>    
@@ -85,7 +85,7 @@
                                            
 
                             <input type="hidden" name="action" value="CreerProduit"/>
-                            <button type="submit" class="btn btn-primary btn-co">CrÈer produit</button>
+                            <button type="submit" class="btn btn-primary btn-co">Créer produit</button>
                         
                     </div>
                 </div>

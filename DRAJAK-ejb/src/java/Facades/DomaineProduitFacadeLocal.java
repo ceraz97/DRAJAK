@@ -37,6 +37,7 @@ public interface DomaineProduitFacadeLocal {
     void SupprimerDomaineProduit(DomaineProduit domaineProduit);
 
     List<DomaineProduit> ListerAllDomaineProduit();
+
+    public DomaineProduit RechercherDomaineParLibelle (String libelle);
     
-    DomaineProduit RechercherDomaineParLibelle(String libelle);
 }

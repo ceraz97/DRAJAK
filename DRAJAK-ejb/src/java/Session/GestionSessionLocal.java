@@ -15,7 +15,6 @@ import Entity.TypeRemboursement;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
-import Enum.TypeModules;
 import Enum.TypeProduit;
 import java.util.Date;
 import java.util.List;
@@ -40,12 +39,28 @@ public interface GestionSessionLocal {
     List<Produit> afficherLesProduits();
     List<Modules> afficherLesModules();
     List<Garantie> afficherLesGaranties();
-    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
-    List<TypeRemboursement> afficherLesTypesRemboursement();
-    TypeModule CreerTypeModule(String libelle);
-    Garantie RechercheGparID(long id);
-    Modules CreerModules(String libelle, TypeModules typeModules, List<Garantie> listeGarantie);
-    Modules  RechercherModuleParId(long id);
-    DomaineProduit AffecterDomaineAProduit(String libelle);
+    
+    List ListerAllParticulier();
+    
+    List ListerAllPersonneMorale();
+    
+   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    
+  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
+
+    DomaineProduit AffecterDomaineAProduit (String libelle) ;
+    
+    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
+    
+    List<TypeRemboursement> afficherLesTypesRemboursement();
+    
+    TypeModule CreerTypeModule(String libelle);
+    
+    Garantie RechercheGparID(long id);
+    
+    Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie);
+    
+    Modules RechercherModuleParId (Long Id);
 }

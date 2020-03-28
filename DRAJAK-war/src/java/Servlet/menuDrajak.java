@@ -20,7 +20,6 @@ import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -261,6 +260,7 @@ public class menuDrajak extends HttpServlet {
                     request.setAttribute("optiqueDentaire", optiqueDentaire);
 
                     break;
+
                 case "CreerGestionnaire":
                     jspAffiche = "/menuAdministrateur.jsp";
                     message = "Gestionnaire crée avec succès";
@@ -295,11 +295,62 @@ public class menuDrajak extends HttpServlet {
                     //request.setAttribute("messsage", message);
                     break;
 
+                case "CreerParticulier":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Particulier crée avec succès";
+                    String nomPart = request.getParameter("nom");
+                    String prenomPart = request.getParameter("prenom");
+                    String dateNaissancePart = request.getParameter("dateNaissance");
+                    String adressePart = request.getParameter("adresse");
+                    String numeroPart = request.getParameter("numero");
+                    String genrePart = request.getParameter("genre");
+                    String numSSPart = request.getParameter("numeroSS");
+                    String mailPart = request.getParameter("mail");
+
+                    Date date = java.sql.Date.valueOf(dateNaissancePart);
+
+                    Genre gr;
+                    if (genrePart.equalsIgnoreCase("Homme")) {
+                        gr = Genre.Homme;
+                    } else if (genrePart.equalsIgnoreCase("Femme")) {
+                        gr = Genre.Femme;
+                    } else {
+                        gr = Genre.Autre;
+                    }
+
+                   /* gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adressePart);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break;*/
+
+                case "CreerPersMorale":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Personne morale créee avec succès";
+                    String raisonSociale = request.getParameter("raisonSociale");
+                    String siret = request.getParameter("siret");
+                    String siren = request.getParameter("siren");
+                    String adressePersMorale = request.getParameter("adresse");
+                    String mailPersMorale = request.getParameter("mail");
+                    String mdpPersMorale = request.getParameter("mdp");
+
+                  /*  gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
+                    //message = "Gestionnaire créé avec succès !";
+                    //request.setAttribute("messsage", message);
+                    break; */
+
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
                     List<CompteEmploye> list = gestionSession.ListerAllCompteEmploye();
                     request.setAttribute("listeGestionnaire", list);
+                    break;
 
+                case "AfficherPart":
+                    jspAffiche = "/listePersonne.jsp";
+                    List<Particulier> listePart = gestionSession.ListerAllParticulier();
+                    List<PersonneMorale> listeMorale = gestionSession.ListerAllPersonneMorale();
+
+                    request.setAttribute("listeParticulier", listePart);
+                    request.setAttribute("listePersMorale", listeMorale);
                     break;
 
                 case "DemandeDevis_tarif":
@@ -651,16 +702,8 @@ public class menuDrajak extends HttpServlet {
                   try {
                         request.setAttribute("listeGarantie", listeGarantiee);}
                     catch (Exception e){}
-                   
-                     TypeModules tm = null;
-                    if (TypeModule.equalsIgnoreCase("Base")) {
-                        tm = TypeModules.Base;
-                        
-                    } else if (TypeModule.equalsIgnoreCase("Facultatif")) {
-                        tm = TypeModules.Facultatif;}
-                    
                
-                 gestionSession.CreerModules(libelleModule, tm, listeGaranties);
+                 gestionSession.CreerModules(libelleModule, TypeModule, listeGaranties);
                  
                  
                     break;
@@ -747,6 +790,7 @@ public class menuDrajak extends HttpServlet {
                     
 
             }
+            
         }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspAffiche);

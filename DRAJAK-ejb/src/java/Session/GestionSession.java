@@ -31,7 +31,6 @@ import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
 import Enum.StatutTransaction;
-import Enum.TypeModules;
 import Enum.TypeProduit;
 import Facades.CompteAssureFacadeLocal;
 import Facades.CompteEmployeFacadeLocal;
@@ -383,8 +382,19 @@ public class GestionSession implements GestionSessionLocal {
         return b;
     }
 
+    @Override
     public List ListerAllCompteEmploye() {
         return compteEmployeFacade.ListerAllCompteEmploye();
+    }
+
+    @Override
+    public List ListerAllParticulier() {
+        return particulierFacade.ListerAllParticulier();
+    }
+
+    @Override
+    public List ListerAllPersonneMorale() {
+        return personneMoraleFacade.ListerAllPersonneMorale();
     }
 
     @Override
@@ -404,8 +414,7 @@ public class GestionSession implements GestionSessionLocal {
             @Override
     public List<Modules> afficherLesModules(){
  
-        List<Modules> listm = new ArrayList<Modules>(); 
-        listm = moduleFacade.ListerAllModule();
+        List<Modules> listm = moduleFacade.ListerAllModule();
         
         return listm;
     }
@@ -441,20 +450,41 @@ public class GestionSession implements GestionSessionLocal {
      return garantieFacade.rechercheGarantieParId(id);
  }
 
-    @Override
- public Modules CreerModules(String libelle, TypeModules typeModules, List<Garantie> listeGarantie){
-     return moduleFacade.CreerModules(libelle, typeModules, listeGarantie);
- }
- 
- public Modules  RechercherModuleParId(long id){
-     return moduleFacade.RechercherModuleParId(id);
- }
+  /*  @Override
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+    }
 
- public DomaineProduit AffecterDomaineAProduit(String libelle){
-     return domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+   @Override
+    public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
+        return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
+    }*/
+
+    @Override
+    public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules) {
+        Produit p;
+         p = produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
+         return p;  
+    }
+
+    @Override
+    public DomaineProduit AffecterDomaineAProduit(String libelle)  {
+        DomaineProduit p;
+        p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+        return p;
+    }
+    
+    @Override
+    public Modules RechercherModuleParId (Long Id){
+        Modules m;
+        m = moduleFacade.RechercherModuleParId(Id);
+        return m;
+    }
+
+    @Override
+ public Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie){
+     return moduleFacade.CreerModule(libelle, typeModule, listeGarantie);
  }
  
- public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules){
-     return produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
- }
+
 }
