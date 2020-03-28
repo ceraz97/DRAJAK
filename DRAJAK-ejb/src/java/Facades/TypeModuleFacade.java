@@ -32,7 +32,7 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
     }
 
     @Override
-    public TypeModule CreerTypeModule(String libelle) {
+    public TypeModule CreerTypeModule(String libelle){
         TypeModule typeModuleInstance= new TypeModule ();
         typeModuleInstance.setLibelleTypeModule(libelle);
         getEntityManager().persist(typeModuleInstance);
@@ -57,6 +57,8 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
         typeModuleInstance = (TypeModule) req.getSingleResult();
         return typeModuleInstance;
     }
+    
+    
     
     
     

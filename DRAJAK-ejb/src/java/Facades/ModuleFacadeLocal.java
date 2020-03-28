@@ -9,6 +9,7 @@ import Entity.Garantie;
 import Entity.Modules;
 import Entity.Produit;
 import Entity.TypeModule;
+import Enum.TypeModules;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -43,4 +44,7 @@ public interface ModuleFacadeLocal {
 
     Modules RechercherModule(String libelle, TypeModule type);
     
+    Modules CreerModules(String libelle, TypeModules typeModules, List<Garantie> listeGarantie);
+    
+    Modules  RechercherModuleParId(long id);
 }

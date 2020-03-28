@@ -9,6 +9,7 @@ import Entity.Garantie;
 import Entity.Modules;
 import Entity.Produit;
 import Entity.TypeModule;
+import Enum.TypeModules;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -75,6 +76,25 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
     }
     
     
+        @Override
+    public Modules CreerModules(String libelle, TypeModules typeModules, List<Garantie> listeGarantie) {
+        Modules moduleInstance = new Modules ();
+        moduleInstance.setLibelleModule(libelle);
+        moduleInstance.setCleTypeModule(typeModules);
+        moduleInstance.setLesGaranties(listeGarantie);
+        getEntityManager().persist(moduleInstance);
+        return moduleInstance;
+    }
     
-    
+        public Modules  RechercherModuleParId(long id){
+        Modules f=null; 
+        
+        String tx= "SELECT m FROM Modules AS m WHERE m.id=:id";
+        Query req = getEntityManager().createQuery(tx); 
+        req= req.setParameter("id",id);
+        f= (Modules) req.getSingleResult();
+        return f;
+ 
+    }
+   
 }

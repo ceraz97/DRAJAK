@@ -25,7 +25,7 @@
             <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
-            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+            <c:otherwise><%@include file="Menus/NavBar_gestionnaire.jsp" %>></c:otherwise>
         </c:choose>
 
 
@@ -53,6 +53,15 @@
                                             <input type="text" class="form-control" name="libelle" placeholder="Libelle de la garantie" required>
                                             <label class="sr-only" for="typeRemboursement">Libelle type remboursement </label>
                                             <input type="text" class="form-control" name="typeRemboursement" placeholder="Libelle type remboursement" required>
+                                            <p>Type Module :</p>
+                                           <div>
+                                            <input type="radio" id="Facultative" name="typeModule" value="Facultative" checked>
+                                            <label for="Facultative">Facultative </label>
+                                            <input type="radio" id="Base" name="typeModule" value="Base">
+                                            <label for="Base"> Base </label>
+                                           </div>
+                                
+                                
                                         </div>  
                                         <div class="form-group">
                                             <input type="hidden" name="action" value="CreerGarantie"/>

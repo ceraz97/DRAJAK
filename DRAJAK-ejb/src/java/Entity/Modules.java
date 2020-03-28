@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import Enum.TypeModules;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -105,6 +106,10 @@ public class Modules implements Serializable {
     @Override
     public String toString() {
         return "Entity.Module[ id=" + id + " ]";
+    }
+
+    public void setCleTypeModule(TypeModules typeModules) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

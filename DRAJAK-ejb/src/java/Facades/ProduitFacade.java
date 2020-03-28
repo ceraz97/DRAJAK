@@ -62,5 +62,6 @@ public class ProduitFacade extends AbstractFacade<Produit> implements ProduitFac
         listeDesProduits=req.getResultList();
         return listeDesProduits;
     }
+
     
 }

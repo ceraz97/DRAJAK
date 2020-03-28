@@ -31,6 +31,7 @@ import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
 import Enum.StatutTransaction;
+import Enum.TypeModules;
 import Enum.TypeProduit;
 import Facades.CompteAssureFacadeLocal;
 import Facades.CompteEmployeFacadeLocal;
@@ -64,6 +65,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -417,5 +419,42 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
+    @Override
+    public List<TypeRemboursement> afficherLesTypesRemboursement(){
+        List<TypeRemboursement> listtr =new ArrayList<TypeRemboursement>();
+        listtr = typeRemboursementFacade.ListerAllTypeRemboursement();
+        return listtr;
+    }
+    
+        @Override
+    public Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement) {
+      return garantieFacade.CreerGarantie(libelle, typeRemboursement);
+    }
+    
+    @Override
+     public TypeModule CreerTypeModule(String libelle){
+         return  typeModuleFacade.CreerTypeModule(libelle);
+     }
+     
+    @Override
+ public Garantie RechercheGparID(long id){
+     return garantieFacade.rechercheGarantieParId(id);
+ }
 
+    @Override
+ public Modules CreerModules(String libelle, TypeModules typeModules, List<Garantie> listeGarantie){
+     return moduleFacade.CreerModules(libelle, typeModules, listeGarantie);
+ }
+ 
+ public Modules  RechercherModuleParId(long id){
+     return moduleFacade.RechercherModuleParId(id);
+ }
+
+ public DomaineProduit AffecterDomaineAProduit(String libelle){
+     return domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+ }
+ 
+ public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules){
+     return produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
+ }
 }
