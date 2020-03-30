@@ -21,10 +21,10 @@
 
     <body>
         <script type="text/javascript">
-            function getConfirmResiliation(nomContrat, idContrat) {
-                var result = confirm("Voulez vous résilier le contrat " + nomContrat + "?");
+            function getConfirmSuppression(nomPersonne,prenomPresonne, idAyantDroit, idContrat) {
+                var result = confirm("Voulez vous supprimer l'ayant droit " + nomPersonne +" "+ prenomPresonne +"?");
                 if (result) {
-                    location.href = "menuDrajak?action=Assure_GestionContrat_resilier&idc=" + idContrat;
+                    location.href = "menuDrajak?action=Assure_GestionContrat_SuppressionAyantDroit&idc=" + idContrat+"&&idp="+idAyantDroit;
                 }
             }
 
@@ -85,18 +85,20 @@
                                             <fmt:formatDate var="fmtDobAssure" value="${ayantDroit.getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
                                             <p>Date de naissance : <c:out value="${fmtDobAssure}"/></p>
                                             <p>Relation : <c:out value="${ayantDroit.getCleTypeAyantDroit().getLibelleAyantDroit()}"/></p>
+                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Modifier</button>
+                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Supprimer</button>
                                         </div>
                                     </div>
                                 </c:forEach>
                                 <c:choose>
                                     <c:when test="${ !empty sessionScope.sessionAssure }">
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_AjoutAyantDroit&idc=${document.getId()}'">Ajouter ayant droit</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Ajouter ayant droit</button>
                                     </c:when>
                                     <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_AjoutAyantDroit&idc=${document.getId()}'">Ajouter ayant droit</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_VersRecherchePersonne&&idc=${requestScope.contrat.getId()}'">Ajouter ayant droit</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_AjoutAyantDroit&idc=${document.getId()}'">Ajouter ayant droit</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_VersRecherchePersonne&&idc=${requestScope.contrat.getId()}'">Ajouter ayant droit</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>          

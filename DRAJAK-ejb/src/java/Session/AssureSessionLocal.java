@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.ContratIndividuel;
@@ -19,6 +20,7 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
@@ -76,6 +78,18 @@ public interface AssureSessionLocal {
 
     void ModifierAdresse(String num, String rue, String cp, String ville, String pays, CompteAssure cptA);
 
-    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
+    List<Particulier>  RechercherListeParticulier(String nSecu);
+
+    List ListerAllTypeAyantDroit();
+
+    Particulier RechercherParticulierParId(long idParticulier);
+
+    AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat);
+
+    TypeAyantDroit RechercherTypeAyantDroitParId(long idType);
+
+    void SupprimerAyantDroit(AyantDroit AD);
+
+    AyantDroit RechercherAyantDroitParId(long idAD);
 
 }

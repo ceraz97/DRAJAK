@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.Contrat;
@@ -474,8 +475,8 @@ public class GestionSession implements GestionSessionLocal {
     }
 
     @Override
-    public List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob) {
-        return particulierFacade.RechercherParticulierSurNomPrenomDOB(nom, prenom, dob);
+    public List<Particulier>  RechercherListeParticulier(String nSecu) {
+        return particulierFacade.RechercherListeParticulier(nSecu);
     }
 
     
@@ -500,6 +501,36 @@ public class GestionSession implements GestionSessionLocal {
         Modules p;
          p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
          return p;  
+    }
+
+    @Override
+    public List ListerAllTypeAyantDroit() {      
+        return typeAyantDroitFacade.ListerAllTypeAyantDroit();
+    }
+
+    @Override
+    public Particulier RechercherParticulierParId(long idParticulier) {
+        return particulierFacade.RechercherParticulierParID(idParticulier);
+    }
+
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long idType) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParId(idType);
+    }
+
+    @Override
+    public void SupprimerAyantDroit(AyantDroit AD) {
+        ayantDroitFacade.SupprimerAyantDroit(AD);
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParID(long idAD) {
+        return ayantDroitFacade.RechercherAyantDroitParId(idAD);
     }
     
      @Override
