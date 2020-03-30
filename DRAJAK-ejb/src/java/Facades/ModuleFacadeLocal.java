@@ -47,6 +47,4 @@ public interface ModuleFacadeLocal {
     
     Modules CreerModules(String libelle, TypeModule typeModules, List<Garantie> listeGarantie);
     
-
-    
 }

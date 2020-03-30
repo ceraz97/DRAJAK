@@ -86,12 +86,12 @@
                                     <p></p>
                                 </a>
                                 
-                                     <a href="listeModule.jsp" class="services-wrap ftco-animate">
+                                     <a href="listeGarantie.jsp" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>
                                         <span class="ion-ios-arrow-forward"></span>
                                     </div>
-                                    <h2>Liste de toutes les modules</h2>
+                                    <h2>Liste de toutes les Garanties</h2>
                                     <p></p>
                                     
                                      <a href="creationGarantie.jsp" class="services-wrap ftco-animate">

@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.Contrat;
@@ -428,27 +429,16 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
-    @Override
-    public List<TypeRemboursement> afficherLesTypesRemboursement(){
-        List<TypeRemboursement> listtr =new ArrayList<TypeRemboursement>();
-        listtr = typeRemboursementFacade.ListerAllTypeRemboursement();
-        return listtr;
-    }
+    public List<TypeRemboursement> afficherLesTypesRemboursement() {
+            List<TypeRemboursement> listp = typeRemboursementFacade.ListerAllTypeRemboursement();
+            return listp;
+                    
+                    }
     
-        @Override
-    public Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement) {
-      return garantieFacade.CreerGarantie(libelle, typeRemboursement);
-    }
     
-    @Override
-     public TypeModule CreerTypeModule(String libelle){
-         return  typeModuleFacade.CreerTypeModule(libelle);
-     }
-     
-    @Override
- public Garantie RechercherGarantieparID(long id){
-     return garantieFacade.RechercherGarantieId(id);
- }
+    
+    
+    
 
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
@@ -486,8 +476,8 @@ public class GestionSession implements GestionSessionLocal {
     }
 
     @Override
-    public List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob) {
-        return particulierFacade.RechercherParticulierSurNomPrenomDOB(nom, prenom, dob);
+    public List<Particulier>  RechercherListeParticulier(String nSecu) {
+        return particulierFacade.RechercherListeParticulier(nSecu);
     }
 
     
@@ -513,12 +503,48 @@ public class GestionSession implements GestionSessionLocal {
          p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
          return p;  
     }
+
+    @Override
+    public List ListerAllTypeAyantDroit() {      
+        return typeAyantDroitFacade.ListerAllTypeAyantDroit();
+    }
+
+    @Override
+    public Particulier RechercherParticulierParId(long idParticulier) {
+        return particulierFacade.RechercherParticulierParID(idParticulier);
+    }
+
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long idType) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParId(idType);
+    }
+
+    @Override
+    public void SupprimerAyantDroit(AyantDroit AD) {
+        ayantDroitFacade.SupprimerAyantDroit(AD);
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParID(long idAD) {
+        return ayantDroitFacade.RechercherAyantDroitParId(idAD);
+    }
     
-       @Override
+     @Override
     public TypeRemboursement AffecterTypeAGarantie(String libelle)  {
-        TypeRemboursement tr;
-        tr = typeRemboursementFacade.RechercherTypeRemboursementParLibelle(libelle);
-        return tr;
+        TypeRemboursement p;
+        p = typeRemboursementFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
+    
+    public Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement) {
+        Garantie g;
+        g = garantieFacade.CreerGarantie(libelle, typeRemboursement);
+        return g;
     }
     
     

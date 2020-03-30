@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.ContratIndividuel;
@@ -18,9 +19,11 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
+import Facades.AyantDroitFacadeLocal;
 import Facades.CompteAssureFacadeLocal;
 import Facades.ContratIndividuelFacadeLocal;
 import Facades.GarantieFacadeLocal;
@@ -31,6 +34,7 @@ import Facades.PersonneMoraleFacadeLocal;
 import Facades.PersonnePubliqueFacadeLocal;
 import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
+import Facades.TypeAyantDroitFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +47,12 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AssureSession implements AssureSessionLocal {
+
+    @EJB
+    private AyantDroitFacadeLocal ayantDroitFacade;
+
+    @EJB
+    private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
 
     @EJB
     private PersonnePubliqueFacadeLocal personnePubliqueFacade;
@@ -76,6 +86,8 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+    
     
     
     
@@ -232,8 +244,38 @@ public class AssureSession implements AssureSessionLocal {
     }
 
     @Override
-    public List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob) {
-        return particulierFacade.RechercherParticulierSurNomPrenomDOB(nom, prenom, dob);
+    public List<Particulier> RechercherListeParticulier(String nSecu) {
+        return particulierFacade.RechercherListeParticulier(nSecu);
+    }
+
+    @Override
+    public List ListerAllTypeAyantDroit() {
+        return typeAyantDroitFacade.ListerAllTypeAyantDroit();
+    }
+
+    @Override
+    public Particulier RechercherParticulierParId(long idParticulier) {
+        return particulierFacade.RechercherParticulierParID(idParticulier);
+    }
+
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, Contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long idType) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParId(idType);
+    }
+
+    @Override
+    public void SupprimerAyantDroit(AyantDroit AD) {
+        ayantDroitFacade.SupprimerAyantDroit(AD);
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParId(long idAD) {
+        return ayantDroitFacade.RechercherAyantDroitParId(idAD);
     }
     
     

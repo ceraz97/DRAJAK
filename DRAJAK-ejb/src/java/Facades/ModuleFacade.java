@@ -94,5 +94,8 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
         moduleInstance.setLesGaranties(listeGarantie);
         getEntityManager().persist(moduleInstance);
         return moduleInstance;
-    }  
+    }
+
+    
+ 
 }

@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteEmploye;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
@@ -13,6 +14,7 @@ import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.Produit;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Entity.TypeRemboursement;
 import Enum.Genre;
@@ -50,40 +52,53 @@ public interface GestionSessionLocal {
     
     List<Garantie> afficherLesGaranties();
     
-    List<TypeRemboursement> afficherLesTypesRemboursement();
-    
-    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
-    
-    TypeModule CreerTypeModule(String libelle);
-
-    Garantie RechercherGarantieParId (Long Id);
-    
     Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
-
+    
     PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
 
     DomaineProduit AffecterDomaineAProduit (String libelle) ;
-
+    
     Modules RechercherModuleParId (Long Id);
+
+     Garantie RechercherGarantieParId (Long Id);
+     
+     TypeModule AffecterTypeAModule(String libelle);
+     
+     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+
+     
+     List<TypeRemboursement> afficherLesTypesRemboursement();
+     
+    TypeRemboursement AffecterTypeAGarantie(String libelle);
+    
+    Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement);
+     
+    
 
     ContratIndividuel RechercherContratIndivParId(long idContrat);
 
-    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
 
-    Garantie RechercherGarantieparID(long id);
+
+
     
-    TypeModule AffecterTypeAModule(String libelle);
-       
     
 
-    Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+    List<Particulier> RechercherListeParticulier(String nSecu);
 
-   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
-    
-  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+    List ListerAllTypeAyantDroit();
 
-    TypeRemboursement AffecterTypeAGarantie(String libelle);
-    
+    Particulier RechercherParticulierParId(long idParticulier);
+
+    AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel contrat);
+
+    TypeAyantDroit RechercherTypeAyantDroitParId(long idType);
+
+    void SupprimerAyantDroit(AyantDroit AD);
+
+    AyantDroit RechercherAyantDroitParID(long idAD);
+
+   
+   
 }
