@@ -33,5 +33,7 @@ public interface TypeAyantDroitFacadeLocal {
     TypeAyantDroit CreerTypeAyantDroit(String Libelle);
 
     List<TypeAyantDroit> ListerAllTypeAyantDroit();
+
+    TypeAyantDroit RechercherTypeAyantDroitParId(long id);
     
 }

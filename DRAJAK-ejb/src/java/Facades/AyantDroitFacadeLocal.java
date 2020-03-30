@@ -42,5 +42,7 @@ public interface AyantDroitFacadeLocal {
     void ModifierAyantDroit(AyantDroit ad);
     
     void SupprimerAyantDroit(AyantDroit ad);
+
+    AyantDroit RechercherAyantDroitParId(long idAD);
     
 }

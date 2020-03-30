@@ -57,19 +57,7 @@
                                             <input type="text" class="form-control" name="prenom" placeholder="Prénom" required>
                                             <label class="sr-only" for="dateNaissance">Date de naissance</label>
                                             <input type="date" class="form-control" name="dateNaissance" placeholder="Date de naissance" required>
-                                            <c:if test="${ empty sessionScope.sessionAssure }">
-                                                <div>
-                                                    <div class="champsAdresseDevis"><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" required></div>
-                                                    <div class="champsAdresseDevis"><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" required></div>
-                                                    <div class="champsAdresseDevis"><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" required></div>
-                                                    <div class="champsAdresseDevis"><input type="text" id="adrVille" name="adrVille" placeholder="Ville" required></div>
-                                                    <div class="champsAdresseDevis"><input type="text" id="adrPays" name="adrPays" placeholder="Pays" required></div>
-                                                </div>
-                                            </c:if>
-                                            <label class="sr-only" for="adresse">Adresse</label>
-                                            <input type="text" class="form-control" name="adresse" placeholder="Adresse" required>
-                                            <label class="sr-only" for="numero">Numéro</label>
-                                            <input type="tel" class="form-control" name="numero" placeholder="Numéro" required>
+                                            
                                             <p>Genre :</p>
                                             <div>
                                                 <input type="radio" id="homme" name="genre" value="Homme" checked>
@@ -81,11 +69,23 @@
                                             </div>
                                             <label class="sr-only" for="numeroSS">Numéro securite sociale</label>
                                             <input type="number" class="form-control" name="numeroSS" placeholder="Numéro sécurité sociale" required>
+                                            
+                                            <c:if test="${!requestScope.depuisInfosContrat eq 'true'}">
+                                                <input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" required>
+                                                <input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" required>
+                                                <input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" required>
+                                                <input type="text" id="adrVille" name="adrVille" placeholder="Ville" required>
+                                                <input type="text" id="adrPays" name="adrPays" placeholder="Pays" required>
+                                                <label class="sr-only" for="numero">Numéro</label>
+                                                <input type="tel" class="form-control" name="numero" placeholder="Numéro" required>
+                                                <div class="form-group">    
+                                                    <label class="sr-only" for="mail">Adresse email</label>
+                                                    <input type="email" class="form-control" name="mail" placeholder="Adresse email" required>
+                                                </div>
+                                            </c:if>
+                                            
                                         </div>    
-                                        <div class="form-group">    
-                                            <label class="sr-only" for="mail">Adresse email</label>
-                                            <input type="email" class="form-control" name="mail" placeholder="Adresse email" required>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <c:choose>
                                                 <c:when test="${ !empty sessionScope.sessionAssure }">

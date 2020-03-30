@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteEmploye;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
@@ -13,6 +14,7 @@ import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.Produit;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.Role;
@@ -63,7 +65,19 @@ public interface GestionSessionLocal {
      Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
     ContratIndividuel RechercherContratIndivParId(long idContrat);
 
-    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
+    List<Particulier> RechercherListeParticulier(String nSecu);
+
+    List ListerAllTypeAyantDroit();
+
+    Particulier RechercherParticulierParId(long idParticulier);
+
+    AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel contrat);
+
+    TypeAyantDroit RechercherTypeAyantDroitParId(long idType);
+
+    void SupprimerAyantDroit(AyantDroit AD);
+
+    AyantDroit RechercherAyantDroitParID(long idAD);
 
    
    

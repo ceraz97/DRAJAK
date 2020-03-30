@@ -68,4 +68,16 @@ public class AyantDroitFacade extends AbstractFacade<AyantDroit> implements Ayan
     public void SupprimerAyantDroit(AyantDroit ad){
         em.remove(ad);
         }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParId(long idAD) {
+        AyantDroit AyantDroitRecherche;
+        String tx = "SELECT t FROM AyantDroit AS t WHERE t.id=:idad";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idad", idAD);
+        AyantDroitRecherche = (AyantDroit)req.getSingleResult();
+        return AyantDroitRecherche;
+    }
+    
+    
 }
