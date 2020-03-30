@@ -125,7 +125,7 @@ public class AssureSession implements AssureSessionLocal {
         return compteAssureFacade.CreerCompteAssure(mdp, cleParticulier, cleRegimeSocial);
     }
     @Override
-    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
@@ -209,6 +209,34 @@ public class AssureSession implements AssureSessionLocal {
     public ContratIndividuel RechercherContratIndivParId(long idContrat) {
         return contratIndividuelFacade.RechercherContratIndivParId(idContrat);
     }
+
+    @Override
+    public void ModifierMotDePasse(String mdp, CompteAssure CompteA) {
+        CompteA.setMdp(mdp);
+        compteAssureFacade.ModifierCompteAssure(CompteA);
+    }
+
+    @Override
+    public void ModifierAdresse(String num, String rue, String cp, String ville, String pays, CompteAssure cptA) {
+        Particulier p = cptA.getCleParticulier();
+        String adresse [] = p.getAdresse().split(",");
+        String newNum, newRue, newCP, newVille, newPays, newAdresse;
+        if (num.equals("")){ newNum = adresse[0];} else {newNum = num;}
+        if (rue.equals("")){ newRue = adresse[1];} else {newRue = rue;}
+        if (cp.equals("")){ newCP = adresse[2];} else {newCP = cp;}
+        if (ville.equals("")){ newVille = adresse[3];} else {newVille = ville;}
+        if (pays.equals("")){ newPays = adresse[4];} else {newPays = pays;}
+        newAdresse=newNum+","+newRue+","+newCP+","+newVille+","+newPays;
+        p.setAdresse(newAdresse);
+        particulierFacade.ModifierParticulier(p);
+    }
+
+    @Override
+    public List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob) {
+        return particulierFacade.RechercherParticulierSurNomPrenomDOB(nom, prenom, dob);
+    }
+    
+    
     
     
 }

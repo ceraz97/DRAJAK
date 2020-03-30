@@ -1,7 +1,7 @@
 <%-- 
     Document   : creationGestionnaire
     Created on : 16 mars 2020, 10:43:48
-    Author     : Ilkayk
+    Author     : Clément
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Résiliation de contrat</title>
+        <title>Demande de prise en charge</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Demande de résiliation du contrat</h1>                   
+                        <h1 class="mb-4">Demande de prise en charge</h1>                   
                     </div>
                 </div>
             </div>
@@ -47,9 +47,8 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-8" style="position: relative; margin: auto;">
-                                    <c:if test="${ !empty fichier }"><p><c:out value="Le fichier ${ fichier } (${ description }) a été uploadé !" /></p></c:if>
                                     <form method="post" action="menuDrajak" enctype="multipart/form-data">
-                                        <p><c:out value="Vous souhaitez résilier le contrat ${requestScope.contrat.getLibelleContrat()}"/></p>
+                                        
                                         <p>
                                             <label for="fichier">Fichier à envoyer : </label>
                                             <input type="file" name="fichier" id="fichier" />

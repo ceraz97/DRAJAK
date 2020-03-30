@@ -21,6 +21,14 @@
         <%@include file="Shared/link_head.jsp" %>
     </head>
     <body>
+         <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
+        
         <h1>Afficher gestionnaires</h1>
         <TABLE border width=50%>
             <tr><td>Id</td> 

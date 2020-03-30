@@ -44,4 +44,6 @@ public interface ParticulierFacadeLocal {
     void SupprimerParticulier(Particulier p);
     
     Particulier RechercherParticulier(String nSecu);
+
+    List <Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
 }

@@ -10,7 +10,6 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
 <html>
     <head>
 
@@ -22,6 +21,7 @@
         <%@include file="Shared/link_head.jsp" %>
     </head>
     <body>
+
           
         
         <c:choose>
@@ -33,6 +33,7 @@
         </c:choose>
         
         <div class="modal-content">
+
             <div class="modal-body">
                     <div class="col-md-3">
                         <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
