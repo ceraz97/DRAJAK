@@ -427,6 +427,12 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
+    public List<TypeRemboursement> afficherLesTypesRemboursement() {
+            List<TypeRemboursement> listp = typeRemboursementFacade.ListerAllTypeRemboursement();
+            return listp;
+                    
+                    }
+    
     
     
     
@@ -487,7 +493,18 @@ public class GestionSession implements GestionSessionLocal {
          return p;  
     }
     
+     @Override
+    public TypeRemboursement AffecterTypeAGarantie(String libelle)  {
+        TypeRemboursement p;
+        p = typeRemboursementFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
     
+    public Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement) {
+        Garantie g;
+        g = garantieFacade.CreerGarantie(libelle, typeRemboursement);
+        return g;
+    }
     
     
 }

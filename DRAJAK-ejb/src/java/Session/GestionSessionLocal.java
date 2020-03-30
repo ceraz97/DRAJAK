@@ -11,6 +11,7 @@ import Entity.Garantie;
 import Entity.Modules;
 import Entity.Produit;
 import Entity.TypeModule;
+import Entity.TypeRemboursement;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -58,6 +59,14 @@ public interface GestionSessionLocal {
      TypeModule AffecterTypeAModule(String libelle);
      
      Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+     
+     List<TypeRemboursement> afficherLesTypesRemboursement();
+     
+    TypeRemboursement AffecterTypeAGarantie(String libelle);
+    
+    Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement);
+     
+    
    
    
 }

@@ -49,5 +49,16 @@ public class TypeRemboursementFacade extends AbstractFacade<TypeRemboursement> i
     }
     
     
-    
+        @Override
+    public TypeRemboursement RechercherTypeModuleParLibelle (String libelle) {
+      TypeRemboursement p = null;
+      String tx = "SELECT DP FROM TypeRemboursement AS DP WHERE DP.libelleTypeRemboursement=:domaine";
+      Query req = getEntityManager().createQuery(tx);
+      req.setParameter("domaine",libelle);
+      List<TypeRemboursement> result = req.getResultList();
+      if (result.size() == 1) {
+            p = (TypeRemboursement) result.get(0);
+        }
+        return p;
+    }
 }

@@ -87,7 +87,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit")&& !act.equals("Module_ListeCreation_Module")&& !act.equals("CreerModule"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit")&& !act.equals("Module_ListeCreation_Module")&& !act.equals("CreerModule") && !act.equals("CreerGarantie") && !act.equals("Remboursement_ListeCreation_Garantie"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -758,16 +758,38 @@ public class menuDrajak extends HttpServlet {
                   try {
                         request.setAttribute("listeGarantie", listeGarantiee);}
                     catch (Exception e){}
-                   
                   
-                    
-                    
                 tp = gestionSession.AffecterTypeAModule(TypeModule);
                  System.out.println("Type Module "+tp);
                  gestionSession.CreerModule(libelleModule, tp, listeGaranties);
-                 
-                 
                     break;
+                    
+                    
+                case "Remboursement_ListeCreation_Garantie":
+                    jspAffiche = "/creationGarantie.jsp";
+                    message = "";
+                
+                    break;
+                    
+                
+                case "CreerGarantie":
+                    jspAffiche="/creationGarantie.jsp";
+                    message = "";
+                    
+                     String libelleGarantie = request.getParameter("libelle");
+                     System.out.println("libelle "+libelleGarantie);
+                     String TypeRemboursement = request.getParameter("typeRemboursement");
+                     System.out.println("libelle "+TypeRemboursement);
+                     
+                     TypeRemboursement tr;
+                             
+                             
+                 tr = gestionSession.AffecterTypeAGarantie(TypeRemboursement);
+                 System.out.println("Type Remboursement "+tr);
+                 gestionSession.CreerGarantie(libelleGarantie, tr);
+
+                 break;
+
                     
 
                  
