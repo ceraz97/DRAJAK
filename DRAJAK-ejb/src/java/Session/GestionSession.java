@@ -426,8 +426,7 @@ public class GestionSession implements GestionSessionLocal {
         listg =  garantieFacade.ListerAllGarantie();
         
         return listg;
-    }
-    
+    }    
 
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
@@ -438,4 +437,10 @@ public class GestionSession implements GestionSessionLocal {
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
     }
+    
+    @Override
+    public void ModifierCompteEmploye (CompteEmploye ce){
+        compteEmployeFacade.ModifierCompteEmploye(ce);
+    }
+    
 }
