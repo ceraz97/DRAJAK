@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Créer gestionnaire</title>
+        <title>Créer particulier</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -48,13 +48,24 @@
                             <div class="row">
                                 <div class="col-md-8" style="position: relative; margin: auto;">
                                     <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
-                                        <div class="form-group">                                
+                                        <div class="form-group">       
+                                            <input type="hidden" value="${requestScope.contrat}" name="idContratHidden">
+                                            <input type="hidden" value="${requestScope.depuisInfosContrat}" name="origine">
                                             <label class="sr-only" for="nom">Nom</label>
                                             <input type="text" class="form-control" name="nom" placeholder="Nom" required>
                                             <label class="sr-only" for="prenom">Prénom</label>
                                             <input type="text" class="form-control" name="prenom" placeholder="Prénom" required>
                                             <label class="sr-only" for="dateNaissance">Date de naissance</label>
                                             <input type="date" class="form-control" name="dateNaissance" placeholder="Date de naissance" required>
+                                            <c:if test="${ empty sessionScope.sessionAssure }">
+                                                <div>
+                                                    <div class="champsAdresseDevis"><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" required></div>
+                                                    <div class="champsAdresseDevis"><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" required></div>
+                                                    <div class="champsAdresseDevis"><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" required></div>
+                                                    <div class="champsAdresseDevis"><input type="text" id="adrVille" name="adrVille" placeholder="Ville" required></div>
+                                                    <div class="champsAdresseDevis"><input type="text" id="adrPays" name="adrPays" placeholder="Pays" required></div>
+                                                </div>
+                                            </c:if>
                                             <label class="sr-only" for="adresse">Adresse</label>
                                             <input type="text" class="form-control" name="adresse" placeholder="Adresse" required>
                                             <label class="sr-only" for="numero">Numéro</label>
@@ -76,7 +87,17 @@
                                             <input type="email" class="form-control" name="mail" placeholder="Adresse email" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="hidden" name="action" value="CreerParticulier"/>
+                                            <c:choose>
+                                                <c:when test="${ !empty sessionScope.sessionAssure }">
+                                                    <input type="hidden" name="action" value="Assure_CreerParticulier"/>
+                                                </c:when>
+                                                <c:when test="${ !empty sessionScope.sessionGestionnaire }">
+                                                    <input type="hidden" name="action" value="Gestionnaire_CreerParticulier"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input type="hidden" name="action" value="Administrateur_CreerParticulier"/>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
                                         </div>
                                     </form>

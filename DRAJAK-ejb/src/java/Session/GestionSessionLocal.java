@@ -6,9 +6,12 @@
 package Session;
 
 import Entity.CompteEmploye;
+import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
 import Entity.Garantie;
 import Entity.Modules;
+import Entity.Particulier;
+import Entity.PersonneMorale;
 import Entity.Produit;
 import Entity.TypeModule;
 import Entity.TypeRemboursement;
@@ -35,43 +38,52 @@ public interface GestionSessionLocal {
 
     List ListerAllCompteEmploye();
     
-    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
-    List<Produit> afficherLesProduits();
-    List<Modules> afficherLesModules();
-    List<Garantie> afficherLesGaranties();
-    
     List ListerAllParticulier();
     
     List ListerAllPersonneMorale();
     
-   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
     
-  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+    List<Produit> afficherLesProduits();
+    
+    List<Modules> afficherLesModules();
+    
+    List<Garantie> afficherLesGaranties();
+    
+    List<TypeRemboursement> afficherLesTypesRemboursement();
+    
+    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
+    
+    TypeModule CreerTypeModule(String libelle);
+
+    Garantie RechercherGarantieParId (Long Id);
+    
+    Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+
+    PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
 
     DomaineProduit AffecterDomaineAProduit (String libelle) ;
-    
+
     Modules RechercherModuleParId (Long Id);
 
-     Garantie RechercherGarantieParId (Long Id);
-     
-     TypeModule AffecterTypeAModule(String libelle);
-     
-     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
-   
-   
-    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
+
+    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
+
+    Garantie RechercherGarantieparID(long id);
     
-    List<TypeRemboursement> afficherLesTypesRemboursement();
+    TypeModule AffecterTypeAModule(String libelle);
+       
     
-    TypeModule CreerTypeModule(String libelle);
+
+    Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+
+   // Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
     
-    Garantie RechercheGparID(long id);
+  // PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
+
+    TypeRemboursement AffecterTypeAGarantie(String libelle);
     
-    Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie);
-    
-    Modules RechercherModuleId (Long Id);
-    
-    TypeRemboursement AffecterTypeARemboursement(String libelle);
 }

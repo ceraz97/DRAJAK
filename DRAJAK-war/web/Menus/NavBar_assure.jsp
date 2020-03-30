@@ -13,7 +13,7 @@
                         <li class="nav-item"><a class="nav-link" style="cursor: pointer">Soins</a>
                         <li class="nav-item"><a href="offre.jsp" class="nav-link" style="cursor: pointer">Simulation</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link" style="cursor: pointer">Contact</a></li>
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link" style="cursor: pointer">Mon compte</a></li>
+                        <li class="nav-item"><a onclick="location.href='menuDrajak?action=Assure_InformationsCompte'" class="nav-link" style="cursor: pointer">Mon compte</a></li>
                         <li class="nav-item cta"><a onclick="location.href = 'menuDrajak?action=Deconnexion&typeConnexion=AssureMenu'" class="nav-link" style="cursor: pointer"><span>Se déconnecter</span></a></li>
                     </ul>
                 </div>

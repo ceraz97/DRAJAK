@@ -428,10 +428,6 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
-    
-    
-    
-    
     @Override
     public List<TypeRemboursement> afficherLesTypesRemboursement(){
         List<TypeRemboursement> listtr =new ArrayList<TypeRemboursement>();
@@ -450,11 +446,11 @@ public class GestionSession implements GestionSessionLocal {
      }
      
     @Override
- public Garantie RechercheGparID(long id){
+ public Garantie RechercherGarantieparID(long id){
      return garantieFacade.RechercherGarantieId(id);
  }
 
-  /*  @Override
+    @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
@@ -462,7 +458,7 @@ public class GestionSession implements GestionSessionLocal {
    @Override
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
-    }*/
+    }
 
     @Override
     public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules) {
@@ -473,8 +469,7 @@ public class GestionSession implements GestionSessionLocal {
 
     @Override
     public DomaineProduit AffecterDomaineAProduit(String libelle)  {
-        DomaineProduit p;
-        p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+        DomaineProduit p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
         return p;
     }
     
@@ -486,27 +481,13 @@ public class GestionSession implements GestionSessionLocal {
     }
 
     @Override
- public Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie){
-     return moduleFacade.CreerModule(libelle, typeModule, listeGarantie);
- }
- 
-
-  /*  @Override
-    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+    public ContratIndividuel RechercherContratIndivParId(long idContrat) {
+        return contratIndividuelFacade.RechercherContratIndivParId(idContrat);
     }
 
-   @Override
-    public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
-        return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
-    }*/
-
-    
     @Override
-    public Modules RechercherModuleId (Long Id){
-        Modules m;
-        m = moduleFacade.RechercherModuleId(Id);
-        return m;
+    public List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob) {
+        return particulierFacade.RechercherParticulierSurNomPrenomDOB(nom, prenom, dob);
     }
 
     
@@ -533,13 +514,12 @@ public class GestionSession implements GestionSessionLocal {
          return p;  
     }
     
-      @Override
-    public TypeRemboursement AffecterTypeARemboursement(String libelle)  {
+       @Override
+    public TypeRemboursement AffecterTypeAGarantie(String libelle)  {
         TypeRemboursement tr;
         tr = typeRemboursementFacade.RechercherTypeRemboursementParLibelle(libelle);
         return tr;
     }
-    
     
     
 }

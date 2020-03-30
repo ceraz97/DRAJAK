@@ -44,7 +44,7 @@ public interface AssureSessionLocal {
 
     CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial);
 
-    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
 
     boolean RechercherExistenceAssurePourBDD();
 
@@ -71,5 +71,11 @@ public interface AssureSessionLocal {
     List<ContratIndividuel> RechercherListeContratAssure(CompteAssure cptAssure);
 
     ContratIndividuel RechercherContratIndivParId(long idContrat);
+
+    void ModifierMotDePasse(String mdp, CompteAssure CompteA);
+
+    void ModifierAdresse(String num, String rue, String cp, String ville, String pays, CompteAssure cptA);
+
+    List<Particulier> RechercherParticulierSurNomPrenomDOB(String nom, String prenom, Date dob);
 
 }

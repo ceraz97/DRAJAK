@@ -14,7 +14,7 @@
 <html>
     <head>
 
-        <title>Créer Garantie</title>
+        <title>CrÈer Garantie</title>
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -35,30 +35,25 @@
         <div class="modal-content">
             <div class="modal-body">
                     <div class="col-md-3">
-                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                        <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                             <div class="form-group">               
                                   
-                                <label class="sr-only" for="Libelle">Libelle</label>
-                                <input type="text" class="form-control"placeholder="Libelle" required>
+                                <label class="sr-only" for="libelle">Libelle</label>
+                                <input name="libelle" type="text" class="form-control"placeholder="Libelle Garantie" required>
                                
                                 <p>Type Remboursement :</p>
                                 <div>
                                     <input type="radio" id="BaseDeRemboursement" name="typeRemboursement" value="Base de remboursement" checked>
                                     <label for="Base de remboursement">Base de remboursement </label>
-                                    <input type="radio" id="FraisRéel" name="typeRemboursement" value="Frais Réel">
-                                    <label for="Frais Réel"> Frais Réel </label>
+                                    <input type="radio" id="FraisReel" name="typeRemboursement" value="Frais Reel">
+                                    <label for="Frais Reel"> Frais RÈel </label>
                                 </div>
                             </div> 
                             
-                              <c:forEach items="${requestScope.listeTypeRemboursement}" var="elementRemboursement">
-                                 <div>
-                                      <input type="checkbox" id="listeremboursement" name="checkbox" value="${elementRemboursement.getId()}"/>
-                                      <label for="checkbox"><c:out value="${elementRemboursement.getLibelleTypeRemboursement()}"/></label>
-                                 </div>
-                             </c:forEach>
+                              <div class="formulaire_devis">
                             
                                 <input type="hidden" name="action" value="CreerGarantie"/>
-                                <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+                                <button type="submit" class="btn btn-primary btn-block">Creer Garantie</button>
                             </div>
                         </form>
                     

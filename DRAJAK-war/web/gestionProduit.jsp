@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,26 +19,13 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-            <div class="container">
-                <a class="navbar-brand" href="menuAdministrateur.jsp"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="oi oi-menu"></span> Menu
-                </button>
-
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="menuAdministrateur.jsp" class="nav-link">Gestion personnel</a></li>
-                        <li class="nav-item"><a href="gestionPersonne.jsp" class="nav-link">Gestion personne</a></li>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
-                        <li class="nav-item"><a href="gestionProduit.jsp" class="nav-link">Gestion produits</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>
-                        <li class="nav-item cta"><a href="accueilEmploye.jsp" class="nav-link"><span>Se déconnecter</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- END nav -->
+        <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed;">
             <div class="overlay"></div>
@@ -79,6 +67,15 @@
                                     </div>
                                     <h2>Liste de toutes les produits</h2>
                                     <p></p>
+                                    
+                                     <a href="listeModule.jsp" class="services-wrap ftco-animate">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="ion-ios-arrow-back"></span>
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </div>
+                                    <h2>Liste de toutes les modules</h2>
+                                    <p></p>
+
                                 </a>
                                     <a href="creationModule.jsp" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">

@@ -46,7 +46,7 @@
             <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
-            <c:otherwise><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:otherwise>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
         
         <div class="modal-content">
@@ -96,7 +96,7 @@
                     
                 </div>
             </div>          
-       
+        </div>
          <%@include file="Shared/script_js.jsp" %>
         <script>
             function changeColor(s) {
