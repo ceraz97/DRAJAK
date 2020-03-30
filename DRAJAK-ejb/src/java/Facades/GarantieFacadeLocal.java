@@ -39,6 +39,6 @@ public interface GarantieFacadeLocal {
 
     Garantie RechercherGarantie(String libelle);
     
-    Garantie rechercheGarantieParId(long id);
+    Garantie RechercherGarantieId(Long Id);
     
 }

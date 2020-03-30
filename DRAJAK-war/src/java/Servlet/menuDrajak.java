@@ -87,7 +87,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("AfficherGest")&& !act.equals("Garantie_ListeCreation_Module")&& !act.equals("Redirection_CreationGarantie")&& !act.equals("CreerGarantie")&& !act.equals("CreerModule")&& !act.equals("CreerModule"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") && !act.equals("AfficherGest") && !act.equals("AfficherPart") && !act.equals("CreerGestionnaire") && !act.equals("CreerParticulier")&& !act.equals("CreerPersMorale") && !act.equals("Module_ListeCreation_Produit")&& !act.equals("CreerProduit")&& !act.equals("Module_ListeCreation_Module")&& !act.equals("CreerModule")&& !act.equals("CreerGarantie"))) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -649,84 +649,13 @@ public class menuDrajak extends HttpServlet {
                     
                 case "Assure_GestionContrat_resilierJustificatif":
                     break;
-                
-                case "Garantie_ListeCreation_Module":
-                     jspAffiche = "/listeGarantie.jsp";
-                     message = "";
-                     List listeGarantie = gestionSession.afficherLesGaranties();
-                     
-                     if(listeGarantie==null) {
-                         message = "Aucune garantie n'a été trouvé";
-                     } 
-                          request.setAttribute("listeGarantie",listeGarantie);
-                          
-                      List listeObjetGarantie = gestionSession.afficherLesTypesRemboursement();
-                      if(listeObjetGarantie==null) {
-                         message = "Aucune garantie n'a été trouvé";
-                     } 
-                          request.setAttribute("listeObjetGarantie",listeObjetGarantie);
-                          
-                     break;
                     
-                    
-                     
-                case "Redirection_CreationGarantie":
-                    jspAffiche = "/creationGarantie.jsp";
-                    break;
-                     
-                    
-                   case "CreerModule" : 
-         
-                    jspAffiche = "/creationModule.jsp";
-                    message = "";
-                    String libelleModule = request.getParameter("libelle");
-                    System.out.println("libelle "+libelleModule);
-                    String TypeModule = request.getParameter("typeModule");
-                    System.out.println("tyep "+TypeModule);
-                   
-                    List  <Garantie> listeGaranties = new ArrayList<> ();
-                   
-                    String [] lesGaranties 
-                            = request.getParameterValues("checkbox");
-                    System.out.println("les garant "+lesGaranties);
-                        for (int i=0;i<lesGaranties.length;i++){
-                        long values=Long.valueOf(lesGaranties[i]);
-                        Garantie ga = gestionSession.RechercheGparID(values);
-                        listeGaranties.add(ga);
-                        }
-                
-                    List listeGarantiee = gestionSession.afficherLesGaranties();
-                     if (listeGarantiee == null){
-                        message="Aucune Garantie n'a été trouvé";
-                    }
-                  try {
-                        request.setAttribute("listeGarantie", listeGarantiee);}
-                    catch (Exception e){}
-               
-                 gestionSession.CreerModules(libelleModule, TypeModule, listeGaranties);
-                 
-                 
-                    break;
-                    
-                    
-                    
-                     
-                /*case "CreerGarantie":
-                    jspAffiche = "/creationGarantie.jsp";
-                    message = "Garantie crée avec succès";
-                   
-                    String libelle = request.getParameter("libelle");
-                    String typeremboursement = request.getParameter("typeRemboursement");
-                    
-                    gestionSession.CreerGarantie(libelle, tr);
-                    break; */
-                      
-                   case "Module_ListeCreation_Produit":
+                case "Module_ListeCreation_Produit":
                     jspAffiche = "/creationProduit.jsp";
                     message = "";
                     List listeModules = gestionSession.afficherLesModules();
                     if (listeModules == null){
-                        message="Aucun module n'a ÈtÈ trouvÈ";
+                        message="Aucun module n'a été trouvé";
                     }
                   try {
                         request.setAttribute("listeModules", listeModules);}
@@ -743,13 +672,14 @@ public class menuDrajak extends HttpServlet {
                     System.out.println("fisc "+fiscalite);
                     String typeproduitpart = request.getParameter("typeproduit");
                     System.out.println("tyep "+typeproduitpart);
-                    String domaineproduitpart = request.getParameter("domaineproduit");
+                    String domaineproduitpart = request.getParameter("libelledomaineproduit");
                     System.out.println("domaine "+domaineproduitpart);
                     
                     Double fisc = Double.parseDouble(fiscalite);
                     System.out.println("fisc double "+fisc);
                     
                     DomaineProduit dp;
+                    
                     List  <Modules> listemodulet = new ArrayList<> ();
                    
                     String [] lesmodules 
@@ -764,7 +694,7 @@ public class menuDrajak extends HttpServlet {
                 
                     List listeModuless = gestionSession.afficherLesModules();
                      if (listeModuless == null){
-                        message="Aucun module n'a ÈtÈ trouvÈ";
+                        message="Aucun module n'a été trouvé";
                     }
                   try {
                         request.setAttribute("listeModules", listeModuless);}
@@ -781,14 +711,79 @@ public class menuDrajak extends HttpServlet {
                         az = TypeProduit.Individuel;}
                     
                  dp = gestionSession.AffecterDomaineAProduit(domaineproduitpart);
+                 System.out.println("domaine formule "+dp);
                  gestionSession.CreerProduit(az, libelle, fisc, dp, listemodulet);
                  
                  
                     break;
-                 
-             
                     
+                 case "Module_ListeCreation_Module":
+                    jspAffiche = "/creationModule.jsp";
+                    message = "";
+                    List listeGarantie = gestionSession.afficherLesGaranties();
+                    if (listeGarantie == null){
+                        message="Aucun module n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeGarantie", listeGarantie);}
+                    catch (Exception e){}
+                    break;
+                    
+                case "CreerModule" : 
+         
+                    jspAffiche = "/creationModule.jsp";
+                    message = "";
+                    String libelleModule = request.getParameter("libelle");
+                    System.out.println("libelle "+libelleModule);
+                    String TypeModule = request.getParameter("typeModule");
+                    System.out.println("tyep "+TypeModule);
+                   
+                    TypeModule tp;
+                    List  <Garantie> listeGaranties = new ArrayList<> ();
+                   
+                    String [] lesGaranties 
+                            = request.getParameterValues("checkbox");
+                    System.out.println("les garant "+lesGaranties);
+                        for (int i=0;i<lesGaranties.length;i++){
+                        long values=Long.valueOf(lesGaranties[i]);
+                        Garantie ga = gestionSession.RechercherGarantieParId(values);
+                       listeGaranties.add(ga);
+                        }
+                
+                    List listeGarantiee = gestionSession.afficherLesGaranties();
+                     if (listeGarantiee == null){
+                        message="Aucune Garantie n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeGarantie", listeGarantiee);}
+                    catch (Exception e){}
+                   
+                  
+                    
+                    
+                tp = gestionSession.AffecterTypeAModule(TypeModule);
+                 System.out.println("Type Module "+tp);
+                 gestionSession.CreerModule(libelleModule, tp, listeGaranties);
+                 
+                 
+                    break;
+                    
+                    
+                case "CreerGarantie":
+                    jspAffiche="/creationGarantie.jsp";
+                    message = "";
+                    
+                     String libelleGarantie = request.getParameter("libelle");
+                     String TypeRemboursement = request.getParameter("typeRemboursement");
+                     
+                             TypeRemboursement tr;
+                             
+                             
+                 tr = gestionSession.AffecterTypeARemboursement(TypeRemboursement);
+                 System.out.println("Type Remboursement "+tr);
+                 gestionSession.CreerGarantie(libelleGarantie, tr);
 
+                 break;
             }
             
         }

@@ -52,6 +52,15 @@ public interface GestionSessionLocal {
 
     DomaineProduit AffecterDomaineAProduit (String libelle) ;
     
+    Modules RechercherModuleParId (Long Id);
+
+     Garantie RechercherGarantieParId (Long Id);
+     
+     TypeModule AffecterTypeAModule(String libelle);
+     
+     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+   
+   
     Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
     
     List<TypeRemboursement> afficherLesTypesRemboursement();
@@ -62,5 +71,7 @@ public interface GestionSessionLocal {
     
     Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie);
     
-    Modules RechercherModuleParId (Long Id);
+    Modules RechercherModuleId (Long Id);
+    
+    TypeRemboursement AffecterTypeARemboursement(String libelle);
 }

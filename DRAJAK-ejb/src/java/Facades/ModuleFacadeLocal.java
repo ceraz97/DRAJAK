@@ -43,8 +43,10 @@ public interface ModuleFacadeLocal {
 
     Modules RechercherModule(String libelle, TypeModule type);
     
-    Modules CreerModules(String libelle, TypeModule typeModule, List<Garantie> listeGarantie);
+    Modules RechercherModuleId(Long Id);
     
-    Modules RechercherModuleParId(Long Id);
+    Modules CreerModules(String libelle, TypeModule typeModules, List<Garantie> listeGarantie);
+    
+
     
 }

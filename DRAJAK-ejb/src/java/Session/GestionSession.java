@@ -428,6 +428,10 @@ public class GestionSession implements GestionSessionLocal {
         return listg;
     }
     
+    
+    
+    
+    
     @Override
     public List<TypeRemboursement> afficherLesTypesRemboursement(){
         List<TypeRemboursement> listtr =new ArrayList<TypeRemboursement>();
@@ -447,7 +451,7 @@ public class GestionSession implements GestionSessionLocal {
      
     @Override
  public Garantie RechercheGparID(long id){
-     return garantieFacade.rechercheGarantieParId(id);
+     return garantieFacade.RechercherGarantieId(id);
  }
 
   /*  @Override
@@ -477,7 +481,7 @@ public class GestionSession implements GestionSessionLocal {
     @Override
     public Modules RechercherModuleParId (Long Id){
         Modules m;
-        m = moduleFacade.RechercherModuleParId(Id);
+        m = moduleFacade.RechercherModuleId(Id);
         return m;
     }
 
@@ -487,4 +491,55 @@ public class GestionSession implements GestionSessionLocal {
  }
  
 
+  /*  @Override
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+    }
+
+   @Override
+    public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
+        return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
+    }*/
+
+    
+    @Override
+    public Modules RechercherModuleId (Long Id){
+        Modules m;
+        m = moduleFacade.RechercherModuleId(Id);
+        return m;
+    }
+
+    
+     @Override
+    public Garantie RechercherGarantieParId (Long Id){
+        Garantie m;
+        m = garantieFacade.RechercherGarantieId(Id);
+        return m;
+    }
+
+    
+    @Override
+    public TypeModule AffecterTypeAModule(String libelle)  {
+        TypeModule p;
+        p = typeModuleFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
+
+    
+    @Override
+    public Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie) {
+        Modules p;
+         p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
+         return p;  
+    }
+    
+      @Override
+    public TypeRemboursement AffecterTypeARemboursement(String libelle)  {
+        TypeRemboursement tr;
+        tr = typeRemboursementFacade.RechercherTypeRemboursementParLibelle(libelle);
+        return tr;
+    }
+    
+    
+    
 }

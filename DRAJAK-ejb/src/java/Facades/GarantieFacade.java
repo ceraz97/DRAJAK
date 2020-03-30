@@ -62,16 +62,17 @@ public class GarantieFacade extends AbstractFacade<Garantie> implements Garantie
         return garantieInstance;
     }
     
-             @Override
-    public Garantie rechercheGarantieParId(long id){
-        Garantie f=null; 
-        
-        String tx= "SELECT g FROM Garantie AS g WHERE g.id=:id";
-        Query req = getEntityManager().createQuery(tx); 
-        req= req.setParameter("id",id);
-        f= (Garantie) req.getSingleResult();
-        return f;
- 
+    
+     @Override
+    public Garantie RechercherGarantieId(Long Id) {
+        Garantie garantieInstance;
+        String tx = "SELECT m FROM Garantie AS m WHERE m.id=:idmodule";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idmodule", Id);
+        garantieInstance = (Garantie) req.getSingleResult();
+        return garantieInstance;
     }
+    
+    
     
 }

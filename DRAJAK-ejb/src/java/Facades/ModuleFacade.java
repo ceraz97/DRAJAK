@@ -77,7 +77,7 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
     }
     
     @Override
-    public Modules RechercherModuleParId(Long Id) {
+    public Modules RechercherModuleId(Long Id) {
         Modules modulesInstance;
         String tx = "SELECT m FROM Modules AS m WHERE m.id=:idmodule";
         Query req = getEntityManager().createQuery(tx);
