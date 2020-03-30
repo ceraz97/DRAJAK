@@ -80,6 +80,7 @@ public interface GestionSessionLocal {
 
 
     
+    
 
     List<Particulier> RechercherListeParticulier(String nSecu);
 
