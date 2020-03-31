@@ -36,10 +36,6 @@
                                 <div class="col-md-12">
                                     Vous êtes
                                     <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
-                                        <div class="social-buttons">
-                                            <a id="btnParticlier" class="btn btn-primary btn-blockCo">Particulier</a>
-                                            <a id="btnEntreprise" class="btn btn-primary btn-blockCo">Entreprise</a>
-                                        </div>
                                         <div class="ensembleBooutonsRadio">
                                             <div class = "radioButtonStyle">
                                                 <input class ="RadioButtonStyle" name="action" type="radio" id="AssureMenu" value="AssureAuthentification" checked="true"/>

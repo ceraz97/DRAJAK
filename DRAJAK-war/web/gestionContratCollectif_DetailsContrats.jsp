@@ -1,9 +1,4 @@
-<%-- 
-    Document   : menuAssure
-    Created on : 12 mars 2020, 13:46:20
-    Author     : Ilkayk
---%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -40,26 +35,12 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">GÃ©rer vos contrats</h1>                   
+                        <h1 class="mb-4">Gérer vos contrats</h1>                   
                     </div>
                 </div>
             </div>
         </div>
-         <p class="message-attribut">
-            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
-            <c:choose>
-                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
-                    <span class="message_erreur">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="message_normal">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:otherwise>
-            </c:choose>
-        </p>
+        
         
 
         <section class="ftco-services">
@@ -69,11 +50,11 @@
                         <div>
                             <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations contrat</p>
                             <div style="padding-left: 40px; margin-bottom: 30px;">
-                                <p>NumÃ©ro de contrat : <c:out value="${requestScope.contrat.getId()}"/></p>
-                                <p>Date crÃ©ation contrat : <c:out value="${fmtDateDebut}"/></p>
+                                <p>Numéro de contrat : <c:out value="${requestScope.contrat.getId()}"/></p>
+                                <p>Date création contrat : <c:out value="${fmtDateDebut}"/></p>
                                 <p>Date fin de contrat : <c:out value="${fmtDateFin}"/></p>
                             </div>
-                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-user"></i> Personne rattachÃ© au contrat collectif </p>
+                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-user"></i> Personne rattaché au contrat collectif </p>
                             <div style="padding-left: 40px; margin-bottom: 30px;">
                                
 
@@ -81,14 +62,16 @@
                                     <div style="margin-bottom: 20px;">
                                         <p style="color:#167ce9;"> Ayant droit</p>
                                         <div style="margin-left: 20px;">
-                                            <p>Nom : <c:out value="${contratIndiv.getCleCompteAssure().getCleParticulier().getNom()}"/></p>
-                                            <p>PrÃ©nom : <c:out value="${contratIndiv.getCleCompteAssure().getCleParticulier().getPrenom()}"/></p>
+                                            <p>Nom : <c:out value="${requestScope.contratIndiv.getCleCompteAssure().getCleParticulier().getNom()}"/></p>
+                                            <p>Prénom : <c:out value="${requestScope.contratIndiv.getCleCompteAssure().getCleParticulier().getPrenom()}"/></p>
                                         </div>
                                     </div>
                                 </c:forEach>
                                 
                                  
-                               
+                                <c:choose>
+                                  
+                                </c:choose>
                             </div>          
                         </div>
                     </div>

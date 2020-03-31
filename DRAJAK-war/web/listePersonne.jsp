@@ -6,9 +6,11 @@
 <%@page import="Entity.PersonneMorale"%>
 <%@page import="Entity.Particulier"%>
 <%@page import="java.util.List"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <jsp:useBean id="listeParticulier" scope="request" class="java.util.List"></jsp:useBean>
 <jsp:useBean id="listePersMorale" scope="request" class="java.util.List"></jsp:useBean>
     <!DOCTYPE html>
@@ -31,6 +33,22 @@
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
             <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
+        
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
         
         <h1>Afficher particulier</h1>
         <TABLE border width=50%>

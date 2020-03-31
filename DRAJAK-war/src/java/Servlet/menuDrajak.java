@@ -105,7 +105,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("Assure_GestionContrat_ListeContrat") && !act.equals("Morale_GestionContrat_ListeContrat") && !act.equals("Gestionnaire_ListeContrat") && !act.equals ("Assure_GestionContrat_detailContrat"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("Assure_GestionContrat_ListeContrat") && !act.equals("Morale_GestionContrat_ListeContrat") && !act.equals("Gestionnaire_ListeContrat") && !act.equals ("Assure_GestionContrat_detailContrat")&& !act.equals( "Collectif_GestionContrat_detailContrat"))) {
       
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
@@ -1129,26 +1129,32 @@ public class menuDrajak extends HttpServlet {
                 case "Collectif_GestionContrat_detailContrat":
                 case "GestionnaireM_GestionContrat_detailContrat":
                     jspAffiche = "/gestionContratCollectif_DetailsContrat.jsp";
-                    
+                    message = "";
                     String ContratCollectifDetail=request.getParameter("idc");
-                    System.out.println("String Contra detail"+ContratCollectifDetail);
+                    System.out.println("String Contra detail" +ContratCollectifDetail);
                      
                     long idContratCollectifDetail =Long.parseLong(ContratCollectifDetail);
-                    System.out.println("Long Contra detail"+idContratCollectifDetail);
+                    System.out.println("Long Contra detail" +idContratCollectifDetail);
                     ContratCollectif contratCollectifDetail = null;
                   
                     
                     if (sessionEntreprise!=null){
                         contratCollectifDetail = assureSession.RechercherContratCollectifParId(idContratCollectifDetail);
+                        System.out.println("Parti 1");
                     } else {
                         contratCollectifDetail = gestionSession.RechercherContratCollectifParId(idContratCollectifDetail);
+                        System.out.println("Parti 2");
                     }
                     if (contratCollectifDetail == null){
                         message="Aucun contrat n'a été trouvé";
+                        System.out.println("Parti 3");
                     } else {
                         request.setAttribute("contrat", contratCollectifDetail);
+                        System.out.println("Parti 4");
                         List <ContratIndividuel> listeContratIndiv = contratCollectifDetail.getContratIndividuels();
-                        if (listeContratIndiv!=null){request.setAttribute("listeContratIndiv", listeContratIndiv);}}
+                        if (listeContratIndiv!=null){request.setAttribute("listeContratIndiv", listeContratIndiv);
+                                System.out.println("Parti 5");}
+                    }
                     break;
                 
                     
