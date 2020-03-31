@@ -4,49 +4,56 @@
     Author     : A.JOURNET
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Creer Garantie</title>
+
+        <title>CrÈer Garantie</title>
+         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+        <link href="remedic/css/login.css">
+        <%@include file="Shared/link_head.jsp" %>
     </head>
     <body>
+          
+        
         <c:choose>
             <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
-            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+            <c:otherwise><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:otherwise>
         </c:choose>
-         <div class="modal-content">
+        
+        <div class="modal-content">
             <div class="modal-body">
-                
                     <div class="col-md-3">
-                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                            <div class="form-group">                                
-                                <label class="sr-only" for="Libelle">Libelle</label>
-                                <input type="text" class="form-control"placeholder="Libelle" required>
+                        <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+                            <div class="form-group">               
+                                  
+                                <label class="sr-only" for="libelle">Libelle</label>
+                                <input name="libelle" type="text" class="form-control"placeholder="Libelle Garantie" required>
                                
-                                <p>Type produit :</p>
+                                <p>Type Remboursement :</p>
                                 <div>
-                                    <input type="radio" id="homme" name="type produit" value="individuel" checked>
-                                    <label for="individuel">individuel </label>
-                                    <input type="radio" id="femme" name="genre" value="femme">
-                                    <label for="collectif"> collectif </label>
+                                    <input type="radio" id="BaseDeRemboursement" name="typeRemboursement" value="Base de remboursement" checked>
+                                    <label for="Base de remboursement">Base de remboursement </label>
+                                    <input type="radio" id="FraisReel" name="typeRemboursement" value="Frais Reel">
+                                    <label for="Frais Reel"> Frais RÈel </label>
                                 </div>
-                            </div>  
-                              <c:forEach items="${requestScope.listeTypeRemboursement}" var="elementRemboursement">
-                         <div>
-                        <input type="checkbox" id="listeremboursement" name="checkbox" value="${elementModules.getId()}"/>
-                             <label for="checkbox"><c:out value="${elementModules.getLibelleModule()}"/></label>
-                        </div>
-                         </c:forEach>
+                            </div> 
                             
+                              <div class="formulaire_devis">
                             
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+                                <input type="hidden" name="action" value="CreerGarantie"/>
+                                <button type="submit" class="btn btn-primary btn-block">Creer Garantie</button>
                             </div>
                         </form>
                     

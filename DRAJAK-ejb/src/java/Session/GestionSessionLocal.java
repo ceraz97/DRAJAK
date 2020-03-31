@@ -16,6 +16,7 @@ import Entity.PersonneMorale;
 import Entity.Produit;
 import Entity.TypeAyantDroit;
 import Entity.TypeModule;
+import Entity.TypeRemboursement;
 import Enum.Genre;
 import Enum.Role;
 import Enum.StatutPersonne;
@@ -39,14 +40,17 @@ public interface GestionSessionLocal {
 
     List ListerAllCompteEmploye();
     
-    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
-    List<Produit> afficherLesProduits();
-    List<Modules> afficherLesModules();
-    List<Garantie> afficherLesGaranties();
-    
     List ListerAllParticulier();
     
     List ListerAllPersonneMorale();
+    
+    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
+    
+    List<Produit> afficherLesProduits();
+    
+    List<Modules> afficherLesModules();
+    
+    List<Garantie> afficherLesGaranties();
     
     Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
     
@@ -63,7 +67,23 @@ public interface GestionSessionLocal {
      TypeModule AffecterTypeAModule(String libelle);
      
      Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+
+     
+     List<TypeRemboursement> afficherLesTypesRemboursement();
+     
+    TypeRemboursement AffecterTypeAGarantie(String libelle);
+    
+    Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement);
+     
+    
+
     ContratIndividuel RechercherContratIndivParId(long idContrat);
+
+
+
+
+    
+    
 
     List<Particulier> RechercherListeParticulier(String nSecu);
 
