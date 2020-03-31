@@ -940,8 +940,8 @@ public class menuDrajak extends HttpServlet {
 
                         assureSession.ModifierAdresse(adrNumModif, adrRueModif, adrCPModif, adrVilleModif, adrPaysModif, sessionAssure);
 
-                        message="Le changement d'adresse a bien ÈtÈ effectuÈ";
-                    } catch (Exception e){ message="Le changement d'adresse a ÈchouÈ";}
+                        message="Le changement d'adresse a bien été effectué";
+                    } catch (Exception e){ message="Le changement d'adresse a Èchoué";}
                     break;
                     
                 case "Assure_GestionContrat_detailContrat":
@@ -956,7 +956,7 @@ public class menuDrajak extends HttpServlet {
                         contratIndivDetail = gestionSession.RechercherContratIndivParId(idContratIndivDetail);
                     }
                     if (contratIndivDetail == null){
-                        message="Aucun contrat n'a ÈtÈ trouvÈ";
+                        message="Aucun contrat n'a été trouvé";
                     } else {
                         request.setAttribute("contrat", contratIndivDetail);
                         List <AyantDroit> listeAyantDroit = contratIndivDetail.getLesAyantDroits();
