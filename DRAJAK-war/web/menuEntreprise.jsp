@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +38,7 @@
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Bonjour, </h1>
-                        <p>"nom société"</p>
+                        <p><c:out value="${sessionScope.sessionEntreprise.getRaisonSociale()}"/></p>
                     </div>
                 </div>
             </div>
