@@ -77,6 +77,31 @@
                                     <p></p>
 
                                 </a>
+                                    <a href="creationModule.jsp" class="services-wrap ftco-animate">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="ion-ios-arrow-back"></span>
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </div>
+                                    <h2>Créer un module</h2>
+                                    <p></p>
+                                </a>
+                                
+                                     <a href="listeGarantie.jsp" class="services-wrap ftco-animate">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="ion-ios-arrow-back"></span>
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </div>
+                                    <h2>Liste de toutes les Garanties</h2>
+                                    <p></p>
+                                    
+                                     <a href="creationGarantie.jsp" class="services-wrap ftco-animate">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="ion-ios-arrow-back"></span>
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </div>
+                                    <h2>Créer une Garantie</h2>
+                                    <p></p>
+                                </a>
                             </div>
                         </div>
                     </div>

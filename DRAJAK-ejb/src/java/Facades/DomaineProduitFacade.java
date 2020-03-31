@@ -71,6 +71,6 @@ public class DomaineProduitFacade extends AbstractFacade<DomaineProduit> impleme
         return p;
     }
     
-    
+
     
 }

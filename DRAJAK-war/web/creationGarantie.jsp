@@ -10,10 +10,11 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<!DOCTYPE html>
 <html>
     <head>
 
-        <title>Créer Garantie</title>
+        <title>CrÈer Garantie</title>
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -21,14 +22,17 @@
         <%@include file="Shared/link_head.jsp" %>
     </head>
     <body>
+          
+        
         <c:choose>
             <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
-            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+            <c:otherwise><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:otherwise>
         </c:choose>
-         <div class="modal-content">
+        
+        <div class="modal-content">
             <div class="modal-body">
                     <div class="col-md-3">
                         <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
@@ -42,7 +46,7 @@
                                     <input type="radio" id="BaseDeRemboursement" name="typeRemboursement" value="Base de remboursement" checked>
                                     <label for="Base de remboursement">Base de remboursement </label>
                                     <input type="radio" id="FraisReel" name="typeRemboursement" value="Frais Reel">
-                                    <label for="Frais Reel"> Frais Réel </label>
+                                    <label for="Frais Reel"> Frais RÈel </label>
                                 </div>
                             </div> 
                             

@@ -57,7 +57,7 @@
                                 <p>Date création contrat : <c:out value="${fmtDateDebut}"/></p>
                                 <p>Date fin de contrat : <c:out value="${fmtDateFin}"/></p>
                             </div>
-                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-user"></i> Personne rattaché au contrat collectif/p>
+                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-user"></i> Personne rattaché au contrat collectif </p>
                             <div style="padding-left: 40px; margin-bottom: 30px;">
                                
 
@@ -65,8 +65,8 @@
                                     <div style="margin-bottom: 20px;">
                                         <p style="color:#167ce9;"> Ayant droit</p>
                                         <div style="margin-left: 20px;">
-                                            <p>Nom : <c:out value="${contratIndiv.getCleParticulier().getNom()}"/></p>
-                                            <p>Prénom : <c:out value="${contratIndiv.getCleParticulier().getPrenom()}"/></p>
+                                            <p>Nom : <c:out value="${requestScope.contratIndiv.getCleCompteAssure().getCleParticulier().getNom()}"/></p>
+                                            <p>Prénom : <c:out value="${requestScope.contratIndiv.getCleCompteAssure().getCleParticulier().getPrenom()}"/></p>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -74,13 +74,13 @@
                                  
                                 <c:choose>
                                     <c:when test="${ !empty sessionScope.sessionEntreprise }">
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
                                     </c:when>
                                     <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_VersRecherchePersonne&&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_VersRecherchePersonne&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_VersRecherchePersonne&&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
+                                        <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_VersRecherchePersonne&idc=${requestScope.contrat.getId()}'">Modifier le RIB</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>          
