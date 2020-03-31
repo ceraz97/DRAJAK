@@ -547,4 +547,14 @@ public class GestionSession implements GestionSessionLocal {
     }
     
     
+     @Override
+    public ContratCollectif RechercherContratCollectifParId(long idContrat) {
+        return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
+    }
+    
+    @Override
+     public List<ContratIndividuel> RechercherContratIndividuel(){
+     return contratIndividuelFacade.ListerAllContratIndividuel();
+     }
+    
 }

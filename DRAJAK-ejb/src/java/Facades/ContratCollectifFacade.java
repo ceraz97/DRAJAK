@@ -85,4 +85,25 @@ public class ContratCollectifFacade extends AbstractFacade<ContratCollectif> imp
         return listeDesContratsCollectifs;
     }
     
+     @Override
+    public List<ContratCollectif> RechercherContratIndividuelParMorale(PersonneMorale morale) {
+        List<ContratCollectif> listeContratRecherche;
+        String tx = "SELECT t FROM ContratCollectif AS t WHERE t.clePersonneMorale=:compte";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("compte", morale);
+        listeContratRecherche = req.getResultList();
+        return listeContratRecherche;
+    }
+    
+      @Override
+    public ContratCollectif RechercherContratCollectifParId(long idContrat) {
+        ContratCollectif ContratRecherche;
+        String tx = "SELECT t FROM ContratCollectif AS t WHERE t.id=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", idContrat);
+        ContratRecherche = (ContratCollectif)req.getSingleResult();
+        return ContratRecherche;
+    }
+
+    
 }

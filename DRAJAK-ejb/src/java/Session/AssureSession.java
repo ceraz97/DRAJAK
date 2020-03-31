@@ -8,6 +8,7 @@ package Session;
 import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
 import Entity.Modules;
@@ -25,6 +26,7 @@ import Enum.Genre;
 import Enum.StatutPersonne;
 import Facades.AyantDroitFacadeLocal;
 import Facades.CompteAssureFacadeLocal;
+import Facades.ContratCollectifFacadeLocal;
 import Facades.ContratIndividuelFacadeLocal;
 import Facades.GarantieFacadeLocal;
 import Facades.ModuleFacadeLocal;
@@ -86,6 +88,9 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+      @EJB
+    private ContratCollectifFacadeLocal contratCollectifFacade;
     
     
     
@@ -279,6 +284,15 @@ public class AssureSession implements AssureSessionLocal {
     }
     
     
+     @Override
+    public List<ContratCollectif> RechercherListeContratMorale(PersonneMorale persMorale) {
+        List<ContratCollectif> listecontrat = contratCollectifFacade.RechercherContratIndividuelParMorale(persMorale);
+        return listecontrat;
+    }
     
+    @Override
+    public ContratCollectif RechercherContratCollectifParId(long idContrat) {
+        return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
+    }
     
 }

@@ -63,12 +63,12 @@
 
                         <div class="tab-content pl-md-5" id="v-pills-tabContent">
 
-                            <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
-                                <span class="icon mb-3 d-block flaticon-cardiogram"></span>
-                                <h2 class="mb-4">Cardiology Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                           <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
+                                <span><i style="font-size: 7em; color: #167ce9;margin-bottom: 20px;" class="far fa-file-alt"></i></span>
+                                <h2 class="mb-4">Gérer mes contrats</h2>
+                                <p>Accédez à vos contrats simplement.</p>
+                                <p>Consulter la totalité de vos contrats ainsi que les personnes qui y sont rattachées.</p>
+                                <p><a onclick="location.href = 'menuDrajak?action=Morale_GestionContrat_ListeContrat'" class="btn btn-primary">Accéder aux contrats</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">

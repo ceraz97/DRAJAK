@@ -46,4 +46,8 @@ public interface ContratCollectifFacadeLocal {
     void SupprimerContratCollectif(ContratCollectif contratCollectif);
     
     List<ContratCollectif> ListerAllContratCollectif();
+    
+    List<ContratCollectif> RechercherContratIndividuelParMorale(PersonneMorale morale);
+    
+    ContratCollectif RechercherContratCollectifParId(long idContrat);
 }

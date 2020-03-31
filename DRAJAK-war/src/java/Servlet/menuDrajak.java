@@ -19,6 +19,7 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -37,6 +38,7 @@ import static java.util.Calendar.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -103,7 +105,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf") )) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("Assure_GestionContrat_ListeContrat")&& !act.equals("Morale_GestionContrat_ListeContrat") && !act.equals("Gestionnaire_ListeContrat") )) {
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
             if (act.substring(0, 5).equals("Assure")) {
@@ -866,7 +868,7 @@ public class menuDrajak extends HttpServlet {
                     System.out.println("libelle "+libelleModule);
                     String TypeModule = request.getParameter("typeModule");
                     System.out.println("tyep "+TypeModule);
-                   
+                  
                     TypeModule tp;
                     List  <Garantie> listeGaranties = new ArrayList<> ();
                    
@@ -1102,6 +1104,119 @@ public class menuDrajak extends HttpServlet {
                         message = "Erreur : un problème est survenu";
                     }
                     break;
+                    
+                    
+                case "Morale_GestionContrat_ListeContrat":
+                    jspAffiche = "/gestionContratMenu_Morale.jsp";
+                    message = "";
+                    List listeContratsM = assureSession.RechercherListeContratMorale(sessionEntreprise);
+                    if (listeContratsM == null){
+                        message="Aucun contrat n'a été trouvé";
+                    }
+                    try {
+                        request.setAttribute("listeContratsM", listeContratsM);}
+                    catch (Exception e){}
+                    break;
+               
+                case "Morale_Modification_Rib":
+                    jspAffiche = "/modificationRibMorale.jsp";
+                    message = "";
+                    
+                    break;  
+                    
+                         
+                case "Collectif_GestionContrat_detailContrat":
+                case "GestionnaireM_GestionContrat_detailContrat":
+                    jspAffiche = "/gestionContratCollectif_DetailsContat.jsp";
+                    String ContratCollectifDetail=request.getParameter("idc");
+                    long idContratCollectifDetail =Long.parseLong(ContratCollectifDetail);
+                    ContratCollectif contratCollectifDetail = null;
+                  
+                    
+                    if (sessionEntreprise!=null){
+                        contratCollectifDetail = assureSession.RechercherContratCollectifParId(idContratCollectifDetail);
+                    } else {
+                        contratCollectifDetail = gestionSession.RechercherContratCollectifParId(idContratCollectifDetail);
+                    }
+                    if (contratCollectifDetail == null){
+                        message="Aucun contrat n'a été trouvé";
+                    } else {
+                        request.setAttribute("contrat", contratCollectifDetail);
+                        List <ContratIndividuel> listeContratIndiv = contratCollectifDetail.getContratIndividuels();
+                        if (listeContratIndiv!=null){request.setAttribute("listeContratIndiv", listeContratIndiv);}
+                    break;}
+                
+                    
+                    
+                case "Gestionnaire_ListeContrat":
+                    jspAffiche = "/listeContratRealiseGestionnaire.jsp";
+                    message = "";
+                    List listeContratsR = gestionSession.RechercherContratIndividuel();
+                    if (listeContratsR == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                  try {
+                        request.setAttribute("listeContratsR", listeContratsR);}
+                    catch (Exception e){}
+                    break;
+                    
+                case "RechercherContratGestionnaireBouton":
+                    jspAffiche = "/informationContratRechercherGestionnaire.jsp";
+                    message = "";
+                    
+                    
+                     String id = request.getParameter("idcontrat");
+                     Long idd = Long.valueOf(id);
+                    if (id==null ) {
+                        message="Erreur : Le champs Id n'est pas rempli";
+                    
+                    } else {
+                     ContratIndividuel ci;
+                     ci = gestionSession.RechercherContratIndivParId(idd);
+                     if (ci == null) {
+                            message = "Aucun contrat n'a été trouvé";
+                        } else {
+                            request.setAttribute("contrat", ci);
+                             List <AyantDroit> listeAyantDroit = ci.getLesAyantDroits();
+                             if (listeAyantDroit!=null){request.setAttribute("listeAyantDroit", listeAyantDroit);}
+                        }
+                    }
+                    break;
+                    
+                case "RechercherContratGestionnaireListe":
+                    jspAffiche = "/informationContratRechercherGestionnaire.jsp";
+                    message = "";
+                    String idContrat=request.getParameter("idc");
+                    long idContratd =Long.valueOf(idContrat);
+                    
+                    if (idContrat==null ) {
+                        message="Erreur : Le champs Id n'est pas rempli";
+                    } else {
+                     ContratIndividuel ci;
+                     ci = gestionSession.RechercherContratIndivParId(idContratd);
+                     if (ci == null) {
+                            message = "Aucun contrat n'a été trouvé";
+                        } else {
+                            request.setAttribute("contrat", ci);
+                            List <AyantDroit> listeAyantDroit = ci.getLesAyantDroits();
+                            if (listeAyantDroit!=null){request.setAttribute("listeAyantDroit", listeAyantDroit);}
+                        }
+                    }
+                    break;
+                    
+                   
+                     
+                  
+                    
+  
+
+                        
+                   
+                      
+                    
+                    
+                    
+                 
             }
             
         }

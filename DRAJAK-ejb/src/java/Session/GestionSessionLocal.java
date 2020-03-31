@@ -7,6 +7,7 @@ package Session;
 
 import Entity.AyantDroit;
 import Entity.CompteEmploye;
+import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
 import Entity.Garantie;
@@ -96,6 +97,8 @@ public interface GestionSessionLocal {
 
     AyantDroit RechercherAyantDroitParID(long idAD);
 
-   
+    ContratCollectif RechercherContratCollectifParId(long idContrat);
+    
+    List<ContratIndividuel> RechercherContratIndividuel();
    
 }

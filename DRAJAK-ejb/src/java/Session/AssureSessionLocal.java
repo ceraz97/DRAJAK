@@ -8,6 +8,7 @@ package Session;
 import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
 import Entity.Modules;
@@ -91,5 +92,9 @@ public interface AssureSessionLocal {
     void SupprimerAyantDroit(AyantDroit AD);
 
     AyantDroit RechercherAyantDroitParId(long idAD);
+    
+    List<ContratCollectif> RechercherListeContratMorale(PersonneMorale persMorale);
+    
+    ContratCollectif RechercherContratCollectifParId(long idContrat);
 
 }
