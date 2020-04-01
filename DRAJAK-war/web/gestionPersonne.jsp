@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,26 +21,13 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-            <div class="container">
-                <a class="navbar-brand" href="menuAdministrateur.jsp"><i class="flaticon-pharmacy"></i><span>Dr</span>ajak</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="oi oi-menu"></span> Menu
-                </button>
-
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="menuAdministrateur.jsp" class="nav-link">Gestion personnel</a></li>
-                        <li class="nav-item"><a href="gestionPersonne.jsp" class="nav-link">Gestion personne</a></li>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link">Gestion contrats</a></li>
-                        <li class="nav-item"><a href="particulier.jsp" class="nav-link">Gestion produits</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>
-                        <li class="nav-item cta"><a href="accueilEmploye.jsp" class="nav-link"><span>Se déconnecter</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- END nav -->
+        <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed;">
             <div class="overlay"></div>
@@ -50,6 +40,22 @@
             </div>
         </div>
 
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
+        
         <section class="ftco-section-2 img" style="background-image: url(remedic/images/bg_3.jpg);">
             <div class="container">
                 <div class="row d-md-flex justify-content-end">

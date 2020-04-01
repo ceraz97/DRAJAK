@@ -5,8 +5,10 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
 import Entity.Modules;
@@ -18,10 +20,13 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
+import Facades.AyantDroitFacadeLocal;
 import Facades.CompteAssureFacadeLocal;
+import Facades.ContratCollectifFacadeLocal;
 import Facades.ContratIndividuelFacadeLocal;
 import Facades.GarantieFacadeLocal;
 import Facades.ModuleFacadeLocal;
@@ -31,6 +36,7 @@ import Facades.PersonneMoraleFacadeLocal;
 import Facades.PersonnePubliqueFacadeLocal;
 import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
+import Facades.TypeAyantDroitFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +49,12 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AssureSession implements AssureSessionLocal {
+
+    @EJB
+    private AyantDroitFacadeLocal ayantDroitFacade;
+
+    @EJB
+    private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
 
     @EJB
     private PersonnePubliqueFacadeLocal personnePubliqueFacade;
@@ -76,6 +88,11 @@ public class AssureSession implements AssureSessionLocal {
 
     @EJB
     private CompteAssureFacadeLocal compteAssureFacade;
+    
+      @EJB
+    private ContratCollectifFacadeLocal contratCollectifFacade;
+    
+    
     
     
     
@@ -125,7 +142,7 @@ public class AssureSession implements AssureSessionLocal {
         return compteAssureFacade.CreerCompteAssure(mdp, cleParticulier, cleRegimeSocial);
     }
     @Override
-    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne) {
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
@@ -209,6 +226,73 @@ public class AssureSession implements AssureSessionLocal {
     public ContratIndividuel RechercherContratIndivParId(long idContrat) {
         return contratIndividuelFacade.RechercherContratIndivParId(idContrat);
     }
+
+    @Override
+    public void ModifierMotDePasse(String mdp, CompteAssure CompteA) {
+        CompteA.setMdp(mdp);
+        compteAssureFacade.ModifierCompteAssure(CompteA);
+    }
+
+    @Override
+    public void ModifierAdresse(String num, String rue, String cp, String ville, String pays, CompteAssure cptA) {
+        Particulier p = cptA.getCleParticulier();
+        String adresse [] = p.getAdresse().split(",");
+        String newNum, newRue, newCP, newVille, newPays, newAdresse;
+        if (num.equals("")){ newNum = adresse[0];} else {newNum = num;}
+        if (rue.equals("")){ newRue = adresse[1];} else {newRue = rue;}
+        if (cp.equals("")){ newCP = adresse[2];} else {newCP = cp;}
+        if (ville.equals("")){ newVille = adresse[3];} else {newVille = ville;}
+        if (pays.equals("")){ newPays = adresse[4];} else {newPays = pays;}
+        newAdresse=newNum+","+newRue+","+newCP+","+newVille+","+newPays;
+        p.setAdresse(newAdresse);
+        particulierFacade.ModifierParticulier(p);
+    }
+
+    @Override
+    public List<Particulier> RechercherListeParticulier(String nSecu) {
+        return particulierFacade.RechercherListeParticulier(nSecu);
+    }
+
+    @Override
+    public List ListerAllTypeAyantDroit() {
+        return typeAyantDroitFacade.ListerAllTypeAyantDroit();
+    }
+
+    @Override
+    public Particulier RechercherParticulierParId(long idParticulier) {
+        return particulierFacade.RechercherParticulierParID(idParticulier);
+    }
+
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, Contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long idType) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParId(idType);
+    }
+
+    @Override
+    public void SupprimerAyantDroit(AyantDroit AD) {
+        ayantDroitFacade.SupprimerAyantDroit(AD);
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParId(long idAD) {
+        return ayantDroitFacade.RechercherAyantDroitParId(idAD);
+    }
     
+    
+     @Override
+    public List<ContratCollectif> RechercherListeContratMorale(PersonneMorale persMorale) {
+        List<ContratCollectif> listecontrat = contratCollectifFacade.RechercherContratIndividuelParMorale(persMorale);
+        return listecontrat;
+    }
+    
+    @Override
+    public ContratCollectif RechercherContratCollectifParId(long idContrat) {
+        return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
+    }
     
 }

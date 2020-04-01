@@ -88,6 +88,32 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
             p = (Particulier) result.get(0);
         }
         return p;
-    } 
+    }
+
+    @Override
+    public List <Particulier> RechercherListeParticulier(String nSecu) {
+        List ListerParticulier;
+        String tx = "SELECT P FROM Particulier AS P WHERE p.nSecuriteSocial=:secu";
+        Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("secu", nSecu);
+        ListerParticulier=req.getResultList();
+        return ListerParticulier;
+    }
+
+    @Override
+    public Particulier RechercherParticulierParID(long id) {
+        Particulier p=null;
+        String txt = "SELECT p FROM Particulier P WHERE p.id=:idParticulier ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("idParticulier", id);
+        List<Particulier> result = req.getResultList();
+        if (result.size() == 1) {
+            p = (Particulier) result.get(0);
+        }
+        return p;
+    }
+    
+    
+    
         
 }

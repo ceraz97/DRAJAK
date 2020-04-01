@@ -21,13 +21,7 @@
 
     <body>
         <script type="text/javascript">
-            function getConfirmResiliation(nomContrat,idContrat)  {
-                var result = confirm("Voulez vous résilier le contrat "+nomContrat+"?");
-                if(result)  {
-                    location.href = "menuDrajak?action=Assure_GestionContrat_resilier&idc="+idContrat;
-                } 
-            }
-            
+        
         </script>    
 
         <c:choose>
@@ -42,6 +36,7 @@
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
+                  <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Gérer vos contrats</h1>                   
@@ -50,22 +45,6 @@
             </div>
         </div>
 
-        <p class="message-attribut">
-            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
-            <c:choose>
-                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
-                    <span class="message_erreur">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="message_normal">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:otherwise>
-            </c:choose>
-        </p>
-        
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
@@ -81,7 +60,7 @@
                                 <th>Paiement</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${requestScope.listeContrats}" var="document">
+                            <c:forEach items="${requestScope.listeContratsM}" var="document">
                                 <tr>
                                     <td id="td1">
                                         <c:out value="${document.getLibelleContrat()}" />
@@ -105,14 +84,14 @@
                                     </td>
                                     <td id="TD7">
                                         <c:choose>
-                                            <c:when test="${ !empty sessionScope.sessionAssure }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                            <c:when test="${ !empty sessionScope.sessionEntreprise }">
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Collectif_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                         </c:choose>
-                                        <c:if test="${document.getStatut() eq 'Actif'}"><button class="btn btn-primary btn-co" onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
+                                      
                                     </td>
                                 </tr>
                             </c:forEach>

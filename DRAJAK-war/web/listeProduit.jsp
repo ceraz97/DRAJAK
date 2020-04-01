@@ -11,6 +11,10 @@
 <%@page import="java.util.List"%>
 <%@page import="Session.GestionSession"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,12 +24,31 @@
        
     </head>
     <body>
+        
+         <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
         <h1>Liste des produits</h1>
-        <p><%
-            String attribut =(String) request.getAttribute("message");
-            out.println(attribut);
-%></p>
-            
+        
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
 
             <Table border width="50%">
                 

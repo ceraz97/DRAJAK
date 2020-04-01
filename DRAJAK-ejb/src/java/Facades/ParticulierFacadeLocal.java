@@ -44,4 +44,9 @@ public interface ParticulierFacadeLocal {
     void SupprimerParticulier(Particulier p);
     
     Particulier RechercherParticulier(String nSecu);
+
+    List <Particulier> RechercherListeParticulier(String nSecu);
+
+    Particulier RechercherParticulierParID(long id);
+    
 }

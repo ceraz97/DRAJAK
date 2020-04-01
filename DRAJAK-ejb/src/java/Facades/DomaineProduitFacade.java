@@ -57,7 +57,20 @@ public class DomaineProduitFacade extends AbstractFacade<DomaineProduit> impleme
         listeDesDomainesProduits=req.getResultList();
         return listeDesDomainesProduits;
     }
+
+    @Override
+    public DomaineProduit RechercherDomaineParLibelle (String libelle) {
+      DomaineProduit p = null;
+      String tx = "SELECT DP FROM DomaineProduit AS DP WHERE DP.libelleDomaineProduit=:domaine";
+      Query req = getEntityManager().createQuery(tx);
+      req.setParameter("domaine",libelle);
+      List<DomaineProduit> result = req.getResultList();
+      if (result.size() == 1) {
+            p = (DomaineProduit) result.get(0);
+        }
+        return p;
+    }
     
-    
+
     
 }

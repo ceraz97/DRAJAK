@@ -6,10 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Créer gestionnaire</title>
+        <title>Résiliation de contrat</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -40,6 +42,22 @@
             </div>
         </div>
 
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
+        
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
@@ -48,21 +66,23 @@
                             <div class="row">
                                 <div class="col-md-8" style="position: relative; margin: auto;">
                                     <c:if test="${ !empty fichier }"><p><c:out value="Le fichier ${ fichier } (${ description }) a été uploadé !" /></p></c:if>
-                                    <form method="post" action="bonjour" enctype="multipart/form-data">
+                                    <form method="post" action="menuDrajak" enctype="multipart/form-data">
                                         <p><c:out value="Vous souhaitez résilier le contrat ${requestScope.contrat.getLibelleContrat()}"/></p>
                                         <p>
                                             <label for="fichier">Fichier à envoyer : </label>
                                             <input type="file" name="fichier" id="fichier" />
                                         </p>
-
-                                        <input type="submit" />
+                                        <div style="margin: auto; position: relative; display: block; text-align: center;">
+                                            <input type="hidden" name="action" value="Assure_GestionContrat_ResiliationUpload"/>
+                                            <button type="submit" class="btn btn-primary btn-co">Envoyer</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>        
                         </div>
                     </div>
                 </div>
-
+            </div>
         </section>
         <%@include file="Shared/ElementFooter.jsp" %>
 

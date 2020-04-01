@@ -163,6 +163,8 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         ContratRecherche = (ContratIndividuel)req.getSingleResult();
         return ContratRecherche;
     }
+   
+    
     
     
     

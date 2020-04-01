@@ -34,4 +34,5 @@ public interface TypeRemboursementFacadeLocal {
 
     List<TypeRemboursement> ListerAllTypeRemboursement();
     
+    TypeRemboursement RechercherTypeModuleParLibelle (String libelle);
 }

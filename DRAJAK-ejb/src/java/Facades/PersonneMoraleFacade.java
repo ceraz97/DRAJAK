@@ -67,7 +67,7 @@ public class PersonneMoraleFacade extends AbstractFacade<PersonneMorale> impleme
     @Override
     public PersonneMorale AuthentifierCompteEntreprise(String login, String mdp) {
         PersonneMorale pm;
-        String txt = "SELECT log FROM CompteAssure AS log WHERE log.login=:Login and log.mdp=:Mdp";
+        String txt = "SELECT log FROM PersonneMorale AS log WHERE log.login=:Login and log.mdp=:Mdp";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("Login", login);
         req = req.setParameter("Mdp", mdp);

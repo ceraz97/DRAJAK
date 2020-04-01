@@ -47,6 +47,16 @@ public class TypeAyantDroitFacade extends AbstractFacade<TypeAyantDroit> impleme
         listeDesTypeAyantDroit=req.getResultList();
         return listeDesTypeAyantDroit;
     }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long id) {
+        TypeAyantDroit TypeAyantDroitRecherche;
+        String tx = "SELECT t FROM TypeAyantDroit AS t WHERE t.id=:idType";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idType", id);
+        TypeAyantDroitRecherche = (TypeAyantDroit)req.getSingleResult();
+        return TypeAyantDroitRecherche;
+    }
     
     
     

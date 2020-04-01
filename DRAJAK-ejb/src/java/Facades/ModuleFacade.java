@@ -54,15 +54,17 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
         getEntityManager().merge(module);
     }
 
+    
     @Override
-    public List ListerAllModule() {
-        List listeDesModules;
+    public List<Modules> ListerAllModule() {
+        List <Modules>listeDesModules;
         String tx = "SELECT M FROM Modules AS M";
         Query req = getEntityManager().createQuery(tx);
         listeDesModules=req.getResultList();
-        return listeDesModules;
-    }
-
+        return listeDesModules;}
+    
+    
+    
     @Override
     public Modules RechercherModule(String libelle, TypeModule type) {
         Modules modulesInstance;
@@ -74,7 +76,26 @@ public class ModuleFacade extends AbstractFacade<Modules> implements ModuleFacad
         return modulesInstance;
     }
     
+    @Override
+    public Modules RechercherModuleId(Long Id) {
+        Modules modulesInstance;
+        String tx = "SELECT m FROM Modules AS m WHERE m.id=:idmodule";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idmodule", Id);
+        modulesInstance = (Modules) req.getSingleResult();
+        return modulesInstance;
+    }
     
+            @Override
+    public Modules CreerModules(String libelle, TypeModule typeModules, List<Garantie> listeGarantie) {
+        Modules moduleInstance = new Modules ();
+        moduleInstance.setLibelleModule(libelle);
+        moduleInstance.setCleTypeModule(typeModules);
+        moduleInstance.setLesGaranties(listeGarantie);
+        getEntityManager().persist(moduleInstance);
+        return moduleInstance;
+    }
+
     
-    
+ 
 }

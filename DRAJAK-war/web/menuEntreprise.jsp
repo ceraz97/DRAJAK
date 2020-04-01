@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +24,13 @@
 
     <body>
 
-        <%@include file="Menus/NavBar_entreprise.jsp" %>
+        <c:choose>
+            <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
+            <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
+            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+        </c:choose>
 
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed;">
             <div class="overlay"></div>
@@ -29,11 +38,27 @@
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Bonjour, </h1>
-                        <p>"nom société"</p>
+                        <p><c:out value="${sessionScope.sessionEntreprise.getRaisonSociale()}"/></p>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
 
         <section class="ftco-services">
             <div class="container">
@@ -57,12 +82,12 @@
 
                         <div class="tab-content pl-md-5" id="v-pills-tabContent">
 
-                            <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
-                                <span class="icon mb-3 d-block flaticon-cardiogram"></span>
-                                <h2 class="mb-4">Cardiology Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                           <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
+                                <span><i style="font-size: 7em; color: #167ce9;margin-bottom: 20px;" class="far fa-file-alt"></i></span>
+                                <h2 class="mb-4">Gérer mes contrats</h2>
+                                <p>Accédez à vos contrats simplement.</p>
+                                <p>Consulter la totalité de vos contrats ainsi que les personnes qui y sont rattachées.</p>
+                                <p><a onclick="location.href = 'menuDrajak?action=Morale_GestionContrat_ListeContrat'" class="btn btn-primary">Accéder aux contrats</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">

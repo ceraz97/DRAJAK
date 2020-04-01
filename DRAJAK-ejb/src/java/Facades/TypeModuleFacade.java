@@ -32,7 +32,7 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
     }
 
     @Override
-    public TypeModule CreerTypeModule(String libelle) {
+    public TypeModule CreerTypeModule(String libelle){
         TypeModule typeModuleInstance= new TypeModule ();
         typeModuleInstance.setLibelleTypeModule(libelle);
         getEntityManager().persist(typeModuleInstance);
@@ -58,7 +58,18 @@ public class TypeModuleFacade extends AbstractFacade<TypeModule> implements Type
         return typeModuleInstance;
     }
     
-    
+    @Override
+    public TypeModule RechercherTypeModuleParLibelle (String libelle) {
+      TypeModule p = null;
+      String tx = "SELECT DP FROM TypeModule AS DP WHERE DP.libelleTypeModule=:domaine";
+      Query req = getEntityManager().createQuery(tx);
+      req.setParameter("domaine",libelle);
+      List<TypeModule> result = req.getResultList();
+      if (result.size() == 1) {
+            p = (TypeModule) result.get(0);
+        }
+        return p;
+    }
     
     
     

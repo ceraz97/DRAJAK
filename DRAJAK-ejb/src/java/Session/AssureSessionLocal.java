@@ -5,8 +5,10 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
 import Entity.Modules;
@@ -19,6 +21,7 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.TypeAyantDroit;
 import Entity.TypeModule;
 import Enum.Genre;
 import Enum.StatutPersonne;
@@ -44,7 +47,7 @@ public interface AssureSessionLocal {
 
     CompteAssure CreerCompteAssure(String mdp, Particulier cleParticulier, RegimeSocial cleRegimeSocial);
 
-    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr, StatutPersonne statutPersonne);
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
 
     boolean RechercherExistenceAssurePourBDD();
 
@@ -71,5 +74,27 @@ public interface AssureSessionLocal {
     List<ContratIndividuel> RechercherListeContratAssure(CompteAssure cptAssure);
 
     ContratIndividuel RechercherContratIndivParId(long idContrat);
+
+    void ModifierMotDePasse(String mdp, CompteAssure CompteA);
+
+    void ModifierAdresse(String num, String rue, String cp, String ville, String pays, CompteAssure cptA);
+
+    List<Particulier>  RechercherListeParticulier(String nSecu);
+
+    List ListerAllTypeAyantDroit();
+
+    Particulier RechercherParticulierParId(long idParticulier);
+
+    AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat);
+
+    TypeAyantDroit RechercherTypeAyantDroitParId(long idType);
+
+    void SupprimerAyantDroit(AyantDroit AD);
+
+    AyantDroit RechercherAyantDroitParId(long idAD);
+    
+    List<ContratCollectif> RechercherListeContratMorale(PersonneMorale persMorale);
+    
+    ContratCollectif RechercherContratCollectifParId(long idContrat);
 
 }

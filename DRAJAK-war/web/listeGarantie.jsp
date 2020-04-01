@@ -3,6 +3,7 @@
     Created on : 12 mars 2020, 13:46:20
     Author     : Ilkayk
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,21 +22,21 @@
 
     <body>
         <script type="text/javascript">
-            function getConfirmResiliation(nomContrat,idContrat)  {
-                var result = confirm("Voulez vous résilier le contrat "+nomContrat+"?");
+            function getCreerGarantie(LibelleGarantie,CleTypeRemboursement)  {
+                var result = confirm("Voulez vous quitter la page ?");
                 if(result)  {
-                    location.href = "menuDrajak?action=Assure_GestionContrat_resilier&idc="+idContrat;
+                    location.href = "menuDrajak?action=Redirection_CreationGarantie";
                 } 
             }
             
-        </script>    
+      </script>    
 
         <c:choose>
             <c:when test="${ !empty sessionScope.sessionAssure }"><%@include file="Menus/NavBar_assure.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionGestionnaire }"><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionEntreprise }"><%@include file="Menus/NavBar_entreprise.jsp" %></c:when>
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
-            <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
+            <c:otherwise><%@include file="Menus/NavBar_gestionnaire.jsp" %></c:otherwise>
         </c:choose>
 
 
@@ -44,13 +45,13 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Gérer vos contrats</h1>                   
+                        <h1 class="mb-4">Selectionner des garanties</h1>                   
                     </div>
                 </div>
             </div>
         </div>
-
-        <p class="message-attribut">
+      
+      <p class="message-attribut">
             <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
             <c:choose>
                 <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
@@ -65,62 +66,61 @@
                 </c:otherwise>
             </c:choose>
         </p>
-        
+
+           <script type="text/javascript">
+            function getConfirmCreationModule(libelleModule,libelleTypeModule)  {
+                var result = confirm("Voulez vous enregistrer le module "+libelleModule+"?");
+                if(result)  {
+                    location.href = "menuDrajak?action=CreerModule&idc=";
+                } 
+            }
+      </script>  
+      
+      <%  
+            String attribut=(String)request.getAttribute("message");
+            boolean b = attribut.toLowerCase().contains("erreur");
+            if (b==true){%>
+                <span class="message_erreur">
+                    <%out.println(attribut);%>
+                </span>
+            <% } else {%>
+                <span class="message_normal">
+                    <%out.println(attribut);%>
+                </span>
+            <% }
+        %>
+
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
                     <div class="formulaire_devis">
+                                 
                         <table>
                             <!-- here should go some titles... -->
                             <tr style="border-bottom: 1px solid #167ce9;">
-                                <th>Contrat</th>
-                                <th>Date d'effet</th>
-                                <th>Date de fin</th>
-                                <th>Statut</th>
-                                <th>Type</th>
-                                <th>Paiement</th>
+                                <th>libelle</th>
+                                <th>Type remboursement</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${requestScope.listeContrats}" var="document">
+                            <c:forEach items="${requestScope.listeGarantie}" var="document">
+                              <c:forEach items="${requestScope.listeObjetGarantie}" var="doc">
                                 <tr>
                                     <td id="td1">
-                                        <c:out value="${document.getLibelleContrat()}" />
+                                        <c:out value="${document.getLibelleGarantie()}" />
                                     </td>
-                                    <td id="td2">
-                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateCreation()}" pattern="dd/MM/yyyy"/>
-                                        <c:out value="${fmtDateDebut}" />
+                                     <td id="td2">
+                                        <c:out value="${doc.getLibelleTypeRemboursement()}" /> 
                                     </td>
-                                    <td id="td3">
-                                        <fmt:formatDate var="fmtDateFin" value="${document.getDateFin()}" pattern="dd/MM/yyyy"/>
-                                        <c:out value="${fmtDateFin}" />
-                                    </td>
-                                    <td id="td4">
-                                        <c:out value="${document.getStatut()}" />
-                                    </td>
-                                    <td id="td5">
-                                        <c:out value="${document.getType()}" />
-                                    </td>
-                                    <td id="TD6">
-                                        <c:out value="${document.getPaiement()}" />
-                                    </td>
-                                    <td id="TD7">
-                                        <c:choose>
-                                            <c:when test="${ !empty sessionScope.sessionAssure }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
-                                            </c:when>
-                                            <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
-                                            </c:when>
-                                        </c:choose>
-                                        <c:if test="${document.getStatut() eq 'Actif'}"><button class="btn btn-primary btn-co" onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>
-                                    </td>
-                                </tr>
+                                    </tr>
+                               </c:forEach>
                             </c:forEach>
                         </table>
-                    </div>
+                    </div>  
+                              <button onclick="getConfirmResiliation('${document.getLibelleGarantie()}', '${doc.getLibelleTypeRemboursement()}');">Valider le Module</button>
                 </div>
-
+                              <a onclick="location.href='menuDrajak?action=Redirection_CreationGarantie'" class="btn btn-primary btn-ajoute">Créer une garantie</a>
         </section>
+        
         <%@include file="Shared/ElementFooter.jsp" %>
 
         <!-- loader -->

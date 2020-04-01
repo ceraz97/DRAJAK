@@ -1,8 +1,9 @@
 <%-- 
-    Document   : creationPersonneMorale
-    Created on : 17 mars 2020, 15:00:36
-    Author     : Ilkayk
+    Document   : creationGestionnaire
+    Created on : 16 mars 2020, 10:43:48
+    Author     : Clément
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -10,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Créer gestionnaire</title>
+        <title>Demande de prise en charge</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -35,12 +36,12 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Créer une personne morale</h1>                   
+                        <h1 class="mb-4">Demande de prise en charge</h1>                   
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <p class="message-attribut">
             <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
             <c:choose>
@@ -64,34 +65,23 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-8" style="position: relative; margin: auto;">
-                                    <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
-                            <div class="form-group">                                
-                                <label class="sr-only" for="raisonSociale">Raison sociale</label>
-                                <input type="text" class="form-control" name="raisonSociale" placeholder="Raison sociale" required>
-                                <label class="sr-only" for="siret">Siret</label>
-                                <input type="number" class="form-control" name="siret" placeholder="Siret" required>
-                                <label class="sr-only" for="siren">Siren</label>
-                                <input type="number" class="form-control" name="siren" placeholder="Siren" required>
-                                <label class="sr-only" for="adresse">Adresse</label>
-                                <input type="text" class="form-control" name="adresse" placeholder="Adresse" required>
-                            </div>    
-                            <div class="form-group">    
-                                <label class="sr-only" for="mail">Adresse email</label>
-                                <input type="email" class="form-control" name="mail" placeholder="Adresse email" required>
-                                <label class="sr-only" for="mdp">Mot de passe</label>
-                                <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" name="action" value="CreerPersMorale"/>
-                                <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
-                            </div>
+                                    <form method="post" action="menuDrajak" enctype="multipart/form-data">
+                                        
+                                        <p>
+                                            <label for="fichier">Fichier à envoyer : </label>
+                                            <input type="file" name="fichier" id="fichier" />
+                                        </p>
+                                        <div style="margin: auto; position: relative; display: block; text-align: center;">
+                                            <input type="hidden" name="action" value="Assure_GestionContrat_ResiliationUpload"/>
+                                            <button type="submit" class="btn btn-primary btn-co">Envoyer</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>        
                         </div>
                     </div>
                 </div>
-
+            </div>
         </section>
         <%@include file="Shared/ElementFooter.jsp" %>
 
@@ -101,6 +91,21 @@
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
         </div>
+        <script>
+            function changeColor(s) {
+                if (s.options[s.selectedIndex].value == "") {
+                    s.style.color = "#a9a9a9";
+                } else {
+                    s.style.color = "black";
+                }
+            }
+        </script>
+        <style>
+            select option:first-child{color:grey; display: none;}
+            select option {color:black;}
+            input { margin-bottom: 1em;}
+        </style>
+
         <%@include file="Shared/script_js.jsp" %>
     </body>
 

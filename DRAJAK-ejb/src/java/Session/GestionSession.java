@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entity.AyantDroit;
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
 import Entity.Contrat;
@@ -64,6 +65,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -413,8 +415,7 @@ public class GestionSession implements GestionSessionLocal {
             @Override
     public List<Modules> afficherLesModules(){
  
-        List<Modules> listm = new ArrayList<Modules>(); 
-        listm = moduleFacade.ListerAllModule();
+        List<Modules> listm = moduleFacade.ListerAllModule();
         
         return listm;
     }
@@ -426,17 +427,136 @@ public class GestionSession implements GestionSessionLocal {
         listg =  garantieFacade.ListerAllGarantie();
         
         return listg;
-    }    
+    }
+    
+    public List<TypeRemboursement> afficherLesTypesRemboursement() {
+            List<TypeRemboursement> listp = typeRemboursementFacade.ListerAllTypeRemboursement();
+            return listp;
+                    
+                    }
+    
+    
+    
+    
+    
 
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
-    @Override
+   @Override
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
     }
+
+    @Override
+    public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules) {
+        Produit p;
+         p = produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
+         return p;  
+    }
+
+    @Override
+    public DomaineProduit AffecterDomaineAProduit(String libelle)  {
+        DomaineProduit p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
+        return p;
+    }
+    
+    @Override
+    public Modules RechercherModuleParId (Long Id){
+        Modules m;
+        m = moduleFacade.RechercherModuleId(Id);
+        return m;
+    }
+
+    @Override
+    public ContratIndividuel RechercherContratIndivParId(long idContrat) {
+        return contratIndividuelFacade.RechercherContratIndivParId(idContrat);
+    }
+
+    @Override
+    public List<Particulier>  RechercherListeParticulier(String nSecu) {
+        return particulierFacade.RechercherListeParticulier(nSecu);
+    }
+
+    
+     @Override
+    public Garantie RechercherGarantieParId (Long Id){
+        Garantie m;
+        m = garantieFacade.RechercherGarantieId(Id);
+        return m;
+    }
+
+    
+    @Override
+    public TypeModule AffecterTypeAModule(String libelle)  {
+        TypeModule p;
+        p = typeModuleFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
+
+    
+    @Override
+    public Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie) {
+        Modules p;
+         p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
+         return p;  
+    }
+
+    @Override
+    public List ListerAllTypeAyantDroit() {      
+        return typeAyantDroitFacade.ListerAllTypeAyantDroit();
+    }
+
+    @Override
+    public Particulier RechercherParticulierParId(long idParticulier) {
+        return particulierFacade.RechercherParticulierParID(idParticulier);
+    }
+
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParId(long idType) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParId(idType);
+    }
+
+    @Override
+    public void SupprimerAyantDroit(AyantDroit AD) {
+        ayantDroitFacade.SupprimerAyantDroit(AD);
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParID(long idAD) {
+        return ayantDroitFacade.RechercherAyantDroitParId(idAD);
+    }
+    
+     @Override
+    public TypeRemboursement AffecterTypeAGarantie(String libelle)  {
+        TypeRemboursement p;
+        p = typeRemboursementFacade.RechercherTypeModuleParLibelle(libelle);
+        return p;
+    }
+    
+    public Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement) {
+        Garantie g;
+        g = garantieFacade.CreerGarantie(libelle, typeRemboursement);
+        return g;
+    }
+    
+    
+     @Override
+    public ContratCollectif RechercherContratCollectifParId(long idContrat) {
+        return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
+    }
+    
+    @Override
+     public List<ContratIndividuel> RechercherContratIndividuel(){
+     return contratIndividuelFacade.ListerAllContratIndividuel();
+     }
     
     @Override
     public void ModifierCompteEmploye (CompteEmploye ce){

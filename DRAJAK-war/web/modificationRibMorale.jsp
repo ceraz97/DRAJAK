@@ -1,4 +1,4 @@
- <%-- 
+<%-- 
     Document   : creationProduit
     Created on : 25 mars 2020, 16:30:39
     Author     : A.JOURNET
@@ -16,7 +16,7 @@
 <html>
     <head>
 
-        <title>Créer produit</title>
+        <title>Modifier un RIB</title>
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -25,19 +25,7 @@
     </head>
     <body>
          <script type="text/javascript">
-            function getAjouterModule(id)  {
-              var result = confirm("Voulez vous ajouter de nouveau module ? Une réponse négative entrainera la création du produit ");
-                listemodule.push(id); 
-                if(result)  {
-                   
-               } 
-                else
-                {
-                return listemodule;
-                
-               //location.href = "menuDrajak?action=CreerProduit&idc="+listemodule;
-             
-                //} 
+          
             
       </script>    
         
@@ -49,44 +37,14 @@
             <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
         
-      <p class="message-attribut">
-            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
-            <c:choose>
-                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
-                    <span class="message_erreur">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="message_normal">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:otherwise>
-            </c:choose>
-        </p>
-        
-      <p class="message-attribut">
-            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
-            <c:choose>
-                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
-                    <span class="message_erreur">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="message_normal">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:otherwise>
-            </c:choose>
-        </p>
-        
         <div class="modal-content">
             <div class="modal-body">
                 
                     <div class="col-md-3">
                         <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
-                            <div class="form-group">                                
+                            <div class="form-group">   
+                                <label for="nomA1">Nom :</label>
+                                <input type="text" id="nomA1" name="nomA1" placeholder="Nom" value="${sessionScope.sessionAssure.getCleParticulier().getNom()}" disabled="disabled" required>
                                 <label class="sr-only" for="libelle">Libelle</label>
                                 <input name="libelle" type="text" class="form-control"placeholder="Libelle" required>
                                 <label class="sr-only" for="fiscalite">Fiscalite</label></p>

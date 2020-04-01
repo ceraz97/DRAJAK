@@ -10,5 +10,5 @@ package Enum;
  * @author clementratz
  */
 public enum StatutContrat {
-    Devis, enCoursDeTraitement, Resilie, Actif;
+    Devis, enCoursDeTraitement, Resilie, Actif, AttenteAdhesion;
 }
