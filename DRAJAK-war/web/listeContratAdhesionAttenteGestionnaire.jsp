@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Contrats réalisés </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,7 +39,7 @@
                   <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Modifier un gestionnaire</h1>                   
+                        <h1 class="mb-4">Les contrats d'adhesions en attente</h1>                   
                     </div>
                 </div>
             </div>
@@ -48,39 +48,65 @@
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
+                    
                     <div class="formulaire_devis">
-                        <table>
+                        
+                        <label class="sr-only" for="idcontrat">Id du contrat recherché</label>
+                        <input name="idcontrat" type="text" class="form-control"placeholder="idcontrat" required>
+                        
+                   
+                       <p> <input type="hidden" name="action" value="RechercherContratGestionnaireBouton"/>
+                        <button type="submit" class="btn btn-primary btn-co">Rechercher le contrat</button> </p>
+                        
                             <!-- here should go some titles... -->
+                           
+                        <table>
                             <tr style="border-bottom: 1px solid #167ce9;">
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Role</th>
+                                <th>Contrat</th>
+                                <th>Date d'effet</th>
+                                <th>Date de fin</th>
+                                <th>Statut</th>
+                                <th>Type</th>
+                                <th>Paiement</th>
+                                <th>Nom Gestionnaire</th>
+                                <th>Prenom Gestionnaire</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${requestScope.listeGestionnaire}" var="document">
+                            <c:forEach items="${requestScope.listeContratsRsr}" var="document">
                                 <tr>
-                                     <td id="td1">
-                                        <c:out value="${document.getId()}" />
+                                    <td id="td1">
+                                        <c:out value="${document.getLibelleContrat()}" />
                                     </td>
                                     <td id="td2">
-                                        <c:out value="${document.getNom()}" />
+                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateCreation()}" pattern="dd/MM/yyyy"/>
+                                        <c:out value="${fmtDateDebut}" />
                                     </td>
                                     <td id="td3">
-                                        <c:out value="${document.getPrenom()}" />
+                                        <fmt:formatDate var="fmtDateFin" value="${document.getDateFin()}" pattern="dd/MM/yyyy"/>
+                                        <c:out value="${fmtDateFin}" />
                                     </td>
                                     <td id="td4">
-                                        <c:out value="${document.getRoleEmploye()}" />
+                                        <c:out value="${document.getStatut()}" />
                                     </td>
                                     <td id="td5">
+                                        <c:out value="${document.getType()}" />
+                                    </td>
+                                    <td id="TD6">
+                                        <c:out value="${document.getPaiement()}" />
+                                    </td>
+                                     <td id="TD7">
+                                        <c:out value="${document.getCleCompteEmploye().getNom()}" />
+                                    </td>
+                                    <td id="TD8">
+                                        <c:out value="${document.getCleCompteEmploye().getPrenom()}" />
+                                    </td>
+                                    
+                                    <td id="TD9">
                                         <c:choose>
-                                            <c:when test="${ !empty sessionScope.sessionAdministrateur }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action= AMODIFIER AVEC TON CASE DE MODIFICATION&&idc=${document.getId()}'">Modifier</button>
+                                            <c:when test="${ !empty sessionScope.sessionGestionnaire }">
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
                                             </c:when>
-                                                 
                                         </c:choose>
-                                                
-                                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action= AMODIFIER AVEC TON CASE DE MODIFICATION&&idc=${document.getId()}'">Modifier</button>
                                       
                                     </td>
                                 </tr>

@@ -60,5 +60,7 @@ public interface ContratIndividuelFacadeLocal {
 
     ContratIndividuel RechercherContratIndivParId(long idContrat);
     
+  List<ContratIndividuel> ListerAllContratIndividuelAttente(StatutContrat Types);
+    
    
 }

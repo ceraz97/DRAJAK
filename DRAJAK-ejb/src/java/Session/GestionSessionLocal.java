@@ -20,7 +20,9 @@ import Entity.TypeModule;
 import Entity.TypeRemboursement;
 import Enum.Genre;
 import Enum.Role;
+import Enum.StatutContrat;
 import Enum.StatutPersonne;
+import Enum.TypeContrat;
 import Enum.TypeProduit;
 import java.util.Date;
 import java.util.List;
@@ -110,4 +112,8 @@ public interface GestionSessionLocal {
    
     
     void ModifierCompteEmploye (CompteEmploye ce);
+    
+   List<ContratIndividuel>  RechercherContratIndividuelAttente(StatutContrat type);
+   
+   List RechercherRIBAttente();
 }

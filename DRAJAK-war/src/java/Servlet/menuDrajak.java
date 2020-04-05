@@ -105,7 +105,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("Assure_GestionContrat_ListeContrat") && !act.equals("Morale_GestionContrat_ListeContrat") && !act.equals("Gestionnaire_ListeContrat") && !act.equals ("Assure_GestionContrat_detailContrat")&& !act.equals( "Collectif_GestionContrat_detailContrat"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("Assure_GestionContrat_ListeContrat") && !act.equals("Morale_GestionContrat_ListeContrat") && !act.equals("Gestionnaire_ListeContrat") && !act.equals ("Assure_GestionContrat_detailContrat")&& !act.equals( "Collectif_GestionContrat_detailContrat")&& !act.equals("ModifierGestionnaire"))) {
       
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
@@ -314,19 +314,33 @@ public class menuDrajak extends HttpServlet {
                     break;
 
                 case "ModifierGestionnaire":
-                    jspAffiche = "/menuAdministrateur.jsp";
+                    jspAffiche = "/modificationGestionnaire.jsp";
+                    
                     message = "Gestionnaire modifié avec succès";
-                    List<CompteEmploye> listModif = gestionSession.ListerAllCompteEmploye();
-                    request.setAttribute("ListeGestionnaireModif", listModif);
-
-                    CompteEmploye ce = new CompteEmploye();
+                     List<CompteEmploye> listeGestionnaire = gestionSession.ListerAllCompteEmploye();
+                     System.out.println("Liste gestionnaire " +listeGestionnaire);
+                    if (listeGestionnaire == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                  try {
+                          request.setAttribute("listeGestionnaire", listeGestionnaire);}
+                    catch (Exception e){}
+                    /* CompteEmploye ce = new CompteEmploye();
                     ce.setAdresse(request.getParameter("adresse"));
                     ce.setnTelephone(request.getParameter("numero"));
                     ce.setEmail(request.getParameter("mail"));
 
-                    gestionSession.ModifierCompteEmploye(ce);
+                    gestionSession.ModifierCompteEmploye(ce);*/
 
-                    break;
+                  
+                  
+                  break;
+                    
+                   
+                  
+
+                  
+                    
 
                 case "Assure_CreerParticulier":
                 case "Gestionnaire_CreerParticulier":
@@ -1230,12 +1244,94 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
+                    
+                    
+                case "ChoixValidationGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                    message = "";
+                    break;
                  
-
+                    
+                     
+                case "RechercherContratIndivAttenteGestionnaireListe":
+                    jspAffiche = "/listeContratIndivAttenteGestionnaire.jsp";
+                    message = "";
+                    String typecontr = "Enattentevalidation";
+                      if (typecontr==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
+                    
+                    } else {
+                    
+                       StatutContrat az = null;
+                       typecontr.equalsIgnoreCase("Enattentevalidation");
+                        az = StatutContrat.Enattentevalidation;
+                        
                
                     
+                    List listeContratsRs = gestionSession.RechercherContratIndividuelAttente(az);
+                    if (listeContratsRs == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeContratsRs);
+                  try {
+                        request.setAttribute("listeContratsRs", listeContratsRs);}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                
+                           
+                case "RechercherContratAdhesionAttenteGestionnaireListe":
+                    jspAffiche = "/listeContratAdhesionAttenteGestionnaire.jsp";
+                    message = "";
+                    String typecontrr = "Enattentevalidation";
+                      if (typecontrr==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
                     
-                         
+                    } else {
+                    
+                       StatutContrat az = null;
+                     typecontrr.equalsIgnoreCase("AttenteAdhesion");
+                            az = StatutContrat.AttenteAdhesion;
+                        
+               
+                    
+                    List listeContratsRsr = gestionSession.RechercherContratIndividuelAttente(az);
+                    if (listeContratsRsr == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeContratsRsr);
+                  try {
+                        request.setAttribute("listeContratsRsr", listeContratsRsr);}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                    
+                  case "RechercherRIBAttenteGestionnaireListe":
+                    jspAffiche = "/listeRIBAttenteGestionnaire.jsp";
+                    message = "";
+                    String typefichier = "AttenteValidationRib";
+                      if (typefichier==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
+                    
+                    } else {
+                    
+                    
+                    
+                    List listeFichier = gestionSession.RechercherRIBAttente();
+                    if (listeFichier  == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeFichier );
+                  try {
+                        request.setAttribute("listeFichier ", listeFichier );}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                    
+                        
                 
 
             }

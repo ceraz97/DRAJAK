@@ -84,10 +84,9 @@
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">
                                 <span class="icon mb-3 d-block flaticon-neurology"></span>
-                                <h2 class="mb-4">Neurogoly Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                                <h2 class="mb-4">Actions en attente</h2>
+                                <p>Visualiser puis valider les actions en attentes de validation</p>
+                              <p><a onclick="location.href = 'menuDrajak?action=ChoixValidationGestionnaire'" class="btn btn-primary">Accéder aux actions en attente</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-fitness" role="tabpanel" aria-labelledby="v-pills-fitness-tab">
