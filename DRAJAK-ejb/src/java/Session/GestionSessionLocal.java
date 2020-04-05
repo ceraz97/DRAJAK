@@ -95,4 +95,8 @@ public interface GestionSessionLocal {
 
     List<ContratIndividuel> RechercherContratIndividuel();
 
+    AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd);
+
+    void CreerIdParticulier(Particulier part);
+
 }

@@ -103,8 +103,19 @@
                                             <fmt:formatDate var="fmtDobAssure" value="${ayantDroit.getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
                                             <p>Date de naissance : <c:out value="${fmtDobAssure}"/></p>
                                             <p>Relation : <c:out value="${ayantDroit.getCleTypeAyantDroit().getLibelleAyantDroit()}"/></p>
-                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Modifier</button>
-                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Supprimer</button>
+                                           <c:choose>
+                                                <c:when test="${ !empty sessionScope.sessionAssure }">
+                                                    <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_SuppressionAyantDroit&&idc=${requestScope.contrat.getId()}&&idp=${ayantDroit.getCleParticulier().getId()}'">Supprimer</button>
+                                                </c:when>
+                                                <c:when test="${ !empty sessionScope.sessionGestionnaire }">
+                                                    <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_SuppressionAyantDroit&&idc=${requestScope.contrat.getId()}&&idp=${ayantDroit.getCleParticulier().getId()}'">Supprimer</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_GestionContrat_SuppressionAyantDroit&&idc=${requestScope.contrat.getId()}&&idp=${ayantDroit.getCleParticulier().getId()}'">Supprimer</button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            
+                                            
                                         </div>
                                     </div>
                                 </c:forEach>

@@ -44,5 +44,7 @@ public interface AyantDroitFacadeLocal {
     void SupprimerAyantDroit(AyantDroit ad);
 
     AyantDroit RechercherAyantDroitParId(long idAD);
+
+    AyantDroit RechercherAyantDroitParCleparticulier(Particulier particulier, ContratIndividuel contratIndiv);
     
 }

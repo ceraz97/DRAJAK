@@ -294,5 +294,29 @@ public class AssureSession implements AssureSessionLocal {
     public ContratCollectif RechercherContratCollectifParId(long idContrat) {
         return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
     }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd) {
+        return ayantDroitFacade.RechercherAyantDroitParCleparticulier(part, contratInd);
+    }
+
+    @Override
+    public void CreerIdParticulier(Particulier part) {
+        particulierFacade.CreerID(part);
+    }
+
+    @Override
+    public List<Modules> ListerAllModules() {
+        return moduleFacade.ListerAllModule();
+    }
+    
+    @Override
+    public void AttribuerNomDevis(ContratIndividuel devis) {
+        long idDevis = devis.getId();
+        String idDevisString = Long.toString(idDevis);
+        String nomDevis ="Devis_"+idDevisString;
+        devis.setLibelleContrat(nomDevis);
+        contratIndividuelFacade.ModifierContratIndividuel(devis);
+    }
     
 }

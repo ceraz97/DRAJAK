@@ -5,6 +5,10 @@
  */
 package Session;
 
+import Entity.*;
+import Enum.Genre;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -14,6 +18,30 @@ import javax.ejb.Local;
 @Local
 public interface PubliqueSessionLocal {
 
-    void CreerDevis();
+    ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod);
+
+    List<Produit> ListerAllProduits();
+
+    List<Modules> ListerAllModules();
+
+    PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date dob, String email, String tel, String adr);
+
+    void AttribuerNomDevis(ContratIndividuel devis);
+
+    Particulier RechercherParticulier(String nSecu);
+
+    TypeModule RechercherTypeModule(String libelle);
+
+    Modules RechercherModules(String libelle, TypeModule typeM);
+
+    TrancheAge RechercherTrancheAgeParLibelle(String libelle);
+
+    ObjetGarantie RechercherObjetGarantieParLibelle(String libelle);
+
+    Garantie RechercherGarantieParLibelle(String libelle);
+
+    TauxGarantie RechercherTauxGarantie(TrancheAge tranche, ObjetGarantie objet, Garantie garantie);
     
+    ContratIndividuel RechercherContratIndivParId(long idContrat);
+
 }

@@ -56,7 +56,7 @@
                 </c:otherwise>
             </c:choose>
         </p>
-        
+
         <section class="ftco-services">
             <div class="container">
 
@@ -84,22 +84,22 @@
                             </form>
                         </div>
 
-                        <div class="box2">
-                            <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+                        <c:if test="${requestScope.rechercheFaite eq 'true'}">
+                            <div class="box2">
                                 <c:choose>
                                     <c:when test="${ !empty sessionScope.sessionAssure }">
-                                        <button type="submit" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
+                                        <button type="button" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
                                     </c:when>
                                     <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                        <button type="submit" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
+                                        <button type="button" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button type="submit" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
+                                        <button type="button" class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Administrateur_GestionContrat_AjoutAyantDroit&&idc=${requestScope.idc}'" style="text-align: center;">Créer Particulier</button>
                                     </c:otherwise>
                                 </c:choose>
+                            </div>
+                        </c:if>
 
-                            </form>
-                        </div>
 
 
                         <div class="box3">
@@ -143,7 +143,7 @@
 
                                                         <!-- Modal content-->
                                                         <div class="modal-content">
-                                                            
+
                                                             <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                                                                 <div class="modal-header">
                                                                     <h4 class="modal-title">Selectioner la relation de l'ayant droit</h4>
@@ -174,7 +174,7 @@
                                                                     <button type="submit" class="btn btn-primary btn-co">Sélectionner</button>
                                                                 </div>
                                                             </form>
-                                                            
+
                                                         </div>
 
                                                     </div>

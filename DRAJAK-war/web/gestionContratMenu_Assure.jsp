@@ -106,10 +106,10 @@
                                     <td id="TD7">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionAssure }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_detailContrat&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Gestionnaire_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                         </c:choose>
                                         <c:if test="${document.getStatut() eq 'Actif'}"><button class="btn btn-primary btn-co" onclick="getConfirmResiliation('${document.getLibelleContrat()}', '${document.getId()}');">Résilier</button></c:if>

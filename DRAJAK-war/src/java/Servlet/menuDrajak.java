@@ -9,6 +9,7 @@ import Entity.*;
 import Enum.*;
 import Session.AssureSessionLocal;
 import Session.GestionSessionLocal;
+import Session.PubliqueSessionLocal;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -32,6 +33,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import static java.util.Calendar.*;
@@ -44,12 +46,12 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
@@ -58,8 +60,10 @@ import javax.servlet.http.Part;
 @WebServlet(name = "menuDrajak", urlPatterns = {"/menuDrajak"})
 public class menuDrajak extends HttpServlet {
 
+    
+
     public static final int TAILLE_TAMPON = 10240;
-    public static final String CHEMIN_FICHIERS = "/Users/mateo21/fichiers/"; // A changer
+    public static final String CHEMIN_FICHIERS = "/tmp/DRAJAK/fichiers/"; // A changer
     
     @EJB
     private GestionSessionLocal gestionSession;
@@ -67,6 +71,9 @@ public class menuDrajak extends HttpServlet {
     @EJB
     private AssureSessionLocal assureSession;
 
+    @EJB
+    private PubliqueSessionLocal publiqueSession;
+    
     /**
      *
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -161,7 +168,7 @@ public class menuDrajak extends HttpServlet {
                     session.invalidate();
                     request.setAttribute("typeConnexion", request.getParameter("typeConnexion"));
                     
-                    message = "Vous Ítes déconnecté";
+                    message = "Vous êtes déconnecté";
                     break;
 
                 case "AssureAuthentification":
@@ -311,8 +318,7 @@ public class menuDrajak extends HttpServlet {
                     }
 
                     gestionSession.CreerCompteEmploye(mail, mdp, nom, prenom, g, d, mail, numero, adresse, r, StatutPersonne.Actif);
-                    //message = "Gestionnaire créé avec succès !";
-                    //request.setAttribute("messsage", message);
+                    message = "Gestionnaire créé avec succès !";
                     break;
 
                 case "Assure_CreerParticulier":
@@ -320,8 +326,11 @@ public class menuDrajak extends HttpServlet {
                 case "Administrateur_CreerParticulier":
                     String numRueNewPersonne, nomRueNewPersonne,cpNewPersonne,villeNewPersonne,paysNewPersonne, adresseNewPersonne=null;
                     String nomPart=null, prenomPart=null, dateNaissancePart = null, numeroPart=null, genrePart =null, numSSPart=null,mailPart=null;
+                    String selectString =null;
+                    TypeAyantDroit typeAdInstance = null;
                     String origineCreationParticulier = request.getParameter("origine");
                     String idContratHidden = request.getParameter("idContratHidden");
+                    System.out.println("idContratHidden="+idContratHidden);
                     ContratIndividuel contratIndivDetailsApresAjoutAyantDroit = null;
                     Particulier particulierOrigine = null;
                     if (origineCreationParticulier.equals("true") && !idContratHidden.equals("")) {
@@ -357,6 +366,13 @@ public class menuDrajak extends HttpServlet {
                                 numeroPart = particulierOrigine.getnTelephone();
                                 mailPart = particulierOrigine.getEmail();
                                 adresseNewPersonne = particulierOrigine.getAdresse();
+                                selectString = request.getParameter("typeAyantDroitSelect");
+                                System.out.println("selectString="+selectString);
+                                if (sessionAssure != null) {
+                                    typeAdInstance = assureSession.RechercherTypeAyantDroitParId(Long.parseLong(selectString));
+                                } else {
+                                    typeAdInstance = gestionSession.RechercherTypeAyantDroitParId(Long.parseLong(selectString));
+                                }
                             }
                             nomPart = request.getParameter("nom");
                             prenomPart = request.getParameter("prenom");
@@ -365,7 +381,7 @@ public class menuDrajak extends HttpServlet {
                             numSSPart = request.getParameter("numeroSS");
                         }
                         catch (Exception e){
-                            message ="Erreur : Une des données saisie n'a pu etre récupérée";
+                            message ="Erreur : Une des données saisie n'a pu être récupérée";
                         }
                     Date date = java.sql.Date.valueOf(dateNaissancePart);
                     Genre gr;
@@ -382,21 +398,37 @@ public class menuDrajak extends HttpServlet {
                     if (sessionAssure != null) {
                         if (origineCreationParticulier.equals("true")){
                             jspAffiche = "/gestionContrat_DetailsContat.jsp";
-                            assureSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                            System.out.println("Création Particulier : go");
+                            Particulier p = assureSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                            assureSession.CreerIdParticulier(p);
+                            System.out.println("Création Particulier : ok");
+                            
+                            //Si l'assuré crée une personne c'est que c'est pour ajouter en tant qu'ayant droit
+                            System.out.println("Attribution ayant droit : go");
+                            assureSession.CreerAyantDroit(typeAdInstance, p, contratIndivDetailsApresAjoutAyantDroit);
+                            System.out.println("Attribution ayant droit : ok");
                         }
                     } else if (sessionGestionnaire != null) {
                         jspAffiche = "/menuGestionnaire.jsp";
-                        gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
-                        if (origineCreationParticulier.equals("true")){jspAffiche = "/gestionContrat_DetailsContat.jsp";}
-                    } else if (sessionAdministrateur != null) {
+                        Particulier p = gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                        gestionSession.CreerIdParticulier(p);
+                        if (origineCreationParticulier.equals("true")){
+                            jspAffiche = "/gestionContrat_DetailsContat.jsp";
+                            gestionSession.CreerAyantDroit(typeAdInstance, p, contratIndivDetailsApresAjoutAyantDroit);
+                        }
+                    } else {
                         jspAffiche = "/menuAdministrateur.jsp";
-                        gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
-                        if (origineCreationParticulier.equals("true")){jspAffiche = "/gestionContrat_DetailsContat.jsp";}
+                        Particulier p = gestionSession.CreerParticulier(nomPart, prenomPart, gr, date, numSSPart, mailPart, numeroPart, adresseNewPersonne);
+                        gestionSession.CreerIdParticulier(p);
+                        if (origineCreationParticulier.equals("true")){
+                            jspAffiche = "/gestionContrat_DetailsContat.jsp";
+                            gestionSession.CreerAyantDroit(typeAdInstance, p, contratIndivDetailsApresAjoutAyantDroit);
+                        }
                     } 
                     
                     message = "Particulier crée avec succès";
                     } catch (Exception e){
-                        message="Erreur : Un problème a été rencpntré lors de la création de la personne";
+                        message="Erreur : Un problème a été rencontré lors de la création de la personne";
                     }
                     break;
 
@@ -439,38 +471,41 @@ public class menuDrajak extends HttpServlet {
                      enfantTarif = null,
                      couvertureTarif = null,
                      optiqueDentaireTarif = null;
-                    Genre genreAdulte1,
-                     genreAdulte2,
-                     genreEnfant1,
-                     genreEnfant2,
-                     genreEnfant3;
-                    String DobA1String,
-                     DobA2String,
-                     DobE1String,
-                     DobE2String,
-                     DobE3String;
-                    Date DobA1Date,
-                     DobA2Date,
-                     DobE1Date,
-                     DobE2Date,
-                     DobE3Date;
-                    int ageA1,
-                     ageA2,
-                     ageE1,
-                     ageE2,
-                     ageE3;
-                    String nomA1,
-                     prenomA1;
-                    String regimeA1;
+                    Genre genreAdulte1= null,
+                     genreAdulte2= null,
+                     genreEnfant1= null,
+                     genreEnfant2= null,
+                     genreEnfant3= null;
+                    String DobA1String= null,
+                     DobA2String= null,
+                     DobE1String= null,
+                     DobE2String= null,
+                     DobE3String= null;
+                    Date DobA1Date= null,
+                     DobA2Date= null,
+                     DobE1Date= null,
+                     DobE2Date= null,
+                     DobE3Date= null;
+                    int ageA1= 0,
+                     ageA2= 0,
+                     ageE1= 0,
+                     ageE2= 0,
+                     ageE3= 0;
+                    String nomA1= null,
+                     prenomA1= null;
+                    String regimeA1= null;
                     String nbEnfant = null;
-                    String numRueTarif,
-                     nomRueTarif,
-                     cpTarif,
-                     villeTarif,
-                     paysTarif,
-                     adresseTarif,
-                     email;
+                    String numRueTarif= null,
+                     nomRueTarif= null,
+                     cpTarif= null,
+                     villeTarif= null,
+                     paysTarif= null,
+                     adresseTarif= null,
+                     email= null,
+                     tel= null;
                     Particulier particulierDevis = null;
+                    PersonnePublique personnePubliqueDevis = null;
+                    ContratIndividuel devisCree = null;
 
                     //Récupération des données
                     try {
@@ -480,7 +515,7 @@ public class menuDrajak extends HttpServlet {
                         couvertureTarif = request.getParameter("couvertureHidden");
                         optiqueDentaireTarif = request.getParameter("optiqueDentaireHidden");
                     } catch (Exception e) {
-                        message = "Erreur : une information sur les besoins n'a pu Ítre récupérée";
+                        message = "Erreur : une information sur les besoins n'a pu être récupérée";
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
@@ -508,16 +543,9 @@ public class menuDrajak extends HttpServlet {
                             prenomA1 = request.getParameter("prenomA1");
                             ageA1 = doActionCalculerAge(DobA1Date, request, response);
                         } catch (Exception e) {
-                            message = "Erreur : une information sur le premier adulte n'a pu Ítre récupérée";
+                            message = "Erreur : une information sur le premier adulte n'a pu être récupérée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
                         }
-                    }
-
-                    try {
-                        nbEnfant = request.getParameter("enfantSelect");
-                    } catch (Exception e) {
-                        message = "Erreur : le nombre d'enfant n'a pu Ítre récupéré";
-                        jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
                     if (nbAdulteTarif.equalsIgnoreCase("2")) {
@@ -534,11 +562,18 @@ public class menuDrajak extends HttpServlet {
                             DobA2Date = java.sql.Date.valueOf(DobA2String);
                             ageA2 = doActionCalculerAge(DobA2Date, request, response);
                         } catch (Exception e) {
-                            message = "Erreur : une information sur le deuxième adulte n'a pu Ítre récupéreée";
+                            message = "Erreur : une information sur le deuxième adulte n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
                         }
                     }
 
+                    try {
+                        nbEnfant = request.getParameter("enfantSelect");
+                    } catch (Exception e) {
+                        message = "Erreur : le nombre d'enfant n'a pu être récupéré";
+                        jspAffiche = "/realiserDevisBesoins.jsp";
+                    }
+                    
                     //Enfant
                     if (enfantTarif.equalsIgnoreCase("avec")) {
                         try {
@@ -554,7 +589,7 @@ public class menuDrajak extends HttpServlet {
                             DobE1Date = java.sql.Date.valueOf(DobE1String);
                             ageE1 = doActionCalculerAge(DobE1Date, request, response);
                         } catch (Exception e) {
-                            message = "Erreur : une information sur le premier enfant n'a pu Ítre récupéreée";
+                            message = "Erreur : une information sur le premier enfant n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
                         }
 
@@ -572,7 +607,7 @@ public class menuDrajak extends HttpServlet {
                                 DobE2Date = java.sql.Date.valueOf(DobE2String);
                                 ageE2 = doActionCalculerAge(DobE2Date, request, response);
                             } catch (Exception e) {
-                                message = "Erreur : une information sur le deuxième enfant n'a pu Ítre récupéreée";
+                                message = "Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
                                 jspAffiche = "/realiserDevisBesoins.jsp";
                             }
                         }
@@ -590,10 +625,12 @@ public class menuDrajak extends HttpServlet {
                                 DobE3Date = java.sql.Date.valueOf(DobE3String);
                                 ageE3 = doActionCalculerAge(DobE3Date, request, response);
                             } catch (Exception e) {
-                                message = "Erreur : une information sur le troisième enfant n'a pu Ítre récupéreée";
+                                message = "Erreur : une information sur le troisième enfant n'a pu être récupéreée";
                                 jspAffiche = "/realiserDevisBesoins.jsp";
                             }
                         }
+                    } else {
+                        nbEnfant = "0";
                     }
 
                     if (sessionAssure == null) {
@@ -604,12 +641,20 @@ public class menuDrajak extends HttpServlet {
                             cpTarif = request.getParameter("adrCP").trim();
                             villeTarif = request.getParameter("adrVille").trim();
                             paysTarif = request.getParameter("adrPays").trim();
-                            adresseTarif = numRueTarif + "," + nomRueTarif + "," + cpTarif + "," + villeTarif + "," + paysTarif;
-
+                            if (numRueTarif!=null && nomRueTarif !=null && cpTarif!=null && villeTarif!=null && paysTarif!=null) {
+                                adresseTarif = numRueTarif + "," + nomRueTarif + "," + cpTarif + "," + villeTarif + "," + paysTarif;
+                            }
                             //Mail
                             email = request.getParameter("adrMail");
+                            
+                            //Tel 
+                            tel = request.getParameter("numTel");
+                            
+                            if (nomA1!=null && prenomA1 !=null && genreAdulte1!=null && DobA1Date!=null && email!=null && tel!=null && adresseTarif!=null){
+                                personnePubliqueDevis = publiqueSession.CreerPersonnePublique(nomA1, prenomA1, genreAdulte1, DobA1Date, email, tel, adresseTarif);
+                            }
                         } catch (Exception e) {
-                            message = "Erreur : une information sur le l'adresse ou l'email n'a pu Ítre récupéreée";
+                            message = "Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
                         }
                     }
@@ -626,7 +671,7 @@ public class menuDrajak extends HttpServlet {
                             trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
                         }
                     } catch (Exception e) {
-                        message = "Erreur : l'‚ge n'a pu Ítre récupéreée";
+                        message = "Erreur : l'‚ge n'a pu être récupéreée";
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
@@ -638,56 +683,172 @@ public class menuDrajak extends HttpServlet {
                         objGarantieOD = assureSession.RechercherObjetGarantieParLibelle("N" + optiqueDentaireTarif);
                         TypeModule typeModuleBaseInstanceTarif = assureSession.RechercherTypeModule("Base");
                     } catch (Exception e) {
-                        message = "Erreur : les niveaux de garantie n'ont pu Ítre récupérés";
+                        message = "Erreur : les niveaux de garantie n'ont pu être récupérés";
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
                     //Obtenir Garantie 
                     List<String> listObjetGarantieHSC = Arrays.asList(new String[]{"Honoraires hospitaliers", "Forfait journalier"});
-                    List<TauxGarantie> listeTauxGarantieHospitalisation = null;
-                    List<TauxGarantie> listeTauxGarantieTotale = null;
+                    List<TauxGarantie> listeTauxGarantieHospitalisation = new ArrayList<TauxGarantie>();
+                    List<TauxGarantie> listeTauxGarantieTotale = new ArrayList<TauxGarantie>();
+                    
                     for (int i = 0; i < listObjetGarantieHSC.size(); i++) {
                         Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
-                        listeTauxGarantieHospitalisation.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
-                        listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
+                        if (garantieInstance!=null){
+                            TauxGarantie txGarantiInstance = assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance);
+                            listeTauxGarantieHospitalisation.add(txGarantiInstance);
+                            listeTauxGarantieTotale.add(txGarantiInstance);
+                        } else {
+                            System.out.println("Erreur dans la partie Devis 1");
+                            message="Erreur : aucune garantie n'a été trouvée";
+                        }
                     }
                     request.setAttribute("honorairesHospitaliers", listeTauxGarantieHospitalisation.get(0));
                     request.setAttribute("forfaitJournalier", listeTauxGarantieHospitalisation.get(1));
-
+                    
+                   
+                    
                     List<String> listObjetGarantieSoinsCourants = Arrays.asList(new String[]{"Honoraires médicaux", "Honoraires paramédicaux"});
-                    List<TauxGarantie> listeTauxGarantieSoinsCourants = null;
+                    List<TauxGarantie> listeTauxGarantieSoinsCourants = new ArrayList<TauxGarantie>();
                     for (int i = 0; i < listObjetGarantieSoinsCourants.size(); i++) {
                         Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieSoinsCourants.get(i));
                         listeTauxGarantieSoinsCourants.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
                         listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
                     }
-                    request.setAttribute("honorairesMedicaux", listObjetGarantieSoinsCourants.get(0));
-                    request.setAttribute("honorairesParamedicaux", listObjetGarantieSoinsCourants.get(1));
+                    request.setAttribute("honorairesMedicaux", listeTauxGarantieSoinsCourants.get(0));
+                    request.setAttribute("honorairesParamedicaux", listeTauxGarantieSoinsCourants.get(1));
 
                     List<String> listObjetGarantieOD = Arrays.asList(new String[]{"Soins dentaires remboursés par la sécurité sociale", "Orthodontie remboursée par la Sécurité Sociale", "Lunettes verres simples", "Lunettes verres complexes"});
-                    List<TauxGarantie> listeTauxGarantieOptiqueDentaire = null;
+                    List<TauxGarantie> listeTauxGarantieOptiqueDentaire = new ArrayList<TauxGarantie>();
                     for (int i = 0; i < listObjetGarantieOD.size(); i++) {
                         Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieOD.get(i));
                         listeTauxGarantieOptiqueDentaire.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieOD, garantieInstance));
                         listeTauxGarantieTotale.add(assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance));
                     }
+                    
                     request.setAttribute("soinsDentaires", listeTauxGarantieOptiqueDentaire.get(0));
                     request.setAttribute("Orthodontie", listeTauxGarantieOptiqueDentaire.get(1));
                     request.setAttribute("verresSimples", listeTauxGarantieOptiqueDentaire.get(2));
                     request.setAttribute("verresComplexes", listeTauxGarantieOptiqueDentaire.get(3));
 
+                    System.out.println("Arriver à la recherche de modules");
                     //Recherche des modules
+                        List<Modules> listeTousModules = new ArrayList<Modules>();
+                        List <String> listeLibelleGarantieModules = new ArrayList <String>();
+                        List <Garantie> listeGarantieDunModule = new ArrayList <Garantie>();
+                        List<Modules> listeModulesTrouve = new ArrayList <Modules>();
+                        listeTousModules = publiqueSession.ListerAllModules();
+                        int i=0;
+                        boolean WhileTrouve = false;
+                        
+                        
+                        //Recherche du module d'hospitalisation
+                        System.out.println("Recherche du module d'hospitalisation");
+                        while (i<listeTousModules.size() && WhileTrouve == false){
+                            listeGarantieDunModule = listeTousModules.get(i).getLesGaranties();
+                            listeLibelleGarantieModules=new ArrayList<>();
+                            for (int y=0; y<listeGarantieDunModule.size();y++){
+                                listeLibelleGarantieModules.add(listeGarantieDunModule.get(y).getLibelleGarantie());
+                            }
+                            if (listeLibelleGarantieModules.containsAll(listObjetGarantieHSC) && listObjetGarantieHSC.containsAll(listeLibelleGarantieModules)) {
+                                WhileTrouve = true;
+                                listeModulesTrouve.add(listeTousModules.get(i));
+                                System.out.println("___Module 1 trouvé");
+                            }
+                            i++;
+                        }
+                        if (WhileTrouve == false){System.out.println("___Module non trouvé");}
+                        
+                        
+                        //Recherche du module de Soins Courants
+                        System.out.println("Recherche du module de Soins Courants");
+                        WhileTrouve = false;
+                        i=0;
+                        while (i<listeTousModules.size() && WhileTrouve == false){
+                            listeGarantieDunModule = listeTousModules.get(i).getLesGaranties();
+                            listeLibelleGarantieModules=new ArrayList<>();
+                            for (int y=0; y<listeGarantieDunModule.size();y++){
+                                listeLibelleGarantieModules.add(listeGarantieDunModule.get(y).getLibelleGarantie());
+                            }
+                            if (listeLibelleGarantieModules.containsAll(listObjetGarantieSoinsCourants) && listObjetGarantieSoinsCourants.containsAll(listeLibelleGarantieModules)) {
+                                WhileTrouve = true;
+                                listeModulesTrouve.add(listeTousModules.get(i));
+                                System.out.println("___Module 2 trouvé");
+                            }
+                            i++;
+                        }
+                        if (WhileTrouve == false){System.out.println("___Module non trouvé");}
+                        
+                        
+                        //Recherche du module d'optique dentaire
+                        System.out.println("Recherche du module d'optique dentaire");
+                        WhileTrouve = false;
+                        i=0;
+                        while (i<listeTousModules.size() && WhileTrouve == false){
+                            listeGarantieDunModule = listeTousModules.get(i).getLesGaranties();
+                            listeLibelleGarantieModules=new ArrayList<>();
+                            for (int y=0; y<listeGarantieDunModule.size();y++){
+                                listeLibelleGarantieModules.add(listeGarantieDunModule.get(y).getLibelleGarantie());
+                            }
+                            if (listeLibelleGarantieModules.containsAll(listObjetGarantieOD) && listObjetGarantieOD.containsAll(listeLibelleGarantieModules)) {
+                                WhileTrouve = true;
+                                listeModulesTrouve.add(listeTousModules.get(i));
+                                System.out.println("___Module 3 trouvé");
+                            }
+                            i++;
+                        }
+                        if (WhileTrouve == false){System.out.println("___Module non trouvé");}
+                    
+                    
                     //Recherche du produit
+                        //Recherche du produit contenant tous les modules
+                        System.out.println("Recherche du produit contenant tous les modules");
+                        Produit ProduitRecherche = null;
+                        List<Produit> listeTousProduits = publiqueSession.ListerAllProduits();
+                        if (listeTousProduits!=null){
+                            WhileTrouve = false;
+                            i=0;
+                            while (i<listeTousProduits.size() && WhileTrouve == false){
+                                List<Modules> listeModulesDunProduit = listeTousProduits.get(i).getLesModules();
+
+                                if (listeModulesDunProduit.containsAll(listeModulesTrouve) && listeModulesTrouve.containsAll(listeModulesDunProduit)) {
+                                    WhileTrouve = true;
+                                    ProduitRecherche = listeTousProduits.get(i); 
+                                    System.out.println("___Produit trouvé");
+                                }
+                                i++;
+                            }
+                        }
+                        
                     //Cotisations 
                     //Calcul des cotisations
                     double TarifCotisation = 0;
-                    for (int i = 0; i < listeTauxGarantieTotale.size(); i++) {
-                        TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation() * (Integer.parseInt(nbAdulteTarif))) + (listeTauxGarantieTotale.get(i).getTarifCotisation() * (Integer.parseInt(nbEnfant)) / 3));
+                    for (i = 0; i < listeTauxGarantieTotale.size(); i++) {
+                        TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation()));
+                        System.out.println("Cotisations="+TarifCotisation);
                     }
+                    System.out.println("Cotisations totales="+TarifCotisation);
                     request.setAttribute("MontantCotisationTotale", TarifCotisation);
+                    request.setAttribute("listeTxGarantie", listeTauxGarantieTotale);
 
+                    
+                    //ObjetGarantie du devis 
+                    ObjetGarantie objGarantieDevis = null;
+                    objGarantieDevis = publiqueSession.RechercherObjetGarantieParLibelle("Devis");
                     //Enregistrement du devis
-                    //assureSession.CreerDevis(email, sessionAssure, persoPublique, sessionGestionnaire, objGarantieOD, prod);
+                    if (objGarantieDevis!=null && ProduitRecherche!=null ){
+                        if (sessionAssure!=null) {
+                            devisCree = assureSession.CreerDevis("Devis_", sessionAssure, personnePubliqueDevis, sessionGestionnaire, objGarantieDevis, ProduitRecherche);
+                            assureSession.AttribuerNomDevis(devisCree);
+                        } else {
+                            devisCree = publiqueSession.CreerDevis("Devis_", sessionAssure, personnePubliqueDevis, sessionGestionnaire, objGarantieDevis, ProduitRecherche);
+                            publiqueSession.AttribuerNomDevis(devisCree);
+                        }
+                        request.setAttribute("Devis", devisCree);
+                    } else {
+                        message = "Erreur : produit non trouvé";
+                    }
+                    
                     break;
 
                 case "DemandeDevis_souscription":
@@ -696,8 +857,92 @@ public class menuDrajak extends HttpServlet {
                     break;
 
                 case "DemandeDevis_exportpdf":
+                    String idc= request.getParameter("idDevis");
+                    ContratIndividuel ContratIndivInstance = publiqueSession.RechercherContratIndivParId(Long.parseLong(idc));
                     jspAffiche = "/realiserDevisTarif.jsp";
-                    doActionEditionDevis(request, response);
+                    List <TauxGarantie> listeTxGar = (List<TauxGarantie>) session.getAttribute("listeTxGar");
+                    int idDocument = 0;
+                    try {
+                        idDocument = Integer.parseInt(request.getParameter(("idDocument")));
+                    } catch (Exception exception) {
+                    }
+
+                    String TemplatePath = request.getServletContext().getRealPath("/WEB-INF/DevisTemplate.pdf");
+                    response.setContentType("application/pdf");
+
+                    try (PdfReader reader = new PdfReader(TemplatePath);
+                            PdfWriter writer = new PdfWriter(response.getOutputStream());
+                            PdfDocument document = new PdfDocument(reader, writer)) {
+
+                        PdfPage page = document.getPage(1);
+                        PdfCanvas canvas = new PdfCanvas(page);
+
+                        FontProgram fontProgram = FontProgramFactory.createFont();
+                        PdfFont font = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8, true);
+                        canvas.setFontAndSize(font, 10);
+
+                        //Numéro du devis
+                        canvas.beginText();
+                        canvas.setTextMatrix(100, 753);
+                        canvas.showText(Double.toString(ContratIndivInstance.getId()));
+                        canvas.endText();
+
+                        //Date du devis
+                        canvas.beginText();
+                        canvas.setTextMatrix(127, 737);
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+                        String strDate = formatter.format(ContratIndivInstance.getDateCreation());  
+                        canvas.showText(strDate);
+                        canvas.endText();
+
+                        //Honnoraire Hospitalisation
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 655);
+                        canvas.showText(Double.toString(listeTxGar.get(0).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Forfait Hospitalisation
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 625);
+                        canvas.showText(Double.toString(listeTxGar.get(1).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Honnoraire Médicaux
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 560);
+                        canvas.showText(Double.toString(listeTxGar.get(2).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Honnoraire Paramédicaux
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 500);
+                        canvas.showText(Double.toString(listeTxGar.get(3).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //soins dentaire
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 410);
+                        canvas.showText(Double.toString(listeTxGar.get(4).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Orthodontie
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 373);
+                        canvas.showText(Double.toString(listeTxGar.get(5).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Lunettes verres simples
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 315);
+                        canvas.showText(Double.toString(listeTxGar.get(6).getMaxRemboursement()));
+                        canvas.endText();
+
+                        //Lunettes verres complexes
+                        canvas.beginText();
+                        canvas.setTextMatrix(210, 285);
+                        canvas.showText(Double.toString(listeTxGar.get(7).getMaxRemboursement()));
+                        canvas.endText();
+                    }
                     message = "";
                     break;
                     
@@ -715,7 +960,7 @@ public class menuDrajak extends HttpServlet {
                     
                 case "Assure_GestionContrat_resilier":
                     jspAffiche = "/resiliationContrat_Assure.jsp";
-                    String idc=request.getParameter("idc");
+                    idc=request.getParameter("idc");
                     long idContratIndivPourRsiliation =Long.parseLong(idc);
                     ContratIndividuel contratIndivPourResiliation = assureSession.RechercherContratIndivParId(idContratIndivPourRsiliation);
                     if (contratIndivPourResiliation == null){
@@ -726,46 +971,33 @@ public class menuDrajak extends HttpServlet {
                     
                     break;
                     
-                case "Assure_GestionContrat_resilierJustificatif":
+                case "Assure_GestionDocument_envoiFichier":
                     
-                    Connection myConn = null;
-                    PreparedStatement myStmt = null;
+                    // On récupère le champ description comme d'habitude
+                    String description = request.getParameter("description");
+                    request.setAttribute("description", description);
 
-                    FileInputStream input = null;
+                    // On récupère le champ du fichier
+                    Part part = request.getPart("fichier");
 
-                    try {
-                            // 1. Get a connection to database
-                            myConn = DriverManager.getConnection(
-                            "jdbc:derby://localhost:1527/DRAJAK_BDX", "administrator", "Drajak_2020");
+                    // On vérifie qu'on a bien reçu un fichier
+                    String nomFichier = getNomFichier(part);
 
-                            // 2. Prepare statement
-                            String sql = "update employees set resume=? where email='john.doe@foo.com'";
-                            myStmt = myConn.prepareStatement(sql);
+                    // Si on a bien un fichier
+                    if (nomFichier != null && !nomFichier.isEmpty()) {
+                        String nomChamp = part.getName();
+                        // Corrige un bug du fonctionnement d'Internet Explorer
+                        nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1)
+                                .substring(nomFichier.lastIndexOf('\\') + 1);
 
-                            // 3. Set parameter for resume file name
-                            File theFile = new File("");
-                            input = new FileInputStream(theFile);
-                            myStmt.setBinaryStream(1, input);
+                        // On écrit définitivement le fichier sur le disque
+                        ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
 
-                            System.out.println("Reading input file: " + theFile.getAbsolutePath());
-
-                            // 4. Execute statement
-                            System.out.println("\nStoring resume in database: " + theFile);
-                            System.out.println(sql);
-
-                            myStmt.executeUpdate();
-
-                            System.out.println("\nCompleted successfully!");
-
-                    } catch (Exception exc) {
-                            exc.printStackTrace();
-                    } finally {			
-                            if (input != null) {
-                                    input.close();
-                            }
-
-                            close(myConn, myStmt);			
+                        request.setAttribute(nomChamp, nomFichier);
                     }
+                    jspAffiche = "/menuAssure.jsp";
+                    message = "Le fichier a bien été envoyé";
+                    
                     break;
                 
                 case "Assure_InformationsCompte":
@@ -803,7 +1035,7 @@ public class menuDrajak extends HttpServlet {
                         List<Modules> listemodulet = new ArrayList<>();
 
                         String[] lesmodules = request.getParameterValues("checkbox");
-                        for (int i = 0; i < lesmodules.length; i++) {
+                        for (i = 0; i < lesmodules.length; i++) {
                             long values = Long.valueOf(lesmodules[i]);
                             Modules m = gestionSession.RechercherModuleParId(values);
                             listemodulet.add(m);
@@ -842,7 +1074,7 @@ public class menuDrajak extends HttpServlet {
                     } else {
                         if (nouveauMdp.equals(nouveauMdpConfirmation)){
                             assureSession.ModifierMotDePasse(nouveauMdp, sessionAssure);
-                            message="Votre mot de passe ‡ bien été mit ‡ jour";
+                            message="Votre mot de passe à bien été mit à jour";
                         } else {
                             message = "Erreur : les mots de passes saisis ne correspondent pas ";
                         }
@@ -876,7 +1108,7 @@ public class menuDrajak extends HttpServlet {
                     String [] lesGaranties 
                             = request.getParameterValues("checkbox");
                     System.out.println("les garant "+lesGaranties);
-                        for (int i=0;i<lesGaranties.length;i++){
+                        for ( i=0;i<lesGaranties.length;i++){
                         long values=Long.valueOf(lesGaranties[i]);
                         Garantie ga = gestionSession.RechercherGarantieParId(values);
                        listeGaranties.add(ga);
@@ -1014,24 +1246,34 @@ public class menuDrajak extends HttpServlet {
                     if (!nssRechercheParticulier.trim().isEmpty()){
                         if (sessionAssure!=null){
                             listRechercheParticulier = assureSession.RechercherListeParticulier(nssRechercheParticulier);
-                            listeTypeAyantDroit = assureSession.ListerAllTypeAyantDroit();
+                            listeTypeAyantDroit = assureSession.ListerAllTypeAyantDroit();                   
                         } else {
                             listRechercheParticulier = gestionSession.RechercherListeParticulier(nssRechercheParticulier);
                             listeTypeAyantDroit = gestionSession.ListerAllTypeAyantDroit();
                         }
+                        if (listRechercheParticulier.size()==0){
+                            message="Erreur : Aucune personne trouvée";
+                        }
                         request.setAttribute("listeTypeAyantDroit", listeTypeAyantDroit);
                         request.setAttribute("listRechercheParticulier", listRechercheParticulier);
                         request.setAttribute("idc", request.getParameter("idc"));
-                        System.out.println("Liste passé");
+                        request.setAttribute("rechercheFaite", "true");
                     } else {
                         message ="Erreur : Un des champs n'est pas rempli";
-                        System.out.println("Liste non passé");
                     }
                     break;
                     
                 case "Assure_AttribuerParticulierCommeAyantDroit":
                 case "Gestionnaire_AttribuerParticulierCommeAyantDroit":
                 case "Administrateur_AttribuerParticulierCommeAyantDroit":
+                    
+                    if (sessionAssure != null) {
+                        jspAffiche = "/menuAssure.jsp";
+                    } else if (sessionGestionnaire != null) {
+                        jspAffiche = "/menuGestionnaire.jsp";
+                    } else {
+                        jspAffiche = "/menuAdministrateur.jsp";
+                    } 
                     CompteAssure cptAssure = null;
                     idc = request.getParameter("idc");
                     String idp = request.getParameter("idp");
@@ -1049,24 +1291,22 @@ public class menuDrajak extends HttpServlet {
                             TypeAyantDroit typeAyantDroitObj = null;
                             if (sessionAssure!=null){
                                 particulierObj = assureSession.RechercherParticulierParId(idParticulier);
-                                typeAyantDroitObj = assureSession.RechercherTypeAyantDroitParId(idTypeAyantDroit);
-                                assureSession.CreerAyantDroit(typeAyantDroitObj, particulierObj, contratIndiv);
+                                if (assureSession.RechercherAyantDroitParCleparticulier(particulierObj, contratIndiv) == null){
+                                    typeAyantDroitObj = assureSession.RechercherTypeAyantDroitParId(idTypeAyantDroit);
+                                    assureSession.CreerAyantDroit(typeAyantDroitObj, particulierObj, contratIndiv);
+                                    message = ("Ayant droit bien attribué à votre contrat N°"+idc);
+                                }
+                                else {
+                                    message="Erreur : l'ayant droit existe déjà";
+                                    request.setAttribute("idc", idc);
+                                    jspAffiche = "/gestionParticulier_Recherche.jsp";
+                                } 
                             } else {
                                 particulierObj = gestionSession.RechercherParticulierParId(idParticulier);
                                 typeAyantDroitObj = gestionSession.RechercherTypeAyantDroitParId(idTypeAyantDroit);
                                 gestionSession.CreerAyantDroit(typeAyantDroitObj, particulierObj, contratIndiv);
                             }
                             
-                            if (sessionAssure != null) {
-                                jspAffiche = "/menuAssure.jsp";
-                                message = ("Ayant droit bien attribué ‡ votre contrat N∞"+idc);
-                            } else if (sessionGestionnaire != null) {
-                                jspAffiche = "/menuGestionnaire.jsp";
-                                message = ("Ayant droit bien attribué au contrat N∞"+idc);
-                            } else {
-                                jspAffiche = "/menuAdministrateur.jsp";
-                                message = ("Ayant droit bien attribué au contrat N∞"+idc);
-                            } 
                         }
                     } else {
                         message="Erreur : un des paramètres est manquant";
@@ -1078,31 +1318,66 @@ public class menuDrajak extends HttpServlet {
                 case "Assure_GestionContrat_SuppressionAyantDroit":
                 case "Gestionnaire_GestionContrat_SuppressionAyantDroit":
                 case "Administrateur_GestionContrat_SuppressionAyantDroit":
-                    request.setAttribute("idc", request.getParameter("idc"));
-                    idp = request.getParameter("idcp");
-                    long idAyantDroit = Long.parseLong(idp);
+                    ContratIndividuel idcInstance = null;
+                    idc =  request.getParameter("idc");
+                    request.setAttribute("idc",idc);
+                    idp = request.getParameter("idp");
+                    long idParticulier = Long.parseLong(idp);
+                    Particulier particulierInstance = null;
                     AyantDroit ayantDroitInstance = null;
-                    if (!idp.trim().isEmpty()){
-                        if (sessionAssure != null) {
-                            ayantDroitInstance = assureSession.RechercherAyantDroitParId(idAyantDroit);
-                        } else {
-                            ayantDroitInstance = gestionSession.RechercherAyantDroitParID(idAyantDroit);
-                        }
-                        if (ayantDroitInstance != null){
-                            if (sessionAssure != null) {
-                                assureSession.SupprimerAyantDroit(ayantDroitInstance);
-                            } else {
-                                gestionSession.SupprimerAyantDroit(ayantDroitInstance);
-                            }
-                            jspAffiche = "/menuAssure.jsp";
-                            message = "Ayant droit supprimé avec succés";
-                        } else {
-                            message="Ayant droit non trouvé";
-                            jspAffiche = "/menuGestionnaire.jsp";
-                        }
+                    if (sessionAssure != null) {
+                        particulierInstance = assureSession.RechercherParticulierParId(idParticulier);
+                        idcInstance = assureSession.RechercherContratIndivParId(Long.parseLong(idc));
                     } else {
-                        jspAffiche = "/menuGestionnaire.jsp";
-                        message = "Erreur : un problème est survenu";
+                        particulierInstance = gestionSession.RechercherParticulierParId(idParticulier);
+                        idcInstance = gestionSession.RechercherContratIndivParId(Long.parseLong(idc));
+                    }
+
+                    message = "Erreur : Un problème est survenu pendant la suppression";
+
+                    if (particulierInstance != null) {
+                        if (!idp.trim().isEmpty()) {
+                            if (sessionAssure != null) {
+                                ayantDroitInstance = assureSession.RechercherAyantDroitParCleparticulier(particulierInstance, idcInstance);
+                            } else {
+                                ayantDroitInstance = gestionSession.RechercherAyantDroitParCleparticulier(particulierInstance, idcInstance);
+                            }
+                            if (ayantDroitInstance != null) {
+                                try {
+                                    if (sessionAssure != null) {
+                                        assureSession.SupprimerAyantDroit(ayantDroitInstance);
+                                    } else {
+                                        gestionSession.SupprimerAyantDroit(ayantDroitInstance);
+                                    }
+                                    if (sessionAssure != null) {
+                                        jspAffiche = "/menuAssure.jsp";
+                                    } else if (sessionGestionnaire != null) {
+                                        jspAffiche = "/menuGestionnaire.jsp";
+                                    } else {
+                                        jspAffiche = "/menuAdministrateur.jsp";
+                                    }
+                                    message = "Ayant droit supprimé avec succés, l'affichage sera mis à jour au prochain lancement";
+                                } catch (Exception e) {
+                                    if (sessionAssure != null) {
+                                        jspAffiche = "/menuAssure.jsp";
+                                    } else if (sessionGestionnaire != null) {
+                                        jspAffiche = "/menuGestionnaire.jsp";
+                                    } else {
+                                        jspAffiche = "/menuAdministrateur.jsp";
+                                    }
+                                    message = "Erreur : Un problème est survenu pendant la suppression";
+                                }
+                            } else {
+                                message = "Ayant droit non trouvé";
+                                if (sessionAssure != null) {
+                                    jspAffiche = "/menuAssure.jsp";
+                                } else if (sessionGestionnaire != null) {
+                                    jspAffiche = "/menuGestionnaire.jsp";
+                                } else {
+                                    jspAffiche = "/menuAdministrateur.jsp";
+                                }
+                            }
+                        }
                     }
                     break;
                     
@@ -1269,90 +1544,6 @@ public class menuDrajak extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(menuDrajak.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    protected void doActionEditionDevis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idDocument = 0;
-        try {
-            idDocument = Integer.parseInt(request.getParameter(("idDocument")));
-        } catch (Exception exception) {
-        }
-
-        String TemplatePath = request.getServletContext().getRealPath("/WEB-INF/DevisTemplate.pdf");
-        response.setContentType("application/pdf");
-
-        try (PdfReader reader = new PdfReader(TemplatePath);
-                PdfWriter writer = new PdfWriter(response.getOutputStream());
-                PdfDocument document = new PdfDocument(reader, writer)) {
-
-            PdfPage page = document.getPage(1);
-            PdfCanvas canvas = new PdfCanvas(page);
-
-            FontProgram fontProgram = FontProgramFactory.createFont();
-            PdfFont font = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8, true);
-            canvas.setFontAndSize(font, 10);
-
-            //Numéro du devis
-            canvas.beginText();
-            canvas.setTextMatrix(100, 753);
-            canvas.showText("nDevis");
-            canvas.endText();
-
-            //Date du devis
-            canvas.beginText();
-            canvas.setTextMatrix(127, 737);
-            canvas.showText("dateDevis");
-            canvas.endText();
-
-            //Honnoraire Hospitalisation
-            canvas.beginText();
-            canvas.setTextMatrix(210, 655);
-            canvas.showText("HonnoraireHospitalisation");
-            canvas.endText();
-
-            //Forfait Hospitalisation
-            canvas.beginText();
-            canvas.setTextMatrix(210, 625);
-            canvas.showText("HonnoraireHospitalisation");
-            canvas.endText();
-
-            //Honnoraire Médicaux
-            canvas.beginText();
-            canvas.setTextMatrix(210, 560);
-            canvas.showText("HonnoraireMédicaux");
-            canvas.endText();
-
-            //Honnoraire Paramédicaux
-            canvas.beginText();
-            canvas.setTextMatrix(210, 500);
-            canvas.showText("HonnoraireParamédicaux");
-            canvas.endText();
-
-            //soins dentaire
-            canvas.beginText();
-            canvas.setTextMatrix(210, 410);
-            canvas.showText("soins dentaire");
-            canvas.endText();
-
-            //Orthodontie
-            canvas.beginText();
-            canvas.setTextMatrix(210, 373);
-            canvas.showText("Orthodontie");
-            canvas.endText();
-
-            //Lunettes verres simples
-            canvas.beginText();
-            canvas.setTextMatrix(210, 315);
-            canvas.showText("Lunettes verres simples");
-            canvas.endText();
-
-            //Lunettes verres complexes
-            canvas.beginText();
-            canvas.setTextMatrix(210, 285);
-            canvas.showText("Lunettes verres complexes");
-            canvas.endText();
-        }
-
     }
 
     protected int doActionCalculerAge(Date DOB, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

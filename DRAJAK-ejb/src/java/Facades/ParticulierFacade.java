@@ -70,6 +70,7 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
     
     public void ModifierParticulier(Particulier p) {
         em.merge(p);
+        getEntityManager().persist(p);
     }
         
     public void SupprimerParticulier(Particulier p){
@@ -79,7 +80,7 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
     @Override
     public Particulier RechercherParticulier(String nSecu) {
         Particulier p;
-        String txt = "SELECT p FROM Particulier P WHERE p.nSecu=:nNecu ";
+        String txt = "SELECT p FROM Particulier P WHERE p.nSecuriteSocial=:nSecu ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("nSecu", nSecu);
         p = null;
