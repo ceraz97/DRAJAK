@@ -108,4 +108,6 @@ public interface GestionSessionLocal {
     
     List<ContratIndividuel> RechercherContratIndividuel();
    
+    
+    void ModifierCompteEmploye (CompteEmploye ce);
 }

@@ -558,4 +558,9 @@ public class GestionSession implements GestionSessionLocal {
      return contratIndividuelFacade.ListerAllContratIndividuel();
      }
     
+    @Override
+    public void ModifierCompteEmploye (CompteEmploye ce){
+        compteEmployeFacade.ModifierCompteEmploye(ce);
+    }
+    
 }

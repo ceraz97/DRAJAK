@@ -5,11 +5,13 @@
 --%>
 
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="Entity.CompteEmploye"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<jsp:useBean id="listeGestionnaireModif" scope="request" class="java.util.List"></jsp:useBean>
+<% List<CompteEmploye> ListeGestionnaireModif = listeGestionnaireModif; %>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -70,12 +72,12 @@
                                     <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                                         <div class="form-group">      
                                             <label for="modif">Personne à modifier :</label>
-                                            <SELECT class="form-control" name="modif" onchange="changeColor(this);">
-                                                <OPTION value ="">A recup de la BD...</option>
-                                                <OPTION value ="X">X</option>
-                                                <OPTION value ="XX">XX</option>
+                                            <SELECT name="modif" size="1">
+                                                <option value="" disabled selected>Id gestionnaire</option>
+                                                <% for (CompteEmploye ce : ListeGestionnaireModif) {%>
+                                                <option value ="<%=ce.getId()%>" placeholder="Id gestionnaire"><%=ce.getId()%></option>
+                                                <% }%>
                                             </SELECT>
-
                                             <label class="sr-only" for="adresse">Adresse</label>
                                             <input type="text" class="form-control" name="adresse" placeholder="Adresse" required>
                                             <label class="sr-only" for="numero">Numéro</label>
@@ -88,7 +90,7 @@
                                             <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="hidden" name="action" value="CreerGestionnaire"/>
+                                            <input type="hidden" name="action" value="ModifierGestionnaire"/>
                                             <button type="submit" class="btn btn-primary btn-block">Modifier</button>
                                         </div>
                                     </form>

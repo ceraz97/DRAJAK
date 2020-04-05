@@ -311,8 +311,21 @@ public class menuDrajak extends HttpServlet {
                     }
 
                     gestionSession.CreerCompteEmploye(mail, mdp, nom, prenom, g, d, mail, numero, adresse, r, StatutPersonne.Actif);
-                    //message = "Gestionnaire crÈÈ avec succËs !";
-                    //request.setAttribute("messsage", message);
+                    break;
+
+                case "ModifierGestionnaire":
+                    jspAffiche = "/menuAdministrateur.jsp";
+                    message = "Gestionnaire modifié avec succès";
+                    List<CompteEmploye> listModif = gestionSession.ListerAllCompteEmploye();
+                    request.setAttribute("ListeGestionnaireModif", listModif);
+
+                    CompteEmploye ce = new CompteEmploye();
+                    ce.setAdresse(request.getParameter("adresse"));
+                    ce.setnTelephone(request.getParameter("numero"));
+                    ce.setEmail(request.getParameter("mail"));
+
+                    gestionSession.ModifierCompteEmploye(ce);
+
                     break;
 
                 case "Assure_CreerParticulier":
@@ -410,10 +423,8 @@ public class menuDrajak extends HttpServlet {
                     String mailPersMorale = request.getParameter("mail");
                     String mdpPersMorale = request.getParameter("mdp");
 
-                  /*  gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
-                    //message = "Gestionnaire crÈÈ avec succËs !";
-                    //request.setAttribute("messsage", message);
-                    break; */
+                    gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);                    
+                    break;
 
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
@@ -700,32 +711,32 @@ public class menuDrajak extends HttpServlet {
                     doActionEditionDevis(request, response);
                     message = "";
                     break;
-                    
+
                 case "Assure_GestionContrat_ListeContrat":
                     jspAffiche = "/gestionContratMenu_Assure.jsp";
                     message = "";
                     List listeContrats = assureSession.RechercherListeContratAssure(sessionAssure);
-                    if (listeContrats == null){
-                        message="Aucun contrat n'a ÈtÈ trouvÈ";
+                    if (listeContrats == null) {
+                        message = "Aucun contrat n'a été trouvé";
                     }
                     try {
                         request.setAttribute("listeContrats", listeContrats);}
                     catch (Exception e){}
                     break;
-                    
+
                 case "Assure_GestionContrat_resilier":
                     jspAffiche = "/resiliationContrat_Assure.jsp";
                     String idc=request.getParameter("idc");
                     long idContratIndivPourRsiliation =Long.parseLong(idc);
                     ContratIndividuel contratIndivPourResiliation = assureSession.RechercherContratIndivParId(idContratIndivPourRsiliation);
-                    if (contratIndivPourResiliation == null){
-                        message="Aucun contrat n'a ÈtÈ trouvÈ";
+                    if (contratIndivPourResiliation == null) {
+                        message = "Aucun contrat n'a été trouvé";
                     } else {
                         request.setAttribute("contrat", contratIndivPourResiliation);
                     }
-                    
+
                     break;
-                    
+
                 case "Assure_GestionContrat_resilierJustificatif":
                     
                     Connection myConn = null;
