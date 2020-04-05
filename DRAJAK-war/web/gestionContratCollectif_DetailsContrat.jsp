@@ -10,9 +10,10 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Contrat Rechercher</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
         <link href="remedic/css/login.css">
         <%@include file="Shared/link_head.jsp" %>
@@ -20,7 +21,7 @@
 
     <body>
         <script type="text/javascript">
-          
+       
         </script>    
 
         <c:choose>

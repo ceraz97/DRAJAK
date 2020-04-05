@@ -84,9 +84,7 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <c:choose>
-                                 
-                                </c:choose>
+                                
                             </div>          
                         </div>
                     </div>

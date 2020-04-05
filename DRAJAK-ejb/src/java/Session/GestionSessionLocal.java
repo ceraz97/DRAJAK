@@ -55,13 +55,7 @@ public interface GestionSessionLocal {
     
     
     
-    CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
-    
-    List<Produit> afficherLesProduits();
-    
-    List<Modules> afficherLesModules();
-    
-    List<Garantie> afficherLesGaranties();
+   
     
     Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
     

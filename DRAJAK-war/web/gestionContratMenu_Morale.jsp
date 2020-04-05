@@ -85,7 +85,7 @@
                                     <td id="TD7">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionEntreprise }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Collectif_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
                                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
