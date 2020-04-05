@@ -77,18 +77,16 @@
 
                             <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                                 <span class="icon mb-3 d-block flaticon-cardiogram"></span>
-                                <h2 class="mb-4">Cardiology Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                                <h2 class="mb-4">Contrats Individuels</h2>
+                                <p>Rechercher et visualiser un contrat individuel en détail</p>
+                              <p><a onclick="location.href = 'menuDrajak?action=Gestionnaire_ListeContrat'" class="btn btn-primary">Accéder aux contrats</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-buffet" role="tabpanel" aria-labelledby="v-pills-buffet-tab">
                                 <span class="icon mb-3 d-block flaticon-neurology"></span>
-                                <h2 class="mb-4">Neurogoly Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
+                                <h2 class="mb-4">Actions en attente</h2>
+                                <p>Visualiser puis valider les actions en attentes de validation</p>
+                              <p><a onclick="location.href = 'menuDrajak?action=ChoixValidationGestionnaire'" class="btn btn-primary">Accéder aux actions en attente</a></p>
                             </div>
 
                             <div class="tab-pane fade py-5" id="v-pills-fitness" role="tabpanel" aria-labelledby="v-pills-fitness-tab">
@@ -140,8 +138,8 @@
                                         <span class="ion-ios-arrow-forward"></span>
                                     </div>
                                     <h2>Laboratory Services</h2>
+                                    
                                     <p>Even the all-powerful Pointing has no control about the blind.</p>
-                                </a>
                                 <a href="#" class="services-wrap ftco-animate">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="ion-ios-arrow-back"></span>

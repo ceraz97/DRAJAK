@@ -321,6 +321,35 @@ public class menuDrajak extends HttpServlet {
                     message = "Gestionnaire créé avec succès !";
                     break;
 
+                case "ModifierGestionnaire":
+                    jspAffiche = "/modificationGestionnaire.jsp";
+                    
+                    message = "Gestionnaire modifié avec succès";
+                     List<CompteEmploye> listeGestionnaire = gestionSession.ListerAllCompteEmploye();
+                     System.out.println("Liste gestionnaire " +listeGestionnaire);
+                    if (listeGestionnaire == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                  try {
+                          request.setAttribute("listeGestionnaire", listeGestionnaire);}
+                    catch (Exception e){}
+                    /* CompteEmploye ce = new CompteEmploye();
+                    ce.setAdresse(request.getParameter("adresse"));
+                    ce.setnTelephone(request.getParameter("numero"));
+                    ce.setEmail(request.getParameter("mail"));
+
+                    gestionSession.ModifierCompteEmploye(ce);*/
+
+                  
+                  
+                  break;
+                    
+                   
+                  
+
+                  
+                    
+
                 case "Assure_CreerParticulier":
                 case "Gestionnaire_CreerParticulier":
                 case "Administrateur_CreerParticulier":
@@ -442,10 +471,8 @@ public class menuDrajak extends HttpServlet {
                     String mailPersMorale = request.getParameter("mail");
                     String mdpPersMorale = request.getParameter("mdp");
 
-                  /*  gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);
-                    //message = "Gestionnaire créé avec succès !";
-                    //request.setAttribute("messsage", message);
-                    break; */
+                    gestionSession.CreerPersonneMorale(raisonSociale, siret, siren, mailPersMorale, mdpPersMorale, mailPersMorale);                    
+                    break;
 
                 case "AfficherGest":
                     jspAffiche = "/listeGestionnaire.jsp";
@@ -945,7 +972,7 @@ public class menuDrajak extends HttpServlet {
                     }
                     message = "";
                     break;
-                    
+
                 case "Assure_GestionContrat_ListeContrat":
                     jspAffiche = "/gestionContratMenu_Assure.jsp";
                     message = "";
@@ -957,7 +984,7 @@ public class menuDrajak extends HttpServlet {
                         request.setAttribute("listeContrats", listeContrats);}
                     catch (Exception e){}
                     break;
-                    
+
                 case "Assure_GestionContrat_resilier":
                     jspAffiche = "/resiliationContrat_Assure.jsp";
                     idc=request.getParameter("idc");
@@ -968,7 +995,7 @@ public class menuDrajak extends HttpServlet {
                     } else {
                         request.setAttribute("contrat", contratIndivPourResiliation);
                     }
-                    
+
                     break;
                     
                 case "Assure_GestionDocument_envoiFichier":
@@ -1385,6 +1412,9 @@ public class menuDrajak extends HttpServlet {
                 case "Morale_GestionContrat_ListeContrat":
                     jspAffiche = "/gestionContratMenu_Morale.jsp";
                     message = "";
+                    
+                  
+                            
                     List listeContratsM = assureSession.RechercherListeContratMorale(sessionEntreprise);
                     if (listeContratsM == null){
                         message="Aucun contrat n'a été trouvé";
@@ -1401,7 +1431,7 @@ public class menuDrajak extends HttpServlet {
                     break;  
                     
                          
-                case "Collectif_GestionContrat_detailContrat":
+                //case "Collectif_GestionContrat_detailContrat":
                 case "GestionnaireM_GestionContrat_detailContrat":
                     jspAffiche = "/gestionContratCollectif_DetailsContrat.jsp";
                     message = "";
@@ -1413,25 +1443,26 @@ public class menuDrajak extends HttpServlet {
                     ContratCollectif contratCollectifDetail = null;
                   
                     
-                    if (sessionEntreprise!=null){
+                   // if (sessionEntreprise!=null){
                         contratCollectifDetail = assureSession.RechercherContratCollectifParId(idContratCollectifDetail);
                         System.out.println("Parti 1");
-                    } else {
+                   /* } else {
                         contratCollectifDetail = gestionSession.RechercherContratCollectifParId(idContratCollectifDetail);
-                        System.out.println("Parti 2");
-                    }
-                    if (contratCollectifDetail == null){
+                        System.out.println("Parti 2");*/
+                        //}
+                   /* if (contratCollectifDetail == null){
                         message="Aucun contrat n'a été trouvé";
                         System.out.println("Parti 3");
-                    } else {
+                    } else {*/
                         request.setAttribute("contrat", contratCollectifDetail);
                         System.out.println("Parti 4");
+                        
                         List <ContratIndividuel> listeContratIndiv = contratCollectifDetail.getContratIndividuels();
                         if (listeContratIndiv!=null){
                             request.setAttribute("listeContratIndiv", listeContratIndiv);
                             System.out.println("Parti 5");
                         }
-                    }
+                    
                     break;
                 
                     
@@ -1491,12 +1522,94 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
+                    
+                    
+                case "ChoixValidationGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                    message = "";
+                    break;
                  
-
+                    
+                     
+                case "RechercherContratIndivAttenteGestionnaireListe":
+                    jspAffiche = "/listeContratIndivAttenteGestionnaire.jsp";
+                    message = "";
+                    String typecontr = "Enattentevalidation";
+                      if (typecontr==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
+                    
+                    } else {
+                    
+                       StatutContrat az = null;
+                       typecontr.equalsIgnoreCase("Enattentevalidation");
+                        az = StatutContrat.Enattentevalidation;
+                        
                
                     
+                    List listeContratsRs = gestionSession.RechercherContratIndividuelAttente(az);
+                    if (listeContratsRs == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeContratsRs);
+                  try {
+                        request.setAttribute("listeContratsRs", listeContratsRs);}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                
+                           
+                case "RechercherContratAdhesionAttenteGestionnaireListe":
+                    jspAffiche = "/listeContratAdhesionAttenteGestionnaire.jsp";
+                    message = "";
+                    String typecontrr = "Enattentevalidation";
+                      if (typecontrr==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
                     
-                         
+                    } else {
+                    
+                       StatutContrat az = null;
+                     typecontrr.equalsIgnoreCase("AttenteAdhesion");
+                            az = StatutContrat.AttenteAdhesion;
+                        
+               
+                    
+                    List listeContratsRsr = gestionSession.RechercherContratIndividuelAttente(az);
+                    if (listeContratsRsr == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeContratsRsr);
+                  try {
+                        request.setAttribute("listeContratsRsr", listeContratsRsr);}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                    
+                  case "RechercherRIBAttenteGestionnaireListe":
+                    jspAffiche = "/listeRIBAttenteGestionnaire.jsp";
+                    message = "";
+                    String typefichier = "AttenteValidationRib";
+                      if (typefichier==null  ) {
+                        message="Erreur : Le champ de type n'est pas rempli";
+                    
+                    } else {
+                    
+                    
+                    
+                    List listeFichier = gestionSession.RechercherRIBAttente();
+                    if (listeFichier  == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("contrat" + listeFichier );
+                  try {
+                        request.setAttribute("listeFichier ", listeFichier );}
+                    catch (Exception e){}
+                      }
+                      
+                    break;                              
+                    
+                        
                 
 
             }

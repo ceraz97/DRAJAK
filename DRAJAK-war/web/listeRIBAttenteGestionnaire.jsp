@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Contrats réalisés </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,7 +39,7 @@
                   <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Gérer vos contrats</h1>                   
+                        <h1 class="mb-4">Les RIB en attente</h1>                   
                     </div>
                 </div>
             </div>
@@ -48,47 +48,48 @@
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
+                    
                     <div class="formulaire_devis">
-                        <table>
+                        
+                        <label class="sr-only" for="idcontrat">Id du fichier recherché </label>
+                        <input name="idcontrat" type="text" class="form-control"placeholder="idcontrat" required>
+                        
+                   
+                       <p> <input type="hidden" name="action" value="RechercherContratGestionnaireBouton"/>
+                        <button type="submit" class="btn btn-primary btn-co">Rechercher le fichier</button> </p>
+                        
                             <!-- here should go some titles... -->
+                           
+                        <table>
                             <tr style="border-bottom: 1px solid #167ce9;">
-                                <th>Contrat</th>
-                                <th>Date d'effet</th>
-                                <th>Date de fin</th>
-                                <th>Statut</th>
-                                <th>Type</th>
-                                <th>Paiement</th>
+                                <th>Nom Fichier</th>
+                                <th>Date Envoi</th>
+                                <th>Stockage</th>
+                                <th>Type Fichier</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${requestScope.listeContratsM}" var="document">
+                            <c:forEach items="${requestScope.listeFichier}" var="document">
                                 <tr>
                                     <td id="td1">
-                                        <c:out value="${document.getLibelleContrat()}" />
+                                        <c:out value="${document.getnomFichier()}" />
                                     </td>
                                     <td id="td2">
-                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateCreation()}" pattern="dd/MM/yyyy"/>
+                                        <fmt:formatDate var="fmtDateDebut" value="${document.getdateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
                                         <c:out value="${fmtDateDebut}" />
                                     </td>
-                                    <td id="td3">
-                                        <fmt:formatDate var="fmtDateFin" value="${document.getDateFin()}" pattern="dd/MM/yyyy"/>
-                                        <c:out value="${fmtDateFin}" />
-                                    </td>
+                                    
                                     <td id="td4">
-                                        <c:out value="${document.getStatut()}" />
+                                        <c:out value="${document.getstockageFichier()}" />
                                     </td>
                                     <td id="td5">
-                                        <c:out value="${document.getType()}" />
+                                        <c:out value="${document.getcleTypeFichier().libelleTypeFichier()}" />
                                     </td>
-                                    <td id="TD6">
-                                        <c:out value="${document.getPaiement()}" />
-                                    </td>
-                                    <td id="TD7">
+                                   
+                                    
+                                    <td id="TD9">
                                         <c:choose>
-                                            <c:when test="${ !empty sessionScope.sessionEntreprise }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
-                                            </c:when>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
                                             </c:when>
                                         </c:choose>
                                       

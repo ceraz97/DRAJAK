@@ -30,8 +30,10 @@ import Entity.TypeTransaction;
 import Enum.ChoixPaiement;
 import Enum.Genre;
 import Enum.Role;
+import Enum.StatutContrat;
 import Enum.StatutPersonne;
 import Enum.StatutTransaction;
+import Enum.TypeContrat;
 import Enum.TypeProduit;
 import Facades.CompteAssureFacadeLocal;
 import Facades.CompteEmployeFacadeLocal;
@@ -560,5 +562,22 @@ public class GestionSession implements GestionSessionLocal {
         particulierFacade.CreerID(part);
     }
 
+    
+    @Override
+    public void ModifierCompteEmploye (CompteEmploye ce){
+        compteEmployeFacade.ModifierCompteEmploye(ce);
+    }
+    
+    
+      @Override
+    public List<ContratIndividuel>  RechercherContratIndividuelAttente(StatutContrat type) {
+        return contratIndividuelFacade.ListerAllContratIndividuelAttente(type);
+    }
+
+     @Override
+    public List RechercherRIBAttente() {
+        return fichierFacade.ListerAllFichier();
+    }
+    
     
 }

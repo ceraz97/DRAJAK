@@ -165,6 +165,16 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     }
    
     
+      @Override
+    public List<ContratIndividuel> ListerAllContratIndividuelAttente(StatutContrat Types) {
+        List listeDesContratsIndivs;
+        String tx = "SELECT CI FROM ContratIndividuel AS CI WHERE CI.statut=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", Types);
+        listeDesContratsIndivs=req.getResultList();
+        return listeDesContratsIndivs;
+    }
+    
     
     
     
