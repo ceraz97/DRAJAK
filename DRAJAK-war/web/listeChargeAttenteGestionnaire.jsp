@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>RIB en attente </title>
+        <title>Prise en charge </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,7 +39,7 @@
                   <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Les RIB en attente</h1>                   
+                        <h1 class="mb-4">Les prises en charge en attente</h1>                   
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     
                     <div class="formulaire_devis">
                         
-               
+                  
                         
                             <!-- here should go some titles... -->
                            
@@ -63,7 +63,7 @@
                                 <th>Type Fichier</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${requestScope.listeFichier}" var="document">
+                            <c:forEach items="${requestScope.listeFichiers}" var="document">
                                 <tr>
                                     <td id="td1">
                                         <c:out value="${document.getNomFichier()}" />

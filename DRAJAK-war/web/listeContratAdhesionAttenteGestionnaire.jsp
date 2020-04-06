@@ -51,13 +51,7 @@
                     
                     <div class="formulaire_devis">
                         
-                        <label class="sr-only" for="idcontrat">Id du contrat recherché</label>
-                        <input name="idcontrat" type="text" class="form-control"placeholder="idcontrat" required>
-                        
-                   
-                       <p> <input type="hidden" name="action" value="RechercherContratGestionnaireBouton"/>
-                        <button type="submit" class="btn btn-primary btn-co">Rechercher le contrat</button> </p>
-                        
+                    
                             <!-- here should go some titles... -->
                            
                         <table>
@@ -104,7 +98,7 @@
                                     <td id="TD9">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Modifier</button>
                                             </c:when>
                                         </c:choose>
                                       

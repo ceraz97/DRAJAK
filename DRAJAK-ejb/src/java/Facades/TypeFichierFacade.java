@@ -48,7 +48,20 @@ public class TypeFichierFacade extends AbstractFacade<TypeFichier> implements Ty
         return listeDesTypeFichier;
     }
     
-    
+     @Override
+    public TypeFichier ListeTypeFichierAttenteRIB(String Type) {
+        TypeFichier f;
+        String tx = "SELECT T FROM TypeFichier AS T WHERE T.libelleTypeFichier=:type ";
+        Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("type", Type);
+        f = null;
+        List<TypeFichier> result = req.getResultList();
+        if (result.size() == 1) {
+            f = (TypeFichier) result.get(0);
+        }
+        return f;
+      
+    }
     
     
 }

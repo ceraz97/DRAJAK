@@ -12,6 +12,7 @@ import Entity.Contrat;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
+import Entity.Fichier;
 import Entity.Garantie;
 import Entity.Modules;
 import Entity.ObjetGarantie;
@@ -572,9 +573,30 @@ public class GestionSession implements GestionSessionLocal {
     }
 
      @Override
-    public List RechercherRIBAttente() {
-        return fichierFacade.ListerAllFichier();
+    public List <Fichier> RechercherRIBouChargeAttente(TypeFichier Cle) {
+        return fichierFacade.ListerAllFichier(Cle);
     }
     
     
+      @Override
+    public TypeFichier RechercherTypeRIBouChargeAttente(String Cle) {
+        return typeFichierFacade.ListeTypeFichierAttenteRIB(Cle);
+    }
+    
+    public String ChangementStatutContrat(Long id) {
+        ContratIndividuel ca;
+        String message = null;
+        ca = contratIndividuelFacade.RechercherContratIndivParId(id);
+        StatutContrat cont;
+        cont = StatutContrat.Actif;
+        ca.setStatut(cont);
+        
+        
+        contratIndividuelFacade.ModifierContratIndividuel(ca);
+        message = "Le contrat a été modifié avec succès.";
+      
+        return message;            
+    }
 }
+    
+

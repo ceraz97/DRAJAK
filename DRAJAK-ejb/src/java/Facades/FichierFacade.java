@@ -49,10 +49,11 @@ public class FichierFacade extends AbstractFacade<Fichier> implements FichierFac
     }
     
     @Override
-    public List ListerAllFichier() {
+    public List <Fichier> ListerAllFichier(TypeFichier Cle) {
         List listeDesFichiers;
-        String tx = "SELECT G FROM Garantie AS G";
+        String tx = "SELECT G FROM Fichier AS G where G.cleTypeFichier=:cle";
         Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("cle", Cle);
         listeDesFichiers=req.getResultList();
         return listeDesFichiers;
     }

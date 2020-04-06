@@ -129,6 +129,8 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     public void ModifierContratIndividuel(ContratIndividuel contratIndividuel) {
         getEntityManager().merge(contratIndividuel);
     }
+    
+   
 
     @Override
     public void SupprimerContratIndividuel(ContratIndividuel contratIndividuel) {
@@ -175,6 +177,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         return listeDesContratsIndivs;
     }
     
+   
     
     
     

@@ -1223,9 +1223,8 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
-                    
-                case "RechercherContratGestionnaireListe":
-                    jspAffiche = "/informationContratRechercherGestionnaire.jsp";
+                    case "RechercherContratGestionnaireListe":
+                  jspAffiche = "/gestionContrat_DetailsContat.jsp";
                     message = "";
                     String idContrat=request.getParameter("idc");
                     long idContratd =Long.parseLong(idContrat);
@@ -1245,6 +1244,7 @@ public class menuDrajak extends HttpServlet {
                     }
                     break;
                     
+                
                     
                 case "ChoixValidationGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
@@ -1312,25 +1312,76 @@ public class menuDrajak extends HttpServlet {
                     jspAffiche = "/listeRIBAttenteGestionnaire.jsp";
                     message = "";
                     String typefichier = "AttenteValidationRib";
-                      if (typefichier==null  ) {
-                        message="Erreur : Le champ de type n'est pas rempli";
+                    TypeFichier a;
+                    a = gestionSession.RechercherTypeRIBouChargeAttente(typefichier);
+                          
+                      System.out.println("Type" +a);
                     
-                    } else {
-                    
-                    
-                    
-                    List listeFichier = gestionSession.RechercherRIBAttente();
+                    List listeFichier = gestionSession.RechercherRIBouChargeAttente(a);
                     if (listeFichier  == null){
                         message="Aucun contrats n'a été trouvé";
                     }
-                          System.out.println("contrat" + listeFichier );
+                          System.out.println("fichier" + listeFichier );
                   try {
-                        request.setAttribute("listeFichier ", listeFichier );}
+                        request.setAttribute("listeFichier", listeFichier );}
                     catch (Exception e){}
-                      }
+                      
                       
                     break;                              
+                 
                     
+                     case "RechercherChargeAttenteGestionnaireListe":
+                    jspAffiche = "/listeChargeAttenteGestionnaire.jsp";
+                    message = "";
+                    String typefichierc = "AttenteValidationPriseCharge";
+                    TypeFichier aa;
+                    aa = gestionSession.RechercherTypeRIBouChargeAttente(typefichierc);
+                          
+                      System.out.println("Type" +aa);
+                    
+                    List listeFichiers = gestionSession.RechercherRIBouChargeAttente(aa);
+                    if (listeFichiers  == null){
+                        message="Aucun contrats n'a été trouvé";
+                    }
+                          System.out.println("fichier" + listeFichiers );
+                  try {
+                        request.setAttribute("listeFichiers", listeFichiers );}
+                    catch (Exception e){}
+                      
+                      
+                    break;  
+                    
+                      
+                case "ModificationContratStatutGestionnaire":
+                    jspAffiche = "/modifierContratStatutGestionnaire.jsp";
+                    
+                    String idContratv =request.getParameter("idc");
+                    long idContratvv =Long.parseLong(idContratv);
+                    ContratIndividuel contratIndivValidation = null;
+                  
+                        contratIndivValidation = gestionSession.RechercherContratIndivParId(idContratvv);
+                    System.out.println("Contrat"+contratIndivValidation);
+                    
+                        request.setAttribute("contrat", contratIndivValidation);
+                        List <AyantDroit> listeAyantDroit = contratIndivValidation.getLesAyantDroits();
+                        if (listeAyantDroit!=null){request.setAttribute("listeAyantDroit", listeAyantDroit);}
+                        System.out.println("list"+listeAyantDroit);
+                    break;
+                
+                case "ModificationvalidationContratStatutGestionnaire":
+                    jspAffiche = "/listeChargeAttenteGestionnaire.jsp";
+                    String idContratO =request.getParameter("idc");
+                    long idContratOu =Long.parseLong(idContratO);
+                    ContratIndividuel contratIndivValidationOui = null;
+                  
+                      contratIndivValidationOui = gestionSession.RechercherContratIndivParId(idContratOu);
+                    System.out.println("contrat indiv cher" + contratIndivValidationOui);
+                      gestionSession.ChangementStatutContrat(idContratOu);
+                      System.out.println("Changement"+idContratOu);
+                      
+                       
+                    break;
+             
                         
                 
 
