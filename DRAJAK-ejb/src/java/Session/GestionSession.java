@@ -587,20 +587,36 @@ public class GestionSession implements GestionSessionLocal {
     }
     
     @Override
-    public String ChangementStatutContrat(Long id) {
-        ContratIndividuel ca;
-        String message = null;
-        ca = contratIndividuelFacade.RechercherContratIndivParId(id);
-        StatutContrat cont;
-        cont = StatutContrat.Actif;
-        ca.setStatut(cont);
-        
-        
-        contratIndividuelFacade.ModifierContratIndividuel(ca);
-        message = "Le contrat a été modifié avec succès.";
-      
-        return message;            
+    public void ChangementStatutContrat(ContratIndividuel ci) {
+       ci.setStatut(StatutContrat.Actif);
+        contratIndividuelFacade.ModifierContratIndividuel(ci);
+       
+                 
     }
-}
     
+     @Override
+    public void ChangementStatutRefuserContrat(ContratIndividuel ci) {
+       ci.setStatut(StatutContrat.Actif);
+        contratIndividuelFacade.ModifierContratIndividuel(ci);
+       
+                 
+    }
+    
+      @Override
+    public Fichier RechercherFichierParId(long idContrat) {
+        return fichierFacade.RechercherFichierParId(idContrat);
+    }
+    
+      @Override
+    public void ModifierFichierStatutValide(Long id , String Type) {
+       
+        Fichier f = fichierFacade.RechercherFichierParId(id);
+        
+        TypeFichier fichierv = typeFichierFacade.ListeTypeFichierAttenteRIB(Type);
+        
+        
+        fichierFacade.ModifierFichierStatut(fichierv, f);}
+}
+                
+ 
 

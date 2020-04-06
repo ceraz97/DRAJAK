@@ -108,12 +108,20 @@ public interface GestionSessionLocal {
   
   TypeFichier RechercherTypeRIBouChargeAttente(String Cle);
   
-  String ChangementStatutContrat(Long id);
+ void ChangementStatutContrat(ContratIndividuel ci);
    
   
 
     AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd);
 
     void CreerIdParticulier(Particulier part);
+    
+    void ChangementStatutRefuserContrat(ContratIndividuel ci);
+    
+    Fichier RechercherFichierParId(long idContrat);
+    
+   
+    
+    void ModifierFichierStatutValide(Long id , String Type);
 
 }

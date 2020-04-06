@@ -50,7 +50,7 @@ public interface ContratIndividuelFacadeLocal {
     
     ContratIndividuel CreerContratAdhesion( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, CompteAssure cleCompteAssure,ObjetGarantie cleObjetGarantie, ContratCollectif cleContratCollectif);
     
-    void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
+   void ModifierContratIndividuel(ContratIndividuel contratIndividuel);
         
     void SupprimerContratIndividuel(ContratIndividuel contratIndividuel);
     

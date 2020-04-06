@@ -38,7 +38,9 @@ public interface FichierFacadeLocal {
     
     List <Fichier> ListerAllFichier(TypeFichier Cle);
     
-    void ModifierParticulier(Fichier f);
+    void ModifierFichierStatut(TypeFichier tf, Fichier f);
             
     void SupprimerParticulier(Fichier f);
+    
+    Fichier RechercherFichierParId(long idContrat);
 }

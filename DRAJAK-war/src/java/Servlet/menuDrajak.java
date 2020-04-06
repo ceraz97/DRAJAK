@@ -112,7 +112,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("ModificationContratStatutGestionnaire")&& !act.equals("ModificationvalidationContratStatutGestionnaire"))) {
       
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
@@ -1431,7 +1431,7 @@ public class menuDrajak extends HttpServlet {
                     break;  
                     
                          
-                //case "Collectif_GestionContrat_detailContrat":
+                case "Collectif_GestionContrat_detailContrat":
                 case "GestionnaireM_GestionContrat_detailContrat":
                     jspAffiche = "/gestionContratCollectif_DetailsContrat.jsp";
                     message = "";
@@ -1501,8 +1501,9 @@ public class menuDrajak extends HttpServlet {
                         }
                     }
                     break;
+                    
                     case "RechercherContratGestionnaireListe":
-                  jspAffiche = "/gestionContrat_DetailsContat.jsp";
+                  jspAffiche = "/informationContratRechercherGestionnaire.jsp";
                     message = "";
                     String idContrat=request.getParameter("idc");
                     long idContratd =Long.parseLong(idContrat);
@@ -1635,33 +1636,136 @@ public class menuDrajak extends HttpServlet {
                     
                     String idContratv =request.getParameter("idc");
                     long idContratvv =Long.parseLong(idContratv);
-                    ContratIndividuel contratIndivValidation = null;
+                    
+                    ContratIndividuel contratIndivValidation;
                   
                         contratIndivValidation = gestionSession.RechercherContratIndivParId(idContratvv);
                     System.out.println("Contrat"+contratIndivValidation);
                     
                         request.setAttribute("contrat", contratIndivValidation);
-                        List <AyantDroit> listeAyantDroit = contratIndivValidation.getLesAyantDroits();
-                        if (listeAyantDroit!=null){request.setAttribute("listeAyantDroit", listeAyantDroit);}
-                        System.out.println("list"+listeAyantDroit);
+                        List <AyantDroit> listeAyantDroits = contratIndivValidation.getLesAyantDroits();
+                        if (listeAyantDroits!=null){request.setAttribute("listeAyantDroits",listeAyantDroits);}
+                        System.out.println("list"+listeAyantDroits);
                     break;
                 
                 case "ModificationvalidationContratStatutGestionnaire":
-                    jspAffiche = "/listeChargeAttenteGestionnaire.jsp";
-                    String idContratO =request.getParameter("idc");
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                   String idContratO =request.getParameter("idc");
                     long idContratOu =Long.parseLong(idContratO);
+                   
                     ContratIndividuel contratIndivValidationOui = null;
+                    
                   
                       contratIndivValidationOui = gestionSession.RechercherContratIndivParId(idContratOu);
-                    System.out.println("contrat indiv cher" + contratIndivValidationOui);
-                      gestionSession.ChangementStatutContrat(idContratOu);
-                      System.out.println("Changement"+idContratOu);
+                      System.out.println("contrat indiv cher" + contratIndivValidationOui);
+                      
+                      gestionSession.ChangementStatutContrat(contratIndivValidationOui);
+                      System.out.println("Changement"+contratIndivValidationOui);
+                      
+                       
+                    break;
+                
+                     case "ModificationrefusContratStatutGestionnaire": 
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                    String idContratOo =request.getParameter("idc");
+                    long idContratOuo =Long.parseLong(idContratOo);
+                    ContratIndividuel contratIndivValidationOuii = null;
+                    
+                  
+                      contratIndivValidationOuii = gestionSession.RechercherContratIndivParId(idContratOuo);
+                      System.out.println("contrat indiv cher" + contratIndivValidationOuii);
+                      
+                      gestionSession.ChangementStatutRefuserContrat(contratIndivValidationOuii);
+                      System.out.println("Changement"+contratIndivValidationOuii);
+                      
+                       
+                    break;
+                    
+                     case "ModificationFichierStatutGestionnaire":
+                    jspAffiche = "/modifierFichierStatutGestionnaire.jsp";
+                    
+                    String idContratvf =request.getParameter("idc");
+                    long idContratf =Long.parseLong(idContratvf);
+                         System.out.println("idc" +idContratvf);
+                    Fichier contratIndivValidationf;
+                  
+                    contratIndivValidationf = gestionSession.RechercherFichierParId(idContratf);
+                    request.setAttribute("contrat",contratIndivValidationf);
+                    
+                    System.out.println("contrat"+contratIndivValidationf);
+                    break;
+                    
+                      case "ModificationvalidationRIBStatutGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                   String idfi =request.getParameter("idc");
+                    long idfichier =Long.parseLong(idfi);
+                    String typefichiers = "RIBValide";
+                    Fichier fichierr= null;
+                    
+                  
+                      fichierr = gestionSession.RechercherFichierParId(idfichier);
+                      System.out.println("contrat indiv cher" + fichierr);
+                      
+                      gestionSession.ModifierFichierStatutValide(idfichier,typefichiers );
+                      System.out.println("Changement"+fichierr);
+                      
+                       
+                    break;
+                    
+                    
+                      case "ModificationrefusRIBStatutGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                   String idfii =request.getParameter("idc");
+                    long idfichieri =Long.parseLong(idfii);
+                    String typefichierss = "RIBRefuse";
+                    Fichier fichierri = null;
+                    
+                  
+                      fichierri = gestionSession.RechercherFichierParId(idfichieri);
+                      System.out.println("contrat indiv cher" + fichierri);
+                      
+                      gestionSession.ModifierFichierStatutValide(idfichieri,typefichierss );
+                      System.out.println("Changement"+fichierri);
+                      
+                       
+                    break;
+                    
+                    
+                      case "ModificationvalidationChargeStatutGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                   String idfic =request.getParameter("idc");
+                    long idfichierc =Long.parseLong(idfic);
+                    String typefichiersc = "PriseChargeValide";
+                    Fichier fichierrc= null;
+                    
+                          System.out.println("typefichier"+typefichiersc);
+                          
+                      fichierrc = gestionSession.RechercherFichierParId(idfichierc);
+                      System.out.println("contrat indiv cher" + fichierrc);
+                      
+                      gestionSession.ModifierFichierStatutValide(idfichierc,typefichiersc );
+                      System.out.println("Changement"+fichierrc);
+                      
+                       
+                    break;
+                    
+                      case "ModificationrefusChargeStatutGestionnaire":
+                    jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
+                   String idficc =request.getParameter("idc");
+                    long idfichiercc =Long.parseLong(idficc);
+                    String typefichierscc = "PriseChargeRefuse";
+                    Fichier fichierrcc= null;
+                    
+                  
+                      fichierrcc = gestionSession.RechercherFichierParId(idfichiercc);
+                      System.out.println("contrat indiv cher" + fichierrcc);
+                      
+                      gestionSession.ModifierFichierStatutValide(idfichiercc, typefichierscc);
+                      System.out.println("Changement"+fichierrcc);
                       
                        
                     break;
              
-                        
-                
 
             }
             

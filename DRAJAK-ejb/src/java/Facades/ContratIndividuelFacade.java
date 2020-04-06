@@ -127,8 +127,11 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     
     @Override
     public void ModifierContratIndividuel(ContratIndividuel contratIndividuel) {
-        getEntityManager().merge(contratIndividuel);
+       
+        em.merge(contratIndividuel);
+        getEntityManager().persist(contratIndividuel);
     }
+   
     
    
 

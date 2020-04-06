@@ -36,7 +36,7 @@
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
-                  <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+            
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Les RIB en attente</h1>                   
@@ -82,11 +82,9 @@
                                    
                                     
                                     <td id="TD9">
-                                        <c:choose>
-                                            <c:when test="${!empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
-                                            </c:when>
-                                        </c:choose>
+                                       
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=&idc=${document.getId()}'">Détails</button>
+                                           
                                       
                                     </td>
                                 </tr>

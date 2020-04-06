@@ -32,8 +32,7 @@
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
             <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
-        <fmt:formatDate var="fmtDateDebut" value="${contrat.getDateCreation()}" pattern="dd/MM/yyyy"/>
-        <fmt:formatDate var="fmtDateFin" value="${contrat.getDateFin()}" pattern="dd/MM/yyyy"/>
+
 
 
 
@@ -63,7 +62,7 @@
                 </c:otherwise>
             </c:choose>
         </p>
-        
+         
         
         
         <section class="ftco-services">
@@ -71,45 +70,25 @@
                 <div class="row no-gutters">
                     <div class="formulaire_devis">
                         <div>
-                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations contrat</p>
+                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations fichier</p>
                             <div style="padding-left: 40px; margin-bottom: 30px;">
-                                <p>Numéro de contrat : <c:out value="${requestScope.contrat.getId()}"/></p>
-                                <p>Date création contrat : <c:out value="${fmtDateDebut}"/></p>
-                                <p>Date fin de contrat : <c:out value="${fmtDateFin}"/></p>
-                                <p>Produit: <c:out value="${requestScope.contrat.getCleProduit().getLibelleProduit()}"/></p>
-                                <p>Objet Garantie: <c:out value="${requestScope.contrat.getCleObjetGarantie().getLibelleTypePopulation()}"/></p>
-                                <p>Contrat Collectif rattaché: <c:out value="${requestScope.contrat.getCleContratCollectif().getLibelleContrat()}"/></p>
+                                <p>Numéro de fichier : <c:out value="${requestScope.contrat.getId()}"/></p>
+                                <p>Nom de fichier : <c:out value="${requestScope.contrat.getNomFichier()}"/></p>
+                                <fmt:formatDate var="fmtDobAssure" value="${requestScope.contrat.getDateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
+                                <p>Date d'envoi : <c:out value="${fmtDobAssure}"/></p>
+                                <p>Stockage Fichier : <c:out value="${requestScope.contrat.getStockageFichier()}"/></p>
+                                <p>Type de fichier : <c:out value="${requestScope.contrat.getCleTypeFichier().getLibelleTypeFichier()}"/></p>
+                               
                             </div>
                             
-                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-user"></i> Assurés et ayants droits</p>
-                            <div style="padding-left: 40px; margin-bottom: 30px;">
-                                <div style="margin-bottom: 20px;">
-                                    <p style="color:#167ce9;"> Assuré principal</p>
-                                    <div style="margin-left: 20px;">
-                                        <p>Nom : <c:out value="${requestScope.contrat.getCleCompteAssure().getCleParticulier().getNom()}"/></p>
-                                        <p>Prénom : <c:out value="${requestScope.contrat.getCleCompteAssure().getCleParticulier().getPrenom()}"/></p>
-                                        <fmt:formatDate var="fmtDobAssure" value="${requestScope.contrat.getCleCompteAssure().getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
-                                        <p>Date de naissance : <c:out value="${fmtDobAssure}"/></p>
-                                    </div>
-                                </div>
-
-                                <c:forEach items="${requestScope.listeAyantDroits}" var="ayantDroit">
-                                    <div style="margin-bottom: 20px;">
-                                        <p style="color:#167ce9;"> Ayant droit</p>
-                                        <div style="margin-left: 20px;">
-                                            <p>Nom : <c:out value="${ayantDroit.getCleParticulier().getNom()}"/></p>
-                                            <p>Prénom : <c:out value="${ayantDroit.getCleParticulier().getPrenom()}"/></p>
-                                            <fmt:formatDate var="fmtDobAssure" value="${ayantDroit.getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
-                                            <p>Date de naissance : <c:out value="${fmtDobAssure}"/></p>
-                                            <p>Relation : <c:out value="${ayantDroit.getCleTypeAyantDroit().getLibelleAyantDroit()}"/></p>
-                                        </div>
-                                    </div>
-                                </c:forEach>
+                            
                                 
-                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationContratStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Contrat </button>
-                                    
-                                   
-                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusContratStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Contrat</button>
+                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationRib'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider RIB</button></c:if>
+                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationPriseCharge'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Prise en charge </button></c:if>
+                                 
+                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationRib'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser RIB </button></c:if>
+                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationPriseCharge'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Prise en charge </button></c:if>
+                    
                                   
                             </div>          
                         </div>

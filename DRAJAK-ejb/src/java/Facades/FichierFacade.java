@@ -59,12 +59,23 @@ public class FichierFacade extends AbstractFacade<Fichier> implements FichierFac
     }
     
     @Override
-    public void ModifierParticulier(Fichier f) {
-        em.merge(f);
-        }
+     public void ModifierFichierStatut(TypeFichier tf, Fichier f) {
+        f.setCleTypeFichier(tf);
+        getEntityManager().persist(f);
+    }
     
     @Override    
     public void SupprimerParticulier(Fichier f){
         em.remove(f);
         }
+    
+        @Override
+    public Fichier RechercherFichierParId(long idContrat) {
+        Fichier ContratRecherche;
+        String tx = "SELECT t FROM Fichier AS t WHERE t.id=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", idContrat);
+        ContratRecherche = (Fichier)req.getSingleResult();
+        return ContratRecherche;
+    }
 }
