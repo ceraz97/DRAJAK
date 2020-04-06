@@ -31,8 +31,8 @@
             <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
             <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
         </c:choose>
-        <fmt:formatDate var="fmtDateDebut" value="${contrat.getDateCreation()}" pattern="dd/MM/yyyy"/>
-        <fmt:formatDate var="fmtDateFin" value="${contrat.getDateFin()}" pattern="dd/MM/yyyy"/>
+        <fmt:formatDate var="fmtDateDebut" value="${requestScope.contrat.getDateCreation()}" pattern="dd/MM/yyyy"/>
+        <fmt:formatDate var="fmtDateFin" value="${requestScope.contrat.getDateFin()}" pattern="dd/MM/yyyy"/>
 
 
 

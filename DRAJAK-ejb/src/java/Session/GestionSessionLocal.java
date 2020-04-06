@@ -44,55 +44,42 @@ public interface GestionSessionLocal {
     Boolean VerificationDonne();
 
     List ListerAllCompteEmploye();
-    
+
     List ListerAllParticulier();
-    
+
     List ListerAllPersonneMorale();
-    
+
     CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne);
-    
+
     List<Produit> afficherLesProduits();
-    
+
     List<Modules> afficherLesModules();
-    
+
     List<Garantie> afficherLesGaranties();
-    
-    
-    
-   
-    
-    Particulier CreerParticulier (String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
-    
+
+    Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr);
+
     PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email);
 
     Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules);
 
-    DomaineProduit AffecterDomaineAProduit (String libelle) ;
-    
-    Modules RechercherModuleParId (Long Id);
+    DomaineProduit AffecterDomaineAProduit(String libelle);
 
-     Garantie RechercherGarantieParId (Long Id);
-     
-     TypeModule AffecterTypeAModule(String libelle);
-     
-     Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie);
+    Modules RechercherModuleParId(Long Id);
 
-     
-     List<TypeRemboursement> afficherLesTypesRemboursement();
-     
+    Garantie RechercherGarantieParId(Long Id);
+
+    TypeModule AffecterTypeAModule(String libelle);
+
+    Modules CreerModule(String libelle, TypeModule typemodule, List<Garantie> listeGarantie);
+
+    List<TypeRemboursement> afficherLesTypesRemboursement();
+
     TypeRemboursement AffecterTypeAGarantie(String libelle);
-    
-    Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement);
-     
-    
+
+    Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement);
 
     ContratIndividuel RechercherContratIndivParId(long idContrat);
-
-
-
-
-    
-    
 
     List<Particulier> RechercherListeParticulier(String nSecu);
 
@@ -109,7 +96,7 @@ public interface GestionSessionLocal {
     AyantDroit RechercherAyantDroitParID(long idAD);
 
     ContratCollectif RechercherContratCollectifParId(long idContrat);
-    
+
     List<ContratIndividuel> RechercherContratIndividuel();
    
     
@@ -122,4 +109,11 @@ public interface GestionSessionLocal {
   TypeFichier RechercherTypeRIBouChargeAttente(String Cle);
   
   String ChangementStatutContrat(Long id);
+   
+  
+
+    AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd);
+
+    void CreerIdParticulier(Particulier part);
+
 }

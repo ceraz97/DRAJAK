@@ -97,4 +97,11 @@ public interface AssureSessionLocal {
     
     ContratCollectif RechercherContratCollectifParId(long idContrat);
 
+    AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd);
+
+    void CreerIdParticulier(Particulier part);
+
+    List<Modules> ListerAllModules();
+    
+    void AttribuerNomDevis(ContratIndividuel devis);
 }

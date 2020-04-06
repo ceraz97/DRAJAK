@@ -66,18 +66,39 @@ public class AyantDroitFacade extends AbstractFacade<AyantDroit> implements Ayan
         }
         
     public void SupprimerAyantDroit(AyantDroit ad){
-        em.remove(ad);
+        if (!em.contains(ad)) {
+            ad = em.merge(ad);
         }
+        em.remove(ad);
+    }
 
     @Override
     public AyantDroit RechercherAyantDroitParId(long idAD) {
-        AyantDroit AyantDroitRecherche;
+        AyantDroit AyantDroitRecherche=null;
         String tx = "SELECT t FROM AyantDroit AS t WHERE t.id=:idad";
         Query req = getEntityManager().createQuery(tx);
         req.setParameter("idad", idAD);
-        AyantDroitRecherche = (AyantDroit)req.getSingleResult();
+        List<AyantDroit> result = req.getResultList();
+        if (result.size() == 1) {
+            AyantDroitRecherche = (AyantDroit) result.get(0);
+        }
         return AyantDroitRecherche;
     }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParCleparticulier(Particulier particulier, ContratIndividuel contratIndiv) {
+        AyantDroit AyantDroitRecherche = null;
+        String tx = "SELECT t FROM AyantDroit AS t WHERE t.cleParticulier=:part and t.cleContratIndividuel=:contr";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("part", particulier);
+        req.setParameter("contr", contratIndiv);
+        List<AyantDroit> result = req.getResultList();
+        if (result.size() == 1) {
+            AyantDroitRecherche = (AyantDroit) result.get(0);
+        }
+        return AyantDroitRecherche;
+    }
+    
     
     
 }

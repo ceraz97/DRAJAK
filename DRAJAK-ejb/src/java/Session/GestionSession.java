@@ -205,7 +205,7 @@ public class GestionSession implements GestionSessionLocal {
         compteEmployeFacade.CreerID(ce);
 
         //PARTICULIER
-        pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", femme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");
+        pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", homme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");
         pay = particulierFacade.CreerParticulier("Mohamed", "Dja", homme, d20, "19999456841234", "Mohamed.Dja@yopmail.com", "0666668899", "20,lotissement ParIci, 69003,Lyon,France");
         paa = particulierFacade.CreerParticulier("Andreï", "Journet", homme, d40, "1889956841234", "Andreï.Journet@yopmail.com", "0666998899", "19,route PrèsDeParIci,Lyon,France");
         paay = particulierFacade.CreerParticulier("Xin", "Li", homme, d40, "1889445684234", "Xin.Li@yopmail.com", "0666998899", "13,route Loindici,Lyon,France");
@@ -286,6 +286,7 @@ public class GestionSession implements GestionSessionLocal {
         ObjetGarantie cadre, tns, Na, Nb, Nc;
         cadre = objetGarantieFacade.CreerObjetGarantie("Cadre");
         objetGarantieFacade.CreerObjetGarantie("Non Cadre");
+        objetGarantieFacade.CreerObjetGarantie("Devis");
         objetGarantieFacade.CreerObjetGarantie("Etudiant");
         tns = objetGarantieFacade.CreerObjetGarantie("TNS");
         objetGarantieFacade.CreerObjetGarantie("Retraité");
@@ -405,50 +406,45 @@ public class GestionSession implements GestionSessionLocal {
     public CompteEmploye CreerCompteEmploye(String login, String mdp, String nom, String prenom, Genre genre, Date Dob, String email, String tel, String adr, Role role, StatutPersonne statutPersonne) {
         return compteEmployeFacade.CreerCompteEmploye(login, mdp, nom, prenom, genre, Dob, email, tel, adr, role);
     }
-    
-        @Override
-    public List<Produit> afficherLesProduits(){
- 
-        List<Produit> listp = new ArrayList<Produit>(); 
-        listp =  produitFacade.ListerAllProduit();
-        
+
+    @Override
+    public List<Produit> afficherLesProduits() {
+
+        List<Produit> listp = new ArrayList<Produit>();
+        listp = produitFacade.ListerAllProduit();
+
         return listp;
     }
-    
-            @Override
-    public List<Modules> afficherLesModules(){
- 
+
+    @Override
+    public List<Modules> afficherLesModules() {
+
         List<Modules> listm = moduleFacade.ListerAllModule();
-        
+
         return listm;
     }
-    
-            @Override
-    public List<Garantie> afficherLesGaranties(){
- 
-        List<Garantie> listg = new ArrayList<Garantie>(); 
-        listg =  garantieFacade.ListerAllGarantie();
-        
+
+    @Override
+    public List<Garantie> afficherLesGaranties() {
+
+        List<Garantie> listg = new ArrayList<Garantie>();
+        listg = garantieFacade.ListerAllGarantie();
+
         return listg;
     }
-    
+
     public List<TypeRemboursement> afficherLesTypesRemboursement() {
-            List<TypeRemboursement> listp = typeRemboursementFacade.ListerAllTypeRemboursement();
-            return listp;
-                    
-                    }
-    
-    
-    
-    
-    
+        List<TypeRemboursement> listp = typeRemboursementFacade.ListerAllTypeRemboursement();
+        return listp;
+
+    }
 
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
     }
 
-   @Override
+    @Override
     public PersonneMorale CreerPersonneMorale(String raisonSociale, String nSiret, String nSiren, String login, String mdp, String email) {
         return personneMoraleFacade.CreerPersonneMorale(raisonSociale, nSiret, nSiren, login, mdp, email);
     }
@@ -456,18 +452,18 @@ public class GestionSession implements GestionSessionLocal {
     @Override
     public Produit CreerProduit(TypeProduit typeProduit, String libelle, double fiscalite, DomaineProduit cleDomaineProduit, List<Modules> lesModules) {
         Produit p;
-         p = produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
-         return p;  
+        p = produitFacade.CreerProduit(typeProduit, libelle, fiscalite, cleDomaineProduit, lesModules);
+        return p;
     }
 
     @Override
-    public DomaineProduit AffecterDomaineAProduit(String libelle)  {
+    public DomaineProduit AffecterDomaineAProduit(String libelle) {
         DomaineProduit p = domaineProduitFacade.RechercherDomaineParLibelle(libelle);
         return p;
     }
-    
+
     @Override
-    public Modules RechercherModuleParId (Long Id){
+    public Modules RechercherModuleParId(Long Id) {
         Modules m;
         m = moduleFacade.RechercherModuleId(Id);
         return m;
@@ -479,36 +475,33 @@ public class GestionSession implements GestionSessionLocal {
     }
 
     @Override
-    public List<Particulier>  RechercherListeParticulier(String nSecu) {
+    public List<Particulier> RechercherListeParticulier(String nSecu) {
         return particulierFacade.RechercherListeParticulier(nSecu);
     }
 
-    
-     @Override
-    public Garantie RechercherGarantieParId (Long Id){
+    @Override
+    public Garantie RechercherGarantieParId(Long Id) {
         Garantie m;
         m = garantieFacade.RechercherGarantieId(Id);
         return m;
     }
 
-    
     @Override
-    public TypeModule AffecterTypeAModule(String libelle)  {
+    public TypeModule AffecterTypeAModule(String libelle) {
         TypeModule p;
         p = typeModuleFacade.RechercherTypeModuleParLibelle(libelle);
         return p;
     }
 
-    
     @Override
-    public Modules CreerModule( String libelle,TypeModule typemodule, List<Garantie> listeGarantie) {
+    public Modules CreerModule(String libelle, TypeModule typemodule, List<Garantie> listeGarantie) {
         Modules p;
-         p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
-         return p;  
+        p = moduleFacade.CreerModule(libelle, typemodule, listeGarantie);
+        return p;
     }
 
     @Override
-    public List ListerAllTypeAyantDroit() {      
+    public List ListerAllTypeAyantDroit() {
         return typeAyantDroitFacade.ListerAllTypeAyantDroit();
     }
 
@@ -536,30 +529,40 @@ public class GestionSession implements GestionSessionLocal {
     public AyantDroit RechercherAyantDroitParID(long idAD) {
         return ayantDroitFacade.RechercherAyantDroitParId(idAD);
     }
-    
-     @Override
-    public TypeRemboursement AffecterTypeAGarantie(String libelle)  {
+
+    @Override
+    public TypeRemboursement AffecterTypeAGarantie(String libelle) {
         TypeRemboursement p;
         p = typeRemboursementFacade.RechercherTypeModuleParLibelle(libelle);
         return p;
     }
-    
-    public Garantie CreerGarantie (String libelle, TypeRemboursement typeRemboursement) {
+
+    public Garantie CreerGarantie(String libelle, TypeRemboursement typeRemboursement) {
         Garantie g;
         g = garantieFacade.CreerGarantie(libelle, typeRemboursement);
         return g;
     }
-    
-    
-     @Override
+
+    @Override
     public ContratCollectif RechercherContratCollectifParId(long idContrat) {
         return contratCollectifFacade.RechercherContratCollectifParId(idContrat);
     }
-    
+
     @Override
-     public List<ContratIndividuel> RechercherContratIndividuel(){
-     return contratIndividuelFacade.ListerAllContratIndividuel();
-     }
+    public List<ContratIndividuel> RechercherContratIndividuel() {
+        return contratIndividuelFacade.ListerAllContratIndividuel();
+    }
+
+    @Override
+    public AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd) {
+        return ayantDroitFacade.RechercherAyantDroitParCleparticulier(part, contratInd);
+    }
+
+    @Override
+    public void CreerIdParticulier(Particulier part) {
+        particulierFacade.CreerID(part);
+    }
+
     
     @Override
     public void ModifierCompteEmploye (CompteEmploye ce){
@@ -583,6 +586,7 @@ public class GestionSession implements GestionSessionLocal {
         return typeFichierFacade.ListeTypeFichierAttenteRIB(Cle);
     }
     
+    @Override
     public String ChangementStatutContrat(Long id) {
         ContratIndividuel ca;
         String message = null;

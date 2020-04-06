@@ -67,8 +67,18 @@
                                 <div class="col-md-8" style="position: relative; margin: auto;">
                                     <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                                         <div class="form-group">       
-                                            <input type="hidden" value="${requestScope.contrat}" name="idContratHidden">
+                                            <input type="hidden" value="${requestScope.contrat.getId()}" name="idContratHidden">
                                             <input type="hidden" value="${requestScope.depuisInfosContrat}" name="origine">
+                                            
+                                            <c:if test="${requestScope.depuisInfosContrat eq 'true'}">
+                                                <select class="form-control" name="typeAyantDroitSelect">
+                                                    <option>Sélectionner la relation</option>
+                                                    <c:forEach items="${requestScope.typeAyantDroit}" var="typeA">
+                                                        <option value="${typeA.getId()}"><c:out value="${typeA.getLibelleAyantDroit()}"/></option>
+                                                    </c:forEach>
+                                                </select>
+                                            </c:if>
+                                            
                                             <label class="sr-only" for="nom">Nom</label>
                                             <input type="text" class="form-control" name="nom" placeholder="Nom" required>
                                             <label class="sr-only" for="prenom">Prénom</label>
