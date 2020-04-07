@@ -123,5 +123,15 @@ public interface GestionSessionLocal {
    
     
     void ModifierFichierStatutValide(Long id , String Type);
+    
+    
+    
+    void ModifierContratStatutActifIndiv(Long id);
+    
+    void ModifierContratStatutRefuserIndiv(Long id);
+    
+    void ModifierContratStatutActifColl(Long id);
+    
+    void ModifierContratStatutRefuserColl(Long id);
 
 }

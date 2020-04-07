@@ -97,7 +97,7 @@
                                     <td id="TD9">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=GestionnaireM_GestionContrat_detailContrat&&idc=${document.getId()}'">Modifier</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationContratIndivStatutGestionnaire&&idc=${document.getId()}'">Modifier</button>
                                             </c:when>
                                         </c:choose>
                                       

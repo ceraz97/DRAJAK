@@ -106,11 +106,17 @@
                                     </div>
                                 </c:forEach>
                                 
-                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationContratStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Contrat </button>
+                                
                                     
-                                   
-                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusContratStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Contrat</button>
-                                  
+                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationContratStatutGestionnaireIndiv&&idc=${requestScope.contrat.getId()}'">Valider Contrat Indiv</button>
+                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusContratStatutGestionnaireIndiv&&idc=${requestScope.contrat.getId()}'">Refuser Contrat Indiv </button>
+
+                      
+                                
+                                
+                                
+                                
+                                
                             </div>          
                         </div>
                     </div>

@@ -1631,8 +1631,8 @@ public class menuDrajak extends HttpServlet {
                     break;  
                     
                       
-                case "ModificationContratStatutGestionnaire":
-                    jspAffiche = "/modifierContratStatutGestionnaire.jsp";
+                case "ModificationContratIndivStatutGestionnaire":
+                    jspAffiche = "/modifierContratIndivStatutGestionnaire.jsp";
                     
                     String idContratv =request.getParameter("idc");
                     long idContratvv =Long.parseLong(idContratv);
@@ -1647,8 +1647,8 @@ public class menuDrajak extends HttpServlet {
                         if (listeAyantDroits!=null){request.setAttribute("listeAyantDroits",listeAyantDroits);}
                         System.out.println("list"+listeAyantDroits);
                     break;
-                
-                case "ModificationvalidationContratStatutGestionnaire":
+               
+                case "ModificationvalidationContratStatutGestionnaireIndiv":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                    String idContratO =request.getParameter("idc");
                     long idContratOu =Long.parseLong(idContratO);
@@ -1659,13 +1659,15 @@ public class menuDrajak extends HttpServlet {
                       contratIndivValidationOui = gestionSession.RechercherContratIndivParId(idContratOu);
                       System.out.println("contrat indiv cher" + contratIndivValidationOui);
                       
-                      gestionSession.ChangementStatutContrat(contratIndivValidationOui);
+                    
+                      
+                      gestionSession.ModifierContratStatutActifIndiv(idContratOu);
                       System.out.println("Changement"+contratIndivValidationOui);
                       
                        
                     break;
                 
-                     case "ModificationrefusContratStatutGestionnaire": 
+                     case "ModificationrefusContratStatutGestionnaireIndiv": 
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                     String idContratOo =request.getParameter("idc");
                     long idContratOuo =Long.parseLong(idContratOo);
@@ -1675,11 +1677,21 @@ public class menuDrajak extends HttpServlet {
                       contratIndivValidationOuii = gestionSession.RechercherContratIndivParId(idContratOuo);
                       System.out.println("contrat indiv cher" + contratIndivValidationOuii);
                       
-                      gestionSession.ChangementStatutRefuserContrat(contratIndivValidationOuii);
+                  
+                      
+                      
+                      gestionSession.ModifierContratStatutRefuserIndiv(idContratOuo);
                       System.out.println("Changement"+contratIndivValidationOuii);
+                      
                       
                        
                     break;
+                    
+                 
+                      
+                    
+                      
+           
                     
                      case "ModificationFichierStatutGestionnaire":
                     jspAffiche = "/modifierFichierStatutGestionnaire.jsp";

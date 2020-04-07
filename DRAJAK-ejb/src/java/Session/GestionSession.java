@@ -603,6 +603,48 @@ public class GestionSession implements GestionSessionLocal {
     }
     
       @Override
+    public void ModifierContratStatutActifIndiv(Long id) {
+       
+        
+       ContratIndividuel f = contratIndividuelFacade.RechercherContratIndivParId(id);
+        
+        StatutContrat z = StatutContrat.Actif;
+        contratIndividuelFacade.ModifierContratIndividuelStatut(f, z);
+     
+             }
+     @Override
+    public void ModifierContratStatutRefuserIndiv(Long id) {
+       
+        
+       ContratIndividuel f = contratIndividuelFacade.RechercherContratIndivParId(id);
+        
+        StatutContrat z = StatutContrat.Refuse;
+        contratIndividuelFacade.ModifierContratIndividuelStatut(f, z);
+     
+             }
+      @Override
+    public void ModifierContratStatutActifColl(Long id) {
+       
+        
+        ContratCollectif f = contratCollectifFacade.RechercherContratCollectifParId(id);
+        
+        StatutContrat z = StatutContrat.Actif;
+        contratCollectifFacade.ModifierContratCollectifStatut(f, z);
+     
+             }    
+       
+     @Override
+    public void ModifierContratStatutRefuserColl(Long id) {
+       
+        
+       ContratCollectif f = contratCollectifFacade.RechercherContratCollectifParId(id);
+        
+        StatutContrat z = StatutContrat.Refuse;
+         contratCollectifFacade.ModifierContratCollectifStatut(f, z);
+     
+             }
+      @Override
+   
     public Fichier RechercherFichierParId(long idContrat) {
         return fichierFacade.RechercherFichierParId(idContrat);
     }

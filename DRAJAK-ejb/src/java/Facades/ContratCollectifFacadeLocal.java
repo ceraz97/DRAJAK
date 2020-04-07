@@ -50,4 +50,9 @@ public interface ContratCollectifFacadeLocal {
     List<ContratCollectif> RechercherContratIndividuelParMorale(PersonneMorale morale);
     
     ContratCollectif RechercherContratCollectifParId(long idContrat);
+    
+     void ModifierContratCollectifStatut(ContratCollectif contratcollectif, StatutContrat s);
+    
 }
+    
+   
