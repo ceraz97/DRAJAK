@@ -10,12 +10,14 @@ import Entity.CompteEmploye;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
+import Entity.Fichier;
 import Entity.Garantie;
 import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.Produit;
 import Entity.TypeAyantDroit;
+import Entity.TypeFichier;
 import Entity.TypeModule;
 import Entity.TypeRemboursement;
 import Enum.Genre;
@@ -102,10 +104,34 @@ public interface GestionSessionLocal {
     
    List<ContratIndividuel>  RechercherContratIndividuelAttente(StatutContrat type);
    
-   List RechercherRIBAttente();
+  List <Fichier> RechercherRIBouChargeAttente(TypeFichier Cle);
+  
+  TypeFichier RechercherTypeRIBouChargeAttente(String Cle);
+  
+ void ChangementStatutContrat(ContratIndividuel ci);
+   
+  
 
     AyantDroit RechercherAyantDroitParCleparticulier(Particulier part, ContratIndividuel contratInd);
 
     void CreerIdParticulier(Particulier part);
+    
+    void ChangementStatutRefuserContrat(ContratIndividuel ci);
+    
+    Fichier RechercherFichierParId(long idContrat);
+    
+   
+    
+    void ModifierFichierStatutValide(Long id , String Type);
+    
+    
+    
+    void ModifierContratStatutActifIndiv(Long id);
+    
+    void ModifierContratStatutRefuserIndiv(Long id);
+    
+    void ModifierContratStatutActifColl(Long id);
+    
+    void ModifierContratStatutRefuserColl(Long id);
 
 }

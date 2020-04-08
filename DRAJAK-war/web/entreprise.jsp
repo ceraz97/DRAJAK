@@ -35,7 +35,7 @@
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                     <div class="col-md-8 ftco-animate text-center">
                         <p class="breadcrumbs"><span class="mr-2"><a href="accueil.jsp">Accueil</a></span> <span>Entreprise</span></p>
-                        <h1 class="mb-3 bread">Entreprise</h1>
+                        <h1 class="mb-3 bread">Entreprise, <br>connectez-vous</h1>
                     </div>
                 </div>
             </div>
@@ -56,123 +56,6 @@
                 </c:otherwise>
             </c:choose>
         </p>
-        
-        <section class="ftco-section bg-light">
-            <div class="container">
-                <div class="row justify-content-center mb-5 pb-3">
-                    <div class="col-md-7 heading-section ftco-animate text-center">
-                        <h2 class="mb-4">Recent from blog</h2>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20 order-md-last" style="background-image: url('remedic/images/image_1.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20 order-md-last" style="background-image: url('remedic/images/image_2.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20" style="background-image: url('remedic/images/image_3.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20" style="background-image: url('remedic/images/image_4.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20 order-md-last" style="background-image: url('remedic/images/image_5.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ftco-animate">
-                        <div class="blog-entry align-self-stretch d-flex">
-                            <a href="blog-single.html" class="block-20 order-md-last" style="background-image: url('remedic/images/image_6.jpg');">
-                            </a>
-                            <div class="text p-4 d-block">
-                                <div class="meta mb-3">
-                                    <div><a href="#">August 12, 2018</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-3"><a href="#">New technology facilities</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section class="ftco-section-parallax">
             <div class="parallax-img d-flex align-items-center">

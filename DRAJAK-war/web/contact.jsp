@@ -78,7 +78,7 @@
                     <div class="col-md-6 pr-md-5">
                         <form action="#">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Numéro de SS pré rempli">
+                                <input type="text" class="form-control" placeholder="Numéro de sécurité sociale">
                             </div>
                             <div class="form-group">
                                 <input type="tel" class="form-control" placeholder="Téléphone">
@@ -104,9 +104,8 @@
                     </div>
 
                     <div class="col-md-6" id="map"></div>
-                    <!-- pour la google map
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.615088858667!2d4.857584597324195!3d45.747185891511705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea726c48a669%3A0x98ee913399600aa8!2s1%20Avenue%20des%20Fr%C3%A8res%20Lumi%C3%A8re%2C%2069008%20Lyon!5e0!3m2!1sfr!2sfr!4v1583919270151!5m2!1sfr!2sfr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                    -->
+                    
 
                 </div>
         </section>

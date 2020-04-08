@@ -34,4 +34,6 @@ public interface TypeFichierFacadeLocal {
 
     List<TypeFichier> ListerAllTypeFichier();
     
+   TypeFichier ListeTypeFichierAttenteRIB(String Type);
+    
 }

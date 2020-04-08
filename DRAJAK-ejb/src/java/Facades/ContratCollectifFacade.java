@@ -70,6 +70,13 @@ public class ContratCollectifFacade extends AbstractFacade<ContratCollectif> imp
     public void ModifierContratCollectif(ContratCollectif contratCollectif) {
         getEntityManager().merge(contratCollectif);
     }
+    
+      @Override
+    public void ModifierContratCollectifStatut(ContratCollectif contratcollectif, StatutContrat s) {
+       
+        contratcollectif.setStatut(s);
+        getEntityManager().persist(contratcollectif);
+    }
 
     @Override
     public void SupprimerContratCollectif(ContratCollectif contratCollectif) {

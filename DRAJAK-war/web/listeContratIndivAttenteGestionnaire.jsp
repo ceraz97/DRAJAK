@@ -36,7 +36,6 @@
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
-                  <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Les contrats indivs en attente</h1>                   
@@ -51,12 +50,7 @@
                     
                     <div class="formulaire_devis">
                         
-                        <label class="sr-only" for="idcontrat">Id du contrat recherché</label>
-                        <input name="idcontrat" type="text" class="form-control"placeholder="idcontrat" required>
-                        
-                   
-                       <p> <input type="hidden" name="action" value="RechercherContratGestionnaireBouton"/>
-                        <button type="submit" class="btn btn-primary btn-co">Rechercher le contrat</button> </p>
+                     
                         
                             <!-- here should go some titles... -->
                            
@@ -104,7 +98,7 @@
                                     <td id="TD9">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationContratIndivStatutGestionnaire&idc=${document.getId()}'">Modifier</button>
                                             </c:when>
                                         </c:choose>
                                       

@@ -36,9 +36,11 @@ public interface FichierFacadeLocal {
     
     Fichier CreerFichier(String nom, Blob Stockage,TypeFichier cleTypeFichier, Contrat cleContrat);
     
-    List ListerAllFichier();
+    List <Fichier> ListerAllFichier(TypeFichier Cle);
     
-    void ModifierParticulier(Fichier f);
+    void ModifierFichierStatut(TypeFichier tf, Fichier f);
             
     void SupprimerParticulier(Fichier f);
+    
+    Fichier RechercherFichierParId(long idContrat);
 }

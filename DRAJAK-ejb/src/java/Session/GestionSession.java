@@ -12,6 +12,7 @@ import Entity.Contrat;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
+import Entity.Fichier;
 import Entity.Garantie;
 import Entity.Modules;
 import Entity.ObjetGarantie;
@@ -575,9 +576,89 @@ public class GestionSession implements GestionSessionLocal {
     }
 
      @Override
-    public List RechercherRIBAttente() {
-        return fichierFacade.ListerAllFichier();
+    public List <Fichier> RechercherRIBouChargeAttente(TypeFichier Cle) {
+        return fichierFacade.ListerAllFichier(Cle);
     }
     
     
+      @Override
+    public TypeFichier RechercherTypeRIBouChargeAttente(String Cle) {
+        return typeFichierFacade.ListeTypeFichierAttenteRIB(Cle);
+    }
+    
+    @Override
+    public void ChangementStatutContrat(ContratIndividuel ci) {
+       ci.setStatut(StatutContrat.Actif);
+        contratIndividuelFacade.ModifierContratIndividuel(ci);
+       
+                 
+    }
+    
+     @Override
+    public void ChangementStatutRefuserContrat(ContratIndividuel ci) {
+       ci.setStatut(StatutContrat.Actif);
+        contratIndividuelFacade.ModifierContratIndividuel(ci);
+       
+                 
+    }
+    
+      @Override
+    public void ModifierContratStatutActifIndiv(Long id) {
+       
+        
+       ContratIndividuel f = contratIndividuelFacade.RechercherContratIndivParId(id);
+        
+        StatutContrat z = StatutContrat.Actif;
+        contratIndividuelFacade.ModifierContratIndividuelStatut(f, z);
+     
+             }
+     @Override
+    public void ModifierContratStatutRefuserIndiv(Long id) {
+       
+        
+       ContratIndividuel f = contratIndividuelFacade.RechercherContratIndivParId(id);
+        
+        StatutContrat z = StatutContrat.Refuse;
+        contratIndividuelFacade.ModifierContratIndividuelStatut(f, z);
+     
+             }
+      @Override
+    public void ModifierContratStatutActifColl(Long id) {
+       
+        
+        ContratCollectif f = contratCollectifFacade.RechercherContratCollectifParId(id);
+        
+        StatutContrat z = StatutContrat.Actif;
+        contratCollectifFacade.ModifierContratCollectifStatut(f, z);
+     
+             }    
+       
+     @Override
+    public void ModifierContratStatutRefuserColl(Long id) {
+       
+        
+       ContratCollectif f = contratCollectifFacade.RechercherContratCollectifParId(id);
+        
+        StatutContrat z = StatutContrat.Refuse;
+         contratCollectifFacade.ModifierContratCollectifStatut(f, z);
+     
+             }
+      @Override
+   
+    public Fichier RechercherFichierParId(long idContrat) {
+        return fichierFacade.RechercherFichierParId(idContrat);
+    }
+    
+      @Override
+    public void ModifierFichierStatutValide(Long id , String Type) {
+       
+        Fichier f = fichierFacade.RechercherFichierParId(id);
+        
+        TypeFichier fichierv = typeFichierFacade.ListeTypeFichierAttenteRIB(Type);
+        
+        
+        fichierFacade.ModifierFichierStatut(fichierv, f);}
 }
+                
+ 
+

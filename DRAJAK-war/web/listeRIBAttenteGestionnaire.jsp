@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Contrats réalisés </title>
+        <title>RIB en attente </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -36,7 +36,7 @@
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
-                  <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+            
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Les RIB en attente</h1>                   
@@ -51,12 +51,7 @@
                     
                     <div class="formulaire_devis">
                         
-                        <label class="sr-only" for="idcontrat">Id du fichier recherché </label>
-                        <input name="idcontrat" type="text" class="form-control"placeholder="idcontrat" required>
-                        
-                   
-                       <p> <input type="hidden" name="action" value="RechercherContratGestionnaireBouton"/>
-                        <button type="submit" class="btn btn-primary btn-co">Rechercher le fichier</button> </p>
+               
                         
                             <!-- here should go some titles... -->
                            
@@ -71,27 +66,25 @@
                             <c:forEach items="${requestScope.listeFichier}" var="document">
                                 <tr>
                                     <td id="td1">
-                                        <c:out value="${document.getnomFichier()}" />
+                                        <c:out value="${document.getNomFichier()}" />
                                     </td>
                                     <td id="td2">
-                                        <fmt:formatDate var="fmtDateDebut" value="${document.getdateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
+                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
                                         <c:out value="${fmtDateDebut}" />
                                     </td>
                                     
                                     <td id="td4">
-                                        <c:out value="${document.getstockageFichier()}" />
+                                        <c:out value="${document.getStockageFichier()}" />
                                     </td>
                                     <td id="td5">
-                                        <c:out value="${document.getcleTypeFichier().libelleTypeFichier()}" />
+                                        <c:out value="${document.getCleTypeFichier().getLibelleTypeFichier()}" />
                                     </td>
                                    
                                     
                                     <td id="TD9">
-                                        <c:choose>
-                                            <c:when test="${ !empty sessionScope.sessionGestionnaire }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=RechercherContratIndivAttenteGestionnaireListe&idc=${document.getId()}'">Détails</button>
-                                            </c:when>
-                                        </c:choose>
+                                       
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=&idc=${document.getId()}'">Détails</button>
+                                           
                                       
                                     </td>
                                 </tr>
