@@ -59,6 +59,14 @@ public class TypeAyantDroitFacade extends AbstractFacade<TypeAyantDroit> impleme
     }
     
     
-    
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParLibelle(String libelle) {
+        TypeAyantDroit TypeAyantDroitRecherche;
+        String tx = "SELECT t FROM TypeAyantDroit AS t WHERE t.libelleAyantDroit=:libelle";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("libelle", libelle);
+        TypeAyantDroitRecherche = (TypeAyantDroit)req.getSingleResult();
+        return TypeAyantDroitRecherche;
+    }
     
 }

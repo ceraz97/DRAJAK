@@ -29,34 +29,8 @@
         <c:when test="${ !empty sessionScope.sessionAdministrateur }"><%@include file="Menus/NavBar_administrateur.jsp" %></c:when>
         <c:otherwise><%@include file="Menus/NavBar_public.jsp" %></c:otherwise>
     </c:choose>
-    <fmt:formatDate var="fmtDate" value="${sessionScope.sessionAssure.getCleParticulier().getDateNaissance()}" pattern="yyyy-MM-dd"/>
-    <c:set var="adresseFromBD" value="${sessionScope.sessionAssure.getCleParticulier().getAdresse()}"/>
-    <c:set var="adresseSplit" value="${fn:split(adresseFromBD, ',')}"/>
-    <script>
-        window.onload = function() {
-            document.getElementById('formulaireEnfant2').style.display = 'none';
-            document.getElementById('formulaireEnfant3').style.display = 'none';
-        };
 
-        function functionNbEnfant()
-        {
-            var liste = document.getElementById('enfantSelectId');
-            var nbenfants = liste.options[liste.selectedIndex].text;
 
-            if (nbenfants === '1 enfant') {
-                document.getElementById('formulaireEnfant2').style.display = 'none';
-                document.getElementById('formulaireEnfant3').style.display = 'none';
-            } else if (nbenfants === '2 enfants') {
-                document.getElementById('formulaireEnfant2').style.display = 'block';
-                document.getElementById('formulaireEnfant3').style.display = 'none';
-            } else {
-                document.getElementById('formulaireEnfant2').style.display = 'block';
-                document.getElementById('formulaireEnfant3').style.display = 'block';
-            }
-
-        }
-        ;
-    </script>
     <body>
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
@@ -90,9 +64,9 @@
                 <div class="row no-gutters">
                     <div class="container_progressbar">
                         <ul class="progressbar">
-                            <li class="active_progressebar"><a href="javascript:history.go(-1)"><span>Vos besoins</span></a></li>
-                            <li class="active_progressebar"><span>Vos infos</span></li>
-                            <li><span>Votre tarif</span></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-3)"><span>Vos besoins</span></a></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-2)"><span>Vos infos</span></a></li>
+                            <li class="active_progressebar"><a href="javascript:history.go(-1)"><span>Votre tarif</span></a></li>
                             <li><span>Souscription</span></li>
                         </ul>
                     </div>
@@ -108,219 +82,177 @@
                                     <td class="colonne2Lignehaut">Premier adulte</td>
                                 </tr>
                                 <tr class="ligneGeneraleTableau">
-                                    <td class="colonne2LigneBas">
-                                        <section>
-                                            <div class="NomPrenomDevis">
-                                                <input type="text" id="nomA1" name="nomA1" placeholder="Nom" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getNom()}"</c:if>  <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> required>
-                                                <input type="text" id="prenomA1" name="prenomA1" placeholder="Prénom" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getPrenom()}"</c:if> <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if>required>
-                                            </div>
-                                        </section>
-                                        
-                                        <section class="sectionFormulaireRadio" style="background-color: transparent">
-                                            <div style="flex:0">
-                                                <input type="radio" name="genreA1" id="genre1" value="Homme" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if><c:choose><c:when test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Homme'}">checked</c:when><c:otherwise>checked</c:otherwise></c:choose>>
-                                                <label for="genre1">Homme</label>
-                                            </div>
-                                            <div style="flex:0">
-                                                <input type="radio" name="genreA1" id="genre2" value="Femme" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if><c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Femme'}">checked</c:if>>
-                                                <label for="genre2">Femme</label>
-                                            </div>
-                                            <div style="flex:0">
-                                                <input type="radio" name="genreA1" id="genre3" value="Autre" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> <c:if test="${sessionScope.sessionAssure.getCleParticulier().getGenre() eq 'Autre'}">checked</c:if>>
-                                                <label for="genre3">Autre</label>
-                                            </div>
-                                        </section>
-                                        <section>
+
+                                    <c:choose>
+                                        <c:when test="${!empty sessionScope.sessionAssure}">
+                                            <c:out value="Toutes vos informations sont déjà enregistrées"/>
+                                        </c:when>
+                                        <c:otherwise>
                                             <div>
-                                                <label for="bdayA1">Date de naissance :</label>
-                                                    <input type="date" id="bdayA1" name="bdayA1" <c:if test="${ !empty sessionScope.sessionAssure }">value="${fmtDate}" disabled="disabled"</c:if> required>
+                                                <label for="nSSA1"> Numéro de sécurité sociale :</label>
+                                                <input type="number" id="nSSA1" name="nSSA1" min="1000000000000" max="2999999999999" required>
                                             </div>
                                             <div>
                                                 <label for="selectRegimeA1">Régime :</label>
-                                                <select name="selectRegimeA1" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> required>
-                                                    <option value="Régime Général" <c:choose><c:when test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Régime Général'}">selected</c:when><c:otherwise>checked</c:otherwise></c:choose>>Régime Général</option>
-                                                    <option value="Alsace Moselle" <c:if test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Alsace Moselle'}">selected</c:if>>Alsace Moselle</option>
+                                                <select name="selectRegimeA1" required>
+                                                    <option value="Régime Général" selected>Régime Général</option>
+                                                    <option value="Alsace Moselle" >Alsace Moselle</option>
                                                 </select>
                                             </div>
-                                        </section>
-                                    </td>
+                                            <div>
+                                                <span>Votre login sera votre adsresse mail précédemment fournie.</span>
+                                                <label for="mdp"> Mot de passe :</label>
+                                                <input type="password" name="mdp"placeholder="Mot de passe" required>
+                                                <label for="mdp2"> Confirmer mot de passe :</label>
+                                                <input type="password" name="mdp2" placeholder="Confirmer mot de passe"required>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </tr>
                                 <!-- fin ligne tableau devis -->
-                                <c:if test="${requestScope.nbAdulte == 2}">
-                                    <tr class="ligneGeneraleTableauLigneImpaire">
-                                        <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
-                                        <td class="colonne2Lignehaut">Deuxième adulte</td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableau">
-                                        <td class="colonne2LigneBas">
-                                            <section class="sectionFormulaireRadio" style="background-color: transparent">
-                                                <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre1A2" value="Homme" checked>
-                                                    <label for="genre1A2">Homme</label>
-                                                </div>
-                                                <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre2A2" value="Femme" >
-                                                    <label for="genre2A2">Femme</label>
-                                                </div>
-                                                <div style="flex:0">
-                                                    <input type="radio" name="genre2" id="genre3A2" value="Autre">
-                                                    <label for="genre3A2">Autre</label>
-                                                </div>
-                                            </section>
-                                            <section>
-                                                <div>
-                                                    <label for="bdayA2">Date de naissance :</label>
-                                                    <input type="date" id="bdayA2" name="bdayA2" required>
-                                                </div>
-                                            </section>
-                                        </td>
-                                    </tr>
-                                </c:if>
 
-                                <c:if test="${requestScope.enfant eq 'avec'}">
-                                    <!-- ligne tableau devis -->
-                                    <tr class="ligneGeneraleTableauLignePaire">
-                                        <td rowspan="2"class="colonneEnteteLignePaire">2</td>
-                                        <td class="colonne2Lignehaut">Vos enfants :</td>
-                                    </tr>
-                                    <tr class="ligneGeneraleTableau">
-                                        <td class="colonne2LigneBas">
-                                            <section>
-                                                <div>
-                                                    <label for="enfantSelect">Combien d'enfants souhaitez-vous assurer ?</label>
-                                                    <select name="enfantSelect" id="enfantSelectId" onchange="functionNbEnfant()" required>
-                                                        <option value="1" selected>1 enfant</option>
-                                                        <option value="2">2 enfants</option>
-                                                        <option value="3">3 enfants</option>
-                                                    </select>
-                                                </div>
-                                            </section>
+                                <c:forEach items="sessionScope.listePersonneTampon}" var="personneTamp">
+                                    <c:if test="${personneTamp.getNature() eq 'Adulte2'}">
+                                        <tr class="ligneGeneraleTableauLigneImpaire">
+                                            <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                            <td class="colonne2Lignehaut">Deuxième adulte</td>
+                                        </tr>
+                                        <tr class="ligneGeneraleTableau">
+                                            <td class="colonne2LigneBas">
+                                                <section>
+                                                    <div>
+                                                        <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                        <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                        <label for="adulte2Nom">Nom :</label>
+                                                        <input type="text" id="adulte2Nom" name="adulte2Nom" required>
+                                                        <label for="adulte2Prenom">Prénom :</label>
+                                                        <input type="text" id="adulte2Prenom" name="adulte2Prenom" required>
+                                                        <label for="adulte2Nss">Numéro de Sécurité Sociale :</label>
+                                                        <input type="number" id="adulte2Nss" name="adulte2Nss" min="1000000000000" max="2999999999999" required>
+                                                    </div>
+                                                </section>
+                                            </td>
+                                        </tr>
+                                    </c:if>
+                                </c:forEach>
 
-                                            <section class="formulaireEnfant" id="formulaireEnfant1">
-                                                <div>
-                                                    <section class="sectionFormulaireRadio" style="background-color: transparent" selected>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre1E1" value="Homme" checked> 
-
-                                                            <label for="genre1E1">Garcon</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre2E1" value="Femme">
-                                                            <label for="genre2E1">Fille</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE1" id="genre3E1" value="Autre">
-                                                            <label for="genre3E1">Autre</label>
+                                <c:forEach items="sessionScope.listePersonneTampon}" var="personneTamp">
+                                    <c:if test="${(personneTamp.getNature() eq 'Enfant1') || (personneTamp.getNature() eq 'Enfant2') || (personneTamp.getNature() eq 'Enfant3')}">
+                                        <c:if test="${personneTamp.getNature() eq 'Enfant1'}">
+                                            <tr class="ligneGeneraleTableauLigneImpaire">
+                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                <td class="colonne2Lignehaut">Premier enfant</td>
+                                            </tr>
+                                            <tr class="ligneGeneraleTableau">
+                                                <td class="colonne2LigneBas">
+                                                    <section>
+                                                        <div>
+                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                            <label for="enfant1Nom">Nom :</label>
+                                                            <input type="text" id="enfant1Nom" name="enfant1Nom" required>
+                                                            <label for="enfant1Prenom">Prénom :</label>
+                                                            <input type="text" id="enfant1Prenom" name="enfant1Prenom" required>
+                                                            <label for="enfant1Nss">Numéro de Sécurité Sociale :</label>
+                                                            <input type="number" id="enfant1Nss" name="enfant1Nss" min="1000000000000" max="2999999999999" required>
                                                         </div>
                                                     </section>
-                                                    <div>
-                                                        <label for="bdayE1">Date de naissance :</label>
-                                                        <input type="date" id="bdayE1" name="bdayE1" required>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                            <section class="formulaireEnfant" id="formulaireEnfant2">
-                                                <div style="margin: 50px auto;">
-                                                    <section class="sectionFormulaireRadio" style="background-color: transparent">
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre1E2" value="Homme" checked> 
-
-                                                            <label for="genre1E2">Garcon</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre2E2" value="Femme">
-                                                            <label for="genre2E2">Fille</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE2" id="genre3E2" value="Autre">
-                                                            <label for="genre3E2">Autre</label>
-                                                        </div>
-                                                    </section>
-                                                    <div>
-                                                        <label for="bdayE2">Date de naissance :</label>
-                                                        <input type="date" id="bdayE2" name="bdayE2" required>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                            <section class="formulaireEnfant" id="formulaireEnfant3">
-                                                <div>
-                                                    <section class="sectionFormulaireRadio" style="background-color: transparent">
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre1E3" value="Homme" checked> 
-
-                                                            <label for="genre1E3">Garcon</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre2E3" value="Femme">
-                                                            <label for="genre2E3">Fille</label>
-                                                        </div>
-                                                        <div style="flex:0">
-                                                            <input type="radio" name="genreE3" id="genre3E3" value="Autre">
-                                                            <label for="genre3E3">Autre</label>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:if test="${personneTamp.getNature() eq 'Enfant2'}">
+                                            <tr class="ligneGeneraleTableauLigneImpaire">
+                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                <td class="colonne2Lignehaut">Deuxième enfant</td>
+                                            </tr>
+                                            <tr class="ligneGeneraleTableau">
+                                                <td class="colonne2LigneBas">
+                                                    <section>
+                                                        <div>
+                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                            <label for="enfant2Nom">Nom :</label>
+                                                            <input type="text" id="enfant2Nom" name="enfant2Nom" required>
+                                                            <label for="enfant2Prenom">Prénom :</label>
+                                                            <input type="text" id="enfant2Prenom" name="enfant2Prenom" required>
+                                                            <label for="enfant2Nss">Numéro de Sécurité Sociale :</label>
+                                                            <input type="number" id="enfant2Nss" name="enfant2Nss" min="1000000000000" max="2999999999999" required>
                                                         </div>
                                                     </section>
-                                                    <div>
-                                                        <label for="bdayE">Date de naissance :</label>
-                                                        <input type="date" id="bdayE3" name="bdayE3" required>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </td>
-                                    </tr>
-                                    <!-- fin ligne tableau devis -->
-                                </c:if>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:if test="${personneTamp.getNature() eq 'Enfant3'}">
+                                            <tr class="ligneGeneraleTableauLigneImpaire">
+                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                <td class="colonne2Lignehaut">Troisième enfant</td>
+                                            </tr>
+                                            <tr class="ligneGeneraleTableau">
+                                                <td class="colonne2LigneBas">
+                                                    <section>
+                                                        <div>
+                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                            <label for="enfant3Nom">Nom :</label>
+                                                            <input type="text" id="enfant3Nom" name="enfant3Nom" required>
+                                                            <label for="enfant3Prenom">Prénom :</label>
+                                                            <input type="text" id="enfant3Prenom" name="enfant3Prenom" required>
+                                                            <label for="enfant3Nss">Numéro de Sécurité Sociale :</label>
+                                                            <input type="number" id="enfant3Nss" name="enfant3Nss" min="1000000000000" max="2999999999999" required>
+                                                        </div>
+                                                    </section>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+
+
                                 <!-- ligne tableau devis -->
                                 <tr class="ligneGeneraleTableauLigneImpaire">
                                     <td width rowspan="2"class="colonneEnteteLigneImpaire">3</td>
-                                    <td class="colonne2Lignehaut">Votre adresse principale :</td>
+                                    <td class="colonne2Lignehaut">Votre moyen de paiement :</td>
                                 </tr>
                                 <tr class="ligneGeneraleTableau">
                                     <td class="colonne2LigneBas">
-                                        <section>
-                                            <div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrNum" name="adrNum" placeholder="Numéro de rue" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[0]}" disabled="disabled"</c:if> required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrNomRue" name="adrNomRue" placeholder="Nom de rue" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[1]}" disabled="disabled"</c:if> required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrCP" name="adrCP" placeholder="Code Postal" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[2]}" disabled="disabled"</c:if> required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrVille" name="adrVille" placeholder="Ville" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[3]}" disabled="disabled"</c:if> required></div>
-                                                <div class="champsAdresseDevis"><input type="text" id="adrPays" name="adrPays" placeholder="Pays" <c:if test="${ !empty sessionScope.sessionAssure }">value="${adresseSplit[4]}" disabled="disabled"</c:if> required></div>
+                                        <section class="sectionFormulaireRadio" style="background-color: transparent">
+                                            <div style="flex:0">
+                                                <input type="radio" name="periodePaiement" id="periodePaiement1" value="Mensuel" checked>
+                                                <label for="periodePaiement1">Mensuel</label>
                                             </div>
+                                            <div style="flex:0">
+                                                <input type="radio" name="periodePaiement" id="periodePaiement2" value="Trimestriel" >
+                                                <label for="periodePaiement2">Trimestriel</label>
+                                            </div>
+                                            <div style="flex:0">
+                                                <input type="radio" name="periodePaiement" id="periodePaiement3" value="Annuel">
+                                                <label for="periodePaiement3">Annuel</label>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <<p style="margin: 15px autp;">
+                                                <label for="fichier">Fichier à envoyer : </label>
+                                                <input type="file" name="fichier" id="fichier" />
+                                            </p>
                                         </section>
                                     </td>
                                 </tr>
                                 <!-- fin ligne tableau devis -->
-                                <!-- ligne tableau devis -->
-                                <tr class="ligneGeneraleTableauLigneImpaire">
-                                    <td rowspan="2"class="colonneEnteteLigneImpaire">4</td>
-                                    <td class="colonne2Lignehaut">Éléments de contact :</td>
-                                </tr>
-                                <tr class="ligneGeneraleTableau">
-                                    <td class="colonne2LigneBas">
-                                        <section>
-                                            <div>
-                                                <div class="champsAdresseDevis"><input type="email" id="adrMail" name="adrMail" placeholder="email@exemple.com" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getLogin()}" disabled="disabled"</c:if> required></div>
-                                            <div class="champsAdresseDevis"><input type="tel" id="numTel" name="numTel" placeholder="Numéro de téléphone" <c:if test="${ !empty sessionScope.sessionAssure }">value="${sessionScope.sessionAssure.getCleParticulier().getnTelephone()}" disabled="disabled"</c:if> required></div>
-                                            </div>
-                                        </section>
-                                    </td>
-                                </tr>
-                                <!-- fin ligne tableau devis -->
-                            </table>
-                            <div class="form-group">
-                                <input type="hidden" name="action" value="DemandeDevis_tarif"/>
+                                
+                                </table>
+                                <div class="form-group">
+                                    <input type="hidden" name="action" value="DemandeDevis_RealisationContratIndiv"/>
+                                    <input type="hidden" name="idDevis" value="${requestScope.idDevis}"/>
+                                    
 
-                                <input type="hidden" name="adulteHidden" value="${requestScope.nbAdulte}"/>
-                                <input type="hidden" name="ageHidden" value="${requestScope.trancheAge}"/>
-                                <input type="hidden" name="enfantHidden" value="${requestScope.enfant}"/>
-                                <input type="hidden" name="couvertureHidden" value="${requestScope.couverture}"/>
-                                <input type="hidden" name="optiqueDentaireHidden" value="${requestScope.optiqueDentaire}"/>
-
-                                <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
-                            </div>
-                        </form>
+                                    <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
         <%@include file="Shared/ElementFooter.jsp" %>
 

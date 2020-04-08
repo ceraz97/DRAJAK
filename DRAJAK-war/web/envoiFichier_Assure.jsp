@@ -72,7 +72,7 @@
                                             <input type="file" name="fichier" id="fichier" />
                                         </p>
                                         <div style="margin: auto; position: relative; display: block; text-align: center;">
-                                            <input type="hidden" name="action" value="Assure_GestionContrat_ResiliationUpload"/>
+                                            <input type="hidden" name="action" value="Assure_GestionDocument_envoiFichier"/>
                                             <button type="submit" class="btn btn-primary btn-co">Envoyer</button>
                                         </div>
                                     </form>

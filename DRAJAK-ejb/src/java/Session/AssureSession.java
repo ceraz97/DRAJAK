@@ -11,6 +11,7 @@ import Entity.CompteEmploye;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
+import Entity.MemoireTamponPersonne;
 import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
@@ -22,13 +23,16 @@ import Entity.TauxGarantie;
 import Entity.TrancheAge;
 import Entity.TypeAyantDroit;
 import Entity.TypeModule;
+import Enum.ChoixPaiement;
 import Enum.Genre;
+import Enum.StatutContrat;
 import Enum.StatutPersonne;
 import Facades.AyantDroitFacadeLocal;
 import Facades.CompteAssureFacadeLocal;
 import Facades.ContratCollectifFacadeLocal;
 import Facades.ContratIndividuelFacadeLocal;
 import Facades.GarantieFacadeLocal;
+import Facades.MemoireTamponPersonneFacadeLocal;
 import Facades.ModuleFacadeLocal;
 import Facades.ObjetGarantieFacadeLocal;
 import Facades.ParticulierFacadeLocal;
@@ -50,6 +54,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class AssureSession implements AssureSessionLocal {
 
+    @EJB
+    private MemoireTamponPersonneFacadeLocal memoireTamponPersonneFacade;
+    
     @EJB
     private AyantDroitFacadeLocal ayantDroitFacade;
 
@@ -319,4 +326,19 @@ public class AssureSession implements AssureSessionLocal {
         contratIndividuelFacade.ModifierContratIndividuel(devis);
     }
     
+    @Override
+    public MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date date) {
+        return memoireTamponPersonneFacade.CreerPersonneTampon(nature, genre, date);
+    }
+    
+    @Override
+    public ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis) {
+        ContratIndividuel contrat = contratIndividuelFacade.CreerContratIndividuel(libelle, paiement, cptEmploye, recupDevis);
+        long idDevis = contrat.getId();
+        String idDevisString = Long.toString(idDevis);
+        String nomContrat ="Contrat_Individuel_"+idDevisString;
+        contrat.setLibelleContrat(nomContrat);
+        contratIndividuelFacade.ModifierContratIndividuel(contrat);
+        return contrat;
+    }
 }

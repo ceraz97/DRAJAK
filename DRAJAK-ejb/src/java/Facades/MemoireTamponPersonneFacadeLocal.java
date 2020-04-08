@@ -32,6 +32,6 @@ public interface MemoireTamponPersonneFacadeLocal {
 
     int count();
 
-    MemoireTamponPersonne CreerPersonneTampon(Genre genre, Date dateNaissance);
+    MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date dateNaissance);
     
 }

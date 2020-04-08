@@ -7,6 +7,7 @@ package Session;
 
 
 import Entity.*;
+import Enum.ChoixPaiement;
 import Enum.Genre;
 import Facades.*;
 import Facades.ProduitFacadeLocal;
@@ -28,8 +29,23 @@ import javax.ejb.Stateless;
 public class PubliqueSession implements PubliqueSessionLocal {
 
     @EJB
-    private ProduitFacadeLocal produitFacade;
+    private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
 
+    
+    @EJB
+    private AyantDroitFacadeLocal ayantDroitFacade;
+
+    @EJB
+    private RegimeSocialFacadeLocal regimeSocialFacade;
+
+    @EJB
+    private CompteAssureFacadeLocal compteAssureFacade;
+
+    @EJB
+    private MemoireTamponPersonneFacadeLocal memoireTamponPersonneFacade;
+
+    @EJB
+    private ProduitFacadeLocal produitFacade;
 
     @EJB
     private PersonnePubliqueFacadeLocal personnePubliqueFacade;
@@ -57,6 +73,7 @@ public class PubliqueSession implements PubliqueSessionLocal {
 
     @EJB
     private ParticulierFacadeLocal particulierFacade;
+    
     
     
     @Override
@@ -145,4 +162,47 @@ public class PubliqueSession implements PubliqueSessionLocal {
         TauxGarantie tauxGarantieInstance = tauxGarantieFacade.RechercherTauxGarantie(tranche, objet, garantie);
         return tauxGarantieInstance;
     }
+
+    @Override
+    public MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date date) {
+        return memoireTamponPersonneFacade.CreerPersonneTampon(nature, genre, date);
+    }
+    
+    @Override
+    public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
+        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+    }
+
+    @Override
+    public ContratIndividuel CreerContratIndividuelPersonnePublique(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis,CompteAssure cptAssure) {
+        ContratIndividuel contrat = contratIndividuelFacade.CreerContratIndividuelPourPersonnePublique(libelle, paiement, cptEmploye, recupDevis,cptAssure);
+        long idDevis = contrat.getId();
+        String idDevisString = Long.toString(idDevis);
+        String nomContrat ="Contrat_Individuel_"+idDevisString;
+        contrat.setLibelleContrat(nomContrat);
+        contratIndividuelFacade.ModifierContratIndividuel(contrat);
+        return contrat;
+    }
+
+    @Override
+    public CompteAssure CreerCompteAssure(String mdp, Particulier particulier, RegimeSocial Regime) {
+        return compteAssureFacade.CreerCompteAssure(mdp, particulier, Regime);
+    }
+
+    @Override
+    public RegimeSocial RechercherRegimeSocial(String libelle) {
+        return regimeSocialFacade.RechercherRegimeSocial(libelle);
+    }
+    
+    @Override
+    public AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat) {
+        return ayantDroitFacade.CreerAyantDroit(typeAD, particulier, Contrat);
+    }
+
+    @Override
+    public TypeAyantDroit RechercherTypeAyantDroitParLibelle(String libelle) {
+        return typeAyantDroitFacade.RechercherTypeAyantDroitParLibelle(libelle);
+    }
+    
+    
 }

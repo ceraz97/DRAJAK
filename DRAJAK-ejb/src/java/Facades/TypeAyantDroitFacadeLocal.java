@@ -36,4 +36,5 @@ public interface TypeAyantDroitFacadeLocal {
 
     TypeAyantDroit RechercherTypeAyantDroitParId(long id);
     
+    TypeAyantDroit RechercherTypeAyantDroitParLibelle(String libelle);
 }

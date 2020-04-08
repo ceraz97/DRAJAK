@@ -153,6 +153,7 @@
                                         <td class="colonneGrilleTarif colonneDevisTarif colonnePaire">
                                             <div class="form-group">
                                                 <c:set var="listeTxGar" value="${requestScope.listeTxGarantie}" scope="session"/>
+                                                <c:set var="listePersonneTampon" value="${requestScope.listePersonneTampon}" scope="session"/>
                                                 <button class="btn btn-primary btn-block btn-formulaireSouscription" onclick="location.href = 'menuDrajak?action=DemandeDevis_souscription&&idDevis=${requestScope.Devis.getId()}'">Souscription</button>
                                             </div>
                                         </td>

@@ -11,6 +11,7 @@ import Entity.CompteEmploye;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.Garantie;
+import Entity.MemoireTamponPersonne;
 import Entity.Modules;
 import Entity.ObjetGarantie;
 import Entity.Particulier;
@@ -23,6 +24,7 @@ import Entity.TauxGarantie;
 import Entity.TrancheAge;
 import Entity.TypeAyantDroit;
 import Entity.TypeModule;
+import Enum.ChoixPaiement;
 import Enum.Genre;
 import Enum.StatutPersonne;
 import java.util.Date;
@@ -104,4 +106,8 @@ public interface AssureSessionLocal {
     List<Modules> ListerAllModules();
     
     void AttribuerNomDevis(ContratIndividuel devis);
+    
+    MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date date);
+    
+    ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis);
 }

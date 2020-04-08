@@ -32,8 +32,9 @@ public class MemoireTamponPersonneFacade extends AbstractFacade<MemoireTamponPer
     }
 
     @Override
-    public MemoireTamponPersonne CreerPersonneTampon(Genre genre, Date dateNaissance) {
+    public MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date dateNaissance) {
         MemoireTamponPersonne personneInstance = new MemoireTamponPersonne();
+        personneInstance.setNature(nature);
         personneInstance.setGenre(genre);
         personneInstance.setDateNaissance(dateNaissance);
         em.persist(personneInstance);

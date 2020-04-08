@@ -175,7 +175,28 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         return listeDesContratsIndivs;
     }
     
-    
+    @Override
+    public ContratIndividuel CreerContratIndividuelPourPersonnePublique( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis, CompteAssure cptAssure) {
+        ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
+        contratIndividuelInstance = recupDevis; //récupération des données du devis
+        //La date de fin de contrat est égal à la date de création + 365 jours
+        Date datFin; 
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(new Date()); 
+        c.add(Calendar.DATE, 365);
+        datFin = c.getTime();
+        
+        contratIndividuelInstance.setDateCreation(new Date());
+        contratIndividuelInstance.setDateFin(datFin);
+        contratIndividuelInstance.setLibelleContrat(libelle);
+        contratIndividuelInstance.setStatut(StatutContrat.enCoursDeTraitement);
+        contratIndividuelInstance.setPaiement(paiement);
+        contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratIndividuelInstance.setCleCompteAssure(cptAssure);
+        
+        getEntityManager().persist(contratIndividuelInstance);
+        return contratIndividuelInstance;
+    } 
     
     
 }

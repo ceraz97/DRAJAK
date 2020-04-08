@@ -533,7 +533,8 @@ public class menuDrajak extends HttpServlet {
                     Particulier particulierDevis = null;
                     PersonnePublique personnePubliqueDevis = null;
                     ContratIndividuel devisCree = null;
-
+                    MemoireTamponPersonne TamponPersonneA2=null, TamponPersonneE1=null, TamponPersonneE2=null, TamponPersonneE3=null;
+                    List <MemoireTamponPersonne> listeMemoireTamponPersonne= new ArrayList<>();
                     //Récupération des données
                     try {
                         nbAdulteTarif = request.getParameter("adulteHidden");
@@ -545,7 +546,7 @@ public class menuDrajak extends HttpServlet {
                         message = "Erreur : une information sur les besoins n'a pu être récupérée";
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
-
+                    
                     //recherche des éléments de granties
                     //Adulte
                     if (sessionAssure != null) {
@@ -565,7 +566,6 @@ public class menuDrajak extends HttpServlet {
                             }
                             DobA1String = request.getParameter("bdayA1");
                             DobA1Date = java.sql.Date.valueOf(DobA1String);
-                            regimeA1 = request.getParameter("selectRegimeA1");
                             nomA1 = request.getParameter("nomA1");
                             prenomA1 = request.getParameter("prenomA1");
                             ageA1 = doActionCalculerAge(DobA1Date, request, response);
@@ -588,6 +588,8 @@ public class menuDrajak extends HttpServlet {
                             DobA2String = request.getParameter("bdayA2");
                             DobA2Date = java.sql.Date.valueOf(DobA2String);
                             ageA2 = doActionCalculerAge(DobA2Date, request, response);
+                            TamponPersonneA2 = publiqueSession.CreerPersonneTampon("Adulte2",genreAdulte2, DobA2Date);
+                            listeMemoireTamponPersonne.add(TamponPersonneA2);
                         } catch (Exception e) {
                             message = "Erreur : une information sur le deuxième adulte n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
@@ -615,6 +617,8 @@ public class menuDrajak extends HttpServlet {
                             DobE1String = request.getParameter("bdayE1");
                             DobE1Date = java.sql.Date.valueOf(DobE1String);
                             ageE1 = doActionCalculerAge(DobE1Date, request, response);
+                            TamponPersonneE1 = publiqueSession.CreerPersonneTampon("Enfant1",genreEnfant1, DobE1Date);
+                            listeMemoireTamponPersonne.add(TamponPersonneE1);
                         } catch (Exception e) {
                             message = "Erreur : une information sur le premier enfant n'a pu être récupéreée";
                             jspAffiche = "/realiserDevisBesoins.jsp";
@@ -633,6 +637,8 @@ public class menuDrajak extends HttpServlet {
                                 DobE2String = request.getParameter("bdayE2");
                                 DobE2Date = java.sql.Date.valueOf(DobE2String);
                                 ageE2 = doActionCalculerAge(DobE2Date, request, response);
+                                TamponPersonneE2 = publiqueSession.CreerPersonneTampon("Enfant2",genreEnfant2, DobE2Date);
+                                listeMemoireTamponPersonne.add(TamponPersonneE2);
                             } catch (Exception e) {
                                 message = "Erreur : une information sur le deuxième enfant n'a pu être récupéreée";
                                 jspAffiche = "/realiserDevisBesoins.jsp";
@@ -651,6 +657,8 @@ public class menuDrajak extends HttpServlet {
                                 DobE3String = request.getParameter("bdayE3");
                                 DobE3Date = java.sql.Date.valueOf(DobE3String);
                                 ageE3 = doActionCalculerAge(DobE3Date, request, response);
+                                TamponPersonneE3 = publiqueSession.CreerPersonneTampon("Enfant3",genreEnfant3, DobE3Date);
+                                listeMemoireTamponPersonne.add(TamponPersonneE3);
                             } catch (Exception e) {
                                 message = "Erreur : une information sur le troisième enfant n'a pu être récupéreée";
                                 jspAffiche = "/realiserDevisBesoins.jsp";
@@ -851,12 +859,13 @@ public class menuDrajak extends HttpServlet {
                     //Calcul des cotisations
                     double TarifCotisation = 0;
                     for (i = 0; i < listeTauxGarantieTotale.size(); i++) {
-                        TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation()));
+                        TarifCotisation = TarifCotisation + ((listeTauxGarantieTotale.get(i).getTarifCotisation()* (Double.parseDouble(nbAdulteTarif))) + (listeTauxGarantieTotale.get(i).getTarifCotisation() * (Double.parseDouble(nbEnfant)) / 3) );
                         System.out.println("Cotisations="+TarifCotisation);
                     }
                     System.out.println("Cotisations totales="+TarifCotisation);
                     request.setAttribute("MontantCotisationTotale", TarifCotisation);
                     request.setAttribute("listeTxGarantie", listeTauxGarantieTotale);
+                    request.setAttribute("listePersonneTampon", listeMemoireTamponPersonne);
 
                     
                     //ObjetGarantie du devis 
@@ -880,6 +889,7 @@ public class menuDrajak extends HttpServlet {
 
                 case "DemandeDevis_souscription":
                     jspAffiche = "/realiserDevisTarif.jsp";
+                    
                     message = "";
                     break;
 
@@ -1000,27 +1010,20 @@ public class menuDrajak extends HttpServlet {
                     
                 case "Assure_GestionDocument_envoiFichier":
                     
-                    // On récupère le champ description comme d'habitude
-                    String description = request.getParameter("description");
-                    request.setAttribute("description", description);
-
                     // On récupère le champ du fichier
                     Part part = request.getPart("fichier");
-
+                    idc = request.getParameter("idc");
+                    ContratIndividuel contratIndivididuelInstance = assureSession.RechercherContratIndivParId(Long.parseLong(idc));
+                            
                     // On vérifie qu'on a bien reçu un fichier
-                    String nomFichier = getNomFichier(part);
+                    String nomFichier = getNomFichier(part,contratIndivididuelInstance);
 
                     // Si on a bien un fichier
                     if (nomFichier != null && !nomFichier.isEmpty()) {
                         String nomChamp = part.getName();
-                        // Corrige un bug du fonctionnement d'Internet Explorer
-                        nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1)
-                                .substring(nomFichier.lastIndexOf('\\') + 1);
-
+                        
                         // On écrit définitivement le fichier sur le disque
                         ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
-
-                        request.setAttribute(nomChamp, nomFichier);
                     }
                     jspAffiche = "/menuAssure.jsp";
                     message = "Le fichier a bien été envoyé";
@@ -1586,29 +1589,170 @@ public class menuDrajak extends HttpServlet {
                       
                     break;                              
                     
-                  case "RechercherRIBAttenteGestionnaireListe":
+                case "RechercherRIBAttenteGestionnaireListe":
                     jspAffiche = "/listeRIBAttenteGestionnaire.jsp";
                     message = "";
                     String typefichier = "AttenteValidationRib";
-                      if (typefichier==null  ) {
-                        message="Erreur : Le champ de type n'est pas rempli";
-                    
+                    if (typefichier == null) {
+                        message = "Erreur : Le champ de type n'est pas rempli";
                     } else {
-                    
-                    
-                    
-                    List listeFichier = gestionSession.RechercherRIBAttente();
-                    if (listeFichier  == null){
-                        message="Aucun contrats n'a été trouvé";
+                        List listeFichier = gestionSession.RechercherRIBAttente();
+                        if (listeFichier == null) {
+                            message = "Aucun contrats n'a été trouvé";
+                        }
+                        System.out.println("contrat" + listeFichier);
+                        try {
+                            request.setAttribute("listeFichier ", listeFichier);
+                        } catch (Exception e) {
+                        }
                     }
-                          System.out.println("contrat" + listeFichier );
-                  try {
-                        request.setAttribute("listeFichier ", listeFichier );}
-                    catch (Exception e){}
-                      }
-                      
                     break;                              
                     
+                case "DemandeDevis_RealisationContratIndiv":
+                    message="";
+                    jspAffiche="";
+                    
+                    String emailDevis, adrDevis, telDevis;
+                    Particulier partA1,partA2,partE1,partE2,partE3;
+                    cptAssure=null;
+                    
+                    listeMemoireTamponPersonne = (List<MemoireTamponPersonne>) session.getAttribute("listePersonneTampon");
+                    String idDevis = request.getParameter("idDevis");
+                    ContratIndividuel devisInstance = publiqueSession.RechercherContratIndivParId(Long.parseLong(idDevis));
+                    
+                    if (devisInstance.getClePersonnePublique()!=null) {
+                        emailDevis = devisInstance.getClePersonnePublique().getEmail();
+                        adrDevis = devisInstance.getClePersonnePublique().getAdresse();
+                        telDevis = devisInstance.getClePersonnePublique().getnTelephone();
+                    } else {
+                        emailDevis = devisInstance.getCleCompteAssure().getCleParticulier().getEmail();
+                        adrDevis = devisInstance.getCleCompteAssure().getCleParticulier().getAdresse();
+                        telDevis = devisInstance.getCleCompteAssure().getCleParticulier().getnTelephone();
+                    }
+                    
+                    if (devisInstance.getClePersonnePublique()!=null) {
+                        PersonnePublique pPublique = devisInstance.getClePersonnePublique();
+                        String nSsA1 = request.getParameter("nSSA1");
+                        partA1 = publiqueSession.CreerParticulier(pPublique.getNom(), pPublique.getPrenom(), pPublique.getGenre(),pPublique.getDateNaissance(), nSsA1, emailDevis, telDevis, adrDevis);
+                        String mdp1A1 = request.getParameter("mdp");
+                        String mdp2A1 = request.getParameter("mdp2");
+                        if((mdp1A1!=null && mdp2A1!=null) && (mdp1A1.equals(mdp2A1))) {
+                            regimeA1 = request.getParameter("selectRegimeA1");
+                            if (regimeA1!=null) {
+                                RegimeSocial regimeA1Instance = publiqueSession.RechercherRegimeSocial(regimeA1);
+                                if (regimeA1Instance!=null) {
+                                    cptAssure = publiqueSession.CreerCompteAssure(mdp1A1, partA1, regimeA1Instance);
+                                }
+                            } else {
+                                message="Erreur : Regime social non sélectionné";
+                            }
+                        } else {
+                            message="Erreur : les mots de passe ne correspondent pas";
+                        }
+                    }
+                    
+                    //Partie Paiement 
+                    ChoixPaiement choixPaiementInstance;
+                    String periodePaiement = request.getParameter("periodePaiement");
+                    if (periodePaiement.equalsIgnoreCase("Mensuel")) {
+                        choixPaiementInstance = ChoixPaiement.Mensuel;
+                    } else if (periodePaiement.equalsIgnoreCase("Trimestriel")) {
+                        choixPaiementInstance = ChoixPaiement.Trimestriel;
+                    } else {
+                        choixPaiementInstance = ChoixPaiement.Annuel;
+                    }
+                    
+                    //Création du contrat
+                    CompteEmploye cptEmployeInstance=null;
+                    ContratIndividuel contratIndividuelInstance=null;
+                    if (cptAssure!=null){
+                        contratIndividuelInstance = publiqueSession.CreerContratIndividuelPersonnePublique("Contrat_Temporaire",choixPaiementInstance, cptEmployeInstance, devisInstance, cptAssure);
+                    }  else {
+                         contratIndividuelInstance = assureSession.CreerContratIndividuel("Contrat_Temporaire",choixPaiementInstance, cptEmployeInstance, devisInstance);
+                    }
+                    
+                    //Partie fichier pour le rib 
+                    part = request.getPart("fichier");
+                    if (contratIndividuelInstance!=null) {
+                        nomFichier = getNomFichier(part, contratIndividuelInstance);
+
+                        // Si on a bien un fichier
+                        if (nomFichier != null && !nomFichier.isEmpty()) {
+                            // On écrit définitivement le fichier sur le disque
+                            ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
+                        }
+                    }
+                    typeAdInstance=null;
+                    if (devisInstance!=null) {       
+                        if (listeMemoireTamponPersonne!= null) {
+                            for (i=0;i<listeMemoireTamponPersonne.size();i++) {
+                                if (listeMemoireTamponPersonne.get(i).getNature().equals("Adulte2")){
+                                    Genre genreA2 =listeMemoireTamponPersonne.get(i).getGenre();
+                                    Date dobA2 = listeMemoireTamponPersonne.get(i).getDateNaissance();
+                                    String nomA2 = request.getParameter("adulte2Nom");
+                                    String prenomA2 = request.getParameter("adulte2Prenom");
+                                    String nSsA2 = request.getParameter("adulte2Nss");
+                                    if( genreA2!=null && dobA2!=null && nomA2!=null && prenomA2!=null && nSsA2!=null){
+                                        particulierDevis = publiqueSession.CreerParticulier(nomA2, prenomA2, genreA2, dobA2, nSsA2, emailDevis, telDevis, adrDevis);
+                                        if(genreA2.equals(Genre.Femme)) {
+                                             typeAdInstance = publiqueSession.RechercherTypeAyantDroitParLibelle("Conjointe");
+                                        } else {
+                                            typeAdInstance = publiqueSession.RechercherTypeAyantDroitParLibelle("Conjoint");
+                                        }
+                                        publiqueSession.CreerAyantDroit(typeAdInstance, particulierDevis, contratIndividuelInstance);
+                                    } else {
+                                        message="Erreur : Des informations sont manquantes pour le deuxième adulte";
+                                    }
+                                }
+                                if (listeMemoireTamponPersonne.get(i).getNature().equals("Enfant1")){
+                                    Genre genreE1 =listeMemoireTamponPersonne.get(i).getGenre();
+                                    Date dobE1 = listeMemoireTamponPersonne.get(i).getDateNaissance();
+                                    String nomE1 = request.getParameter("enfant1Nom");
+                                    String prenomE1 = request.getParameter("enfant1Prenom");
+                                    String nSsE1 = request.getParameter("enfant1Nss");
+                                    if( genreE1!=null && dobE1!=null && nomE1!=null && prenomE1!=null && nSsE1!=null){
+                                        particulierDevis = publiqueSession.CreerParticulier(nomE1, prenomE1, genreE1, dobE1, nSsE1, emailDevis, telDevis, adrDevis);
+                                        typeAdInstance = publiqueSession.RechercherTypeAyantDroitParLibelle("Enfant");
+                                        publiqueSession.CreerAyantDroit(typeAdInstance, particulierDevis, contratIndividuelInstance);
+                                    } else {
+                                        message="Erreur : Des informations sont manquantes pour le premier enfant";
+                                    }
+                                }
+                                if (listeMemoireTamponPersonne.get(i).getNature().equals("Enfant2")){
+                                    Genre genreE2 =listeMemoireTamponPersonne.get(i).getGenre();
+                                    Date dobE2 = listeMemoireTamponPersonne.get(i).getDateNaissance();
+                                    String nomE2 = request.getParameter("enfant2Nom");
+                                    String prenomE2 = request.getParameter("enfant2Prenom");
+                                    String nSsE2 = request.getParameter("enfant2Nss");
+                                    if( genreE2!=null && dobE2!=null && nomE2!=null && prenomE2!=null && nSsE2!=null){
+                                        particulierDevis = publiqueSession.CreerParticulier(nomE2, prenomE2, genreE2, dobE2, nSsE2, emailDevis, telDevis, adrDevis);
+                                        typeAdInstance = publiqueSession.RechercherTypeAyantDroitParLibelle("Enfant");
+                                        publiqueSession.CreerAyantDroit(typeAdInstance, particulierDevis, contratIndividuelInstance);
+                                    } else {
+                                        message="Erreur : Des informations sont manquantes pour le deuxième enfant";
+                                    }
+                                }
+                                if (listeMemoireTamponPersonne.get(i).getNature().equals("Enfant3")){
+                                    Genre genreE3 =listeMemoireTamponPersonne.get(i).getGenre();
+                                    Date dobE3 = listeMemoireTamponPersonne.get(i).getDateNaissance();
+                                    String nomE3 = request.getParameter("enfant3Nom");
+                                    String prenomE3 = request.getParameter("enfant3Prenom");
+                                    String nSsE3 = request.getParameter("enfant3Nss");
+                                    if( genreE3!=null && dobE3!=null && nomE3!=null && prenomE3!=null && nSsE3!=null){
+                                        particulierDevis = publiqueSession.CreerParticulier(nomE3, prenomE3, genreE3, dobE3, nSsE3, emailDevis, telDevis, adrDevis);
+                                        typeAdInstance = publiqueSession.RechercherTypeAyantDroitParLibelle("Enfant");
+                                        publiqueSession.CreerAyantDroit(typeAdInstance, particulierDevis, contratIndividuelInstance);
+                                    } else {
+                                        message="Erreur : Des informations sont manquantes pour le troisième enfant";
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        message="Erreur : Aucun devis n'a été trouvé";
+                    }
+                    
+                    break;
                         
                 
 
@@ -1696,13 +1840,16 @@ public class menuDrajak extends HttpServlet {
         }
     }
     
-    private static String getNomFichier( Part part ) {
-        for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
-            if ( contentDisposition.trim().startsWith( "filename" ) ) {
-                return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 ).trim().replace( "\"", "" );
-            }
+    private static String getNomFichier( Part part, ContratIndividuel contrat) {
+        String nomFichier;
+        String contentDisposition = part.getName();
+        if (contentDisposition!=null) {
+            nomFichier = contrat.getLibelleContrat()+"_RIB";
+        } else {
+            nomFichier = null;
         }
-        return null;
+           
+        return nomFichier;
     } 
     
     /**

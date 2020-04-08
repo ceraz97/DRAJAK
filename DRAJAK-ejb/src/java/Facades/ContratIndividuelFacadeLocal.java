@@ -61,6 +61,8 @@ public interface ContratIndividuelFacadeLocal {
     ContratIndividuel RechercherContratIndivParId(long idContrat);
     
   List<ContratIndividuel> ListerAllContratIndividuelAttente(StatutContrat Types);
+  
+  ContratIndividuel CreerContratIndividuelPourPersonnePublique(String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye , ContratIndividuel recupDevis,CompteAssure cptAssure);
     
    
 }

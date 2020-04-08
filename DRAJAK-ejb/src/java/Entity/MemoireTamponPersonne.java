@@ -30,7 +30,17 @@ public class MemoireTamponPersonne implements Serializable {
     private Genre genre;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNaissance;
-    
+    @Column (nullable=false)
+    private String Nature;
+
+    public String getNature() {
+        return Nature;
+    }
+
+    public void setNature(String Nature) {
+        this.Nature = Nature;
+    }
+
     
     
     public Genre getGenre() {

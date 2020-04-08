@@ -135,13 +135,6 @@
                                                 <label for="bdayA1">Date de naissance :</label>
                                                     <input type="date" id="bdayA1" name="bdayA1" <c:if test="${ !empty sessionScope.sessionAssure }">value="${fmtDate}" disabled="disabled"</c:if> required>
                                             </div>
-                                            <div>
-                                                <label for="selectRegimeA1">Régime :</label>
-                                                <select name="selectRegimeA1" <c:if test="${ !empty sessionScope.sessionAssure }">disabled="disabled"</c:if> required>
-                                                    <option value="Régime Général" <c:choose><c:when test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Régime Général'}">selected</c:when><c:otherwise>checked</c:otherwise></c:choose>>Régime Général</option>
-                                                    <option value="Alsace Moselle" <c:if test="${sessionScope.sessionAssure.getCleRegimeSocial().getLibelle() eq 'Alsace Moselle'}">selected</c:if>>Alsace Moselle</option>
-                                                </select>
-                                            </div>
                                         </section>
                                     </td>
                                 </tr>
