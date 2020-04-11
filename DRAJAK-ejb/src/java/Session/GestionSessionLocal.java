@@ -7,9 +7,11 @@ package Session;
 
 import Entity.AyantDroit;
 import Entity.CompteEmploye;
+import Entity.Contrat;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.DomaineProduit;
+import Entity.Evenement;
 import Entity.Fichier;
 import Entity.Garantie;
 import Entity.Modules;
@@ -100,7 +102,7 @@ public interface GestionSessionLocal {
     List<ContratIndividuel> RechercherContratIndividuel();
    
     
-    void ModifierCompteEmploye (CompteEmploye ce);
+    
     
    List<ContratIndividuel>  RechercherContratIndividuelAttente(StatutContrat type);
    
@@ -133,5 +135,14 @@ public interface GestionSessionLocal {
     void ModifierContratStatutActifColl(Long id);
     
     void ModifierContratStatutRefuserColl(Long id);
+    
+    void ModifierGestionnaireAdresse(String num, String rue, String cp, String ville, String pays, CompteEmploye p);
+    
+    void ModifierGestionnaireTelephone(String num,CompteEmploye p);
 
+    CompteEmploye RechercherGestionnaireParId(Long id);
+    
+    Evenement CreerEvenement(String libelle, Date dateEvenement, Contrat cleContrat);
+    
+   
 }

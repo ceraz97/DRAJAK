@@ -92,9 +92,18 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     }
     
     @Override
-    public void ModifierCompteEmploye(CompteEmploye ce) {    
-       em.merge(ce);
+    public void ModifierCompteEmployeAdresse(CompteEmploye ce, String adresse) {    
+       ce.setAdresse(adresse);
+       getEntityManager().persist(ce);
     }
+    
+     @Override
+    public void ModifierCompteEmployeTel(CompteEmploye ce, String adresse) {    
+       ce.setAdresse(adresse);
+       getEntityManager().persist(ce);
+    }
+    
+    
     
     @Override
     public void SupprimerCompteEmploye(CompteEmploye ce) {
@@ -114,6 +123,22 @@ public class CompteEmployeFacade extends AbstractFacade<CompteEmploye> implement
     public CompteEmploye RechercherEmploye(String login) {
         CompteEmploye ce;
         String txt = "SELECT ce FROM CompteEmploye CE WHERE ce.login=:login ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("login", login);
+        ce = null;
+        List<CompteEmploye> result = req.getResultList();
+        if (result.size() == 1) {
+            ce = (CompteEmploye) result.get(0);
+        }
+        return ce;
+
+    }
+    
+    
+     @Override
+    public CompteEmploye RechercherEmployeId(Long login) {
+        CompteEmploye ce;
+        String txt = "SELECT CE FROM CompteEmploye CE WHERE CE.id=:login ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("login", login);
         ce = null;

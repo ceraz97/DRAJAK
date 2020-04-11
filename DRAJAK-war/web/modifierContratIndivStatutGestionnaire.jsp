@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Valider les contrats</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -105,7 +105,12 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                
+                             
+                              
+                        
+                        
+                            
+                   
                                 
                                     
                            <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationContratStatutGestionnaireIndiv&&idc=${requestScope.contrat.getId()}'">Valider Contrat Indiv</button>
