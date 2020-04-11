@@ -1686,6 +1686,8 @@ public class menuDrajak extends HttpServlet {
                       
                       gestionSession.CreerEvenement(libellee, d2, contratIndivValidationOui);
                       
+                      gestionSession.CreerEvenement(libellee, d2, contratIndivValidationOui);
+                      
                        
                     break;
                     
