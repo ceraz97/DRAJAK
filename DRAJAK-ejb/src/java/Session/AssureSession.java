@@ -150,7 +150,10 @@ public class AssureSession implements AssureSessionLocal {
     }
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        Particulier p = new Particulier ();
+        p= particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        particulierFacade.ModifierNumeroAdherent(p);
+        return p;
     }
 
     @Override
@@ -208,6 +211,7 @@ public class AssureSession implements AssureSessionLocal {
     public ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod) {
         ContratIndividuel contratIndivDevis = new ContratIndividuel();
         contratIndivDevis = contratIndividuelFacade.CreerDevis(libelle, compteA, persoPublique, compteE, objetGar, prod);
+        contratIndividuelFacade.AttribuerNomDevis(contratIndivDevis);
         return contratIndivDevis;
     }
 
@@ -319,11 +323,7 @@ public class AssureSession implements AssureSessionLocal {
     
     @Override
     public void AttribuerNomDevis(ContratIndividuel devis) {
-        long idDevis = devis.getId();
-        String idDevisString = Long.toString(idDevis);
-        String nomDevis ="Devis_"+idDevisString;
-        devis.setLibelleContrat(nomDevis);
-        contratIndividuelFacade.ModifierContratIndividuel(devis);
+        
     }
     
     @Override
@@ -334,11 +334,9 @@ public class AssureSession implements AssureSessionLocal {
     @Override
     public ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis) {
         ContratIndividuel contrat = contratIndividuelFacade.CreerContratIndividuel(libelle, paiement, cptEmploye, recupDevis);
-        long idDevis = contrat.getId();
-        String idDevisString = Long.toString(idDevis);
-        String nomContrat ="Contrat_Individuel_"+idDevisString;
-        contrat.setLibelleContrat(nomContrat);
-        contratIndividuelFacade.ModifierContratIndividuel(contrat);
+        contratIndividuelFacade.AttribuerNomContratIndividuel(contrat);
         return contrat;
     }
+    
+    
 }

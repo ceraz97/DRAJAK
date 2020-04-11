@@ -64,6 +64,10 @@ public interface ContratIndividuelFacadeLocal {
   
   void ModifierContratIndividuelStatut(ContratIndividuel contratIndividuel, StatutContrat s);
   ContratIndividuel CreerContratIndividuelPourPersonnePublique(String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye , ContratIndividuel recupDevis,CompteAssure cptAssure);
+
+    void AttribuerNomContratIndividuel(ContratIndividuel Contrat);
+
+    void AttribuerNomDevis(ContratIndividuel devis);
     
    
 }

@@ -231,7 +231,7 @@
                                                     </section>
                                                     <div>
                                                         <label for="bdayE2">Date de naissance :</label>
-                                                        <input type="date" id="bdayE2" name="bdayE2" required>
+                                                        <input type="date" id="bdayE2" name="bdayE2">
                                                     </div>
                                                 </div>
                                             </section>
@@ -254,7 +254,7 @@
                                                     </section>
                                                     <div>
                                                         <label for="bdayE">Date de naissance :</label>
-                                                        <input type="date" id="bdayE3" name="bdayE3" required>
+                                                        <input type="date" id="bdayE3" name="bdayE3" >
                                                     </div>
                                                 </div>
                                             </section>

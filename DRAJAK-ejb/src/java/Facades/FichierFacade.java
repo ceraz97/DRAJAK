@@ -37,12 +37,13 @@ public class FichierFacade extends AbstractFacade<Fichier> implements FichierFac
     }
    
     @Override
-    public Fichier CreerFichier(String nom, Blob Stockage, TypeFichier cleTypeFichier, Contrat cleContrat) {
+    public Fichier CreerFichier(String nom, Blob Stockage, TypeFichier cleTypeFichier, String chemin, Contrat cleContrat) {
         Fichier f = new Fichier();
         f.setNomFichier(nom);
         f.setDateEnvoiFichier(new Date());
         f.setStockageFichier(Stockage);
         f.setCleTypeFichier(cleTypeFichier);
+        f.setChemin(chemin);
         f.setCleContrat(cleContrat);
         getEntityManager().persist(f);
         return f;  

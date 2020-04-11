@@ -79,7 +79,7 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
     @Override
     public ContratIndividuel CreerContratIndividuel( String libelle, ChoixPaiement paiement, CompteEmploye cleCompteEmploye, ContratIndividuel recupDevis) {
         ContratIndividuel contratIndividuelInstance = new ContratIndividuel ();
-        contratIndividuelInstance = recupDevis; //récupération des données du devis
+        
         //La date de fin de contrat est égal à la date de création + 365 jours
         Date datFin; 
         Calendar c = Calendar.getInstance(); 
@@ -92,7 +92,12 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         contratIndividuelInstance.setLibelleContrat(libelle);
         contratIndividuelInstance.setStatut(StatutContrat.enCoursDeTraitement);
         contratIndividuelInstance.setPaiement(paiement);
+        contratIndividuelInstance.setCleCompteAssure(recupDevis.getCleCompteAssure());
+        contratIndividuelInstance.setClePersonnePublique(recupDevis.getClePersonnePublique());
         contratIndividuelInstance.setCleCompteEmploye(cleCompteEmploye);
+        contratIndividuelInstance.setCleObjetGarantie(recupDevis.getCleObjetGarantie());
+        contratIndividuelInstance.setCleProduit(recupDevis.getCleProduit());
+        contratIndividuelInstance.setType(TypeContrat.Individuel);
         
         getEntityManager().persist(contratIndividuelInstance);
         return contratIndividuelInstance;
@@ -207,6 +212,26 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         getEntityManager().persist(contratIndividuelInstance);
         return contratIndividuelInstance;
     } 
+
+    @Override
+    public void AttribuerNomContratIndividuel(ContratIndividuel Contrat) {
+        long idDevis = Contrat.getId();
+        String idDevisString = Long.toString(idDevis);
+        String nomContrat ="Contrat_Individuel_"+idDevisString;
+        Contrat.setLibelleContrat(nomContrat);
+        
+        getEntityManager().persist(Contrat);
+    }
+
+    @Override
+    public void AttribuerNomDevis(ContratIndividuel devis) {
+        long idDevis = devis.getId();
+        String idDevisString = Long.toString(idDevis);
+        String nomDevis ="Devis_"+idDevisString;
+        devis.setLibelleContrat(nomDevis);
+        getEntityManager().persist(devis);
+    }
+    
     
     
 }

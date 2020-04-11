@@ -33,6 +33,17 @@ public class Fichier implements Serializable {
     private Date dateEnvoiFichier;
 
     private Blob stockageFichier;
+    @Column (nullable=false)
+    private String chemin;
+
+    public String getChemin() {
+        return chemin;
+    }
+
+    public void setChemin(String chemin) {
+        this.chemin = chemin;
+    }
+
 
     public Blob getStockageFichier() {
         return stockageFichier;

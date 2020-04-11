@@ -16,6 +16,7 @@ import Facades.TrancheAgeFacadeLocal;
 import Facades.TypeAyantDroitFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
 import static java.lang.Long.toString;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -29,9 +30,17 @@ import javax.ejb.Stateless;
 public class PubliqueSession implements PubliqueSessionLocal {
 
     @EJB
+    private EvenementFacadeLocal evenementFacade;
+
+    @EJB
+    private FichierFacadeLocal fichierFacade;
+
+    @EJB
+    private TypeFichierFacadeLocal typeFichierFacade;
+
+    @EJB
     private TypeAyantDroitFacadeLocal typeAyantDroitFacade;
 
-    
     @EJB
     private AyantDroitFacadeLocal ayantDroitFacade;
 
@@ -90,6 +99,7 @@ public class PubliqueSession implements PubliqueSessionLocal {
     public ContratIndividuel CreerDevis(String libelle, CompteAssure compteA, PersonnePublique persoPublique, CompteEmploye compteE, ObjetGarantie objetGar, Produit prod) {
         ContratIndividuel contratIndivDevis = new ContratIndividuel();
         contratIndivDevis = contratIndividuelFacade.CreerDevis(libelle, compteA, persoPublique, compteE, objetGar, prod);
+        contratIndividuelFacade.AttribuerNomDevis(contratIndivDevis);
         return contratIndivDevis;
     }
 
@@ -110,16 +120,6 @@ public class PubliqueSession implements PubliqueSessionLocal {
         PersonnePublique p = personnePubliqueFacade.CreerPersonnePublique(nom, prenom, genre, dob, email, tel, adr);
         return p;
     }
-
-    @Override
-    public void AttribuerNomDevis(ContratIndividuel devis) {
-        long idDevis = devis.getId();
-        String idDevisString = Long.toString(idDevis);
-        String nomDevis ="Devis_"+idDevisString;
-        devis.setLibelleContrat(nomDevis);
-        contratIndividuelFacade.ModifierContratIndividuel(devis);
-    }
-
     
     @Override
     public Particulier RechercherParticulier(String nSecu) {
@@ -170,17 +170,16 @@ public class PubliqueSession implements PubliqueSessionLocal {
     
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        Particulier p = new Particulier ();
+        p= particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        particulierFacade.ModifierNumeroAdherent(p);
+        return p;
     }
 
     @Override
     public ContratIndividuel CreerContratIndividuelPersonnePublique(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis,CompteAssure cptAssure) {
         ContratIndividuel contrat = contratIndividuelFacade.CreerContratIndividuelPourPersonnePublique(libelle, paiement, cptEmploye, recupDevis,cptAssure);
-        long idDevis = contrat.getId();
-        String idDevisString = Long.toString(idDevis);
-        String nomContrat ="Contrat_Individuel_"+idDevisString;
-        contrat.setLibelleContrat(nomContrat);
-        contratIndividuelFacade.ModifierContratIndividuel(contrat);
+        contratIndividuelFacade.AttribuerNomContratIndividuel(contrat);
         return contrat;
     }
 
@@ -203,6 +202,28 @@ public class PubliqueSession implements PubliqueSessionLocal {
     public TypeAyantDroit RechercherTypeAyantDroitParLibelle(String libelle) {
         return typeAyantDroitFacade.RechercherTypeAyantDroitParLibelle(libelle);
     }
+
+    @Override
+    public PersonnePublique RechercherPersonnePublique(String email) {
+        return personnePubliqueFacade.RechercherPersonnePublique(email);
+    }
+
+    @Override
+    public TypeFichier RechercherTypeFichierParLibelle(String libelle) {
+        return typeFichierFacade.RechercherTypeFichierParLibelle(libelle);
+    }
+
+    @Override
+    public Fichier CreerFichier(String nom, TypeFichier cleTypeFichier, String chemin, Contrat cleContrat) {
+        return fichierFacade.CreerFichier(nom, null, cleTypeFichier, chemin, cleContrat);
+    }
+
+    @Override
+    public Evenement CreerEvenement(String libelle, ContratIndividuel contrat) {
+        Date d = new Date();
+        return evenementFacade.CreerEvenement(libelle, d, contrat);
+    }
+    
     
     
 }

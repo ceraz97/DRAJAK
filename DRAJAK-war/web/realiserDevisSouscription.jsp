@@ -67,13 +67,13 @@
                             <li class="active_progressebar"><a href="javascript:history.go(-3)"><span>Vos besoins</span></a></li>
                             <li class="active_progressebar"><a href="javascript:history.go(-2)"><span>Vos infos</span></a></li>
                             <li class="active_progressebar"><a href="javascript:history.go(-1)"><span>Votre tarif</span></a></li>
-                            <li><span>Souscription</span></li>
+                            <li class="active_progressebar"><span>Souscription</span></li>
                         </ul>
                     </div>
 
 
                     <div class="formulaire_devis">
-                        <form role="form" method="post" action="menuDrajak" name="formulaireDevis2">
+                        <form role="form" method="post" action="menuDrajak" name="formulaireDevis2" enctype="multipart/form-data">
 
                             <table class="devisPartieInfos">
                                 <!-- ligne tableau devis -->
@@ -82,131 +82,132 @@
                                     <td class="colonne2Lignehaut">Premier adulte</td>
                                 </tr>
                                 <tr class="ligneGeneraleTableau">
-
-                                    <c:choose>
-                                        <c:when test="${!empty sessionScope.sessionAssure}">
-                                            <c:out value="Toutes vos informations sont déjà enregistrées"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div>
-                                                <label for="nSSA1"> Numéro de sécurité sociale :</label>
-                                                <input type="number" id="nSSA1" name="nSSA1" min="1000000000000" max="2999999999999" required>
-                                            </div>
-                                            <div>
-                                                <label for="selectRegimeA1">Régime :</label>
-                                                <select name="selectRegimeA1" required>
-                                                    <option value="Régime Général" selected>Régime Général</option>
-                                                    <option value="Alsace Moselle" >Alsace Moselle</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <span>Votre login sera votre adsresse mail précédemment fournie.</span>
-                                                <label for="mdp"> Mot de passe :</label>
-                                                <input type="password" name="mdp"placeholder="Mot de passe" required>
-                                                <label for="mdp2"> Confirmer mot de passe :</label>
-                                                <input type="password" name="mdp2" placeholder="Confirmer mot de passe"required>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-
+                                    <td class="colonne2LigneBas">
+                                        <c:choose>
+                                            <c:when test="${!empty sessionScope.sessionAssure}">
+                                                <c:out value="Toutes vos informations sont déjà enregistrées"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div>
+                                                    <label for="nSSA1"> Numéro de sécurité sociale :</label>
+                                                    <input type="number" id="nSSA1" name="nSSA1" min="1000000000000" max="2999999999999" required>
+                                                </div>
+                                                <div>
+                                                    <label for="selectRegimeA1">Régime :</label>
+                                                    <select name="selectRegimeA1" required>
+                                                        <option value="Régime Général" selected>Régime Général</option>
+                                                        <option value="Alsace Moselle" >Alsace Moselle</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <span>Votre login sera votre adsresse mail précédemment fournie.</span>
+                                                    <label for="mdp"> Mot de passe :</label>
+                                                    <input type="password" name="mdp"placeholder="Mot de passe" required>
+                                                    <label for="mdp2"> Confirmer mot de passe :</label>
+                                                    <input type="password" name="mdp2" placeholder="Confirmer mot de passe"required>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                 </tr>
                                 <!-- fin ligne tableau devis -->
+                                <c:if test="${!empty sessionScope.listePersonneTampon}">
+                                    <c:forEach items="${sessionScope.listePersonneTampon}" var="personneTamp">
+                                        <c:if test="${personneTamp.getNature() eq 'Adulte2'}">
+                                            <tr class="ligneGeneraleTableauLigneImpaire">
+                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                <td class="colonne2Lignehaut">Deuxième adulte</td>
+                                            </tr>
+                                            <tr class="ligneGeneraleTableau">
+                                                <td class="colonne2LigneBas">
+                                                    <section>
+                                                        <div>
+                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                            <label for="adulte2Nom">Nom :</label>
+                                                            <input type="text" id="adulte2Nom" name="adulte2Nom" required>
+                                                            <label for="adulte2Prenom">Prénom :</label>
+                                                            <input type="text" id="adulte2Prenom" name="adulte2Prenom" required>
+                                                            <label for="adulte2Nss">Numéro de Sécurité Sociale :</label>
+                                                            <input type="number" id="adulte2Nss" name="adulte2Nss" min="1000000000000" max="2999999999999" required>
+                                                        </div>
+                                                    </section>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                    </c:forEach>
 
-                                <c:forEach items="sessionScope.listePersonneTampon}" var="personneTamp">
-                                    <c:if test="${personneTamp.getNature() eq 'Adulte2'}">
-                                        <tr class="ligneGeneraleTableauLigneImpaire">
-                                            <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
-                                            <td class="colonne2Lignehaut">Deuxième adulte</td>
-                                        </tr>
-                                        <tr class="ligneGeneraleTableau">
-                                            <td class="colonne2LigneBas">
-                                                <section>
-                                                    <div>
-                                                        <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
-                                                        <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
-                                                        <label for="adulte2Nom">Nom :</label>
-                                                        <input type="text" id="adulte2Nom" name="adulte2Nom" required>
-                                                        <label for="adulte2Prenom">Prénom :</label>
-                                                        <input type="text" id="adulte2Prenom" name="adulte2Prenom" required>
-                                                        <label for="adulte2Nss">Numéro de Sécurité Sociale :</label>
-                                                        <input type="number" id="adulte2Nss" name="adulte2Nss" min="1000000000000" max="2999999999999" required>
-                                                    </div>
-                                                </section>
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                </c:forEach>
-
-                                <c:forEach items="sessionScope.listePersonneTampon}" var="personneTamp">
-                                    <c:if test="${(personneTamp.getNature() eq 'Enfant1') || (personneTamp.getNature() eq 'Enfant2') || (personneTamp.getNature() eq 'Enfant3')}">
-                                        <c:if test="${personneTamp.getNature() eq 'Enfant1'}">
-                                            <tr class="ligneGeneraleTableauLigneImpaire">
-                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
-                                                <td class="colonne2Lignehaut">Premier enfant</td>
-                                            </tr>
-                                            <tr class="ligneGeneraleTableau">
-                                                <td class="colonne2LigneBas">
-                                                    <section>
-                                                        <div>
-                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
-                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
-                                                            <label for="enfant1Nom">Nom :</label>
-                                                            <input type="text" id="enfant1Nom" name="enfant1Nom" required>
-                                                            <label for="enfant1Prenom">Prénom :</label>
-                                                            <input type="text" id="enfant1Prenom" name="enfant1Prenom" required>
-                                                            <label for="enfant1Nss">Numéro de Sécurité Sociale :</label>
-                                                            <input type="number" id="enfant1Nss" name="enfant1Nss" min="1000000000000" max="2999999999999" required>
-                                                        </div>
-                                                    </section>
-                                                </td>
-                                            </tr>
+                                    <c:forEach items="${sessionScope.listePersonneTampon}" var="personneTamp">
+                                        <c:if test="${(personneTamp.getNature() eq 'Enfant1') || (personneTamp.getNature() eq 'Enfant2') || (personneTamp.getNature() eq 'Enfant3')}">
+                                            <c:if test="${personneTamp.getNature() eq 'Enfant1'}">
+                                                <tr class="ligneGeneraleTableauLigneImpaire">
+                                                    <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                    <td class="colonne2Lignehaut">Premier enfant</td>
+                                                </tr>
+                                                <tr class="ligneGeneraleTableau">
+                                                    <td class="colonne2LigneBas">
+                                                        <section>
+                                                            <div>
+                                                                <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                                <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                                <label for="enfant1Nom">Nom :</label>
+                                                                <input type="text" id="enfant1Nom" name="enfant1Nom" required>
+                                                                <label for="enfant1Prenom">Prénom :</label>
+                                                                <input type="text" id="enfant1Prenom" name="enfant1Prenom" required>
+                                                                <label for="enfant1Nss">Numéro de Sécurité Sociale :</label>
+                                                                <input type="number" id="enfant1Nss" name="enfant1Nss" min="1000000000000" max="2999999999999" required>
+                                                            </div>
+                                                        </section>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                            <c:if test="${personneTamp.getNature() eq 'Enfant2'}">
+                                                <tr class="ligneGeneraleTableauLigneImpaire">
+                                                    <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                    <td class="colonne2Lignehaut">Deuxième enfant</td>
+                                                </tr>
+                                                <tr class="ligneGeneraleTableau">
+                                                    <td class="colonne2LigneBas">
+                                                        <section>
+                                                            <div>
+                                                                <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                                <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                                <label for="enfant2Nom">Nom :</label>
+                                                                <input type="text" id="enfant2Nom" name="enfant2Nom" required>
+                                                                <label for="enfant2Prenom">Prénom :</label>
+                                                                <input type="text" id="enfant2Prenom" name="enfant2Prenom" required>
+                                                                <label for="enfant2Nss">Numéro de Sécurité Sociale :</label>
+                                                                <input type="number" id="enfant2Nss" name="enfant2Nss" min="1000000000000" max="2999999999999" required>
+                                                            </div>
+                                                        </section>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                            <c:if test="${personneTamp.getNature() eq 'Enfant3'}">
+                                                <tr class="ligneGeneraleTableauLigneImpaire">
+                                                    <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
+                                                    <td class="colonne2Lignehaut">Troisième enfant</td>
+                                                </tr>
+                                                <tr class="ligneGeneraleTableau">
+                                                    <td class="colonne2LigneBas">
+                                                        <section>
+                                                            <div>
+                                                                <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
+                                                                <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
+                                                                <label for="enfant3Nom">Nom :</label>
+                                                                <input type="text" id="enfant3Nom" name="enfant3Nom" required>
+                                                                <label for="enfant3Prenom">Prénom :</label>
+                                                                <input type="text" id="enfant3Prenom" name="enfant3Prenom" required>
+                                                                <label for="enfant3Nss">Numéro de Sécurité Sociale :</label>
+                                                                <input type="number" id="enfant3Nss" name="enfant3Nss" min="1000000000000" max="2999999999999" required>
+                                                            </div>
+                                                        </section>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
                                         </c:if>
-                                        <c:if test="${personneTamp.getNature() eq 'Enfant2'}">
-                                            <tr class="ligneGeneraleTableauLigneImpaire">
-                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
-                                                <td class="colonne2Lignehaut">Deuxième enfant</td>
-                                            </tr>
-                                            <tr class="ligneGeneraleTableau">
-                                                <td class="colonne2LigneBas">
-                                                    <section>
-                                                        <div>
-                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
-                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
-                                                            <label for="enfant2Nom">Nom :</label>
-                                                            <input type="text" id="enfant2Nom" name="enfant2Nom" required>
-                                                            <label for="enfant2Prenom">Prénom :</label>
-                                                            <input type="text" id="enfant2Prenom" name="enfant2Prenom" required>
-                                                            <label for="enfant2Nss">Numéro de Sécurité Sociale :</label>
-                                                            <input type="number" id="enfant2Nss" name="enfant2Nss" min="1000000000000" max="2999999999999" required>
-                                                        </div>
-                                                    </section>
-                                                </td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${personneTamp.getNature() eq 'Enfant3'}">
-                                            <tr class="ligneGeneraleTableauLigneImpaire">
-                                                <td width rowspan="2"class="colonneEnteteLigneImpaire"></td>
-                                                <td class="colonne2Lignehaut">Troisième enfant</td>
-                                            </tr>
-                                            <tr class="ligneGeneraleTableau">
-                                                <td class="colonne2LigneBas">
-                                                    <section>
-                                                        <div>
-                                                            <c:out value="">Date de Naissance : ${personneTamp.getDateNaissance()}</c:out>
-                                                            <c:out value="">Genre : ${personneTamp.getGenre()}</c:out>
-                                                            <label for="enfant3Nom">Nom :</label>
-                                                            <input type="text" id="enfant3Nom" name="enfant3Nom" required>
-                                                            <label for="enfant3Prenom">Prénom :</label>
-                                                            <input type="text" id="enfant3Prenom" name="enfant3Prenom" required>
-                                                            <label for="enfant3Nss">Numéro de Sécurité Sociale :</label>
-                                                            <input type="number" id="enfant3Nss" name="enfant3Nss" min="1000000000000" max="2999999999999" required>
-                                                        </div>
-                                                    </section>
-                                                </td>
-                                            </tr>
-                                        </c:if>
-                                    </c:if>
-                                </c:forEach>
+                                    </c:forEach>
+                                </c:if>
 
 
                                 <!-- ligne tableau devis -->
@@ -231,9 +232,9 @@
                                             </div>
                                         </section>
                                         <section>
-                                            <<p style="margin: 15px autp;">
+                                            <p style="margin: 15px autp;">
                                                 <label for="fichier">Fichier à envoyer : </label>
-                                                <input type="file" name="fichier" id="fichier" />
+                                                <input type="file" name="fichier" id="fichier" required/>
                                             </p>
                                         </section>
                                     </td>
@@ -246,7 +247,7 @@
                                     <input type="hidden" name="idDevis" value="${requestScope.idDevis}"/>
                                     
 
-                                    <button type="submit" class="btn btn-primary btn-block btn-formulaire" value="Valider">Obtenir tarifs</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-formulaireSouscription" value="Valider">Souscription</button>
                                 </div>
                             </form>
                         </div>

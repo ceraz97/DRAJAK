@@ -11,7 +11,7 @@
                         <li class="nav-item active"><a onclick="location.href = 'menuDrajak?action=AssureMenu'" class="nav-link" style="cursor: pointer">Mon menu</a></li>
                         <li class="nav-item"><a onclick="location.href = 'menuDrajak?action=Assure_GestionContrat_ListeContrat'" class="nav-link" style="cursor: pointer">Gérer mes contrats</a></li>
                         <li class="nav-item"><a  onclick="location.href = 'menuDrajak?action=DemandeDevis_besoins'" class="nav-link" style="cursor: pointer">Soins</a>
-                        <li class="nav-item"><a href="offre.jsp" class="nav-link" style="cursor: pointer">Simulation</a></li>
+                        <li class="nav-item"><a onclick="location.href = 'menuDrajak?action=DemandeDevis_besoins'" style="cursor: pointer">Simulation</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link" style="cursor: pointer">Contact</a></li>
                         <li class="nav-item"><a onclick="location.href='menuDrajak?action=Assure_InformationsCompte'" class="nav-link" style="cursor: pointer">Mon compte</a></li>
                         <li class="nav-item cta"><a onclick="location.href = 'menuDrajak?action=Deconnexion&typeConnexion=AssureMenu'" class="nav-link" style="cursor: pointer"><span>Se déconnecter</span></a></li>

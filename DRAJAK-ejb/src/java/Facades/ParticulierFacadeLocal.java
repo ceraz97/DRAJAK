@@ -48,5 +48,7 @@ public interface ParticulierFacadeLocal {
     List <Particulier> RechercherListeParticulier(String nSecu);
 
     Particulier RechercherParticulierParID(long id);
+
+    void ModifierNumeroAdherent(Particulier particulier);
     
 }

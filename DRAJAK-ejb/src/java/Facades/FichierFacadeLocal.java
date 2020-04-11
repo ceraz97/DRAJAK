@@ -34,7 +34,7 @@ public interface FichierFacadeLocal {
 
     int count();
     
-    Fichier CreerFichier(String nom, Blob Stockage,TypeFichier cleTypeFichier, Contrat cleContrat);
+    Fichier CreerFichier(String nom, Blob Stockage,TypeFichier cleTypeFichier, String chemin, Contrat cleContrat);
     
     List <Fichier> ListerAllFichier(TypeFichier Cle);
     

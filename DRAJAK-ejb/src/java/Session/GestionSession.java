@@ -356,12 +356,13 @@ public class GestionSession implements GestionSessionLocal {
         tauxGarantieFacade.CreerTauxDeGarantie(1000.0, 12.0, tv, Nc, gb4);
 
         //CONTRAT
-        devisA = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 1", ca, null, ce, tns, pr1);
-        devisB = contratIndividuelFacade.CreerDevis("DevisDeTestAssure 2", ca, null, ce, tns, pr1);
-        contratIndividuelFacade.CreerDevis("DevisDeTestPublique", null, pp, ce, cadre, pr1);
-        contratIndividuelFacade.CreerContratIndividuel("ContratIndivTest", ChoixPaiement.Annuel, ce, devisA);
-        cc = contratCollectifFacade.CreerContratCollectif("ContratCollectif", ca, ce, pr2, pm);
-        contratIndividuelFacade.CreerContratAdhesion("ContratAdhesion", ChoixPaiement.Annuel, ce, ca, cadre, cc);
+        devisA = contratIndividuelFacade.CreerDevis("Devis_102", ca, null, ce, tns, pr1);
+        
+        devisB = contratIndividuelFacade.CreerDevis("Devis_103", ca, null, ce, tns, pr1);
+        contratIndividuelFacade.CreerDevis("Devis_104", null, pp, ce, cadre, pr1);
+        contratIndividuelFacade.CreerContratIndividuel("Contrat_Individuel_105", ChoixPaiement.Annuel, ce, devisA);
+        cc = contratCollectifFacade.CreerContratCollectif("Contrat_Collectif_106", ca, ce, pr2, pm);
+        contratIndividuelFacade.CreerContratAdhesion("Contrat_Adhesion_107", ChoixPaiement.Annuel, ce, ca, cadre, cc);
 
         //EVENEMENT
         evenementFacade.CreerEvenement("Test", new Date(), devisA);//test
@@ -370,7 +371,7 @@ public class GestionSession implements GestionSessionLocal {
         tf = typeFichierFacade.CreerTypeFichier("jpg");
         typeFichierFacade.CreerTypeFichier("png");
         typeFichierFacade.CreerTypeFichier("pdf");
-        fichierFacade.CreerFichier("FichierDeTest", /*blob*/ null, tf, devisA);
+        fichierFacade.CreerFichier("FichierDeTest", /*blob*/ null, tf,"", devisA);
 
         //AYANT DROIT
         td = typeAyantDroitFacade.CreerTypeAyantDroit("Conjoint");
@@ -441,7 +442,10 @@ public class GestionSession implements GestionSessionLocal {
 
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
-        return particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        Particulier p = new Particulier ();
+        p= particulierFacade.CreerParticulier(nom, prenom, genre, Dob, Nsecu, email, tel, adr);
+        particulierFacade.ModifierNumeroAdherent(p);
+        return p;
     }
 
     @Override
@@ -583,7 +587,7 @@ public class GestionSession implements GestionSessionLocal {
     
       @Override
     public TypeFichier RechercherTypeRIBouChargeAttente(String Cle) {
-        return typeFichierFacade.ListeTypeFichierAttenteRIB(Cle);
+        return typeFichierFacade.RechercherTypeFichierParLibelle(Cle);
     }
     
     @Override
@@ -654,7 +658,7 @@ public class GestionSession implements GestionSessionLocal {
        
         Fichier f = fichierFacade.RechercherFichierParId(id);
         
-        TypeFichier fichierv = typeFichierFacade.ListeTypeFichierAttenteRIB(Type);
+        TypeFichier fichierv = typeFichierFacade.RechercherTypeFichierParLibelle(Type);
         
         
         fichierFacade.ModifierFichierStatut(fichierv, f);}

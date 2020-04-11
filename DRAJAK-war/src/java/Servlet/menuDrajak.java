@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,6 +54,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.servlet.annotation.WebServlet;
+import java.nio.file.Paths;
 
 /**
  *
@@ -63,7 +66,6 @@ public class menuDrajak extends HttpServlet {
     
 
     public static final int TAILLE_TAMPON = 10240;
-    public static final String CHEMIN_FICHIERS = "/tmp/DRAJAK/fichiers/"; // A changer
     
     @EJB
     private GestionSessionLocal gestionSession;
@@ -112,7 +114,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("ModificationContratStatutGestionnaire")&& !act.equals("ModificationvalidationContratStatutGestionnaire"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("DemandeDevis_RealisationContratIndiv"))) {
       
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
@@ -301,7 +303,7 @@ public class menuDrajak extends HttpServlet {
                     String mail = request.getParameter("mail");
                     String mdp = request.getParameter("mdp");
 
-                    Date d = java.sql.Date.valueOf(dateNaissance);
+                    Date d = java.sql.Date.valueOf(dateNaissance); 
                     Role r;
                     if (role.equalsIgnoreCase("gestionnaire")) {
                         r = Role.Gestionnaire;
@@ -679,14 +681,16 @@ public class menuDrajak extends HttpServlet {
                             if (numRueTarif!=null && nomRueTarif !=null && cpTarif!=null && villeTarif!=null && paysTarif!=null) {
                                 adresseTarif = numRueTarif + "," + nomRueTarif + "," + cpTarif + "," + villeTarif + "," + paysTarif;
                             }
-                            //Mail
+                            //Mail & tel
                             email = request.getParameter("adrMail");
-                            
-                            //Tel 
                             tel = request.getParameter("numTel");
                             
-                            if (nomA1!=null && prenomA1 !=null && genreAdulte1!=null && DobA1Date!=null && email!=null && tel!=null && adresseTarif!=null){
-                                personnePubliqueDevis = publiqueSession.CreerPersonnePublique(nomA1, prenomA1, genreAdulte1, DobA1Date, email, tel, adresseTarif);
+                            //Recherche de personne
+                            personnePubliqueDevis = publiqueSession.RechercherPersonnePublique(email);
+                            if (personnePubliqueDevis==null) {
+                                if (nomA1!=null && prenomA1 !=null && genreAdulte1!=null && DobA1Date!=null && email!=null && tel!=null && adresseTarif!=null){
+                                    personnePubliqueDevis = publiqueSession.CreerPersonnePublique(nomA1, prenomA1, genreAdulte1, DobA1Date, email, tel, adresseTarif);
+                                } 
                             }
                         } catch (Exception e) {
                             message = "Erreur : une information sur le l'adresse ou l'email n'a pu être récupéreée";
@@ -705,8 +709,13 @@ public class menuDrajak extends HttpServlet {
                         } else if (trancheAgeTarif.equalsIgnoreCase("4")) {
                             trancheAgeMaxTarif = assureSession.RechercherTrancheAgeParLibelle("71-80 ans");
                         }
+                        if (trancheAgeMaxTarif!=null){
+                            System.out.println("tranche age trouvée");
+                        } else {
+                            System.out.println("tranche age non trouvée");
+                        }
                     } catch (Exception e) {
-                        message = "Erreur : l'‚ge n'a pu être récupéreée";
+                        message = "Erreur : l'age n'a pu être récupéreée";
                         jspAffiche = "/realiserDevisBesoins.jsp";
                     }
 
@@ -729,7 +738,7 @@ public class menuDrajak extends HttpServlet {
                     
                     for (int i = 0; i < listObjetGarantieHSC.size(); i++) {
                         Garantie garantieInstance = assureSession.RechercherGarantieParLibelle(listObjetGarantieHSC.get(i));
-                        if (garantieInstance!=null){
+                        if (garantieInstance!=null && objGarantieHSC!=null && trancheAgeMaxTarif!=null){
                             TauxGarantie txGarantiInstance = assureSession.RechercherTauxGarantie(trancheAgeMaxTarif, objGarantieHSC, garantieInstance);
                             listeTauxGarantieHospitalisation.add(txGarantiInstance);
                             listeTauxGarantieTotale.add(txGarantiInstance);
@@ -878,7 +887,7 @@ public class menuDrajak extends HttpServlet {
                             assureSession.AttribuerNomDevis(devisCree);
                         } else {
                             devisCree = publiqueSession.CreerDevis("Devis_", sessionAssure, personnePubliqueDevis, sessionGestionnaire, objGarantieDevis, ProduitRecherche);
-                            publiqueSession.AttribuerNomDevis(devisCree);
+                            
                         }
                         request.setAttribute("Devis", devisCree);
                     } else {
@@ -888,8 +897,8 @@ public class menuDrajak extends HttpServlet {
                     break;
 
                 case "DemandeDevis_souscription":
-                    jspAffiche = "/realiserDevisTarif.jsp";
-                    
+                    jspAffiche = "/realiserDevisSouscription.jsp";
+                    request.setAttribute("idDevis", request.getParameter("idDevis"));
                     message = "";
                     break;
 
@@ -1011,19 +1020,23 @@ public class menuDrajak extends HttpServlet {
                 case "Assure_GestionDocument_envoiFichier":
                     
                     // On récupère le champ du fichier
+                    List<String> fileInfo = new ArrayList<String>();
+                    String nomFichier, extension, newFileName;
                     Part part = request.getPart("fichier");
                     idc = request.getParameter("idc");
                     ContratIndividuel contratIndivididuelInstance = assureSession.RechercherContratIndivParId(Long.parseLong(idc));
                             
                     // On vérifie qu'on a bien reçu un fichier
-                    String nomFichier = getNomFichier(part,contratIndivididuelInstance);
+                    fileInfo= getNomFichier(part,contratIndivididuelInstance);
+                    nomFichier = fileInfo.get(0);
+                    extension = fileInfo.get(1);
 
                     // Si on a bien un fichier
                     if (nomFichier != null && !nomFichier.isEmpty()) {
                         String nomChamp = part.getName();
                         
                         // On écrit définitivement le fichier sur le disque
-                        ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
+                        //ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
                     }
                     jspAffiche = "/menuAssure.jsp";
                     message = "Le fichier a bien été envoyé";
@@ -1604,7 +1617,7 @@ public class menuDrajak extends HttpServlet {
                         message="Aucun contrats n'a été trouvé";
                     }
                           System.out.println("fichier" + listeFichier );
-                  try {
+                    try {
                         request.setAttribute("listeFichier", listeFichier );}
                     catch (Exception e){}
                       
@@ -1612,7 +1625,7 @@ public class menuDrajak extends HttpServlet {
                     break;                              
                  
                     
-                     case "RechercherChargeAttenteGestionnaireListe":
+                case "RechercherChargeAttenteGestionnaireListe":
                     jspAffiche = "/listeChargeAttenteGestionnaire.jsp";
                     message = "";
                     String typefichierc = "AttenteValidationPriseCharge";
@@ -1669,9 +1682,20 @@ public class menuDrajak extends HttpServlet {
                       
                        
                     break;
+                    
                 case "DemandeDevis_RealisationContratIndiv":
                     message="";
-                    jspAffiche="";
+                    if (sessionAssure != null) {
+                        jspAffiche = "/menuAssure.jsp";
+                    } else if (sessionGestionnaire != null) {
+                        jspAffiche = "/menuGestionnaire.jsp";
+                    } else if (sessionEntreprise != null) {
+                        jspAffiche = "/menuEntreprise.jsp";
+                    } else if (sessionAdministrateur != null) {
+                        jspAffiche = "/menuAdministrateur.jsp";
+                    } else {
+                        jspAffiche = "/accueilPublic.jsp";
+                    }
                     
                     String emailDevis, adrDevis, telDevis;
                     Particulier partA1,partA2,partE1,partE2,partE3;
@@ -1681,6 +1705,7 @@ public class menuDrajak extends HttpServlet {
                     String idDevis = request.getParameter("idDevis");
                     ContratIndividuel devisInstance = publiqueSession.RechercherContratIndivParId(Long.parseLong(idDevis));
                     
+                    System.out.println("Chargement des données communes");
                     if (devisInstance.getClePersonnePublique()!=null) {
                         emailDevis = devisInstance.getClePersonnePublique().getEmail();
                         adrDevis = devisInstance.getClePersonnePublique().getAdresse();
@@ -1691,6 +1716,7 @@ public class menuDrajak extends HttpServlet {
                         telDevis = devisInstance.getCleCompteAssure().getCleParticulier().getnTelephone();
                     }
                     
+                    System.out.println("Chargement des données individuelles");
                     if (devisInstance.getClePersonnePublique()!=null) {
                         PersonnePublique pPublique = devisInstance.getClePersonnePublique();
                         String nSsA1 = request.getParameter("nSSA1");
@@ -1701,8 +1727,11 @@ public class menuDrajak extends HttpServlet {
                             regimeA1 = request.getParameter("selectRegimeA1");
                             if (regimeA1!=null) {
                                 RegimeSocial regimeA1Instance = publiqueSession.RechercherRegimeSocial(regimeA1);
+                                System.out.println("regime social recherché");
                                 if (regimeA1Instance!=null) {
+                                    System.out.println("regime social trouvé");
                                     cptAssure = publiqueSession.CreerCompteAssure(mdp1A1, partA1, regimeA1Instance);
+                                    System.out.println("Compte assure créé");
                                 }
                             } else {
                                 message="Erreur : Regime social non sélectionné";
@@ -1713,6 +1742,7 @@ public class menuDrajak extends HttpServlet {
                     }
                     
                     //Partie Paiement 
+                    System.out.println("Chargement des données de paiement");
                     ChoixPaiement choixPaiementInstance;
                     String periodePaiement = request.getParameter("periodePaiement");
                     if (periodePaiement.equalsIgnoreCase("Mensuel")) {
@@ -1723,7 +1753,10 @@ public class menuDrajak extends HttpServlet {
                         choixPaiementInstance = ChoixPaiement.Annuel;
                     }
                     
+                    
+                    
                     //Création du contrat
+                    System.out.println("Creation du contrat");
                     CompteEmploye cptEmployeInstance=null;
                     ContratIndividuel contratIndividuelInstance=null;
                     if (cptAssure!=null){
@@ -1732,17 +1765,38 @@ public class menuDrajak extends HttpServlet {
                          contratIndividuelInstance = assureSession.CreerContratIndividuel("Contrat_Temporaire",choixPaiementInstance, cptEmployeInstance, devisInstance);
                     }
                     
+                    
                     //Partie fichier pour le rib 
+                    System.out.println("Gestion du fichier transmi");
+
+                    
+                    String projectPathStart = request.getServletContext().getRealPath("");
+                    String[] projectPathStep = projectPathStart.split("dist/gfdeploy/DRAJAK/DRAJAK-war_war");
+                    String finallyProjectPath = projectPathStep[0]+"DRAJAK-war/web/WEB-INF/FichiersGeneres/";
                     part = request.getPart("fichier");
                     if (contratIndividuelInstance!=null) {
-                        nomFichier = getNomFichier(part, contratIndividuelInstance);
-
+                       fileInfo = getNomFichier(part, contratIndividuelInstance);
+                        nomFichier = fileInfo.get(0);
+                        extension = fileInfo.get(1);
                         // Si on a bien un fichier
-                        if (nomFichier != null && !nomFichier.isEmpty()) {
+                        if (nomFichier != null && extension != null && !nomFichier.isEmpty()) {
                             // On écrit définitivement le fichier sur le disque
-                            ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
+                            newFileName = nomFichier+extension;
+                            ecrireFichier(part, newFileName, finallyProjectPath );
+                            
+                            //On enregistre le chemin du fichier en base de données
+                            TypeFichier typeFichierInstance = publiqueSession.RechercherTypeFichierParLibelle(extension.substring(1));
+                            if (typeFichierInstance!=null) {
+                                System.out.println("typeFichier trouvé");
+                                publiqueSession.CreerFichier(nomFichier, typeFichierInstance,finallyProjectPath+newFileName ,contratIndividuelInstance);
+                            }
+                            
+                            //On enregsitre un nouvel évènement
+                            publiqueSession.CreerEvenement("Demande de validation de RIB", contratIndividuelInstance);
                         }
                     }
+                    
+                    System.out.println("Enregistrement des ayant droit");
                     typeAdInstance=null;
                     if (devisInstance!=null) {       
                         if (listeMemoireTamponPersonne!= null) {
@@ -1816,24 +1870,15 @@ public class menuDrajak extends HttpServlet {
                     break;
                         
                 
-                     case "ModificationrefusContratStatutGestionnaireIndiv": 
+                case "ModificationrefusContratStatutGestionnaireIndiv": 
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                     String idContratOo =request.getParameter("idc");
                     long idContratOuo =Long.parseLong(idContratOo);
                     ContratIndividuel contratIndivValidationOuii = null;
-                    
-                  
-                      contratIndivValidationOuii = gestionSession.RechercherContratIndivParId(idContratOuo);
-                      System.out.println("contrat indiv cher" + contratIndivValidationOuii);
-                      
-                  
-                      
-                      
-                      gestionSession.ModifierContratStatutRefuserIndiv(idContratOuo);
-                      System.out.println("Changement"+contratIndivValidationOuii);
-                      
-                      
-                       
+                    contratIndivValidationOuii = gestionSession.RechercherContratIndivParId(idContratOuo);
+                    System.out.println("contrat indiv cher" + contratIndivValidationOuii);
+                    gestionSession.ModifierContratStatutRefuserIndiv(idContratOuo);
+                    System.out.println("Changement"+contratIndivValidationOuii);
                     break;
                     
                  
@@ -1842,7 +1887,7 @@ public class menuDrajak extends HttpServlet {
                       
            
                     
-                     case "ModificationFichierStatutGestionnaire":
+                case "ModificationFichierStatutGestionnaire":
                     jspAffiche = "/modifierFichierStatutGestionnaire.jsp";
                     
                     String idContratvf =request.getParameter("idc");
@@ -2012,16 +2057,17 @@ public class menuDrajak extends HttpServlet {
         }
     }
     
-    private static String getNomFichier( Part part, ContratIndividuel contrat) {
-        String nomFichier;
-        String contentDisposition = part.getName();
-        if (contentDisposition!=null) {
+    private static List<String> getNomFichier( Part part, ContratIndividuel contrat) {
+        String nomFichier, extension;
+        List<String> infosFichier = new ArrayList<String>();
+        String contentDisposition = part.getSubmittedFileName();
+        extension = contentDisposition.substring(contentDisposition.lastIndexOf("."));
+        if (part!=null && extension!=null) {
             nomFichier = contrat.getLibelleContrat()+"_RIB";
-        } else {
-            nomFichier = null;
-        }
-           
-        return nomFichier;
+            infosFichier.add(nomFichier);
+            infosFichier.add(extension);
+        } 
+        return infosFichier;
     } 
     
     /**

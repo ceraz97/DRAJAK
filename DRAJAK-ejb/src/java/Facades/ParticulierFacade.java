@@ -38,7 +38,7 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
     @Override
     public Particulier CreerParticulier(String nom, String prenom, Genre genre, Date Dob, String Nsecu, String email, String tel, String adr) {
         Particulier p = new Particulier();   
-        p.setnAdherent(777);
+        p.setnAdherent(Long.parseLong(Nsecu));
         p.setnTelephone(tel);
         p.setAdresse(adr);
         p.setNom(nom);
@@ -112,6 +112,13 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
             p = (Particulier) result.get(0);
         }
         return p;
+    }
+
+    @Override
+    public void ModifierNumeroAdherent(Particulier particulier) {
+        long pId = particulier.getId();
+        particulier.setnAdherent(pId);
+        getEntityManager().persist(particulier);
     }
     
     

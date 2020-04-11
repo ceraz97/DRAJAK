@@ -27,8 +27,6 @@ public interface PubliqueSessionLocal {
 
     PersonnePublique CreerPersonnePublique(String nom, String prenom, Genre genre, Date dob, String email, String tel, String adr);
 
-    void AttribuerNomDevis(ContratIndividuel devis);
-
     Particulier RechercherParticulier(String nSecu);
 
     TypeModule RechercherTypeModule(String libelle);
@@ -58,4 +56,12 @@ public interface PubliqueSessionLocal {
     AyantDroit CreerAyantDroit(TypeAyantDroit typeAD, Particulier particulier, ContratIndividuel Contrat);
 
     TypeAyantDroit RechercherTypeAyantDroitParLibelle(String libelle);
+
+    PersonnePublique RechercherPersonnePublique(String email);
+
+    TypeFichier RechercherTypeFichierParLibelle(String libelle);
+
+    Fichier CreerFichier(String nom, TypeFichier cleTypeFichier, String chemin, Contrat cleContrat);
+
+    Evenement CreerEvenement(String libelle, ContratIndividuel contrat);
 }

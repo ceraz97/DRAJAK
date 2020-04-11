@@ -49,7 +49,7 @@ public class TypeFichierFacade extends AbstractFacade<TypeFichier> implements Ty
     }
     
      @Override
-    public TypeFichier ListeTypeFichierAttenteRIB(String Type) {
+    public TypeFichier RechercherTypeFichierParLibelle(String Type) {
         TypeFichier f;
         String tx = "SELECT T FROM TypeFichier AS T WHERE T.libelleTypeFichier=:type ";
         Query req = getEntityManager().createQuery(tx);
