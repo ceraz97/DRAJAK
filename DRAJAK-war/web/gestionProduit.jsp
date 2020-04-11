@@ -55,7 +55,7 @@
                 </c:otherwise>
             </c:choose>
         </p>
-        
+
         <section class="ftco-section-2 img" style="background-image: url(remedic/images/bg_3.jpg);">
             <div class="container">
                 <div class="row d-md-flex justify-content-end">
@@ -85,41 +85,41 @@
                                     </div>
                                     <h2>Liste de toutes les produits</h2>
                                     <p></p>
-                                    
-                                     <a href="listeModule.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Liste de toutes les modules</h2>
-                                    <p></p>
 
-                                </a>
+                                    <a href="listeModule.jsp" class="services-wrap ftco-animate">
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="ion-ios-arrow-back"></span>
+                                            <span class="ion-ios-arrow-forward"></span>
+                                        </div>
+                                        <h2>Liste de toutes les modules</h2>
+                                        <p></p>
+
+                                    </a>
                                     <a href="creationModule.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Créer un module</h2>
-                                    <p></p>
-                                </a>
-                                
-                                     <a href="listeGarantie.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Liste de toutes les Garanties</h2>
-                                    <p></p>
-                                    
-                                     <a href="creationGarantie.jsp" class="services-wrap ftco-animate">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="ion-ios-arrow-back"></span>
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </div>
-                                    <h2>Créer une Garantie</h2>
-                                    <p></p>
-                                </a>
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="ion-ios-arrow-back"></span>
+                                            <span class="ion-ios-arrow-forward"></span>
+                                        </div>
+                                        <h2>Créer un module</h2>
+                                        <p></p>
+                                    </a>
+
+                                    <a href="listeGarantie.jsp" class="services-wrap ftco-animate">
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="ion-ios-arrow-back"></span>
+                                            <span class="ion-ios-arrow-forward"></span>
+                                        </div>
+                                        <h2>Liste de toutes les Garanties</h2>
+                                        <p></p>
+                                    </a>
+                                    <a href="creationGarantie.jsp" class="services-wrap ftco-animate">
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="ion-ios-arrow-back"></span>
+                                            <span class="ion-ios-arrow-forward"></span>
+                                        </div>
+                                        <h2>Créer une Garantie</h2>
+                                        <p></p>
+                                    </a>
                             </div>
                         </div>
                     </div>
