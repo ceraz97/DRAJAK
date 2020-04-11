@@ -71,23 +71,18 @@
                             <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                                 <span class="icon mb-3 d-block flaticon-cardiogram"></span>
                                 <h2 class="mb-4">Création d'un gestionnaire</h2>
-                                <p>Compléter le formulaire et créer un gestionnaire.</p>
+                                <p>Complétez le formulaire et créez un gestionnaire.</p>
                                 <p><a href="creationGestionnaire.jsp" class="btn btn-primary">Cliquez ici</a></p>
                             </div>
 
                             <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                                 <span class="icon mb-3 d-block flaticon-cardiogram"></span>
                                 <h2 class="mb-4">Modification d'un gestionnaire</h2>
-                                <p>Choisissez un gestionnaire puis modifier certaines de ses informations.</p>
+                                <p>Choisissez un gestionnaire dans la liste puis modifiez le</p>
                                 <p><a href="modificationGestionnaire.jsp" class="btn btn-primary">Cliquez ici</a></p>
                             </div>
 
-                            <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
-                                <span class="icon mb-3 d-block flaticon-cardiogram"></span>
-                                <h2 class="mb-4">Afficher la liste des gestionnaires</h2>
-                                <p>Permet de visualier la liste de tous les gestionnaires.</p>
-                                <p><a href="menuDrajak?action=AfficherGest" class="btn btn-primary">Cliquez ici</a></p>
-                            </div>
+                          
 
                         </div>
                     </div>
