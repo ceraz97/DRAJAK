@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Liste des gestionnaires</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -36,7 +36,7 @@
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
-                  <form class="form" role="form" method="post" action="menuDrajak" accept-charset="UTF-8" id="login-nav">
+                 
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
                         <h1 class="mb-4">Modifier un gestionnaire</h1>                   
@@ -75,12 +75,12 @@
                                     <td id="td5">
                                         <c:choose>
                                             <c:when test="${ !empty sessionScope.sessionAdministrateur }">
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action= AMODIFIER AVEC TON CASE DE MODIFICATION&&idc=${document.getId()}'">Modifier</button>
+                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationGestionnaire&&idc=${document.getId()}'">Modifier</button>
                                             </c:when>
                                                  
                                         </c:choose>
                                                 
-                                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action= AMODIFIER AVEC TON CASE DE MODIFICATION&&idc=${document.getId()}'">Modifier</button>
+                                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationGestionnaire&&idc=${document.getId()}'">Modifier</button>
                                       
                                     </td>
                                 </tr>

@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import static java.util.Calendar.*;
@@ -112,7 +113,7 @@ public class menuDrajak extends HttpServlet {
             gestionSession.AjouterDonnee();
         }
 
-        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("ModificationContratStatutGestionnaire")&& !act.equals("ModificationvalidationContratStatutGestionnaire"))) {
+        if ((sessionAssure != null && sessionGestionnaire != null && sessionEntreprise != null && sessionAdministrateur != null) || (sessionAssure == null && sessionGestionnaire == null && sessionEntreprise == null && sessionAdministrateur == null && act != null && !act.equals("") && !act.equals("AssureMenu") && !act.equals("GestionnaireMenu") && !act.equals("EntrepriseMenu") && !act.equals("AdministrateurMenu") && !act.equals("AssureAuthentification") && !act.equals("GestionnaireAuthentification") && !act.equals("EntrepriseAuthentification") && !act.equals("AdministrateurAuthentification") && !act.equals("Deconnexion") && !act.equals("DemandeDevis_besoins") && !act.equals("DemandeDevis_infos") && !act.equals("DemandeDevis_tarif") && !act.equals("DemandeDevis_souscription") && !act.equals("DemandeDevis_exportpdf")&& !act.equals("ModificationContratStatutGestionnaire")&& !act.equals("ModificationvalidationContratStatutGestionnaire")&& !act.equals("ModifierGestionnaire")&& !act.equals("ModificationGestionnaire"))) {
       
             jspAffiche = "/ErreurSession.jsp";
             message = "Erreur de session ! Veuillez vous reconnecter !";
@@ -333,15 +334,6 @@ public class menuDrajak extends HttpServlet {
                   try {
                           request.setAttribute("listeGestionnaire", listeGestionnaire);}
                     catch (Exception e){}
-                    /* CompteEmploye ce = new CompteEmploye();
-                    ce.setAdresse(request.getParameter("adresse"));
-                    ce.setnTelephone(request.getParameter("numero"));
-                    ce.setEmail(request.getParameter("mail"));
-
-                    gestionSession.ModifierCompteEmploye(ce);*/
-
-                  
-                  
                   break;
                     
                    
@@ -1657,15 +1649,29 @@ public class menuDrajak extends HttpServlet {
                     long idContratOu =Long.parseLong(idContratO);
                    
                     ContratIndividuel contratIndivValidationOui = null;
+                 
+                     java.util.Date d1 = new java.util.Date();
+                    java.sql.Date d2 = new java.sql.Date(d1.getTime());
+
                     
+                     String libellee ;
                   
                       contratIndivValidationOui = gestionSession.RechercherContratIndivParId(idContratOu);
                       System.out.println("contrat indiv cher" + contratIndivValidationOui);
                       
-                    
+                   if ( contratIndivValidationOui.getCleContratCollectif()== null)
+                      { libellee = "Contrat valider par le gestionnaire";
+                      }
+                      
+                      else {
+                          libellee = "Adhésion valider par le gestionnaire";
+                      }                      
+                  
                       
                       gestionSession.ModifierContratStatutActifIndiv(idContratOu);
                       System.out.println("Changement"+contratIndivValidationOui);
+                      
+                      gestionSession.CreerEvenement(libellee, d2, contratIndivValidationOui);
                       
                        
                     break;
@@ -1820,17 +1826,39 @@ public class menuDrajak extends HttpServlet {
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                     String idContratOo =request.getParameter("idc");
                     long idContratOuo =Long.parseLong(idContratOo);
-                    ContratIndividuel contratIndivValidationOuii = null;
+                    String ddd = request.getParameter("dateevenement");
                     
+                  java.util.Date d11 = new java.util.Date();
+                    java.sql.Date d22 = new java.sql.Date(d11.getTime());
+
+                    
+               
+            
+            
+            
+                     String libelleee ;
+                     
+                    
+                    ContratIndividuel contratIndivValidationOuii = null;
+                      
                   
                       contratIndivValidationOuii = gestionSession.RechercherContratIndivParId(idContratOuo);
                       System.out.println("contrat indiv cher" + contratIndivValidationOuii);
                       
+                      if ( contratIndivValidationOuii.getCleContratCollectif()== null)
+                      { libelleee = "Contrat refuser par le gestionnaire";
+                      }
+                      
+                      else {
+                          libelleee = "Adhésion refuser par le gestionnaire";
+                      }                      
                   
                       
                       
                       gestionSession.ModifierContratStatutRefuserIndiv(idContratOuo);
                       System.out.println("Changement"+contratIndivValidationOuii);
+                       gestionSession.CreerEvenement(libelleee, d22, contratIndivValidationOuii);
+                     
                       
                       
                        
@@ -1907,6 +1935,8 @@ public class menuDrajak extends HttpServlet {
                       gestionSession.ModifierFichierStatutValide(idfichierc,typefichiersc );
                       System.out.println("Changement"+fichierrc);
                       
+                      
+                      
                        
                     break;
                     
@@ -1926,7 +1956,75 @@ public class menuDrajak extends HttpServlet {
                       
                        
                     break;
-             
+                    
+                    
+                    case "ModificationGestionnaire":
+                    jspAffiche = "/modifierGestionnaire.jsp";
+                    
+                    String idContratvff = request.getParameter("idc");
+                    long idCon = Long.parseLong(idContratvff);
+                         System.out.println("idc" +idCon);
+                         
+                      
+                    CompteEmploye cy;
+                  
+                    cy = gestionSession.RechercherGestionnaireParId(idCon);
+                    request.setAttribute("gest",cy);
+                    
+                    System.out.println("gest"+cy);
+                    break;
+                    
+                  
+                    
+                    
+                     case "ModificationGestionnaireAdresseTel":
+                    jspAffiche = "/modificationGestionnaire.jsp";
+                    
+                   String idfico =request.getParameter("idc");
+                    long idce =Long.parseLong(idfico);
+                    
+                        String adrNumModif = request.getParameter("adrNum").trim();
+                        String adrRueModif = request.getParameter("adrNomRue").trim();
+                        String adrCPModif = request.getParameter("adrCP").trim();
+                        String adrVilleModif = request.getParameter("adrVille").trim();
+                        String adrPaysModif = request.getParameter("adrPays").trim();
+                        
+                        String numt =request.getParameter("adrNumtel");
+
+                    
+                 
+                   CompteEmploye cpe;
+                    
+                  cpe = gestionSession.RechercherGestionnaireParId(idce);
+                      System.out.println("ce" + cpe);
+                      
+                      gestionSession.ModifierGestionnaireAdresse(adrNumModif,adrRueModif,adrCPModif,adrVilleModif,adrPaysModif,cpe);
+                      gestionSession.ModifierGestionnaireTelephone(numt,cpe);
+                      
+                      
+               
+                  break;
+                    
+                 /*case "ModificationGestionnaireNum":
+                    jspAffiche = "/modificationGestionnaire.jsp";
+                    
+                   String idficoo =request.getParameter("idc");
+                    long idces =Long.parseLong(idficoo);
+                    String numt =request.getParameter("num");
+                    
+                 
+                   CompteEmploye cpee = null;
+                    
+                  cpee = gestionSession.RechercherGestionnaireParId(idces);
+                      System.out.println("ce" + cpee);
+                      
+                      gestionSession.ModifierGestionnaireTelephone(numt,cpee);
+                      
+                      
+               
+                  break;*/
+                    
+                  
 
             }
             

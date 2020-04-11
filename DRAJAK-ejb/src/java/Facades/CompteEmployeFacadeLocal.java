@@ -38,7 +38,7 @@ public interface CompteEmployeFacadeLocal {
     
     CompteEmploye AuthentifierCompteEmploye(String login, String mdp);
     
-    void ModifierCompteEmploye(CompteEmploye ce);
+   
             
     void SupprimerCompteEmploye(CompteEmploye ce);
     
@@ -48,4 +48,9 @@ public interface CompteEmployeFacadeLocal {
     
     CompteEmploye RechercherEmploye(String login);
     
+    void ModifierCompteEmployeTel(CompteEmploye ce, String adresse);
+    
+    void ModifierCompteEmployeAdresse(CompteEmploye ce, String adresse);
+    
+    CompteEmploye RechercherEmployeId(Long login);
 }

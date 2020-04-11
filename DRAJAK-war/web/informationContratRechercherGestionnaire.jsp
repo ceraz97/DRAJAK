@@ -79,8 +79,7 @@
                                             <fmt:formatDate var="fmtDobAssure" value="${ayantDroit.getCleParticulier().getDateNaissance()}" pattern="dd/MM/yyyy"/>
                                             <p>Date de naissance : <c:out value="${fmtDobAssure}"/></p>
                                             <p>Relation : <c:out value="${ayantDroit.getCleTypeAyantDroit().getLibelleAyantDroit()}"/></p>
-                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Modifier</button>
-                                           <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=Assure_VersRechercherPersonne&&idc=${requestScope.contrat.getId()}'">Supprimer</button>
+                                           
                                         </div>
                                     </div>
                                 </c:forEach>
