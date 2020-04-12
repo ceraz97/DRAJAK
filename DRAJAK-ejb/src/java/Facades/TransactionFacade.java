@@ -6,13 +6,17 @@
 package Facades;
 
 import Entity.CompteAssure;
+import Entity.Fichier;
 import Entity.Transactions;
 import Entity.TypeTransaction;
 import Enum.StatutTransaction;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transaction;
 
 /**
  *
@@ -51,4 +55,34 @@ public class TransactionFacade extends AbstractFacade<Transactions> implements T
         em.merge(t);
     }
     
+    
+    
+      @Override
+    public List <Transactions> ListerTransactionAttente(StatutTransaction nom) {
+        List listeDesFichiers;
+        String tx = "SELECT G FROM Transactions AS G where G.statutTransaction=:cle";
+        Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("cle", nom);
+        listeDesFichiers=req.getResultList();
+        return listeDesFichiers;
+        
+    }
+      
+    
+         @Override
+    public Transactions RechercherTransactionParId(long idContrat) {
+        Transactions ContratRecherche;
+        String tx = "SELECT t FROM Transactions AS t WHERE t.id=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", idContrat);
+        ContratRecherche = (Transactions)req.getSingleResult();
+        return ContratRecherche;
+    }
+    
+       @Override
+     public void ModifierTransaction(Transactions tf, StatutTransaction st, String f) {
+        tf.setStatutTransaction(st);
+        tf.setLibelleStatut(f);
+        getEntityManager().persist(tf);
+    }
 }

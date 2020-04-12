@@ -12,6 +12,7 @@ import Enum.StatutTransaction;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
+import javax.transaction.Transaction;
 
 /**
  *
@@ -37,5 +38,11 @@ public interface TransactionFacadeLocal {
     Transactions CreerTransactions(String libelle, double montant, StatutTransaction statut, String libelleStatut, TypeTransaction cleTypeTransaction, CompteAssure cleCompteAssure);
     
     void ModifierTransactions(Transactions t);
+    
+    List <Transactions> ListerTransactionAttente(StatutTransaction nom);
+    
+    Transactions RechercherTransactionParId(long idContrat);
+    
+     void ModifierTransaction(Transactions tf, StatutTransaction st, String f);
 
 }

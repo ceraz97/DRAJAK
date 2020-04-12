@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Demande de soins </title>
+        <title>Prise en charge</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -21,7 +21,8 @@
 
     <body>
         <script type="text/javascript">
-        
+           
+
         </script>    
 
         <c:choose>
@@ -33,67 +34,66 @@
         </c:choose>
 
 
-        
+
+
         <div class="hero-wrap" style="background-image: url('remedic/images/bg_1.jpg'); background-attachment:fixed; height: 200px;">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Les prises en charge en attente</h1>                   
+                        <h1 class="mb-4">Gérer vos contrats</h1>                   
                     </div>
                 </div>
             </div>
         </div>
-
+            
+        <p class="message-attribut">
+            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
+            <c:choose>
+                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
+                    <span class="message_erreur">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="message_normal">
+                        <c:out value="${messagePage}"/>
+                    </span>
+                </c:otherwise>
+            </c:choose>
+        </p>
+         
+        
+        
         <section class="ftco-services">
             <div class="container">
                 <div class="row no-gutters">
-                    
                     <div class="formulaire_devis">
-                        
-                  
-                        
-                            <!-- here should go some titles... -->
-                           
-                        <table>
-                            <tr style="border-bottom: 1px solid #167ce9;">
-                                <th>Nom Transaction</th>
-                                <th>Date Envoi</th>
-                                <th>Statut</th>
-                                <th>Type </th>
-                                <th>Montant</th>
-                                <th></th>
-                            </tr>
-                            <c:forEach items="${requestScope.listeFichiers}" var="document">
-                                <tr>
-                                    <td id="td1">
-                                        <c:out value="${document.getLibelleTransaction()}" />
-                                    </td>
-                                    <td id="td2">
-                                        <fmt:formatDate var="fmtDateDebut" value="${document.getDateTransaction()}" pattern="dd/MM/yyyy"/>
-                                        <c:out value="${fmtDateDebut}" />
-                                    </td>
-                                    
-                                    <td id="td3">
-                                        <c:out value="${document.getLibelleStatut()}" />
-                                    </td>
-                                    <td id="td4">
-                                        <c:out value="${document.getCleTypeTransaction().getLibelleTypeTransaction()}" />
-                                    </td>
-                                     <td id="td5">
-                                        <c:out value="${document.getMontantTransaction()}" />
-                                    </td>
-                                   
-                                    
-                                    <td id="td5">
-                                        
-                                                <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationFichierStatutGestionnaire&&idc=${document.getId()}'">Détails</button>
-                                           
-                                      
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </table>
+                        <div>
+                                
+                             <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations Fichier</p>
+                            <div style="padding-left: 40px; margin-bottom: 30px;">
+                                <p>Numéro fichier : <c:out value="${requestScope.fichier.getId()}"/></p>
+                                <fmt:formatDate var="fmtDobAssure" value="${requestScope.fichier.getDateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
+                                <p>Date d'envoi : <c:out value="${fmtDobAssure}"/></p>
+                                <p>Nom: <c:out value="${requestScope.fichier.getNomFichier()}"/></p>
+                                <p>Chemin : <c:out value="${requestScope.fichier.getChemin()}"/></p>
+                                <p>Contrat : <c:out value="${requestScope.contrat.getCleContrat()}"/></p>
+                                <p>Num sécu assuré : <c:out value="${requestScope.contrat.getCleContrat().getCleCompteAssure().getCleParticulier().getnSecuriteSocial()}"/></p>
+                               
+                                
+                            </div>
+                            
+                                
+                                  
+                                  <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Prise en charge </button>
+                                 
+                                 
+                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Prise en charge </button>
+                    
+                                  
+                            </div>          
+                        </div>
                     </div>
                 </div>
 

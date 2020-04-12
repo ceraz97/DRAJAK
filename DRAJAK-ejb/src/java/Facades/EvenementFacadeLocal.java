@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.Contrat;
+import Entity.ContratIndividuel;
 import Entity.Evenement;
 import java.util.Date;
 import java.util.List;
@@ -39,4 +40,7 @@ public interface EvenementFacadeLocal {
     void SupprimerProduit(Evenement evenement);
 
     List<Evenement> ListerAllEvenement();
+    
+    Evenement RechercherEvenementSupprimer(ContratIndividuel ci, String libelle);
+    
 }

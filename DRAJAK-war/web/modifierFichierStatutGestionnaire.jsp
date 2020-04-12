@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Vos Contrats</title>
+        <title>Prise en charge</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height: 200px;">
                     <div class="col-md-8 ftco-animate text-center">
-                        <h1 class="mb-4">Gérer vos contrats</h1>                   
+                        <h1 class="mb-4">Les prises en charges</h1>                   
                     </div>
                 </div>
             </div>
@@ -70,24 +70,42 @@
                 <div class="row no-gutters">
                     <div class="formulaire_devis">
                         <div>
-                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations fichier</p>
+                            <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations Transactions</p>
                             <div style="padding-left: 40px; margin-bottom: 30px;">
-                                <p>Numéro de fichier : <c:out value="${requestScope.contrat.getId()}"/></p>
-                                <p>Nom de fichier : <c:out value="${requestScope.contrat.getNomFichier()}"/></p>
-                                <fmt:formatDate var="fmtDobAssure" value="${requestScope.contrat.getDateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
+                                <p>Numéro de transaction : <c:out value="${requestScope.contrat.getId()}"/></p>
+                                <fmt:formatDate var="fmtDobAssure" value="${requestScope.contrat.getDateTransaction()}" pattern="dd/MM/yyyy"/>
                                 <p>Date d'envoi : <c:out value="${fmtDobAssure}"/></p>
-                                <p>Stockage Fichier : <c:out value="${requestScope.contrat.getStockageFichier()}"/></p>
-                                <p>Type de fichier : <c:out value="${requestScope.contrat.getCleTypeFichier().getLibelleTypeFichier()}"/></p>
+                                <p>Type Transaction: <c:out value="${requestScope.contrat.getMontantTransaction()}"/></p>
+                                <p>Statut Transaction : <c:out value="${requestScope.contrat.getStatutTransaction()}"/></p>
+                                <p>Libelle Statut : <c:out value="${requestScope.contrat.getLibelleStatut()}"/></p>
+                                <p>Type Transaction: <c:out value="${requestScope.contrat.getCleTypeTransaction().getLibelleTypeTransaction()}"/></p>
+                                <p>Numéro de compte assuré: <c:out value="${requestScope.contrat.getCleCompteAssure()}"/></p>
+                                <p>Num sécu assuré: <c:out value="${requestScope.contrat.getCleCompteAssure().getCleParticulier().getnSecuriteSocial()}"/></p>
+                                
+                                <label class="sr-only" for="libelle">Explication de la transaction</label>
+                                <input name="libelle" type="text" class="form-control"placeholder="Explication de la transaction" required>
+                                
+                            </div>
+                                
+                             <p style="color:#167ce9;font-size: 18px"><i class="fas fa-info-circle"></i> Informations Fichier</p>
+                            <div style="padding-left: 40px; margin-bottom: 30px;">
+                                <p>Numéro fichier : <c:out value="${requestScope.fichier.getId()}"/></p>
+                                <fmt:formatDate var="fmtDobAssure" value="${requestScope.fichier.getDateEnvoiFichier()}" pattern="dd/MM/yyyy"/>
+                                <p>Date d'envoi : <c:out value="${fmtDobAssure}"/></p>
+                                <p>Nom: <c:out value="${requestScope.fichier.getNomFichier()}"/></p>
+                                <p>Chemin : <c:out value="${requestScope.fichier.getChemin()}"/></p>
+                                <p>Contrat : <c:out value="${requestScope.fichier.getCleContratIndividuel().getId()}"/></p>
+                                <p>Num sécu assuré : <c:out value="${requestScope.fichier.getCleContrat().getCleCompteAssure().getCleParticulier().getnSecuriteSocial()}"/></p>
                                
+                                
                             </div>
                             
-                            
                                 
-                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationRib'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider RIB</button></c:if>
-                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationPriseCharge'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Prise en charge </button></c:if>
+                                  
+                                  <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationvalidationChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Valider Prise en charge </button>
                                  
-                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationRib'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusRIBStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser RIB </button></c:if>
-                                  <c:if test="${contrat.getCleTypeFichier().getLibelleTypeFichier() eq 'AttenteValidationPriseCharge'}"><button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Prise en charge </button></c:if>
+                                 
+                                 <button class="btn btn-primary btn-co" onclick="location.href = 'menuDrajak?action=ModificationrefusChargeStatutGestionnaire&&idc=${requestScope.contrat.getId()}'">Refuser Prise en charge </button>
                     
                                   
                             </div>          
