@@ -99,7 +99,7 @@
                             <div class="tab-pane fade py-5" id="v-pills-fitness" role="tabpanel" aria-labelledby="v-pills-fitness-tab">
                                 <span class="icon mb-3 d-block flaticon-stethoscope"></span>
                                 <h2 class="mb-4">Prise en charge</h2>
-                                <p>Vous avez réaliser une dépense pour des soins et vous souhaitez vous faire rembourser, vous souhaiter faire une demande de prise en charge</p>
+                                <p>Vous avez réalisé une dépense pour des soins et vous souhaitez vous faire rembourser, vous souhaiter faire une demande de prise en charge</p>
                                 <p>Mu nissez vous de votre justificatif et nous nous occupons du reste.</p>
                                 <p>
                                     <a onclick="location.href = 'menuDrajak?action=DemandeDevis_besoins'" class="btn btn-primary btn-ajoute" style="margin-right: 20px;">Remboursements des soins</a>
@@ -114,21 +114,6 @@
                                 <p><a onclick="location.href = 'menuDrajak?action=Assure_InformationsCompte'" class="btn btn-primary btn-ajoute">Mon compte</a></p>
                             </div>
 
-                            <div class="tab-pane fade py-5" id="v-pills-sea" role="tabpanel" aria-labelledby="v-pills-sea-tab">
-                                <span class="icon mb-3 d-block flaticon-vision"></span>
-                                <h2 class="mb-4">Ophthalmology Departments</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
-
-                            <div class="tab-pane fade py-5" id="v-pills-spa" role="tabpanel" aria-labelledby="v-pills-spa-tab">
-                                <span class="icon mb-3 d-block flaticon-ambulance"></span>
-                                <h2 class="mb-4">Emergency Departments</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
                         </div>
                     </div>
                 </div>

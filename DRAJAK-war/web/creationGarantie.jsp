@@ -62,14 +62,14 @@
                                     <input type="radio" id="BaseDeRemboursement" name="typeRemboursement" value="Base de remboursement" checked>
                                     <label for="Base de remboursement">Base de remboursement </label>
                                     <input type="radio" id="FraisReel" name="typeRemboursement" value="Frais Reel">
-                                    <label for="Frais Reel"> Frais RÈel </label>
+                                    <label for="Frais Reel"> Frais Rèel </label>
                                 </div>
                             </div> 
                             
                               <div class="formulaire_devis">
                             
                                 <input type="hidden" name="action" value="CreerGarantie"/>
-                                <button type="submit" class="btn btn-primary btn-block">Creer Garantie</button>
+                                <button type="submit" class="btn btn-primary btn-block">Créer Garantie</button>
                             </div>
                         </form>
                     
