@@ -9,7 +9,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a onclick="location.href = 'menuDrajak?action=GestionnaireMenu'" class="nav-link">Accueil</a></li>
                 <li class="nav-item"><a href="gestionPersonne.jsp" class="nav-link">Gestion personne</a></li>
-                <li class="nav-item"><a href="gestionContratMenu.jsp" class="nav-link">Gestion contrats</a></li>
+                <li class="nav-item"><a onclick="location.href='menuDrajak?action=Gestionnaire_versMenuContratCollectif'" class="nav-link">Gestion contrats</a></li>
                 <li class="nav-item"><a href="gestionProduit.jsp" class="nav-link">Gestion produits</a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link">Gestion adhésion</a></li>
                 <li class="nav-item cta"><a href="accueil.jsp" class="nav-link"><span>Se déconnecter</span></a></li>

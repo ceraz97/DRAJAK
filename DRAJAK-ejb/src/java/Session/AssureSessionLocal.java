@@ -22,8 +22,10 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.Transactions;
 import Entity.TypeAyantDroit;
 import Entity.TypeModule;
+import Entity.TypeTransaction;
 import Enum.ChoixPaiement;
 import Enum.Genre;
 import Enum.StatutPersonne;
@@ -110,4 +112,8 @@ public interface AssureSessionLocal {
     MemoireTamponPersonne CreerPersonneTampon(String nature, Genre genre, Date date);
     
     ContratIndividuel CreerContratIndividuel(String libelle, ChoixPaiement paiement, CompteEmploye cptEmploye, ContratIndividuel recupDevis);
+
+    ContratIndividuel RechercheDunContratActif(CompteAssure cptAssure);
+
+    Transactions CreerDemandeDeSoin(double montant,CompteAssure cptAssure);
 }

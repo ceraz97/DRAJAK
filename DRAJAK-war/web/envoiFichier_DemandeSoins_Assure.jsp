@@ -66,13 +66,17 @@
                             <div class="row">
                                 <div class="col-md-8" style="position: relative; margin: auto;">
                                     <form method="post" action="menuDrajak" enctype="multipart/form-data">
-                                        
                                         <p>
+                                            <label for="montantTransac">Montant demandé</label>
+                                            <input type="number" step=0.01 name="montantTransac" id="montantTransac" placeholder="00.00" required/>
+                                        </p>
+                                        <p>
+                                            <span>Veuillez fournir votre document de santé à vous faire rembourser :</span>
                                             <label for="fichier">Fichier à envoyer : </label>
-                                            <input type="file" name="fichier" id="fichier" />
+                                            <input type="file" name="fichier" id="fichier" required/>
                                         </p>
                                         <div style="margin: auto; position: relative; display: block; text-align: center;">
-                                            <input type="hidden" name="action" value="Assure_GestionDocument_envoiFichier"/>
+                                            <input type="hidden" name="action" value="Assure_GestionDocument_demandeRemboursement"/>
                                             <button type="submit" class="btn btn-primary btn-co">Envoyer</button>
                                         </div>
                                     </form>

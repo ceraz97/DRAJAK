@@ -161,7 +161,7 @@ public class GestionSession implements GestionSessionLocal {
         Particulier pa, paa, pay, paay;
         PersonneMorale pm;
         RegimeSocial rs;
-        CompteEmploye ce;
+        CompteEmploye ce, cgest;
         TypeAyantDroit td;
         TypeFichier tf;
         TypeTransaction tt;
@@ -202,8 +202,10 @@ public class GestionSession implements GestionSessionLocal {
 
         //COMPTE EMPLOYÉ
         /*LogEmploye*/
-        ce = compteEmployeFacade.CreerCompteEmploye("Drajak", "admin", "Ratz", "Clement", homme, d20, "Clement.ratz0@yopmail.com", "0707070707", "66,rue QuelquespartdansLyon,69005,Lyon,France", Role.Administrateur);
+        ce = compteEmployeFacade.CreerCompteEmploye("Clement.ratz0@yopmail.com", "admin", "Ratz", "Clement", homme, d20, "Clement.ratz0@yopmail.com", "0707070707", "66,rue QuelquespartdansLyon,69005,Lyon,France", Role.Administrateur);
+        cgest = compteEmployeFacade.CreerCompteEmploye("test@test.com", "test", "Green", "Rachelle", femme, d20, "test@test.com", "0707056707", "66,rue QuelquespartdansLyon,69005,Lyon,France", Role.Gestionnaire);
         compteEmployeFacade.CreerID(ce);
+        compteEmployeFacade.CreerID(cgest);
 
         //PARTICULIER
         pa = particulierFacade.CreerParticulier("Kutay", "Ilkay", homme, d20, "1999956841234", "Ilkay.kutay@yopmail.com", "0666778899", "21,rue ParLàBas, 69004,Lyon,France");

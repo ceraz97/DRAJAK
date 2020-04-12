@@ -82,7 +82,7 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
     @Override
     public CompteAssure RechercherCompteAssure(String login) {
         CompteAssure a;
-        String txt = "SELECT a FROM CompteAssure CA WHERE a.login=:login ";
+        String txt = "SELECT a FROM CompteAssure as a WHERE a.login=:login ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("login", login);
         a = null;
@@ -93,6 +93,5 @@ public class CompteAssureFacade extends AbstractFacade<CompteAssure> implements 
         return a;
 
     }
-    
     
 }

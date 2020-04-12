@@ -33,5 +33,7 @@ public interface TypeTransactionFacadeLocal {
     TypeTransaction CreerTypeTransaction(String libelle);
 
     List<TypeTransaction> ListerAllTypeTransaction();
+
+    TypeTransaction RechercheTypeActe();
     
 }

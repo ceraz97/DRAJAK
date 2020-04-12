@@ -48,5 +48,19 @@ public class TypeTransactionFacade extends AbstractFacade<TypeTransaction> imple
         return listeDesTypeTransaction;
     }
     
-    
+  
+
+    @Override
+    public TypeTransaction RechercheTypeActe() {
+        TypeTransaction t = null;
+        String txt = "SELECT p FROM TypeTransaction P WHERE p.libelleTypeTransaction=:nomLibelle ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("nomLibelle", "Acte");
+        List<TypeTransaction> result = req.getResultList();
+        if (result.size() == 1) {
+            t = (TypeTransaction) result.get(0);
+        }
+        return t;
+    }
+            
 }

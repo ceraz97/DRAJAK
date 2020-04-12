@@ -21,12 +21,15 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.Transactions;
 import Entity.TypeAyantDroit;
 import Entity.TypeModule;
+import Entity.TypeTransaction;
 import Enum.ChoixPaiement;
 import Enum.Genre;
 import Enum.StatutContrat;
 import Enum.StatutPersonne;
+import Enum.StatutTransaction;
 import Facades.AyantDroitFacadeLocal;
 import Facades.CompteAssureFacadeLocal;
 import Facades.ContratCollectifFacadeLocal;
@@ -40,8 +43,10 @@ import Facades.PersonneMoraleFacadeLocal;
 import Facades.PersonnePubliqueFacadeLocal;
 import Facades.TauxGarantieFacadeLocal;
 import Facades.TrancheAgeFacadeLocal;
+import Facades.TransactionFacadeLocal;
 import Facades.TypeAyantDroitFacadeLocal;
 import Facades.TypeModuleFacadeLocal;
+import Facades.TypeTransactionFacadeLocal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -53,6 +58,12 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AssureSession implements AssureSessionLocal {
+
+    @EJB
+    private TypeTransactionFacadeLocal typeTransactionFacade;
+
+    @EJB
+    private TransactionFacadeLocal transactionFacade;
 
     @EJB
     private MemoireTamponPersonneFacadeLocal memoireTamponPersonneFacade;
@@ -337,6 +348,38 @@ public class AssureSession implements AssureSessionLocal {
         contratIndividuelFacade.AttribuerNomContratIndividuel(contrat);
         return contrat;
     }
+
+    @Override
+    public ContratIndividuel RechercheDunContratActif(CompteAssure cptAssure) {
+        int i=0, trouveIndex = 0;
+        ContratIndividuel contratInstance = null;
+        List<ContratIndividuel> listeContratAssure = contratIndividuelFacade.RechercherContratIndividuelParAssure (cptAssure);
+        for (i=0;i<listeContratAssure.size(); i++){
+            StatutContrat statut = listeContratAssure.get(i).getStatut();
+            if(statut==StatutContrat.Actif) {
+                trouveIndex++;
+                contratInstance= listeContratAssure.get(i);
+            }
+        }
+        if (trouveIndex==1) {
+            return contratInstance;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Transactions CreerDemandeDeSoin(double montant, CompteAssure cptAssure) {
+        TypeTransaction typeTransactionInstance = typeTransactionFacade.RechercheTypeActe();
+        Transactions transactionInstance = null;
+        if (typeTransactionInstance!=null) {
+            transactionInstance = transactionFacade.CreerTransactions("Remboursement", montant, StatutTransaction.EnAttente, "En attente de validation", typeTransactionInstance, cptAssure);
+            return transactionInstance;
+        }
+        return null;
+    }
+    
+    
     
     
 }
