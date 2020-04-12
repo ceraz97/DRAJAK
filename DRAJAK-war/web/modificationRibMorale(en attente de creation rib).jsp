@@ -47,7 +47,7 @@
                                 <input type="text" id="nomA1" name="nomA1" placeholder="Nom" value="${sessionScope.sessionAssure.getCleParticulier().getNom()}" disabled="disabled" required>
                                 <label class="sr-only" for="libelle">Libelle</label>
                                 <input name="libelle" type="text" class="form-control"placeholder="Libelle" required>
-                                <label class="sr-only" for="fiscalite">Fiscalite</label></p>
+                                <label class="sr-only" for="fiscalite">Fiscalité</label></p>
                                 <input name="fiscalite" type="text" class="form-control"placeholder="fiscalite" required>
                                 <p>Type produit :</p>
                                 <div>
@@ -59,7 +59,7 @@
                                 <p>Domaine produit :</p>
                                   <div>
                                     <input type="radio" id="sante" name="libelledomaineproduit" value="sante" checked>
-                                    <label for="sante">sante</label>
+                                    <label for="sante">santé</label>
                                   </div>
                             </div>    
                              

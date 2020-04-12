@@ -95,7 +95,7 @@
                                                 <input type="radio" id="autre" name="genre" value="Autre">
                                                 <label for="autre"> Autre</label>
                                             </div>
-                                            <label class="sr-only" for="numeroSS">Numéro securite sociale</label>
+                                            <label class="sr-only" for="numeroSS">Numéro sécurité sociale</label>
                                             <input type="number" class="form-control" name="numeroSS" placeholder="Numéro sécurité sociale" required>
                                             
                                             <c:if test="${!requestScope.depuisInfosContrat eq 'true'}">

@@ -89,37 +89,6 @@
                               <p><a onclick="location.href = 'menuDrajak?action=ChoixValidationGestionnaire'" class="btn btn-primary">Accéder aux actions en attente</a></p>
                             </div>
 
-                            <div class="tab-pane fade py-5" id="v-pills-fitness" role="tabpanel" aria-labelledby="v-pills-fitness-tab">
-                                <span class="icon mb-3 d-block flaticon-stethoscope"></span>
-                                <h2 class="mb-4">Diagnostic Department</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
-
-                            <div class="tab-pane fade py-5" id="v-pills-reception" role="tabpanel" aria-labelledby="v-pills-reception-tab">
-                                <span class="icon mb-3 d-block flaticon-tooth"></span>
-                                <h2 class="mb-4">Dental Departments</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
-
-                            <div class="tab-pane fade py-5" id="v-pills-sea" role="tabpanel" aria-labelledby="v-pills-sea-tab">
-                                <span class="icon mb-3 d-block flaticon-vision"></span>
-                                <h2 class="mb-4">Ophthalmology Departments</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
-
-                            <div class="tab-pane fade py-5" id="v-pills-spa" role="tabpanel" aria-labelledby="v-pills-spa-tab">
-                                <span class="icon mb-3 d-block flaticon-ambulance"></span>
-                                <h2 class="mb-4">Emergency Departments</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                                <p><a href="#" class="btn btn-primary">Learn More</a></p>
-                            </div>
                         </div>
                     </div>
                 </div>

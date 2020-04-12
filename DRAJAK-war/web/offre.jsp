@@ -74,7 +74,7 @@
                                         </div>
                                         <div id="menuone" class="collapse show">
                                             <div class="card-body">
-                                                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                                <p>Un module qui prend en charge tous vos problèmes pouvant nécessiter une hospitalisation.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                         </div>
                                         <div id="menutwo" class="collapse">
                                             <div class="card-body">
-                                                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                                <p>Un module qui prend en charge tous vos problèmes de santé du quotidien.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                         </div>
                                         <div id="menu3" class="collapse">
                                             <div class="card-body">
-                                                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                                <p>Un module qui prend en charge toutes vos nécessités dentaires</p>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div id="menu4" class="collapse">
                                             <div class="card-body">
-                                                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                                <p>Vous avez des problèmes de vision ? Ce module prend en charge votre vision</p>
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@
                                         </div>
                                         <div id="menu5" class="collapse">
                                             <div class="card-body">
-                                                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                                <p>Des problèmes particuliers ? N'hésitez par à vous intéresser à notre gamme de module prenant en charge vos autres soucis </p>
                                             </div>
                                         </div>
                                     </div>
