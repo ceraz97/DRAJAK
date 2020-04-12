@@ -109,6 +109,7 @@
                                 <p>Retrouvez toutes vos informations personnelles</p>
                                 <p><a onclick="location.href = 'menuDrajak?action=Assure_InformationsCompte'" class="btn btn-primary btn-ajoute">Mon compte</a></p>
                             </div>
+
                         </div>
                     </div>
                 </div>

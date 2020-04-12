@@ -2011,7 +2011,7 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                     
-                case "ModificationrefusRIBStatutGestionnaire":
+                      case "ModificationrefusRIBStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                    String idcontrat=request.getParameter("idc");
                     long idcontrate =Long.parseLong(idcontrat);
@@ -2045,7 +2045,7 @@ public class menuDrajak extends HttpServlet {
                     break;
                     
                     
-                case "ModificationvalidationChargeStatutGestionnaire":
+                      case "ModificationvalidationChargeStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
                    String idfic =request.getParameter("idc");
                    String libe =request.getParameter("libelle");
