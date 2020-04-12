@@ -8,7 +8,6 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a style="cursor: pointer" onclick="location.href = 'menuDrajak?action=EntrepriseMenu'" class="nav-link">Accueil</a></li>
-                <li class="nav-item"><a style="cursor: pointer" href="about.jsp" class="nav-link">Simulation</a></li>
                 <li class="nav-item"><a style="cursor: pointer" onclick="location.href = 'menuDrajak?action=Morale_GestionContrat_ListeContrat'" class="nav-link">Mes contrats</a></li>
                 <li class="nav-item"><a style="cursor: pointer" href="particulier.jsp" class="nav-link">Mes infos</a></li>
                 <li class="nav-item"><a style="cursor: pointer" href="contact.jsp" class="nav-link">Contact</a></li>
