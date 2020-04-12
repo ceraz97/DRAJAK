@@ -63,5 +63,17 @@ public class TypeFichierFacade extends AbstractFacade<TypeFichier> implements Ty
       
     }
     
+    @Override
+    public List<TypeFichier> RechercherTypeFichierParLibelles(String Type) {
+         List listeDesFichiers;
+        TypeFichier f;
+        String tx = "SELECT T FROM TypeFichier AS T WHERE T.libelleTypeFichier=:type ";
+        Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("type", Type);
+        listeDesFichiers=req.getResultList();
+        return listeDesFichiers;
+      
+    }
+    
     
 }

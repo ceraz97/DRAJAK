@@ -65,21 +65,7 @@
             </c:choose>
         </p>
         
-      <p class="message-attribut">
-            <c:set var="messagePage" value="${requestScope.message}" scope="page"/>
-            <c:choose>
-                <c:when test = "${fn:containsIgnoreCase(messagePage, 'erreur')}">
-                    <span class="message_erreur">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="message_normal">
-                        <c:out value="${messagePage}"/>
-                    </span>
-                </c:otherwise>
-            </c:choose>
-        </p>
+     
         
         <div class="modal-content">
             <div class="modal-body">
@@ -89,7 +75,7 @@
                             <div class="form-group">                                
                                 <label class="sr-only" for="libelle">Libelle</label>
                                 <input name="libelle" type="text" class="form-control"placeholder="Libelle" required>
-                                <label class="sr-only" for="fiscalite">Fiscalite</label></p>
+                                <label class="sr-only" for="fiscalite">Fiscalité</label></p>
                                 <input name="fiscalite" type="text" class="form-control"placeholder="fiscalite" required>
                                 <p>Type produit :</p>
                                 <div>
@@ -101,7 +87,7 @@
                                 <p>Domaine produit :</p>
                                   <div>
                                     <input type="radio" id="sante" name="libelledomaineproduit" value="sante" checked>
-                                    <label for="sante">sante</label>
+                                    <label for="sante">santé</label>
                                   </div>
                             </div>    
                              

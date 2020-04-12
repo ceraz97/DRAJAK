@@ -7,6 +7,7 @@ package Facades;
 
 import Entity.CompteAssure;
 import Entity.CompteEmploye;
+import Entity.Contrat;
 import Entity.ContratCollectif;
 import Entity.ContratIndividuel;
 import Entity.ObjetGarantie;
@@ -68,6 +69,8 @@ public interface ContratIndividuelFacadeLocal {
     void AttribuerNomContratIndividuel(ContratIndividuel Contrat);
 
     void AttribuerNomDevis(ContratIndividuel devis);
+    
+    ContratIndividuel RechercherContratIndivParIdContrat(Contrat idContrat);
     
    
 }

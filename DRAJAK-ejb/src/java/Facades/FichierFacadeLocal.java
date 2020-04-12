@@ -43,4 +43,12 @@ public interface FichierFacadeLocal {
     void SupprimerParticulier(Fichier f);
     
     Fichier RechercherFichierParId(long idContrat);
+    
+    List <Fichier> ListerAllFichierRIB(String nom);
+    
+    void ModifierFichierNom(String tf, Fichier f);
+    
+   Fichier RechercherFichierParIdTransaction(String idTransaction);
+   
+   List<Fichier> RechercherFichierParIdTransactionRIB(TypeFichier d);
 }

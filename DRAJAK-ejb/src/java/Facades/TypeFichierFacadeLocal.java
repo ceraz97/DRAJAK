@@ -35,5 +35,7 @@ public interface TypeFichierFacadeLocal {
     List<TypeFichier> ListerAllTypeFichier();
     
    TypeFichier RechercherTypeFichierParLibelle(String Type);
+   
+   List<TypeFichier> RechercherTypeFichierParLibelles(String Type);
     
 }

@@ -79,4 +79,50 @@ public class FichierFacade extends AbstractFacade<Fichier> implements FichierFac
         ContratRecherche = (Fichier)req.getSingleResult();
         return ContratRecherche;
     }
-}
+    
+        @Override
+    public List <Fichier> ListerAllFichierRIB(String nom) {
+        List listeDesFichiers;
+        String tx = "SELECT G FROM Fichier AS G where G.nomFichier=:%cle%";
+        Query req = getEntityManager().createQuery(tx);
+        req = req.setParameter("cle", nom);
+        listeDesFichiers=req.getResultList();
+        return listeDesFichiers;
+    }
+    
+    @Override
+     public void ModifierFichierNom(String tf, Fichier f) {
+        f.setNomFichier(tf);
+        getEntityManager().persist(f);
+    }
+     
+     
+    
+    @Override
+    public Fichier RechercherFichierParIdTransaction(String idTransaction) {
+        Fichier FichierRecherche = null;
+        String nomFichierRecherche = "Demande_Soins_"+idTransaction;
+        String txt = "SELECT t FROM Fichier as t WHERE t.nomFichier=:NomFichier ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("NomFichier", nomFichierRecherche);
+        List<Fichier> result = req.getResultList();
+        if (result.size() == 1) {
+            FichierRecherche = (Fichier) result.get(0);
+        }
+        return FichierRecherche;
+    }
+    
+    
+     @Override
+    public List<Fichier> RechercherFichierParIdTransactionRIB(TypeFichier d) {
+        List listeDesFichiers;
+        
+        
+        String txt = "SELECT t FROM Fichier as t WHERE t.cleTypeFichier=:NomFichier ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("NomFichier", d);
+       listeDesFichiers=req.getResultList();
+        return listeDesFichiers;
+    }
+    
+    } 

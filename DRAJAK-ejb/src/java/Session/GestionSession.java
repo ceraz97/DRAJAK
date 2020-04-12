@@ -24,6 +24,7 @@ import Entity.Produit;
 import Entity.RegimeSocial;
 import Entity.TauxGarantie;
 import Entity.TrancheAge;
+import Entity.Transactions;
 import Entity.TypeAyantDroit;
 import Entity.TypeFichier;
 import Entity.TypeModule;
@@ -70,6 +71,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
+import javax.transaction.Transaction;
 
 /**
  *
@@ -599,6 +601,9 @@ public class GestionSession implements GestionSessionLocal {
         return typeFichierFacade.RechercherTypeFichierParLibelle(Cle);
     }
     
+    
+    
+    
     @Override
     public void ChangementStatutContrat(ContratIndividuel ci) {
        ci.setStatut(StatutContrat.Actif);
@@ -662,6 +667,18 @@ public class GestionSession implements GestionSessionLocal {
         return fichierFacade.RechercherFichierParId(idContrat);
     }
     
+       @Override
+    public Fichier RechercherFichierParIdTransaction(String idContrat) {
+        return fichierFacade.RechercherFichierParIdTransaction(idContrat);
+    }
+    
+       @Override
+    public List<Fichier> RechercherFichierParIdTransactionRIB(TypeFichier idContrat) {
+        
+        return fichierFacade.RechercherFichierParIdTransactionRIB(idContrat);
+    }
+    
+    
       @Override
     public void ModifierFichierStatutValide(Long id , String Type) {
        
@@ -671,6 +688,14 @@ public class GestionSession implements GestionSessionLocal {
         
         
         fichierFacade.ModifierFichierStatut(fichierv, f);}
+    
+    @Override
+    public Evenement ModifierEvenementRIBValider (ContratIndividuel ci, String libelle, Date d){
+        Evenement e = evenementFacade.CreerEvenement(libelle, d , ci);
+         
+        return e; 
+  
+    }
 
                 
  
@@ -706,9 +731,70 @@ public class GestionSession implements GestionSessionLocal {
         return m;
         
     }
- 
-       
+    
+    @Override
+    public void SupprimerEvenement(Evenement AD) {
+        evenementFacade.SupprimerProduit(AD);
+    }
+    
+    
+      @Override
+    public Evenement RechercherEvenementSupprimer(ContratIndividuel ci, String libelle) {
+    Evenement e;
+    e = evenementFacade.RechercherEvenementSupprimer(ci, libelle);
+    return e;
+    }
+    
+     @Override
+    public List<Fichier>  RechercherFichierRIB(String nom) {
+        
+          List<Fichier> listp = fichierFacade.ListerAllFichierRIB(nom);
+        return listp;
+      
+    }
 
+     @Override
+    public ContratIndividuel RechercherContratIndivParIdContrat(Contrat Id) {
+        ContratIndividuel m;
+        m = contratIndividuelFacade.RechercherContratIndivParIdContrat(Id);
+        return m;
+    }
+ 
+          @Override
+    public void ModifierFichierNom(String num,Fichier p) {
+        
+       
+        p.setNomFichier(num);
+        fichierFacade.ModifierFichierNom(num, p);
+    }
+    
+    @Override
+    public List <Transactions> ListeTransactionAttente(StatutTransaction Cle) {
+          
+        List<Transactions> lis = transactionFacade.ListerTransactionAttente(Cle);
+        return lis;
+            
+        
+    }
+    
+     @Override
+    public Transactions RechercherTransactionParID(long idContrat) {
+        return transactionFacade.RechercherTransactionParId(idContrat);
+    }
+    
+
+    
+    @Override
+    public void ModifierTransaction (Transactions s, StatutTransaction st, String l){
+        s.setStatutTransaction(st);
+        s.setLibelleStatut(l);
+        transactionFacade.ModifierTransaction(s, st, l);
+    }
+    
+     @Override
+    public TypeFichier RechercherFichierLibelle (String t){
+        
+       return typeFichierFacade.RechercherTypeFichierParLibelle(t) ;   }
 
 }
 

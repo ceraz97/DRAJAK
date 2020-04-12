@@ -231,7 +231,16 @@ public class ContratIndividuelFacade extends AbstractFacade<ContratIndividuel> i
         devis.setLibelleContrat(nomDevis);
         getEntityManager().persist(devis);
     }
-    
+     @Override
+    public ContratIndividuel RechercherContratIndivParIdContrat(Contrat idContrat) {
+        ContratIndividuel ContratRecherche;
+        String tx = "SELECT t FROM ContratIndividuel AS t WHERE t.id=:idcontrat";
+        Query req = getEntityManager().createQuery(tx);
+        req.setParameter("idcontrat", idContrat);
+        ContratRecherche = (ContratIndividuel)req.getSingleResult();
+        return ContratRecherche;
+    }
+   
     
     
     

@@ -6,6 +6,7 @@
 package Facades;
 
 import Entity.Contrat;
+import Entity.ContratIndividuel;
 import Entity.Evenement;
 import java.util.Date;
 import java.util.List;
@@ -62,4 +63,19 @@ public class EvenementFacade extends AbstractFacade<Evenement> implements Evenem
         return listeDesEvenements;
     }
     
+     @Override
+    public Evenement RechercherEvenementSupprimer(ContratIndividuel ci, String libelle) {
+       Evenement  e;
+        String txt = "SELECT log FROM Evenement AS log WHERE log.cleContrat=:Login and log.libelleEvenement=:Libelle";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("Login", ci);
+        req = req.setParameter("Libelle", libelle);
+        e = null;
+        List<Evenement> result = req.getResultList();
+        if (result.size() == 1) {
+            e = (Evenement) result.get(0);
+        }
+        return e;
+    }
+     
 }

@@ -20,7 +20,7 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -1612,16 +1612,24 @@ public class menuDrajak extends HttpServlet {
                 case "RechercherRIBAttenteGestionnaireListe":
                     jspAffiche = "/listeRIBAttenteGestionnaire.jsp";
                     message = "";
-                    String typefichier = "AttenteValidationRib";
-                    TypeFichier a;
-                    a = gestionSession.RechercherTypeRIBouChargeAttente(typefichier);
-                          
-                      System.out.println("Type" +a);
+                    TypeFichier t;
                     
-                    List listeFichier = gestionSession.RechercherRIBouChargeAttente(a);
+                    String nomf = "png"; 
+                    
+                    t = gestionSession.RechercherFichierLibelle(nomf);
+                   List listeFichier = gestionSession.RechercherFichierParIdTransactionRIB(t);
+                   
+                    
+                 
+                    
+                    
                     if (listeFichier  == null){
                         message="Aucun contrats n'a été trouvé";
                     }
+                    
+                    
+                    
+                   
                           System.out.println("fichier" + listeFichier );
                     try {
                         request.setAttribute("listeFichier", listeFichier );}
@@ -1634,23 +1642,38 @@ public class menuDrajak extends HttpServlet {
                 case "RechercherChargeAttenteGestionnaireListe":
                     jspAffiche = "/listeChargeAttenteGestionnaire.jsp";
                     message = "";
-                    String typefichierc = "AttenteValidationPriseCharge";
-                    TypeFichier aa;
-                    aa = gestionSession.RechercherTypeRIBouChargeAttente(typefichierc);
-                          
-                      System.out.println("Type" +aa);
+                    //String nomfc = "Soin";
+                    //String typefichierc ="Attente";
+                    StatutTransaction stat; 
                     
-                    List listeFichiers = gestionSession.RechercherRIBouChargeAttente(aa);
-                    if (listeFichiers  == null){
+                    stat = StatutTransaction.EnAttente;
+                    
+                    
+                    List listetransa = gestionSession.ListeTransactionAttente(stat);
+                   
+                    
+                   /* TypeFichier a;
+                    a = gestionSession.RechercherTypeRIBouChargeAttente(typefichier);
+                          
+                      System.out.println("Type" +a);
+                    
+                      List listeFichier = gestionSession.RechercherRIBouChargeAttente(a);*/
+                    
+                    if (listetransa == null){
                         message="Aucun contrats n'a été trouvé";
                     }
-                          System.out.println("fichier" + listeFichiers );
+                          System.out.println("fichier" +listetransa );
                   try {
-                        request.setAttribute("listeFichiers", listeFichiers );}
+                        request.setAttribute("listeFichiers", listetransa);}
                     catch (Exception e){}
                       
                       
                     break;  
+                    
+                    
+                    
+                    
+                    
                     
                       
                 case "ModificationContratIndivStatutGestionnaire":
@@ -1700,7 +1723,7 @@ public class menuDrajak extends HttpServlet {
                       
                       gestionSession.CreerEvenement(libellee, d2, contratIndivValidationOui);
                       
-                      gestionSession.CreerEvenement(libellee, d2, contratIndivValidationOui);
+                    
                       
                        
                     break;
@@ -1917,94 +1940,162 @@ public class menuDrajak extends HttpServlet {
 
                 case "ModificationFichierStatutGestionnaire":
                     jspAffiche = "/modifierFichierStatutGestionnaire.jsp";
-                    message="";
-                    String idContratvf =request.getParameter("idc");
-                    long idContratf =Long.parseLong(idContratvf);
-                         System.out.println("idc" +idContratvf);
+                    
+                    String idContratvef =request.getParameter("idc");
+                    long idContratf =Long.parseLong(idContratvef);
+                         System.out.println("idc" +idContratvef);
                     Fichier contratIndivValidationf;
+                    Transactions td;
                   
-                    contratIndivValidationf = gestionSession.RechercherFichierParId(idContratf);
-                    request.setAttribute("contrat",contratIndivValidationf);
+                    td = gestionSession.RechercherTransactionParID(idContratf);
+                    request.setAttribute("contrat",td);
+                    
+                    contratIndivValidationf = gestionSession.RechercherFichierParIdTransaction(idContratvef);
+                     request.setAttribute("fichier",contratIndivValidationf);
+                    
+                    
                     
                     System.out.println("contrat"+contratIndivValidationf);
                     break;
                     
+                 case "ModificationFichierRIBStatutGestionnaire":
+                    jspAffiche = "/modifierFichierStatutGestionnaire.jsp";
+                    
+                    String idContratvff =request.getParameter("idc");
+                    long idContratff =Long.parseLong(idContratvff);
+                         System.out.println("idc" +idContratvff);
+                    Fichier contratIndivValidationff;
+                  
+                    
+                    contratIndivValidationff = gestionSession.RechercherFichierParId(idContratff);;
+                     request.setAttribute("fichier",contratIndivValidationff);
+                    
+                    
+                    
+                    break;
+                    
+                    
+                    
                 case "ModificationvalidationRIBStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
-                    message="";
-                    String idfi = request.getParameter("idc");
-                    long idfichier = Long.parseLong(idfi);
-                    String typefichiers = "RIBValide";
-                    Fichier fichierr = null;
-
-                    fichierr = gestionSession.RechercherFichierParId(idfichier);
-                    System.out.println("contrat indiv cher" + fichierr);
-
-                    gestionSession.ModifierFichierStatutValide(idfichier, typefichiers);
-                    System.out.println("Changement" + fichierr);
-
+                   String idcvc =request.getParameter("idc");
+                    long idfcc =Long.parseLong(idcvc);
+                    String libelleasupp = "A DEFINIR AVEC CLEMENT";
+                    String libelleevnemente = "Contrat Validé";
+                    String nomff ="RIB"; 
+                  
+                  Evenement e;
+                    
+                  ContratIndividuel  contrate;   
+                  Fichier f;
+                  
+                  java.util.Date d1111 = new java.util.Date();
+                  java.sql.Date dateevenemente = new java.sql.Date(d1111.getTime());
+                  
+                  f = gestionSession.RechercherFichierParId(idfcc);
+                  Contrat c = f.getCleContrat();
+            
+                  
+                  contrate = gestionSession.RechercherContratIndivParIdContrat(c);
+                  
+                  System.out.println("contrat indiv cher");
+                  
+                  
+                      
+                  e = gestionSession.RechercherEvenementSupprimer(contrate, libelleasupp);
+                  
+                   gestionSession.ModifierEvenementRIBValider(contrate, libelleevnemente, dateevenemente);
+                   
+                  
+                       
                     break;
                     
                     
                 case "ModificationrefusRIBStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
-                    message="";
-                    String idfii = request.getParameter("idc");
-                    long idfichieri = Long.parseLong(idfii);
-                    String typefichierss = "RIBRefuse";
-                    Fichier fichierri = null;
-
-                    fichierri = gestionSession.RechercherFichierParId(idfichieri);
-                    System.out.println("contrat indiv cher" + fichierri);
-
-                    gestionSession.ModifierFichierStatutValide(idfichieri, typefichierss);
-                    System.out.println("Changement" + fichierri);
-
+                   String idcontrat=request.getParameter("idc");
+                    long idcontrate =Long.parseLong(idcontrat);
+                   
+                    String libelleevnement = "RIB refusé";
+                 
+                    
+                   ContratIndividuel  contrat;   
+                    Fichier ff;
+                  
+                  java.util.Date d111 = new java.util.Date();
+                  java.sql.Date dateevenement = new java.sql.Date(d111.getTime());
+                  
+                  
+                  
+                   ff = gestionSession.RechercherFichierParId(idcontrate);
+                  Contrat cc = ff.getCleContrat();
+                  
+                  
+                  
+                       contrat = gestionSession.RechercherContratIndivParIdContrat(cc);
+                      System.out.println("contrat indiv cher");
+                      
+                      gestionSession.ModifierEvenementRIBValider(contrat, libelleevnement, dateevenement);
+                      
+                      
+                      
+                     
+                      
+                       
                     break;
                     
                     
                 case "ModificationvalidationChargeStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
-                    message="";
-                    String idfic = request.getParameter("idc");
-                    long idfichierc = Long.parseLong(idfic);
-                    String typefichiersc = "PriseChargeValide";
-                    Fichier fichierrc = null;
+                   String idfic =request.getParameter("idc");
+                   String libe =request.getParameter("libelle");
+                   StatutTransaction st;
+                   libe = "test1";
 
-                    System.out.println("typefichier" + typefichiersc);
-
-                    fichierrc = gestionSession.RechercherFichierParId(idfichierc);
-                    System.out.println("contrat indiv cher" + fichierrc);
-
-                    gestionSession.ModifierFichierStatutValide(idfichierc, typefichiersc);
-                    System.out.println("Changement" + fichierrc);
-
+                    long idfichierc =Long.parseLong(idfic);
+                    Transactions ta;
+                   
+                   
+                    st = StatutTransaction.Remboursé;
+                         
+                      ta = gestionSession.RechercherTransactionParID(idfichierc);
+                     
+                      
+                      gestionSession.ModifierTransaction(ta,st,libe);
+                    
+                      
+                      
+                       
                     break;
                     
                 case "ModificationrefusChargeStatutGestionnaire":
                     jspAffiche = "/listeChoixGestionnaireAttenteValidation.jsp";
-                    message="";
-                    String idficc = request.getParameter("idc");
-                    long idfichiercc = Long.parseLong(idficc);
-                    String typefichierscc = "PriseChargeRefuse";
-                    Fichier fichierrcc = null;
-
-                    fichierrcc = gestionSession.RechercherFichierParId(idfichiercc);
-                    System.out.println("contrat indiv cher" + fichierrcc);
-
-                    gestionSession.ModifierFichierStatutValide(idfichiercc, typefichierscc);
-                    System.out.println("Changement" + fichierrcc);
-
+                   String idficc =request.getParameter("idc");
+                    long idfichiercc =Long.parseLong(idficc);
+                    String libee =request.getParameter("libelle");
+                   StatutTransaction sts;
+                   Transactions taa;
+                   
+                   sts = StatutTransaction.Refusé;
+                         
+                      taa = gestionSession.RechercherTransactionParID(idfichiercc);
+                      //fichierrc = gestionSession.RechercherFichierParId(idfichierc);
+                    
+                      gestionSession.ModifierTransaction(taa,sts,libee);
+                     
+                   
+                       
                     break;
                     
                     
                 case "ModificationGestionnaire":
                     jspAffiche = "/modifierGestionnaire.jsp";
-                    message="";
-                    String idContratvff = request.getParameter("idc");
-                    long idCon = Long.parseLong(idContratvff);
-                    System.out.println("idc" + idCon);
-
+                    
+                    String idContratvzff = request.getParameter("idc");
+                    long idCon = Long.parseLong(idContratvzff);
+                         System.out.println("idc" +idCon);
+                         
+                      
                     CompteEmploye cy;
 
                     cy = gestionSession.RechercherGestionnaireParId(idCon);

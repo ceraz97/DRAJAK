@@ -18,6 +18,7 @@ import Entity.Modules;
 import Entity.Particulier;
 import Entity.PersonneMorale;
 import Entity.Produit;
+import Entity.Transactions;
 import Entity.TypeAyantDroit;
 import Entity.TypeFichier;
 import Entity.TypeModule;
@@ -26,11 +27,13 @@ import Enum.Genre;
 import Enum.Role;
 import Enum.StatutContrat;
 import Enum.StatutPersonne;
+import Enum.StatutTransaction;
 import Enum.TypeContrat;
 import Enum.TypeProduit;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
+import javax.transaction.Transaction;
 
 /**
  *
@@ -143,6 +146,32 @@ public interface GestionSessionLocal {
     CompteEmploye RechercherGestionnaireParId(Long id);
     
     Evenement CreerEvenement(String libelle, Date dateEvenement, Contrat cleContrat);
+    
+    Evenement ModifierEvenementRIBValider (ContratIndividuel ci, String libelle, Date d);
+    
+    void SupprimerEvenement(Evenement AD);
+    
+    Evenement RechercherEvenementSupprimer(ContratIndividuel ci, String libelle);
+    
+    List<Fichier>  RechercherFichierRIB(String nom);
+    
+    
+    ContratIndividuel RechercherContratIndivParIdContrat(Contrat Id);
+    
+    void ModifierFichierNom(String num,Fichier p);
+    
+    List <Transactions> ListeTransactionAttente(StatutTransaction Cle);
+    
+    Fichier RechercherFichierParIdTransaction(String idContrat);
+    
+    Transactions RechercherTransactionParID(long idContrat);
+    
+    void ModifierTransaction (Transactions s, StatutTransaction st, String l);
+    
+    
+    TypeFichier RechercherFichierLibelle (String t);
+    
+  List<Fichier> RechercherFichierParIdTransactionRIB(TypeFichier idContrat);
     
    
 }

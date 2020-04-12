@@ -101,7 +101,7 @@
                                 <div class="block-18 text-center">
                                     <div class="text">
                                         <strong class="number" data-number="60">0</strong>
-                                        <span>Filiale</span>
+                                        <span>Filiales</span>
                                     </div>
                                 </div>
                             </div>
